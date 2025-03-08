@@ -14,7 +14,7 @@ const Index = () => {
             <path d="M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22"></path>
             <path d="M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"></path>
           </svg>
-          <h1 className="text-2xl font-bold tracking-tight">CatFrame</h1>
+          <h1 className="text-2xl font-bold tracking-tight">CelebFrame</h1>
         </div>
       </header>
 
@@ -23,7 +23,7 @@ const Index = () => {
       </main>
 
       <footer className="w-full px-4 py-4 bg-white/80 backdrop-blur-sm text-center text-sm text-gray-500">
-        <p>Take photos with cute cat overlays • Share your creations</p>
+        <p>Take photos with celebrity overlays • Share your creations</p>
       </footer>
     </div>
   );

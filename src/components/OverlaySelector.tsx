@@ -1,16 +1,18 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-// Real overlays using provided cat images
-const CAT_OVERLAYS = [
+// Celebrity overlays using the uploaded images
+const CELEBRITY_OVERLAYS = [
+  { id: 'celeb1', name: 'Celebrity 1', src: '/lovable-uploads/f34ca7e2-d429-4592-9da6-6ec74fdc9a8b.png' },
+  { id: 'celeb2', name: 'Celebrity 2', src: '/lovable-uploads/96fc8355-0e5d-4560-801e-4761c292de8d.png' },
+  { id: 'celeb3', name: 'Celebrity 3', src: '/lovable-uploads/4f28e3dd-9aa3-478f-af7c-ac150bd79ed8.png' },
+  { id: 'celeb4', name: 'Celebrity 4', src: '/lovable-uploads/06098ac5-17a0-46e5-af4e-e3b64c9bf101.png' },
+  { id: 'celeb5', name: 'Celebrity 5', src: '/lovable-uploads/454446d2-3ff3-4586-b299-af4693254a4e.png' },
+  // Keep the existing cat overlays as additional options
   { id: 'cat1', name: 'Cat with Basketball', src: '/lovable-uploads/e2f6e489-ef05-41bd-83bc-ee23d3143631.png' },
   { id: 'cat2', name: 'Cat in Drink', src: '/lovable-uploads/296e4a4c-ee8d-4f90-a274-0db4d8fd5cea.png' },
-  { id: 'cat3', name: 'Cat with Hat', src: '/placeholder.svg' },
-  { id: 'cat4', name: 'Cat with Mittens', src: '/placeholder.svg' },
-  { id: 'cat5', name: 'Chef Cat', src: '/placeholder.svg' },
 ];
 
 interface OverlaySelectorProps {
@@ -19,7 +21,7 @@ interface OverlaySelectorProps {
 }
 
 const OverlaySelector: React.FC<OverlaySelectorProps> = ({ onSelectOverlay, selectedOverlayId }) => {
-  const [overlays, setOverlays] = useState(CAT_OVERLAYS);
+  const [overlays, setOverlays] = useState(CELEBRITY_OVERLAYS);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
   const totalPages = Math.ceil(overlays.length / itemsPerPage);
@@ -52,7 +54,7 @@ const OverlaySelector: React.FC<OverlaySelectorProps> = ({ onSelectOverlay, sele
   return (
     <div className="w-full glass-panel p-4 animate-fade-in">
       <div className="flex justify-between items-center mb-4">
-        <h3 className="text-sm font-medium">Select Cat Overlay</h3>
+        <h3 className="text-sm font-medium">Select Celebrity Overlay</h3>
         <Button
           variant="outline"
           size="sm"
