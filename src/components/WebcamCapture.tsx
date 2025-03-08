@@ -6,9 +6,10 @@ import { Camera } from 'lucide-react';
 interface WebcamCaptureProps {
   onCapture: (imageSrc: string) => void;
   isCapturing: boolean;
+  overlayImage: HTMLImageElement | null;
 }
 
-const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing }) => {
+const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, overlayImage }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isCameraReady, setIsCameraReady] = useState(false);
@@ -82,6 +83,23 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing })
         // Draw the video frame to the canvas
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
         
+        // Add overlay if available
+        if (overlayImage) {
+          const scaleRatio = Math.min(
+            canvas.width / overlayImage.width,
+            canvas.height / overlayImage.height
+          ) * 0.8; // Scale to 80% of the possible size
+          
+          const overlayWidth = overlayImage.width * scaleRatio;
+          const overlayHeight = overlayImage.height * scaleRatio;
+          
+          // Position the overlay in a good position - bottom right by default
+          const x = canvas.width - overlayWidth - 20;
+          const y = canvas.height - overlayHeight - 20;
+          
+          context.drawImage(overlayImage, x, y, overlayWidth, overlayHeight);
+        }
+        
         // Convert to data URL and send back
         const imageSrc = canvas.toDataURL('image/png');
         onCapture(imageSrc);
@@ -103,9 +121,20 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing })
           autoPlay
           playsInline
           muted
-          className="w-full rounded-lg border border-gray-200 shadow-sm animate-fade-in"
+          className="w-full rounded-lg shadow-sm animate-fade-in"
           style={{ transform: 'scaleX(-1)' }} // Mirror effect
         />
+        
+        {/* Live overlay preview */}
+        {overlayImage && (
+          <div className="absolute right-4 bottom-4 w-1/3 pointer-events-none opacity-80">
+            <img 
+              src={overlayImage.src} 
+              alt="Overlay" 
+              className="w-full h-auto object-contain"
+            />
+          </div>
+        )}
         
         {countdown !== null && (
           <div className="absolute inset-0 flex items-center justify-center bg-black/40 rounded-lg">

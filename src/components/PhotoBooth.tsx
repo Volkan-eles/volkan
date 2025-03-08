@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
-import { Camera, Download, Trash2 } from 'lucide-react';
+import { Camera, Download, Trash2, Share2 } from 'lucide-react';
 import { toast } from 'sonner';
 import WebcamCapture from './WebcamCapture';
 import OverlaySelector from './OverlaySelector';
@@ -14,7 +14,6 @@ const PhotoBooth: React.FC = () => {
   const [selectedOverlay, setSelectedOverlay] = useState<{ id: string; name: string; src: string } | null>(null);
   const [frameStyle, setFrameStyle] = useState<string>('white');
   const [isCapturing, setIsCapturing] = useState(false);
-  const [selectedFilter, setSelectedFilter] = useState<string>('All');
   const overlayImageRef = useRef<HTMLImageElement | null>(null);
 
   useEffect(() => {
@@ -59,15 +58,20 @@ const PhotoBooth: React.FC = () => {
     toast.success(`Selected ${frame} frame`);
   };
 
+  const handleShareStrip = () => {
+    toast.info('Share functionality coming soon!');
+  };
+
   return (
     <div className="w-full max-w-7xl mx-auto p-4 md:p-6 animate-fade-in">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Left column - Capture and controls */}
         <div className="flex flex-col space-y-4">
-          <div className={`photo-frame photo-frame-${frameStyle}`}>
+          <div className={`photo-frame photo-frame-${frameStyle} rounded-lg overflow-hidden`}>
             <WebcamCapture 
               onCapture={handlePhotoCaptured} 
-              isCapturing={isCapturing} 
+              isCapturing={isCapturing}
+              overlayImage={overlayImageRef.current}
             />
           </div>
 
@@ -78,7 +82,7 @@ const PhotoBooth: React.FC = () => {
               className="flex-1 capture-button"
             >
               <Camera className="mr-2 h-4 w-4" />
-              Capture!
+              Take Photo
             </Button>
             
             <Button 
@@ -105,7 +109,20 @@ const PhotoBooth: React.FC = () => {
 
         {/* Right column - Photo strip */}
         <div className="flex flex-col">
-          <h2 className="text-xl font-semibold mb-4 text-center">Your Photo Strip</h2>
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-xl font-semibold">Your Photo Strip</h2>
+            {capturedPhotos.length > 0 && (
+              <Button 
+                variant="outline"
+                onClick={handleShareStrip}
+                className="bg-booth-blue text-white hover:bg-booth-blue/90"
+              >
+                <Share2 className="mr-2 h-4 w-4" />
+                Share
+              </Button>
+            )}
+          </div>
+          
           <PhotoStrip 
             photos={capturedPhotos} 
             frameStyle={frameStyle} 

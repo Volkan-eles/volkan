@@ -4,25 +4,13 @@ import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-// For now, we'll use placeholder images for demonstration
-// These will be replaced with actual celebrity images
-const PLACEHOLDER_OVERLAYS = [
-  { id: '1', name: 'Celebrity 1', src: '/placeholder.svg' },
-  { id: '2', name: 'Celebrity 2', src: '/placeholder.svg' },
-  { id: '3', name: 'Celebrity 3', src: '/placeholder.svg' },
-  { id: '4', name: 'Celebrity 4', src: '/placeholder.svg' },
-  { id: '5', name: 'Celebrity 5', src: '/placeholder.svg' },
-  { id: '6', name: 'Celebrity 6', src: '/placeholder.svg' },
-  { id: '7', name: 'Celebrity 7', src: '/placeholder.svg' },
-  { id: '8', name: 'Celebrity 8', src: '/placeholder.svg' },
-  { id: '9', name: 'Celebrity 9', src: '/placeholder.svg' },
-  { id: '10', name: 'Celebrity 10', src: '/placeholder.svg' },
-  { id: '11', name: 'Celebrity 11', src: '/placeholder.svg' },
-  { id: '12', name: 'Celebrity 12', src: '/placeholder.svg' },
-  { id: '13', name: 'Celebrity 13', src: '/placeholder.svg' },
-  { id: '14', name: 'Celebrity 14', src: '/placeholder.svg' },
-  { id: '15', name: 'Celebrity 15', src: '/placeholder.svg' },
-  { id: '16', name: 'Celebrity 16', src: '/placeholder.svg' },
+// Real overlays using provided cat images
+const CAT_OVERLAYS = [
+  { id: 'cat1', name: 'Cat with Basketball', src: '/lovable-uploads/e2f6e489-ef05-41bd-83bc-ee23d3143631.png' },
+  { id: 'cat2', name: 'Cat in Drink', src: '/lovable-uploads/296e4a4c-ee8d-4f90-a274-0db4d8fd5cea.png' },
+  { id: 'cat3', name: 'Cat with Hat', src: '/placeholder.svg' },
+  { id: 'cat4', name: 'Cat with Mittens', src: '/placeholder.svg' },
+  { id: 'cat5', name: 'Chef Cat', src: '/placeholder.svg' },
 ];
 
 interface OverlaySelectorProps {
@@ -31,9 +19,9 @@ interface OverlaySelectorProps {
 }
 
 const OverlaySelector: React.FC<OverlaySelectorProps> = ({ onSelectOverlay, selectedOverlayId }) => {
-  const [overlays, setOverlays] = useState(PLACEHOLDER_OVERLAYS);
+  const [overlays, setOverlays] = useState(CAT_OVERLAYS);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 16;
+  const itemsPerPage = 6;
   const totalPages = Math.ceil(overlays.length / itemsPerPage);
   
   const displayedOverlays = overlays.slice(
@@ -64,31 +52,32 @@ const OverlaySelector: React.FC<OverlaySelectorProps> = ({ onSelectOverlay, sele
   return (
     <div className="w-full glass-panel p-4 animate-fade-in">
       <div className="flex justify-between items-center mb-4">
-        <h3 className="text-sm font-medium">Select Celebrity Overlay</h3>
+        <h3 className="text-sm font-medium">Select Cat Overlay</h3>
         <Button
           variant="outline"
           size="sm"
           onClick={handleDisableOverlays}
-          className="text-xs h-8 bg-booth-green hover:bg-booth-green/90"
+          className="text-xs h-8 bg-booth-green hover:bg-booth-green/90 text-black"
         >
-          Disable Overlays
+          No Overlay
         </Button>
       </div>
       
-      <div className="grid grid-cols-4 gap-2 mb-4">
+      <div className="grid grid-cols-3 gap-2 mb-4">
         {displayedOverlays.map((overlay) => (
           <div
             key={overlay.id}
             onClick={() => handleSelectOverlay(overlay)}
             className={`overlay-thumbnail hover-scale ${
               selectedOverlayId === overlay.id ? 'overlay-thumbnail-selected' : 'border-gray-200'
-            }`}
+            } bg-white rounded-lg overflow-hidden`}
           >
             <img
               src={overlay.src}
               alt={overlay.name}
-              className="w-full aspect-square object-cover rounded"
+              className="w-full aspect-square object-contain p-1"
             />
+            <div className="text-xs text-center p-1 truncate">{overlay.name}</div>
           </div>
         ))}
       </div>
