@@ -78,7 +78,7 @@ const PhotoStrip: React.FC<PhotoStripProps> = ({ photos, frameStyle }) => {
       ctx.font = '14px sans-serif';
       ctx.fillStyle = frameStyle === 'white' || frameStyle === 'yellow' ? '#333' : '#fff';
       ctx.textAlign = 'center';
-      ctx.fillText('CelebFrame', canvas.width / 2, canvas.height - 6);
+      ctx.fillText('K-pop Frame', canvas.width / 2, canvas.height - 6);
     };
     
     loadAndDrawPhotos();
@@ -87,7 +87,7 @@ const PhotoStrip: React.FC<PhotoStripProps> = ({ photos, frameStyle }) => {
   const handleDownload = async () => {
     if (canvasRef.current) {
       try {
-        await downloadImage(canvasRef.current, 'celebrity-photo-strip');
+        await downloadImage(canvasRef.current, 'kpop-photo-strip');
       } catch (error) {
         console.error('Failed to download photo strip:', error);
       }
@@ -98,7 +98,7 @@ const PhotoStrip: React.FC<PhotoStripProps> = ({ photos, frameStyle }) => {
     return (
       <div className="w-full h-full flex items-center justify-center border-2 border-dashed border-gray-300 rounded-lg p-8">
         <p className="text-gray-500 text-center">
-          Take photos with your favorite celebrity overlays to create your photo strip
+          Take photos with your favorite K-pop idol overlays to create your photo strip
         </p>
       </div>
     );

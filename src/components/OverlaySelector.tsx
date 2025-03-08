@@ -1,18 +1,28 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-// Celebrity overlays using the uploaded images
-const CELEBRITY_OVERLAYS = [
-  { id: 'celeb1', name: 'Celebrity 1', src: '/lovable-uploads/f34ca7e2-d429-4592-9da6-6ec74fdc9a8b.png' },
-  { id: 'celeb2', name: 'Celebrity 2', src: '/lovable-uploads/96fc8355-0e5d-4560-801e-4761c292de8d.png' },
-  { id: 'celeb3', name: 'Celebrity 3', src: '/lovable-uploads/4f28e3dd-9aa3-478f-af7c-ac150bd79ed8.png' },
-  { id: 'celeb4', name: 'Celebrity 4', src: '/lovable-uploads/06098ac5-17a0-46e5-af4e-e3b64c9bf101.png' },
-  { id: 'celeb5', name: 'Celebrity 5', src: '/lovable-uploads/454446d2-3ff3-4586-b299-af4693254a4e.png' },
-  // Keep the existing cat overlays as additional options
-  { id: 'cat1', name: 'Cat with Basketball', src: '/lovable-uploads/e2f6e489-ef05-41bd-83bc-ee23d3143631.png' },
-  { id: 'cat2', name: 'Cat in Drink', src: '/lovable-uploads/296e4a4c-ee8d-4f90-a274-0db4d8fd5cea.png' },
+// K-pop idol overlays using the available images in the project
+const KPOP_OVERLAYS = [
+  { id: 'karina', name: 'Karina', src: '/Karina.png' },
+  { id: 'winter', name: 'Winter', src: '/Winter.png' },
+  { id: 'ningning', name: 'Ningning', src: '/Ningning.png' },
+  { id: 'jaehyun', name: 'Jaehyun', src: '/JAEHYUN.png' },
+  { id: 'leehan', name: 'Lee Han', src: '/LEEHAN.png' },
+  { id: 'heeseung', name: 'Heeseung', src: '/heeseung.png' },
+  { id: 'jake', name: 'Jake', src: '/jake.png' },
+  { id: 'jay', name: 'Jay', src: '/jay.png' },
+  { id: 'jungwon', name: 'Jungwon', src: '/jungwon.png' },
+  { id: 'kazuha', name: 'Kazuha', src: '/kazuha.png' },
+  { id: 'chaewon', name: 'Kim Chaewon', src: '/kim chaewon.png' },
+  { id: 'sakura', name: 'Sakura', src: '/sakura.png' },
+  { id: 'eunchae', name: 'Hong Eunchae', src: '/hong eunchae.png' },
+  { id: 'sunghoon', name: 'Sunghoon', src: '/sunghoon.png' },
+  { id: 'sunoo', name: 'Sunoo', src: '/sunoo.png' },
+  { id: 'niki', name: 'Niki', src: '/niki.png' },
+  { id: 'yunjin', name: 'Yunjin', src: '/yunjin.png' },
 ];
 
 interface OverlaySelectorProps {
@@ -21,7 +31,7 @@ interface OverlaySelectorProps {
 }
 
 const OverlaySelector: React.FC<OverlaySelectorProps> = ({ onSelectOverlay, selectedOverlayId }) => {
-  const [overlays, setOverlays] = useState(CELEBRITY_OVERLAYS);
+  const [overlays, setOverlays] = useState(KPOP_OVERLAYS);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
   const totalPages = Math.ceil(overlays.length / itemsPerPage);
@@ -54,7 +64,7 @@ const OverlaySelector: React.FC<OverlaySelectorProps> = ({ onSelectOverlay, sele
   return (
     <div className="w-full glass-panel p-4 animate-fade-in">
       <div className="flex justify-between items-center mb-4">
-        <h3 className="text-sm font-medium">Select Celebrity Overlay</h3>
+        <h3 className="text-sm font-medium">Select K-pop Idol Overlay</h3>
         <Button
           variant="outline"
           size="sm"
