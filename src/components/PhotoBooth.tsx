@@ -58,16 +58,12 @@ const PhotoBooth: React.FC = () => {
     toast.success(`Selected ${frame} frame`);
   };
 
-  const handleShareStrip = () => {
-    toast.info('Share functionality coming soon!');
-  };
-
   return (
     <div className="w-full max-w-7xl mx-auto p-4 md:p-6 animate-fade-in">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Left column - Capture and controls */}
         <div className="flex flex-col space-y-4">
-          <div className={`photo-frame photo-frame-${frameStyle} rounded-lg overflow-hidden`}>
+          <div className={`photo-frame photo-frame-${frameStyle} rounded-lg overflow-hidden shadow-lg`}>
             <WebcamCapture 
               onCapture={handlePhotoCaptured} 
               isCapturing={isCapturing}
@@ -111,16 +107,6 @@ const PhotoBooth: React.FC = () => {
         <div className="flex flex-col">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-semibold">Your Photo Strip</h2>
-            {capturedPhotos.length > 0 && (
-              <Button 
-                variant="outline"
-                onClick={handleShareStrip}
-                className="bg-booth-blue text-white hover:bg-booth-blue/90"
-              >
-                <Share2 className="mr-2 h-4 w-4" />
-                Share
-              </Button>
-            )}
           </div>
           
           <PhotoStrip 
@@ -137,7 +123,7 @@ const PhotoBooth: React.FC = () => {
                 <path d="M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22"></path>
                 <path d="M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"></path>
               </svg>
-              <span>CelebFrame</span>
+              <span>K-pop Frame</span>
             </div>
           </div>
         </div>

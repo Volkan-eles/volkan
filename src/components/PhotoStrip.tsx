@@ -1,8 +1,9 @@
 
 import React, { useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Download, Share2 } from 'lucide-react';
+import { Download, Share2, Twitter, Facebook } from 'lucide-react';
 import { downloadImage } from '@/utils/imageProcessing';
+import { toast } from 'sonner';
 
 interface PhotoStripProps {
   photos: string[];
@@ -88,9 +89,33 @@ const PhotoStrip: React.FC<PhotoStripProps> = ({ photos, frameStyle }) => {
     if (canvasRef.current) {
       try {
         await downloadImage(canvasRef.current, 'kpop-photo-strip');
+        toast.success('Photo strip saved to your device!');
       } catch (error) {
         console.error('Failed to download photo strip:', error);
+        toast.error('Failed to download photo strip');
       }
+    }
+  };
+
+  const handleShare = (platform: 'twitter' | 'facebook') => {
+    if (!canvasRef.current) return;
+    
+    // Convert canvas to data URL
+    const dataUrl = canvasRef.current.toDataURL('image/png');
+    
+    // Share text
+    const shareText = 'Check out my K-pop photo with favorite idols! #KpopFrame';
+    
+    // Prepare share URL
+    let shareUrl = '';
+    if (platform === 'twitter') {
+      shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(window.location.href)}`;
+      window.open(shareUrl, '_blank');
+      toast.success('Sharing to Twitter!');
+    } else if (platform === 'facebook') {
+      shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=${encodeURIComponent(shareText)}`;
+      window.open(shareUrl, '_blank');
+      toast.success('Sharing to Facebook!');
     }
   };
 
@@ -106,20 +131,36 @@ const PhotoStrip: React.FC<PhotoStripProps> = ({ photos, frameStyle }) => {
 
   return (
     <div className="flex flex-col items-center">
-      <div className={`photo-frame photo-frame-${frameStyle} mb-4 animate-fade-in rounded-lg overflow-hidden`}>
+      <div className={`photo-frame photo-frame-${frameStyle} mb-4 animate-fade-in rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300`}>
         <canvas 
           ref={canvasRef} 
           className="max-w-full"
         />
       </div>
       
-      <div className="flex space-x-3">
+      <div className="flex flex-wrap gap-3 justify-center">
         <Button
           onClick={handleDownload}
           className="bg-booth-green text-black hover:bg-booth-green/90 shadow-sm hover:shadow-md transition-all animate-fade-in"
         >
           <Download className="mr-2 h-4 w-4" />
           Save as PNG
+        </Button>
+        
+        <Button
+          onClick={() => handleShare('twitter')}
+          className="bg-[#1DA1F2] text-white hover:bg-[#1DA1F2]/90 shadow-sm hover:shadow-md transition-all animate-fade-in"
+        >
+          <Twitter className="mr-2 h-4 w-4" />
+          Twitter
+        </Button>
+        
+        <Button
+          onClick={() => handleShare('facebook')}
+          className="bg-[#4267B2] text-white hover:bg-[#4267B2]/90 shadow-sm hover:shadow-md transition-all animate-fade-in"
+        >
+          <Facebook className="mr-2 h-4 w-4" />
+          Facebook
         </Button>
       </div>
     </div>

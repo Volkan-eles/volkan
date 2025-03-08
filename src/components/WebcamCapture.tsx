@@ -15,6 +15,7 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
   const [isCameraReady, setIsCameraReady] = useState(false);
   const [cameraError, setCameraError] = useState<string | null>(null);
   const [countdown, setCountdown] = useState<number | null>(null);
+  const captureTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     let stream: MediaStream | null = null;
@@ -45,6 +46,10 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
       if (stream) {
         stream.getTracks().forEach(track => track.stop());
       }
+      
+      if (captureTimerRef.current) {
+        clearInterval(captureTimerRef.current);
+      }
     };
   }, []);
 
@@ -57,11 +62,19 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
   const startCountdown = () => {
     setCountdown(3);
     
-    const timer = setInterval(() => {
+    captureTimerRef.current = setInterval(() => {
       setCountdown(prev => {
         if (prev === null || prev <= 1) {
-          clearInterval(timer);
-          capturePhoto();
+          if (captureTimerRef.current) {
+            clearInterval(captureTimerRef.current);
+            captureTimerRef.current = null;
+          }
+          
+          // Use setTimeout to ensure state is updated before capturing
+          setTimeout(() => {
+            capturePhoto();
+          }, 0);
+          
           return null;
         }
         return prev - 1;
