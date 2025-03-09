@@ -61,7 +61,7 @@ const Dashboard = () => {
             </SidebarTrigger>
           </div>
 
-          <div className="flex-1 p-2 md:p-4 flex flex-col md:flex-row gap-4">
+          <div className="flex-1 p-1 md:p-2 flex flex-col md:flex-row gap-2">
             <div className="w-full md:w-[40%]">
               <CameraControls 
                 onPhotoCaptured={handlePhotoCaptured}

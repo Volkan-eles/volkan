@@ -16,24 +16,24 @@ const DashboardSidebar = () => {
 
   return (
     <>
-      <SidebarHeader className="p-3 flex items-center justify-between">
-        <div className={`flex items-center gap-1 text-lg font-bold ${isCollapsed ? 'hidden' : 'flex'}`}>
+      <SidebarHeader className="p-2 flex items-center justify-between">
+        <div className={`flex items-center gap-1 text-base font-bold ${isCollapsed ? 'hidden' : 'flex'}`}>
           <div className="text-[#9b87f5] font-bold">
-            <span className="text-xl">Photo Booth</span>
+            <span className="text-lg">Photo Booth</span>
           </div>
         </div>
         <div className="md:hidden">
           <SidebarTrigger>
-            <Menu size={18} />
+            <Menu size={16} />
           </SidebarTrigger>
         </div>
         <Button 
           onClick={toggleSidebar}
           size="sm" 
           variant="ghost" 
-          className="hidden md:flex p-1 h-7 w-7"
+          className="hidden md:flex p-0.5 h-6 w-6"
         >
-          {isCollapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
+          {isCollapsed ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}
         </Button>
       </SidebarHeader>
 
@@ -41,9 +41,9 @@ const DashboardSidebar = () => {
         <SidebarMenuItems />
       </SidebarContent>
 
-      <div className={`mt-auto p-3 ${isCollapsed ? 'hidden' : 'block'}`}>
-        <Button className="w-full bg-[#4b30ab] hover:bg-[#5b40bb] text-white text-sm py-1.5">
-          <Download size={14} className="mr-1.5" />
+      <div className={`mt-auto p-2 ${isCollapsed ? 'hidden' : 'block'}`}>
+        <Button className="w-full bg-[#4b30ab] hover:bg-[#5b40bb] text-white text-xs py-1 h-7">
+          <Download size={12} className="mr-1" />
           DOWNLOAD APP
         </Button>
       </div>
