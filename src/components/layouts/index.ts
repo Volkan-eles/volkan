@@ -5,6 +5,12 @@ import { BigSmallLayout, VerticalDuoLayout, HorizontalDuoLayout } from './DuoLay
 import { GridLayout, SimpleGridLayout, ClassicGridLayout } from './GridLayouts';
 import { CreativeOverlapLayout, FullFrameLayout } from './CreativeLayouts';
 
+// Define the common interface for all layout components
+export interface LayoutProps {
+  photos: string[];
+  backgroundColor?: string;
+}
+
 export {
   DiagonalStripsLayout,
   ClassicStripLayout,

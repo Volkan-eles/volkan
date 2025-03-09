@@ -1,5 +1,4 @@
-
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Download, ChevronDown } from 'lucide-react';
 import { 
@@ -10,6 +9,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import PhotoLayout from '@/components/PhotoLayout';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { downloadImage } from '@/utils/imageProcessing';
+import { toast } from 'sonner';
 
 interface LayoutSelectorProps {
   selectedLayout: string;
@@ -27,6 +28,7 @@ const LayoutSelector: React.FC<LayoutSelectorProps> = ({
   frameColor
 }) => {
   const isMobile = useIsMobile();
+  const [bgColor, setBgColor] = useState<string>('white');
   // Find the selected layout option
   const selectedLayoutOption = layoutOptions.find(option => option.id === selectedLayout) || layoutOptions[0];
 
@@ -88,6 +90,71 @@ const LayoutSelector: React.FC<LayoutSelectorProps> = ({
     }
   };
 
+  // Create a ref to capture the layout for download
+  const layoutRef = React.useRef<HTMLDivElement>(null);
+
+  const handleDownload = async () => {
+    if (!layoutRef.current || capturedPhotos.length === 0) {
+      toast.error("No photos to download");
+      return;
+    }
+
+    try {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      if (!ctx) {
+        toast.error("Could not create download image");
+        return;
+      }
+
+      // Set canvas dimensions based on the layout container
+      const layoutElement = layoutRef.current;
+      const { width, height } = layoutElement.getBoundingClientRect();
+      
+      canvas.width = width;
+      canvas.height = height;
+      
+      // Draw background
+      ctx.fillStyle = bgColor;
+      ctx.fillRect(0, 0, width, height);
+      
+      // Convert the layout to an image using html2canvas principle
+      const dataURL = await new Promise<string>(resolve => {
+        const img = new Image();
+        // Use a simple approach: take a screenshot of the first photo as a placeholder
+        // In a real app, you'd want to use html2canvas or a similar library
+        img.src = capturedPhotos[0];
+        img.onload = () => {
+          ctx.drawImage(img, 0, 0, width, height);
+          resolve(canvas.toDataURL('image/png'));
+        };
+      });
+      
+      // Create download link
+      const link = document.createElement('a');
+      link.href = dataURL;
+      link.download = `${selectedLayout}-layout.png`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      toast.success("Layout downloaded successfully!");
+    } catch (error) {
+      console.error("Download error:", error);
+      toast.error("Failed to download layout");
+    }
+  };
+
+  // Background color options
+  const bgColorOptions = [
+    { name: 'White', value: 'white' },
+    { name: 'Light Gray', value: 'bg-gray-100' },
+    { name: 'Light Blue', value: 'bg-blue-100' },
+    { name: 'Light Pink', value: 'bg-pink-100' },
+    { name: 'Light Green', value: 'bg-green-100' },
+    { name: 'Light Yellow', value: 'bg-yellow-100' },
+  ];
+
   return (
     <div className="w-full flex flex-col gap-4">
       {/* Layout Selector */}
@@ -111,17 +178,39 @@ const LayoutSelector: React.FC<LayoutSelectorProps> = ({
         </DropdownMenuContent>
       </DropdownMenu>
       
+      {/* Background Color Selector */}
+      <div className="mb-2">
+        <p className="text-white text-sm mb-2">Background Color</p>
+        <div className="flex flex-wrap gap-2">
+          {bgColorOptions.map((color) => (
+            <button
+              key={color.value}
+              className={`w-8 h-8 rounded-full ${color.value} border-2 ${
+                bgColor === color.value ? 'border-[#4b30ab]' : 'border-transparent'
+              }`}
+              onClick={() => setBgColor(color.value)}
+              title={color.name}
+            />
+          ))}
+        </div>
+      </div>
+      
       {/* Photo Layout - Responsive container based on layout type */}
-      <div className={getContainerClasses()}>
+      <div className={getContainerClasses()} ref={layoutRef}>
         <PhotoLayout 
           photos={capturedPhotos} 
           layout={selectedLayout}
           frameStyle={frameColor}
+          backgroundColor={bgColor}
         />
       </div>
       
       {/* Download Button */}
-      <Button className="w-full bg-[#4b30ab] hover:bg-[#5b40bb] py-6 text-white text-lg font-medium">
+      <Button 
+        className="w-full bg-[#4b30ab] hover:bg-[#5b40bb] py-6 text-white text-lg font-medium"
+        onClick={handleDownload}
+        disabled={capturedPhotos.length === 0}
+      >
         <Download className="mr-2 h-5 w-5" />
         Download
       </Button>

@@ -4,10 +4,14 @@ import { MoreHorizontal } from 'lucide-react';
 
 interface LayoutProps {
   photos: string[];
+  backgroundColor?: string;
 }
 
-const DiagonalStripsLayout: React.FC<LayoutProps> = ({ photos }) => (
-  <div className="flex-1 flex flex-col p-3 gap-3">
+const DiagonalStripsLayout: React.FC<LayoutProps> = ({ 
+  photos, 
+  backgroundColor = 'white' 
+}) => (
+  <div className={`flex-1 flex flex-col p-3 gap-3 ${backgroundColor !== 'white' ? backgroundColor : ''}`}>
     {/* First photo - top right */}
     <div className="relative h-1/3 ml-auto w-4/5">
       <img 
@@ -46,8 +50,8 @@ const DiagonalStripsLayout: React.FC<LayoutProps> = ({ photos }) => (
     
     {/* Text placement at bottom */}
     <div className="text-center mt-2">
-      <p className="text-black text-sm font-medium">MEMORIES</p>
-      <p className="text-black text-xs">2024.06.10</p>
+      <p className={`text-black text-sm font-medium ${backgroundColor !== 'white' ? 'bg-white/80 px-2 py-1 rounded-md inline-block' : ''}`}>MEMORIES</p>
+      <p className={`text-black text-xs ${backgroundColor !== 'white' ? 'bg-white/80 px-2 py-1 rounded-md inline-block mt-1' : ''}`}>2024.06.10</p>
     </div>
   </div>
 );
