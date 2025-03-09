@@ -138,13 +138,14 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
           style={{ transform: 'scaleX(-1)' }} // Mirror effect
         />
         
-        {/* Live overlay preview */}
+        {/* Live overlay preview - ENLARGED SIZE */}
         {overlayImage && (
-          <div className="absolute right-4 bottom-4 w-1/3 pointer-events-none opacity-80">
+          <div className="absolute right-6 bottom-6 w-1/2 max-w-[200px] pointer-events-none">
             <img 
               src={overlayImage.src} 
               alt="Overlay" 
-              className="w-full h-auto object-contain"
+              className="w-full h-auto object-contain animate-fade-in"
+              style={{ filter: 'drop-shadow(0 0 8px rgba(255,255,255,0.5))' }}
             />
           </div>
         )}
@@ -164,3 +165,4 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
 };
 
 export default WebcamCapture;
+
