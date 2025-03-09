@@ -25,8 +25,9 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
         stream = await navigator.mediaDevices.getUserMedia({
           video: { 
             facingMode: 'user',
-            width: { ideal: 1280 }, // Increased resolution for better quality
-            height: { ideal: 720 } 
+            width: { ideal: 720 }, // Reduced width for better composition
+            height: { ideal: 720 }, // Higher height-to-width ratio
+            aspectRatio: { ideal: 3/4 } // Portrait-oriented aspect ratio
           },
           audio: false,
         });
@@ -91,21 +92,33 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
       const context = canvas.getContext('2d');
       
       if (context) {
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
+        // Use a 3:4 aspect ratio for the canvas (portrait orientation)
+        const aspectRatio = 3/4;
+        const captureWidth = video.videoWidth;
+        const captureHeight = video.videoWidth * aspectRatio;
+        
+        canvas.width = captureWidth;
+        canvas.height = captureHeight;
         
         // Draw video frame (correcting for mirroring)
         context.save();
         context.translate(canvas.width, 0);
         context.scale(-1, 1);
-        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        
+        // Draw the video centered vertically if needed
+        const sourceY = Math.max(0, (video.videoHeight - captureHeight) / 2);
+        context.drawImage(
+          video, 
+          0, sourceY, video.videoWidth, captureHeight, // Source rectangle
+          0, 0, canvas.width, canvas.height // Destination rectangle
+        );
         context.restore();
         
         if (overlayImage) {
           const scaleRatio = Math.min(
             canvas.width / overlayImage.width,
             canvas.height / overlayImage.height
-          ) * 0.95; // Increased scale factor for larger overlay
+          ) * 0.95; // Scale factor for overlay
           
           const overlayWidth = overlayImage.width * scaleRatio;
           const overlayHeight = overlayImage.height * scaleRatio;
@@ -139,33 +152,35 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
       )}
       
       <div className={`relative w-full ${cameraError ? 'hidden' : 'block'}`}>
-        <video
-          ref={videoRef}
-          autoPlay
-          playsInline
-          muted
-          className="w-full rounded-lg shadow-sm animate-fade-in"
-          style={{ transform: 'scaleX(-1)' }} // Mirror horizontally for selfie mode
-        />
-        
-        {overlayImage && (
-          <div className="absolute right-2 bottom-2 w-3/4 max-w-[400px] pointer-events-none">
-            <img 
-              src={overlayImage.src} 
-              alt="Overlay" 
-              className="w-full h-auto object-contain animate-fade-in"
-              style={{ filter: 'drop-shadow(0 0 8px rgba(255,255,255,0.5))' }}
-            />
-          </div>
-        )}
-        
-        {countdown !== null && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/40 rounded-lg">
-            <span className="text-7xl font-bold text-white animate-pulse-gentle">
-              {countdown}
-            </span>
-          </div>
-        )}
+        <div className="mx-auto max-w-[400px] aspect-[3/4] overflow-hidden rounded-lg shadow-sm">
+          <video
+            ref={videoRef}
+            autoPlay
+            playsInline
+            muted
+            className="w-full h-full object-cover rounded-lg shadow-sm animate-fade-in"
+            style={{ transform: 'scaleX(-1)' }} // Mirror horizontally for selfie mode
+          />
+          
+          {overlayImage && (
+            <div className="absolute right-2 bottom-2 w-3/4 max-w-[400px] pointer-events-none">
+              <img 
+                src={overlayImage.src} 
+                alt="Overlay" 
+                className="w-full h-auto object-contain animate-fade-in"
+                style={{ filter: 'drop-shadow(0 0 8px rgba(255,255,255,0.5))' }}
+              />
+            </div>
+          )}
+          
+          {countdown !== null && (
+            <div className="absolute inset-0 flex items-center justify-center bg-black/40 rounded-lg">
+              <span className="text-7xl font-bold text-white animate-pulse-gentle">
+                {countdown}
+              </span>
+            </div>
+          )}
+        </div>
         
         <canvas ref={canvasRef} className="hidden" />
       </div>

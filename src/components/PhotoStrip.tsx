@@ -20,10 +20,10 @@ const PhotoStrip: React.FC<PhotoStripProps> = ({ photos, frameStyle }) => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Set dimensions for the photo strip - increased quality
-    const photoWidth = 800; // Doubled from 400 for better quality
-    const photoHeight = 600; // Doubled from 300 for better quality
-    const padding = 20; // Increased padding
+    // Set dimensions for the photo strip - using 3:4 aspect ratio
+    const photoWidth = 600;  // Slightly narrower
+    const photoHeight = 800; // Taller for portrait orientation (3:4 ratio)
+    const padding = 20;
     
     canvas.width = photoWidth + (padding * 2);
     canvas.height = (photoHeight * photos.length) + (padding * (photos.length + 1));
