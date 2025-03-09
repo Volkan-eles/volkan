@@ -48,13 +48,13 @@ const SidebarMenuItems: React.FC = () => {
               <Tooltip>
                 <TooltipTrigger asChild>
                   <SidebarMenuButton 
-                    className={`flex items-center justify-center py-1.5 ${
+                    className={`flex items-center justify-center ${
                       item.isActive 
                         ? 'text-white bg-[#4b30ab] hover:bg-[#5b40bb]' 
                         : 'text-gray-300 hover:bg-[#2A2A2A]'
                     }`}
                   >
-                    <item.icon size={16} />
+                    <item.icon size={18} />
                   </SidebarMenuButton>
                 </TooltipTrigger>
                 <TooltipContent side="right">
@@ -64,14 +64,14 @@ const SidebarMenuItems: React.FC = () => {
             </TooltipProvider>
           ) : (
             <SidebarMenuButton 
-              className={`flex items-center gap-2 py-1.5 ${
+              className={`flex items-center gap-3 ${
                 item.isActive 
                   ? 'text-white bg-[#4b30ab] hover:bg-[#5b40bb]' 
                   : 'text-gray-300 hover:bg-[#2A2A2A]'
               }`}
             >
-              <item.icon size={16} />
-              <span className="text-sm">{item.label}</span>
+              <item.icon size={18} />
+              <span>{item.label}</span>
             </SidebarMenuButton>
           )}
         </SidebarMenuItem>
