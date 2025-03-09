@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Camera } from 'lucide-react';
@@ -41,7 +40,6 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
 
     setupCamera();
 
-    // Cleanup function
     return () => {
       if (stream) {
         stream.getTracks().forEach(track => track.stop());
@@ -70,7 +68,6 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
             captureTimerRef.current = null;
           }
           
-          // Use setTimeout to ensure state is updated before capturing
           setTimeout(() => {
             capturePhoto();
           }, 0);
@@ -89,31 +86,26 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
       const context = canvas.getContext('2d');
       
       if (context) {
-        // Match canvas size to video dimensions
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
         
-        // Draw the video frame to the canvas
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
         
-        // Add overlay if available
         if (overlayImage) {
           const scaleRatio = Math.min(
             canvas.width / overlayImage.width,
             canvas.height / overlayImage.height
-          ) * 0.8; // Scale to 80% of the possible size
+          ) * 0.8;
           
           const overlayWidth = overlayImage.width * scaleRatio;
           const overlayHeight = overlayImage.height * scaleRatio;
           
-          // Position the overlay in a good position - bottom right by default
           const x = canvas.width - overlayWidth - 20;
           const y = canvas.height - overlayHeight - 20;
           
           context.drawImage(overlayImage, x, y, overlayWidth, overlayHeight);
         }
         
-        // Convert to data URL and send back
         const imageSrc = canvas.toDataURL('image/png');
         onCapture(imageSrc);
       }
@@ -135,12 +127,11 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
           playsInline
           muted
           className="w-full rounded-lg shadow-sm animate-fade-in"
-          style={{ transform: 'scaleX(-1)' }} // Mirror effect
+          style={{ transform: 'scaleX(-1)' }}
         />
         
-        {/* Live overlay preview - ENLARGED SIZE */}
         {overlayImage && (
-          <div className="absolute right-6 bottom-6 w-1/2 max-w-[200px] pointer-events-none">
+          <div className="absolute right-4 bottom-4 w-2/3 max-w-[280px] pointer-events-none">
             <img 
               src={overlayImage.src} 
               alt="Overlay" 
@@ -165,4 +156,3 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
 };
 
 export default WebcamCapture;
-
