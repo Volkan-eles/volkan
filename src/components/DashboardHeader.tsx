@@ -6,25 +6,25 @@ import { Search, MessageSquare, Bell } from 'lucide-react';
 
 const DashboardHeader: React.FC = () => {
   return (
-    <header className="h-16 border-b border-[#333] flex items-center justify-between px-6">
-      <h1 className="text-2xl font-semibold">Dashboard</h1>
+    <header className="h-14 border-b border-[#333] flex items-center justify-between px-4">
+      <h1 className="text-xl font-semibold">Dashboard</h1>
       
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-3">
         <div className="relative">
           <Input 
             type="text" 
             placeholder="Search Here" 
-            className="bg-[#222] border-none rounded-full pl-10 pr-4 w-60 h-10 focus:ring-0 focus:ring-offset-0" 
+            className="bg-[#222] border-none rounded-full pl-9 pr-3 w-48 h-8 focus:ring-0 focus:ring-offset-0 text-sm" 
           />
-          <Search className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
+          <Search className="absolute left-3 top-2 h-4 w-4 text-gray-400" />
         </div>
-        <Button variant="ghost" size="icon" className="rounded-full">
-          <MessageSquare size={20} />
+        <Button variant="ghost" size="icon" className="rounded-full h-8 w-8">
+          <MessageSquare size={16} />
         </Button>
-        <Button variant="ghost" size="icon" className="rounded-full">
-          <Bell size={20} />
+        <Button variant="ghost" size="icon" className="rounded-full h-8 w-8">
+          <Bell size={16} />
         </Button>
-        <div className="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center overflow-hidden">
+        <div className="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center overflow-hidden">
           <img 
             src="/lovable-uploads/a8f26fe4-1a18-429a-ab24-18509a4b955b.png" 
             alt="Profile" 

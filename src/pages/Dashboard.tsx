@@ -1,3 +1,4 @@
+
 import React, { useState, useRef } from 'react';
 import { SidebarProvider, Sidebar, SidebarTrigger } from '@/components/ui/sidebar';
 import DashboardSidebar from '@/components/DashboardSidebar';
@@ -43,21 +44,21 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen flex bg-black text-white">
       <SidebarProvider>
-        <Sidebar className="w-[200px] md:w-[220px] bg-[#1A1A1A] border-r border-[#333]">
+        <Sidebar className="w-[180px] md:w-[200px] bg-[#1A1A1A] border-r border-[#333]">
           <DashboardSidebar />
         </Sidebar>
 
         <div className="flex-1 flex flex-col">
           <DashboardHeader />
 
-          <div className="md:hidden p-4">
+          <div className="md:hidden p-2">
             <SidebarTrigger className="bg-[#1A1A1A] text-white p-2 rounded">
-              <Menu size={24} />
+              <Menu size={20} />
             </SidebarTrigger>
           </div>
 
-          <div className="flex-1 p-4 md:p-6 flex flex-col md:flex-row gap-6">
-            <div className="w-full md:w-[42%]">
+          <div className="flex-1 p-2 md:p-4 flex flex-col md:flex-row gap-4">
+            <div className="w-full md:w-[40%]">
               <CameraControls 
                 onPhotoCaptured={handlePhotoCaptured}
                 isCapturing={isCapturing}
@@ -70,7 +71,7 @@ const Dashboard = () => {
               />
             </div>
             
-            <div className="w-full md:w-[58%]">
+            <div className="w-full md:w-[60%]">
               <LayoutSelector 
                 selectedLayout={selectedLayout}
                 setSelectedLayout={setSelectedLayout}
