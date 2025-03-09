@@ -112,7 +112,7 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
           const scaleRatio = Math.min(
             canvas.width / overlayImage.width,
             canvas.height / overlayImage.height
-          ) * 0.8; // Scale to 80% of the possible size
+          ) * 0.5; // Scale to 50% of the possible size (previously 0.8 or 80%)
           
           const overlayWidth = overlayImage.width * scaleRatio;
           const overlayHeight = overlayImage.height * scaleRatio;
@@ -163,9 +163,9 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
           <FlipHorizontal className="h-4 w-4" />
         </Button>
         
-        {/* Live overlay preview */}
+        {/* Live overlay preview - increased size */}
         {overlayImage && (
-          <div className="absolute right-4 bottom-4 w-1/3 pointer-events-none opacity-80">
+          <div className="absolute right-4 bottom-4 w-1/4 pointer-events-none">
             <img 
               src={overlayImage.src} 
               alt="Overlay" 
