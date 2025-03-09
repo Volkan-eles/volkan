@@ -22,13 +22,8 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
 
     const setupCamera = async () => {
       try {
-        // Request camera access with higher resolution
         stream = await navigator.mediaDevices.getUserMedia({
-          video: { 
-            facingMode: 'user', 
-            width: { ideal: 1280 }, 
-            height: { ideal: 720 } 
-          },
+          video: { facingMode: 'user', width: { ideal: 640 }, height: { ideal: 480 } },
           audio: false,
         });
         
@@ -94,42 +89,19 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
       const context = canvas.getContext('2d');
       
       if (context) {
-        // Set higher resolution for better quality photos
+        // Match canvas size to video dimensions
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
         
         // Draw the video frame to the canvas
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
         
-        // Apply some simple image enhancements
-        try {
-          // Light balance adjustment
-          const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-          const data = imageData.data;
-          
-          // Simple brightness boost
-          for (let i = 0; i < data.length; i += 4) {
-            // Subtle increase in brightness for darker areas
-            if (data[i] < 100 && data[i+1] < 100 && data[i+2] < 100) {
-              data[i] = Math.min(255, data[i] * 1.1);     // R
-              data[i+1] = Math.min(255, data[i+1] * 1.1); // G
-              data[i+2] = Math.min(255, data[i+2] * 1.1); // B
-            }
-          }
-          
-          context.putImageData(imageData, 0, 0);
-        } catch (e) {
-          console.log('Image processing error:', e);
-          // Continue if image processing fails
-        }
-        
         // Add overlay if available
         if (overlayImage) {
-          // Increase the scale for a more prominent overlay
           const scaleRatio = Math.min(
             canvas.width / overlayImage.width,
             canvas.height / overlayImage.height
-          ) * 0.9; // Scale to 90% of the possible size for better visibility
+          ) * 0.8; // Scale to 80% of the possible size
           
           const overlayWidth = overlayImage.width * scaleRatio;
           const overlayHeight = overlayImage.height * scaleRatio;
@@ -141,8 +113,8 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
           context.drawImage(overlayImage, x, y, overlayWidth, overlayHeight);
         }
         
-        // Convert to data URL and send back - use higher quality
-        const imageSrc = canvas.toDataURL('image/png', 1.0);
+        // Convert to data URL and send back
+        const imageSrc = canvas.toDataURL('image/png');
         onCapture(imageSrc);
       }
     }
@@ -163,12 +135,12 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
           playsInline
           muted
           className="w-full rounded-lg shadow-sm animate-fade-in"
-          style={{ transform: 'scaleX(-1)' }} // Mirror effect only
+          style={{ transform: 'scaleX(-1)' }} // Mirror effect
         />
         
         {/* Live overlay preview */}
         {overlayImage && (
-          <div className="absolute right-4 bottom-4 w-2/5 max-w-[300px] pointer-events-none opacity-90">
+          <div className="absolute right-4 bottom-4 w-1/3 pointer-events-none opacity-80">
             <img 
               src={overlayImage.src} 
               alt="Overlay" 
