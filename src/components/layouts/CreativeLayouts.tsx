@@ -1,14 +1,11 @@
 
 import React from 'react';
 import { MoreHorizontal } from 'lucide-react';
-
-interface LayoutProps {
-  photos: string[];
-}
+import { LayoutProps } from './index';
 
 // Creative Overlap Layout (2 Photos)
-export const CreativeOverlapLayout: React.FC<LayoutProps> = ({ photos }) => (
-  <div className="flex-1 p-3 flex justify-center items-center relative">
+export const CreativeOverlapLayout: React.FC<LayoutProps> = ({ photos, backgroundColor = 'white' }) => (
+  <div className={`flex-1 p-3 flex justify-center items-center relative ${backgroundColor !== 'white' ? backgroundColor : ''}`}>
     {/* First photo (rotated and in the back) */}
     <div className="absolute w-3/4 h-3/4 transform rotate-[-6deg] z-10">
       <img 
@@ -39,8 +36,8 @@ export const CreativeOverlapLayout: React.FC<LayoutProps> = ({ photos }) => (
 );
 
 // Full Frame Layout (1 Photo)
-export const FullFrameLayout: React.FC<LayoutProps> = ({ photos }) => (
-  <div className="flex-1 p-3 relative">
+export const FullFrameLayout: React.FC<LayoutProps> = ({ photos, backgroundColor = 'white' }) => (
+  <div className={`flex-1 p-3 relative ${backgroundColor !== 'white' ? backgroundColor : ''}`}>
     <div className="relative h-full w-full">
       <img 
         src={photos[0] || ''} 

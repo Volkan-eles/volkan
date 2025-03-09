@@ -1,14 +1,11 @@
 
 import React from 'react';
 import { MoreHorizontal } from 'lucide-react';
-
-interface LayoutProps {
-  photos: string[];
-}
+import { LayoutProps } from './index';
 
 // Grid Layout (4 Photos)
-export const GridLayout: React.FC<LayoutProps> = ({ photos }) => (
-  <div className="flex-1 p-3">
+export const GridLayout: React.FC<LayoutProps> = ({ photos, backgroundColor = 'white' }) => (
+  <div className={`flex-1 p-3 ${backgroundColor !== 'white' ? backgroundColor : ''}`}>
     <div className="grid grid-cols-2 grid-rows-2 h-full gap-3">
       {photos.map((photo, index) => (
         <div key={index} className="relative">
@@ -25,16 +22,16 @@ export const GridLayout: React.FC<LayoutProps> = ({ photos }) => (
       
       {/* Text placement at bottom-right */}
       <div className="absolute bottom-3 right-3 text-right">
-        <p className="text-black text-sm font-medium bg-white/80 px-2 py-1 rounded-md">MEMORIES</p>
-        <p className="text-black text-xs bg-white/80 px-2 py-1 rounded-md mt-1">2024.06.10</p>
+        <p className={`text-black text-sm font-medium ${backgroundColor !== 'white' ? 'bg-white/80 px-2 py-1 rounded-md' : ''}`}>MEMORIES</p>
+        <p className={`text-black text-xs ${backgroundColor !== 'white' ? 'bg-white/80 px-2 py-1 rounded-md mt-1' : ''}`}>2024.06.10</p>
       </div>
     </div>
   </div>
 );
 
 // Simple Grid Layout (4 Photos)
-export const SimpleGridLayout: React.FC<LayoutProps> = ({ photos }) => (
-  <div className="flex-1 p-3">
+export const SimpleGridLayout: React.FC<LayoutProps> = ({ photos, backgroundColor = 'white' }) => (
+  <div className={`flex-1 p-3 ${backgroundColor !== 'white' ? backgroundColor : ''}`}>
     <div className="grid grid-cols-2 grid-rows-2 h-full gap-2 relative">
       {photos.map((photo, index) => (
         <div key={index} className="relative">
@@ -51,16 +48,16 @@ export const SimpleGridLayout: React.FC<LayoutProps> = ({ photos }) => (
       
       {/* Text placement at center */}
       <div className="absolute bottom-4 left-0 right-0 mx-auto w-fit text-center">
-        <p className="text-black text-sm font-medium bg-white/80 px-2 py-1 rounded-md">MEMORIES</p>
-        <p className="text-black text-xs bg-white/80 px-2 py-1 rounded-md mt-1">2024.06.10</p>
+        <p className={`text-black text-sm font-medium ${backgroundColor !== 'white' ? 'bg-white/80 px-2 py-1 rounded-md' : ''}`}>MEMORIES</p>
+        <p className={`text-black text-xs ${backgroundColor !== 'white' ? 'bg-white/80 px-2 py-1 rounded-md mt-1' : ''}`}>2024.06.10</p>
       </div>
     </div>
   </div>
 );
 
 // Classic Grid Layout (4 Photos)
-export const ClassicGridLayout: React.FC<LayoutProps> = ({ photos }) => (
-  <div className="flex-1 p-4 relative">
+export const ClassicGridLayout: React.FC<LayoutProps> = ({ photos, backgroundColor = 'white' }) => (
+  <div className={`flex-1 p-4 relative ${backgroundColor !== 'white' ? backgroundColor : ''}`}>
     <div className="grid grid-cols-2 grid-rows-2 h-full gap-4">
       {photos.map((photo, index) => (
         <div key={index} className="relative border-2 border-black p-1">
@@ -77,8 +74,8 @@ export const ClassicGridLayout: React.FC<LayoutProps> = ({ photos }) => (
       
       {/* Text placement at bottom-right */}
       <div className="absolute bottom-4 right-4 text-right">
-        <p className="text-black text-sm font-medium">MEMORIES</p>
-        <p className="text-black text-xs">2024.06.10</p>
+        <p className={`text-black text-sm font-medium ${backgroundColor !== 'white' ? 'bg-white/80 px-2 py-1 rounded-md' : ''}`}>MEMORIES</p>
+        <p className={`text-black text-xs ${backgroundColor !== 'white' ? 'bg-white/80 px-2 py-1 rounded-md mt-1' : ''}`}>2024.06.10</p>
       </div>
     </div>
   </div>
