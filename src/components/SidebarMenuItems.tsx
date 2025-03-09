@@ -4,6 +4,7 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
+  useSidebar
 } from '@/components/ui/sidebar';
 import { 
   Home, 
@@ -15,6 +16,7 @@ import {
   MoreHorizontal, 
   Settings,
 } from 'lucide-react';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 interface SidebarMenuItemProps {
   icon: React.ElementType;
@@ -34,20 +36,44 @@ const menuItems: SidebarMenuItemProps[] = [
 ];
 
 const SidebarMenuItems: React.FC = () => {
+  const { state } = useSidebar();
+  const isCollapsed = state === 'collapsed';
+
   return (
     <SidebarMenu>
       {menuItems.map((item) => (
         <SidebarMenuItem key={item.label}>
-          <SidebarMenuButton 
-            className={`flex items-center gap-3 ${
-              item.isActive 
-                ? 'text-white bg-[#4b30ab] hover:bg-[#5b40bb]' 
-                : 'text-gray-300 hover:bg-[#2A2A2A]'
-            }`}
-          >
-            <item.icon size={18} />
-            <span>{item.label}</span>
-          </SidebarMenuButton>
+          {isCollapsed ? (
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <SidebarMenuButton 
+                    className={`flex items-center justify-center ${
+                      item.isActive 
+                        ? 'text-white bg-[#4b30ab] hover:bg-[#5b40bb]' 
+                        : 'text-gray-300 hover:bg-[#2A2A2A]'
+                    }`}
+                  >
+                    <item.icon size={18} />
+                  </SidebarMenuButton>
+                </TooltipTrigger>
+                <TooltipContent side="right">
+                  {item.label}
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          ) : (
+            <SidebarMenuButton 
+              className={`flex items-center gap-3 ${
+                item.isActive 
+                  ? 'text-white bg-[#4b30ab] hover:bg-[#5b40bb]' 
+                  : 'text-gray-300 hover:bg-[#2A2A2A]'
+              }`}
+            >
+              <item.icon size={18} />
+              <span>{item.label}</span>
+            </SidebarMenuButton>
+          )}
         </SidebarMenuItem>
       ))}
     </SidebarMenu>

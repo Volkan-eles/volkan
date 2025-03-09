@@ -1,6 +1,6 @@
 
 import React, { useState, useRef } from 'react';
-import { SidebarProvider, Sidebar, SidebarTrigger } from '@/components/ui/sidebar';
+import { SidebarProvider, Sidebar, SidebarTrigger, SidebarRail } from '@/components/ui/sidebar';
 import DashboardSidebar from '@/components/DashboardSidebar';
 import DashboardHeader from '@/components/DashboardHeader';
 import CameraControls from '@/components/CameraControls';
@@ -44,8 +44,12 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen flex bg-black text-white">
       <SidebarProvider>
-        <Sidebar className="w-[180px] md:w-[200px] bg-[#1A1A1A] border-r border-[#333]">
+        <Sidebar 
+          className="w-[180px] md:w-[200px] bg-[#1A1A1A] border-r border-[#333]"
+          collapsible="icon"
+        >
           <DashboardSidebar />
+          <SidebarRail />
         </Sidebar>
 
         <div className="flex-1 flex flex-col">
