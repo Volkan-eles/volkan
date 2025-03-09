@@ -28,6 +28,9 @@ const LayoutSelector: React.FC<LayoutSelectorProps> = ({
   // Find the selected layout option
   const selectedLayoutOption = layoutOptions.find(option => option.id === selectedLayout) || layoutOptions[0];
 
+  // Determine if this is a horizontal layout for container styling
+  const isHorizontalLayout = ['grid', 'simple-grid', 'classic-grid', 'horizontal-duo', 'creative-overlap', 'full-frame'].includes(selectedLayout);
+
   return (
     <div className="w-full flex flex-col gap-4">
       {/* Layout Selector */}
@@ -51,8 +54,12 @@ const LayoutSelector: React.FC<LayoutSelectorProps> = ({
         </DropdownMenuContent>
       </DropdownMenu>
       
-      {/* Photo Layout - Make it taller for better proportion */}
-      <div className="flex-1 bg-white rounded-lg overflow-hidden h-[500px] md:h-[550px]">
+      {/* Photo Layout - Responsive container based on layout type */}
+      <div className={`flex-1 bg-white rounded-lg overflow-hidden ${
+        isHorizontalLayout 
+          ? 'h-[400px] md:h-[450px] lg:h-[500px]' 
+          : 'h-[500px] md:h-[600px] lg:h-[650px]'
+      } flex items-center justify-center`}>
         <PhotoLayout 
           photos={capturedPhotos} 
           layout={selectedLayout}
