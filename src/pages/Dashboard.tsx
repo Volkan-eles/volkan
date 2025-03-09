@@ -4,6 +4,7 @@ import DashboardSidebar from '@/components/DashboardSidebar';
 import DashboardHeader from '@/components/DashboardHeader';
 import CameraControls from '@/components/CameraControls';
 import LayoutSelector from '@/components/LayoutSelector';
+import { Menu } from 'lucide-react';
 
 const Dashboard = () => {
   const [capturedPhotos, setCapturedPhotos] = useState<string[]>([]);
@@ -14,7 +15,6 @@ const Dashboard = () => {
   const [activeTab, setActiveTab] = useState<string>('frame-color');
   const overlayImageRef = useRef<HTMLImageElement | null>(null);
 
-  // Layout options with their display names and required photo count
   const layoutOptions = [
     { id: 'diagonal-strips', name: 'Diagonal Strips', photos: 3 },
     { id: 'classic-strip', name: 'Classic Strip', photos: 4 },
@@ -31,13 +31,11 @@ const Dashboard = () => {
     { id: 'full-frame', name: 'Full Frame', photos: 1 },
   ];
 
-  // Handle photo capture
   const handlePhotoCaptured = (photoSrc: string) => {
     setCapturedPhotos(prev => [...prev, photoSrc]);
     setIsCapturing(false);
   };
 
-  // Handle frame color change
   const handleFrameColorChange = (color: string) => {
     setFrameColor(color);
   };
@@ -45,26 +43,20 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen flex bg-black text-white">
       <SidebarProvider>
-        {/* Sidebar Navigation - Make it narrower */}
         <Sidebar className="w-[200px] md:w-[220px] bg-[#1A1A1A] border-r border-[#333]">
           <DashboardSidebar />
         </Sidebar>
 
-        {/* Main Content */}
         <div className="flex-1 flex flex-col">
-          {/* Top Header */}
           <DashboardHeader />
 
-          {/* Mobile Sidebar Trigger - visible only on mobile */}
           <div className="md:hidden p-4">
             <SidebarTrigger className="bg-[#1A1A1A] text-white p-2 rounded">
               <Menu size={24} />
             </SidebarTrigger>
           </div>
 
-          {/* Main Photo Booth Area */}
           <div className="flex-1 p-4 md:p-6 flex flex-col md:flex-row gap-6">
-            {/* Left Section - Camera and Controls - Make it narrower */}
             <div className="w-full md:w-[42%]">
               <CameraControls 
                 onPhotoCaptured={handlePhotoCaptured}
@@ -78,7 +70,6 @@ const Dashboard = () => {
               />
             </div>
             
-            {/* Right Section - Layout - Make it wider */}
             <div className="w-full md:w-[58%]">
               <LayoutSelector 
                 selectedLayout={selectedLayout}
