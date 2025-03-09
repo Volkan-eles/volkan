@@ -1,6 +1,5 @@
-
 import React, { useState, useRef } from 'react';
-import { SidebarProvider, Sidebar } from '@/components/ui/sidebar';
+import { SidebarProvider, Sidebar, SidebarTrigger } from '@/components/ui/sidebar';
 import DashboardSidebar from '@/components/DashboardSidebar';
 import DashboardHeader from '@/components/DashboardHeader';
 import CameraControls from '@/components/CameraControls';
@@ -46,8 +45,8 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen flex bg-black text-white">
       <SidebarProvider>
-        {/* Sidebar Navigation */}
-        <Sidebar className="w-[240px] bg-[#1A1A1A] border-r border-[#333]">
+        {/* Sidebar Navigation - Make it narrower */}
+        <Sidebar className="w-[200px] md:w-[220px] bg-[#1A1A1A] border-r border-[#333]">
           <DashboardSidebar />
         </Sidebar>
 
@@ -56,28 +55,39 @@ const Dashboard = () => {
           {/* Top Header */}
           <DashboardHeader />
 
+          {/* Mobile Sidebar Trigger - visible only on mobile */}
+          <div className="md:hidden p-4">
+            <SidebarTrigger className="bg-[#1A1A1A] text-white p-2 rounded">
+              <Menu size={24} />
+            </SidebarTrigger>
+          </div>
+
           {/* Main Photo Booth Area */}
-          <div className="flex-1 p-6 flex gap-6">
-            {/* Left Section - Camera and Controls */}
-            <CameraControls 
-              onPhotoCaptured={handlePhotoCaptured}
-              isCapturing={isCapturing}
-              setIsCapturing={setIsCapturing}
-              frameColor={frameColor}
-              onFrameColorChange={handleFrameColorChange}
-              activeTab={activeTab}
-              setActiveTab={setActiveTab}
-              overlayImageRef={overlayImageRef}
-            />
+          <div className="flex-1 p-4 md:p-6 flex flex-col md:flex-row gap-6">
+            {/* Left Section - Camera and Controls - Make it narrower */}
+            <div className="w-full md:w-[42%]">
+              <CameraControls 
+                onPhotoCaptured={handlePhotoCaptured}
+                isCapturing={isCapturing}
+                setIsCapturing={setIsCapturing}
+                frameColor={frameColor}
+                onFrameColorChange={handleFrameColorChange}
+                activeTab={activeTab}
+                setActiveTab={setActiveTab}
+                overlayImageRef={overlayImageRef}
+              />
+            </div>
             
-            {/* Right Section - Layout */}
-            <LayoutSelector 
-              selectedLayout={selectedLayout}
-              setSelectedLayout={setSelectedLayout}
-              layoutOptions={layoutOptions}
-              capturedPhotos={capturedPhotos}
-              frameColor={frameColor}
-            />
+            {/* Right Section - Layout - Make it wider */}
+            <div className="w-full md:w-[58%]">
+              <LayoutSelector 
+                selectedLayout={selectedLayout}
+                setSelectedLayout={setSelectedLayout}
+                layoutOptions={layoutOptions}
+                capturedPhotos={capturedPhotos}
+                frameColor={frameColor}
+              />
+            </div>
           </div>
         </div>
       </SidebarProvider>

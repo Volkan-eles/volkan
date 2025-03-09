@@ -29,7 +29,7 @@ const LayoutSelector: React.FC<LayoutSelectorProps> = ({
   const selectedLayoutOption = layoutOptions.find(option => option.id === selectedLayout) || layoutOptions[0];
 
   return (
-    <div className="w-[350px] flex flex-col gap-4">
+    <div className="w-full flex flex-col gap-4">
       {/* Layout Selector */}
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
@@ -51,8 +51,8 @@ const LayoutSelector: React.FC<LayoutSelectorProps> = ({
         </DropdownMenuContent>
       </DropdownMenu>
       
-      {/* Photo Layout */}
-      <div className="flex-1 bg-white rounded-lg overflow-hidden">
+      {/* Photo Layout - Make it taller for better proportion */}
+      <div className="flex-1 bg-white rounded-lg overflow-hidden h-[500px] md:h-[550px]">
         <PhotoLayout 
           photos={capturedPhotos} 
           layout={selectedLayout}
