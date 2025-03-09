@@ -1,185 +1,109 @@
 
-import React, { useState, useRef } from 'react';
+import React from 'react';
+import { Separator } from '@/components/ui/separator';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { Button } from '@/components/ui/button';
-import { Download, ChevronDown } from 'lucide-react';
-import { 
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import PhotoLayout from '@/components/PhotoLayout';
-import { useIsMobile } from '@/hooks/use-mobile';
+import { Download, Share2 } from 'lucide-react';
+import PhotoLayout from './PhotoLayout';
 import { toast } from 'sonner';
 import html2canvas from 'html2canvas';
+
+interface LayoutOption {
+  id: string;
+  name: string;
+  photos: number;
+}
 
 interface LayoutSelectorProps {
   selectedLayout: string;
   setSelectedLayout: (layout: string) => void;
-  layoutOptions: Array<{ id: string; name: string; photos: number }>;
+  layoutOptions: LayoutOption[];
   capturedPhotos: string[];
   frameColor: string;
+  overlayImage: HTMLImageElement | null;
 }
 
-const LayoutSelector: React.FC<LayoutSelectorProps> = ({ 
-  selectedLayout, 
-  setSelectedLayout, 
-  layoutOptions, 
+const LayoutSelector: React.FC<LayoutSelectorProps> = ({
+  selectedLayout,
+  setSelectedLayout,
+  layoutOptions,
   capturedPhotos,
-  frameColor
+  frameColor,
+  overlayImage
 }) => {
-  const isMobile = useIsMobile();
-  const [bgColor, setBgColor] = useState<string>('white');
-  const selectedLayoutOption = layoutOptions.find(option => option.id === selectedLayout) || layoutOptions[0];
-  const layoutRef = useRef<HTMLDivElement>(null);
-
-  const getLayoutCategory = () => {
-    if (['diagonal-strips', 'classic-strip', 'vertical-strip', 'elegant-strip'].includes(selectedLayout)) {
-      return 'tall-narrow';
-    }
-    else if (['big-small'].includes(selectedLayout)) {
-      return 'portrait';
-    }
-    else if (['grid', 'simple-grid', 'classic-grid', 'horizontal-duo', 'creative-overlap', 'full-frame'].includes(selectedLayout)) {
-      return 'wide-horizontal';
-    }
-    else if (selectedLayout === 'large-vertical') {
-      return 'large-vertical';
-    }
-    return 'tall-narrow';
-  };
-
-  const getContainerClasses = () => {
-    const category = getLayoutCategory();
-    const baseClasses = "flex-1 bg-white rounded-lg overflow-hidden flex items-center justify-center";
-    
-    if (isMobile) {
-      switch (category) {
-        case 'tall-narrow':
-          return `${baseClasses} h-[400px] max-w-[220px] mx-auto`;
-        case 'large-vertical':
-          return `${baseClasses} h-[400px] max-w-[280px] mx-auto`;
-        case 'portrait':
-          return `${baseClasses} h-[350px] w-full`;
-        case 'wide-horizontal':
-          return `${baseClasses} h-[250px] w-full`;
-        default:
-          return `${baseClasses} h-[350px] w-full`;
-      }
-    } else {
-      switch (category) {
-        case 'tall-narrow':
-          return `${baseClasses} h-[480px] md:h-[520px] lg:h-[560px] max-w-[260px] md:max-w-[280px] lg:max-w-[300px] mx-auto`;
-        case 'large-vertical':
-          return `${baseClasses} h-[460px] md:h-[500px] lg:h-[540px] max-w-[320px] md:max-w-[340px] lg:max-w-[360px] mx-auto`;
-        case 'portrait':
-          return `${baseClasses} h-[420px] md:h-[460px] lg:h-[500px] w-full`;
-        case 'wide-horizontal':
-          return `${baseClasses} h-[320px] md:h-[350px] lg:h-[380px] w-full`;
-        default:
-          return `${baseClasses} h-[420px] md:h-[460px] lg:h-[500px] w-full`;
-      }
-    }
-  };
-
   const handleDownload = async () => {
-    if (!layoutRef.current) {
-      toast.error("Layout component not found");
-      return;
-    }
-
+    const layoutElement = document.getElementById('photo-layout');
+    if (!layoutElement) return;
+    
     try {
-      toast.loading("Preparing download...");
-      
-      const canvas = await html2canvas(layoutRef.current, {
-        backgroundColor: bgColor === 'white' ? '#ffffff' : null,
-        useCORS: true,
-        scale: 2, // Higher quality
-        logging: false, // Reduce console noise
-        allowTaint: true,
+      const canvas = await html2canvas(layoutElement, {
+        backgroundColor: null,
+        scale: 2, // Higher resolution
       });
       
-      const dataUrl = canvas.toDataURL('image/png');
       const link = document.createElement('a');
-      link.href = dataUrl;
-      link.download = `photo-layout-${selectedLayout}.png`;
-      document.body.appendChild(link);
+      link.download = `kpop-photo-${Date.now()}.png`;
+      link.href = canvas.toDataURL('image/png');
       link.click();
-      document.body.removeChild(link);
       
-      toast.dismiss();
-      toast.success("Layout downloaded successfully!");
+      toast.success('Photo saved to your device');
     } catch (error) {
-      console.error("Download error:", error);
-      toast.dismiss();
-      toast.error("Failed to download layout");
+      console.error('Error downloading photo:', error);
+      toast.error('Failed to download photo');
     }
   };
-
-  // Simplified background color options
-  const bgColorOptions = [
-    { name: 'White', value: 'white' },
-    { name: 'Gray', value: 'bg-gray-50' },
-    { name: 'Blue', value: 'bg-blue-50' },
-    { name: 'Pink', value: 'bg-pink-50' },
-  ];
-
+  
   return (
-    <div className="w-full flex flex-col gap-1">
-      <div className="flex items-center gap-1">
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="bg-[#4b30ab] text-white p-1 rounded-md flex items-center justify-between w-full text-xs h-7">
-              <span className="truncate">{selectedLayoutOption.name}</span>
-              <ChevronDown size={12} />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="bg-[#1A1A1A] border-[#333] text-white w-[220px] max-h-[220px] overflow-y-auto">
-            {layoutOptions.map((option) => (
-              <DropdownMenuItem 
-                key={option.id}
-                className="text-white hover:bg-[#4b30ab]/80 cursor-pointer text-xs py-1"
-                onClick={() => setSelectedLayout(option.id)}
-              >
-                {option.name} - {option.photos} Photos
-              </DropdownMenuItem>
-            ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
-        
-        <div className="flex items-center gap-1 bg-black/10 rounded-md p-0.5 h-7">
-          <span className="text-white text-xs ml-1">BG:</span>
-          <div className="flex gap-1">
-            {bgColorOptions.map((color) => (
-              <button
-                key={color.value}
-                className={`w-3 h-3 rounded-sm ${color.value} ${
-                  bgColor === color.value ? 'ring-1 ring-[#4b30ab]' : ''
-                }`}
-                onClick={() => setBgColor(color.value)}
-                title={color.name}
-              />
-            ))}
+    <div className="bg-[#1A1A1A] rounded-lg p-2 flex flex-col h-full">
+      <div className="flex items-center justify-between">
+        <div className="text-sm font-medium">Choose Layout</div>
+        {capturedPhotos.length > 0 && (
+          <Button
+            variant="outline" 
+            size="icon"
+            onClick={handleDownload}
+            className="h-7 w-7 bg-[#222] border-[#333] text-gray-300 hover:text-white"
+          >
+            <Download size={14} />
+          </Button>
+        )}
+      </div>
+      
+      <Separator className="my-2 bg-[#333]" />
+      
+      <div className="grid grid-cols-2 gap-1 mb-2">
+        {layoutOptions.slice(0, 6).map((layout) => (
+          <button
+            key={layout.id}
+            onClick={() => setSelectedLayout(layout.id)}
+            className={`p-1 text-xs rounded ${selectedLayout === layout.id ? 'bg-[#333]' : 'bg-[#222]'} hover:bg-[#333]`}
+          >
+            {layout.name}
+          </button>
+        ))}
+      </div>
+      
+      <div className="flex-1 relative bg-[#0A0A0A] rounded overflow-hidden">
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="w-[90%] h-[90%]" id="photo-layout">
+            <PhotoLayout
+              layout={selectedLayout}
+              photos={capturedPhotos}
+              frameColor={frameColor}
+              overlayImage={overlayImage}
+            />
           </div>
         </div>
+        
+        {capturedPhotos.length === 0 && (
+          <div className="absolute inset-0 flex items-center justify-center text-center p-4">
+            <p className="text-gray-500 text-sm">
+              Take photos with your favorite K-pop idol to create your custom photo strip
+            </p>
+          </div>
+        )}
       </div>
-      
-      <div className={getContainerClasses()} ref={layoutRef}>
-        <PhotoLayout 
-          photos={capturedPhotos} 
-          layout={selectedLayout}
-          frameStyle={frameColor}
-          backgroundColor={bgColor}
-        />
-      </div>
-      
-      <Button 
-        className="w-full bg-[#4b30ab] hover:bg-[#5b40bb] text-white text-xs font-medium h-7 mt-1"
-        onClick={handleDownload}
-      >
-        <Download className="mr-1 h-3 w-3" />
-        Download
-      </Button>
     </div>
   );
 };

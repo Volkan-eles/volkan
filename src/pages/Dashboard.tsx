@@ -1,5 +1,5 @@
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { SidebarProvider, Sidebar, SidebarTrigger, SidebarRail } from '@/components/ui/sidebar';
 import DashboardSidebar from '@/components/DashboardSidebar';
 import DashboardHeader from '@/components/DashboardHeader';
@@ -13,7 +13,7 @@ const Dashboard = () => {
   const [selectedOverlay, setSelectedOverlay] = useState<{ id: string; name: string; src: string } | null>(null);
   const [frameColor, setFrameColor] = useState<string>('white');
   const [isCapturing, setIsCapturing] = useState(false);
-  const [activeTab, setActiveTab] = useState<string>('frame-color');
+  const [activeTab, setActiveTab] = useState<string>('idol');
   const overlayImageRef = useRef<HTMLImageElement | null>(null);
 
   const layoutOptions = [
@@ -82,6 +82,7 @@ const Dashboard = () => {
                 layoutOptions={layoutOptions}
                 capturedPhotos={capturedPhotos}
                 frameColor={frameColor}
+                overlayImage={overlayImageRef.current}
               />
             </div>
           </div>

@@ -1,123 +1,105 @@
 
 import React from 'react';
-import {
-  DiagonalStripsLayout,
-  ClassicStripLayout,
-  VerticalStripLayout,
-  ElegantStripLayout,
-  LargeVerticalLayout,
-  BigSmallLayout,
-  GridLayout,
-  SimpleGridLayout,
-  ClassicGridLayout,
-  VerticalDuoLayout,
-  HorizontalDuoLayout,
-  CreativeOverlapLayout,
-  FullFrameLayout
-} from './layouts';
+import { ClassicStripLayout, VerticalStripLayout, ElegantStripLayout, LargeVerticalLayout } from './layouts/StripLayouts';
+import { DiagonalStripsLayout } from './layouts/DiagonalStripsLayout';
+import { BigSmallLayout, CreativeOverlapLayout, FullFrameLayout } from './layouts/CreativeLayouts';
+import { SimpleGridLayout, ClassicGridLayout, GridLayout } from './layouts/GridLayouts';
+import { VerticalDuoLayout, HorizontalDuoLayout } from './layouts/DuoLayouts';
 
 interface PhotoLayoutProps {
-  photos: string[];
   layout: string;
-  frameStyle: string;
-  backgroundColor?: string;
+  photos: string[];
+  frameColor: string;
+  overlayImage: HTMLImageElement | null;
 }
 
-const PhotoLayout: React.FC<PhotoLayoutProps> = ({ 
-  photos, 
-  layout, 
-  frameStyle, 
-  backgroundColor = 'white' 
-}) => {
-  // Mock photo data when no real photos available
-  const mockPhotos = [
-    '/lovable-uploads/a8f26fe4-1a18-429a-ab24-18509a4b955b.png',
-    '/lovable-uploads/a8f26fe4-1a18-429a-ab24-18509a4b955b.png',
-    '/lovable-uploads/a8f26fe4-1a18-429a-ab24-18509a4b955b.png',
-    '/lovable-uploads/a8f26fe4-1a18-429a-ab24-18509a4b955b.png',
-    '/lovable-uploads/a8f26fe4-1a18-429a-ab24-18509a4b955b.png',
-  ];
+const PhotoLayout: React.FC<PhotoLayoutProps> = ({ layout, photos, frameColor, overlayImage }) => {
+  // Map frameColor to CSS class
+  const bgColorClass = 
+    frameColor === 'white' ? 'bg-white' :
+    frameColor === 'black' ? 'bg-[#333333]' :
+    frameColor === 'red' ? 'bg-[#b32424]' :
+    frameColor === 'blue' ? 'bg-[#3b82f6]' :
+    frameColor === 'pink' ? 'bg-[#ec4899]' :
+    frameColor === 'yellow' ? 'bg-[#fde047]' :
+    'bg-white';
+  
+  // Early return if no photos
+  if (photos.length === 0) {
+    return (
+      <div className={`w-full h-full ${bgColorClass} rounded-md flex items-center justify-center`}>
+        <div className="text-sm text-center text-gray-500">No photos taken yet</div>
+      </div>
+    );
+  }
 
-  // Use captured photos if available, otherwise use mock photos
-  const displayPhotos = photos.length > 0 ? photos : mockPhotos;
+  // Process photos with overlay if needed
+  const processedPhotos = photos.map((photoSrc) => {
+    if (!overlayImage) return photoSrc;
+    
+    // Create canvas to combine photo with overlay
+    const canvas = document.createElement('canvas');
+    const img = new Image();
+    img.src = photoSrc;
+    
+    // Use onload to ensure the image is loaded before drawing
+    return new Promise<string>((resolve) => {
+      img.onload = () => {
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) {
+          resolve(photoSrc);
+          return;
+        }
+        
+        // Draw the base photo
+        ctx.drawImage(img, 0, 0);
+        
+        // Draw the overlay
+        const overlayWidth = canvas.width * 0.5;
+        const overlayHeight = overlayImage.height * (overlayWidth / overlayImage.width);
+        const x = canvas.width - overlayWidth - 10;
+        const y = canvas.height - overlayHeight - 10;
+        
+        ctx.drawImage(overlayImage, x, y, overlayWidth, overlayHeight);
+        
+        resolve(canvas.toDataURL('image/png'));
+      };
+    });
+  });
 
-  // Helper function to render the correct number of photos for a layout
-  const getLayoutPhotos = (maxPhotos: number) => {
-    return displayPhotos.slice(0, maxPhotos);
-  };
-
-  // Determine layout category for responsive styling
-  const getLayoutCategory = () => {
-    // Tall and Narrow Layouts (Strip Format)
-    if (['classic-strip', 'vertical-strip', 'elegant-strip', 'diagonal-strips'].includes(layout)) {
-      return 'tall-narrow';
-    }
-    // Portrait-Oriented Layouts
-    else if (['big-small'].includes(layout)) {
-      return 'portrait';
-    }
-    // Wide Horizontal Layouts
-    else if (['grid', 'simple-grid', 'classic-grid', 'horizontal-duo', 'creative-overlap', 'full-frame'].includes(layout)) {
-      return 'wide-horizontal';
-    }
-    // Default to tall-narrow if not found
-    return 'tall-narrow';
-  };
-
-  // Get proper aspect ratio class based on layout category
-  const getAspectRatioClass = () => {
-    const category = getLayoutCategory();
-    switch (category) {
-      case 'tall-narrow':
-        return 'aspect-[1/2.8] md:aspect-[600/1680] max-w-[600px] mx-auto';
-      case 'portrait':
-        return 'aspect-[3/4] md:aspect-[1200/1500] max-w-[1100px] mx-auto';
-      case 'wide-horizontal':
-        return 'aspect-[16/9] md:aspect-[16/9] w-full';
-      default:
-        return 'aspect-[1/2.8] md:aspect-[600/1680]';
-    }
-  };
-
-  // Render different layouts based on the layout prop
-  const renderLayout = () => {
-    switch (layout) {
-      case 'diagonal-strips':
-        return <DiagonalStripsLayout photos={getLayoutPhotos(3)} backgroundColor={backgroundColor} />;
-      case 'classic-strip':
-        return <ClassicStripLayout photos={getLayoutPhotos(4)} backgroundColor={backgroundColor} />;
-      case 'vertical-strip':
-        return <VerticalStripLayout photos={getLayoutPhotos(4)} backgroundColor={backgroundColor} />;
-      case 'elegant-strip':
-        return <ElegantStripLayout photos={getLayoutPhotos(4)} backgroundColor={backgroundColor} />;
-      case 'large-vertical':
-        return <LargeVerticalLayout photos={getLayoutPhotos(2)} backgroundColor={backgroundColor} />;
-      case 'big-small':
-        return <BigSmallLayout photos={getLayoutPhotos(3)} backgroundColor={backgroundColor} />;
-      case 'grid':
-        return <GridLayout photos={getLayoutPhotos(4)} backgroundColor={backgroundColor} />;
-      case 'simple-grid':
-        return <SimpleGridLayout photos={getLayoutPhotos(4)} backgroundColor={backgroundColor} />;
-      case 'classic-grid':
-        return <ClassicGridLayout photos={getLayoutPhotos(4)} backgroundColor={backgroundColor} />;
-      case 'vertical-duo':
-        return <VerticalDuoLayout photos={getLayoutPhotos(2)} backgroundColor={backgroundColor} />;
-      case 'horizontal-duo':
-        return <HorizontalDuoLayout photos={getLayoutPhotos(2)} backgroundColor={backgroundColor} />;
-      case 'creative-overlap':
-        return <CreativeOverlapLayout photos={getLayoutPhotos(2)} backgroundColor={backgroundColor} />;
-      case 'full-frame':
-        return <FullFrameLayout photos={getLayoutPhotos(1)} backgroundColor={backgroundColor} />;
-      default:
-        return <ElegantStripLayout photos={getLayoutPhotos(4)} backgroundColor={backgroundColor} />;
-    }
-  };
-
-  return (
-    <div className={`h-full w-full flex flex-col ${backgroundColor !== 'white' ? backgroundColor : 'bg-white'} ${getAspectRatioClass()}`}>
-      {renderLayout()}
-    </div>
-  );
+  // Render appropriate layout based on selection
+  switch (layout) {
+    case 'diagonal-strips':
+      return <DiagonalStripsLayout photos={photos} backgroundColor={bgColorClass} overlayImage={overlayImage} />;
+    case 'classic-strip':
+      return <ClassicStripLayout photos={photos} backgroundColor={bgColorClass} overlayImage={overlayImage} />;
+    case 'vertical-strip':
+      return <VerticalStripLayout photos={photos} backgroundColor={bgColorClass} overlayImage={overlayImage} />;
+    case 'elegant-strip':
+      return <ElegantStripLayout photos={photos} backgroundColor={bgColorClass} overlayImage={overlayImage} />;
+    case 'large-vertical':
+      return <LargeVerticalLayout photos={photos} backgroundColor={bgColorClass} overlayImage={overlayImage} />;
+    case 'big-small':
+      return <BigSmallLayout photos={photos} backgroundColor={bgColorClass} overlayImage={overlayImage} />;
+    case 'grid':
+      return <GridLayout photos={photos} backgroundColor={bgColorClass} overlayImage={overlayImage} />;
+    case 'simple-grid':
+      return <SimpleGridLayout photos={photos} backgroundColor={bgColorClass} overlayImage={overlayImage} />;
+    case 'classic-grid':
+      return <ClassicGridLayout photos={photos} backgroundColor={bgColorClass} overlayImage={overlayImage} />;
+    case 'vertical-duo':
+      return <VerticalDuoLayout photos={photos} backgroundColor={bgColorClass} overlayImage={overlayImage} />;
+    case 'horizontal-duo':
+      return <HorizontalDuoLayout photos={photos} backgroundColor={bgColorClass} overlayImage={overlayImage} />;
+    case 'creative-overlap':
+      return <CreativeOverlapLayout photos={photos} backgroundColor={bgColorClass} overlayImage={overlayImage} />;
+    case 'full-frame':
+      return <FullFrameLayout photos={photos} backgroundColor={bgColorClass} overlayImage={overlayImage} />;
+    default:
+      return <ClassicStripLayout photos={photos} backgroundColor={bgColorClass} overlayImage={overlayImage} />;
+  }
 };
 
 export default PhotoLayout;
