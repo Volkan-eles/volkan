@@ -27,12 +27,20 @@ export const combineImages = (
   // If overlay exists, draw it on top
   if (overlayImage) {
     // Calculate position to center the overlay
-    const overlayWidth = canvas.width;
-    const overlayHeight = overlayImage.height * (canvas.width / overlayImage.width);
-    const y = canvas.height - overlayHeight;
+    const scaleRatio = Math.min(
+      canvas.width / overlayImage.width,
+      canvas.height / overlayImage.height
+    ) * 0.9; // Scale to 90% of the possible size
+    
+    const overlayWidth = overlayImage.width * scaleRatio;
+    const overlayHeight = overlayImage.height * scaleRatio;
+    
+    // Position the overlay - bottom right corner with some padding
+    const x = canvas.width - overlayWidth - 20;
+    const y = canvas.height - overlayHeight - 20;
     
     // Draw the overlay
-    ctx.drawImage(overlayImage, 0, y, overlayWidth, overlayHeight);
+    ctx.drawImage(overlayImage, x, y, overlayWidth, overlayHeight);
   }
   
   return canvas;
@@ -55,10 +63,10 @@ export const createPhotoStrip = (
   
   if (photos.length === 0) return canvas;
   
-  // Set the dimensions of the photo strip
-  const photoWidth = photos[0].width;
-  const photoHeight = photos[0].height;
-  const padding = 10;
+  // Set the dimensions of the photo strip - use higher resolution
+  const photoWidth = 800; // Increased from 400
+  const photoHeight = 600; // Increased from 300
+  const padding = 15;
   
   canvas.width = photoWidth + (padding * 2);
   canvas.height = (photoHeight * photos.length) + (padding * (photos.length + 1));
@@ -67,16 +75,68 @@ export const createPhotoStrip = (
   let bgColor = '#FFFFFF';
   if (frameStyle === 'black') bgColor = '#333333';
   if (frameStyle === 'red') bgColor = '#b32424';
+  if (frameStyle === 'blue') bgColor = '#3b82f6';
+  if (frameStyle === 'pink') bgColor = '#ec4899';
+  if (frameStyle === 'yellow') bgColor = '#fde047';
   
   // Fill the background
   ctx.fillStyle = bgColor;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   
-  // Draw each photo
-  photos.forEach((photo, index) => {
-    const y = padding + (index * (photoHeight + padding));
-    ctx.drawImage(photo, padding, y, photoWidth, photoHeight);
-  });
+  // Add a decorative pattern based on frame style
+  if (frameStyle === 'pink' || frameStyle === 'yellow') {
+    ctx.fillStyle = frameStyle === 'pink' ? '#fecdd3' : '#fef3c7';
+    for (let i = 0; i < 15; i++) {
+      const x = Math.random() * canvas.width;
+      const y = Math.random() * canvas.height;
+      const size = 8 + Math.random() * 20;
+      
+      ctx.beginPath();
+      ctx.arc(x, y, size, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+  
+  // Load and draw each photo
+  const loadAndDrawPhotos = async () => {
+    for (let i = 0; i < photos.length; i++) {
+      const img = new Image();
+      img.src = photos[i].toDataURL('image/png', 1.0);
+      await new Promise<void>((resolve) => {
+        img.onload = () => {
+          const y = padding + (i * (photoHeight + padding));
+          // Apply improved shadow for depth
+          if (frameStyle !== 'white') {
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
+            ctx.shadowBlur = 10;
+            ctx.shadowOffsetX = 3;
+            ctx.shadowOffsetY = 3;
+          }
+          ctx.drawImage(img, padding, y, photoWidth, photoHeight);
+          ctx.shadowColor = 'transparent';
+          ctx.shadowBlur = 0;
+          ctx.shadowOffsetX = 0;
+          ctx.shadowOffsetY = 0;
+          resolve();
+        };
+      });
+    }
+    
+    // Add frame decoration if needed
+    if (frameStyle === 'white' || frameStyle === 'yellow') {
+      ctx.strokeStyle = '#333';
+      ctx.lineWidth = 3;
+      ctx.strokeRect(4, 4, canvas.width - 8, canvas.height - 8);
+    }
+    
+    // Add signature/branding to the photo strip
+    ctx.font = 'bold 18px sans-serif';
+    ctx.fillStyle = frameStyle === 'white' || frameStyle === 'yellow' ? '#333' : '#fff';
+    ctx.textAlign = 'center';
+    ctx.fillText('K-pop Frame', canvas.width / 2, canvas.height - 12);
+  };
+  
+  loadAndDrawPhotos();
   
   return canvas;
 };
@@ -92,7 +152,7 @@ export const canvasToBlob = (canvas: HTMLCanvasElement): Promise<Blob> => {
       } else {
         reject(new Error('Canvas to Blob conversion failed'));
       }
-    }, 'image/png');
+    }, 'image/png', 0.95); // Higher quality setting
   });
 };
 

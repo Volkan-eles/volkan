@@ -20,10 +20,11 @@ const PhotoStrip: React.FC<PhotoStripProps> = ({ photos, frameStyle }) => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Set dimensions for the photo strip
-    const photoWidth = 400;
-    const photoHeight = 300;
-    const padding = 10;
+    // Set dimensions for the photo strip - we use higher resolution canvas 
+    // for better quality downloads, but display at appropriate size with CSS
+    const photoWidth = 800;
+    const photoHeight = 600;
+    const padding = 15;
     
     canvas.width = photoWidth + (padding * 2);
     canvas.height = (photoHeight * photos.length) + (padding * (photos.length + 1));
@@ -43,10 +44,10 @@ const PhotoStrip: React.FC<PhotoStripProps> = ({ photos, frameStyle }) => {
     // Add a decorative pattern based on frame style
     if (frameStyle === 'pink' || frameStyle === 'yellow') {
       ctx.fillStyle = frameStyle === 'pink' ? '#fecdd3' : '#fef3c7';
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 15; i++) {
         const x = Math.random() * canvas.width;
         const y = Math.random() * canvas.height;
-        const size = 5 + Math.random() * 15;
+        const size = 8 + Math.random() * 20;
         
         ctx.beginPath();
         ctx.arc(x, y, size, 0, Math.PI * 2);
@@ -62,7 +63,23 @@ const PhotoStrip: React.FC<PhotoStripProps> = ({ photos, frameStyle }) => {
         await new Promise<void>((resolve) => {
           img.onload = () => {
             const y = padding + (i * (photoHeight + padding));
+            
+            // Apply shadow for a nicer look
+            if (frameStyle !== 'white') {
+              ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
+              ctx.shadowBlur = 10;
+              ctx.shadowOffsetX = 3;
+              ctx.shadowOffsetY = 3;
+            }
+            
             ctx.drawImage(img, padding, y, photoWidth, photoHeight);
+            
+            // Reset shadow
+            ctx.shadowColor = 'transparent';
+            ctx.shadowBlur = 0;
+            ctx.shadowOffsetX = 0;
+            ctx.shadowOffsetY = 0;
+            
             resolve();
           };
         });
@@ -71,15 +88,15 @@ const PhotoStrip: React.FC<PhotoStripProps> = ({ photos, frameStyle }) => {
       // Add frame decoration if needed
       if (frameStyle === 'white' || frameStyle === 'yellow') {
         ctx.strokeStyle = '#333';
-        ctx.lineWidth = 2;
-        ctx.strokeRect(3, 3, canvas.width - 6, canvas.height - 6);
+        ctx.lineWidth = 3;
+        ctx.strokeRect(4, 4, canvas.width - 8, canvas.height - 8);
       }
       
       // Add signature/branding to the photo strip
-      ctx.font = '14px sans-serif';
+      ctx.font = 'bold 18px sans-serif';
       ctx.fillStyle = frameStyle === 'white' || frameStyle === 'yellow' ? '#333' : '#fff';
       ctx.textAlign = 'center';
-      ctx.fillText('K-pop Frame', canvas.width / 2, canvas.height - 6);
+      ctx.fillText('K-pop Frame', canvas.width / 2, canvas.height - 12);
     };
     
     loadAndDrawPhotos();
@@ -135,6 +152,7 @@ const PhotoStrip: React.FC<PhotoStripProps> = ({ photos, frameStyle }) => {
         <canvas 
           ref={canvasRef} 
           className="max-w-full"
+          style={{ maxHeight: '600px' }}
         />
       </div>
       
