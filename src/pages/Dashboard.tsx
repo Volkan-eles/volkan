@@ -21,13 +21,20 @@ import {
   Download,
   Bell,
   MessageSquare,
-  Search
+  Search,
+  ChevronDown
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import WebcamCapture from '@/components/WebcamCapture';
 import { Input } from '@/components/ui/input';
 import PhotoLayout from '@/components/PhotoLayout';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const Dashboard = () => {
   const [capturedPhotos, setCapturedPhotos] = useState<string[]>([]);
@@ -37,6 +44,23 @@ const Dashboard = () => {
   const [isCapturing, setIsCapturing] = useState(false);
   const [activeTab, setActiveTab] = useState<string>('frame-color');
   const overlayImageRef = React.useRef<HTMLImageElement | null>(null);
+
+  // Layout options with their display names and required photo count
+  const layoutOptions = [
+    { id: 'diagonal-strips', name: 'Diagonal Strips', photos: 3 },
+    { id: 'classic-strip', name: 'Classic Strip', photos: 4 },
+    { id: 'vertical-strip', name: 'Vertical Strip', photos: 4 },
+    { id: 'elegant-strip', name: 'Elegant Strip', photos: 4 },
+    { id: 'large-vertical', name: 'Large Vertical', photos: 2 },
+    { id: 'big-small', name: 'Big & Small', photos: 3 },
+    { id: 'grid', name: 'Grid', photos: 4 },
+    { id: 'simple-grid', name: 'Simple Grid', photos: 4 },
+    { id: 'classic-grid', name: 'Classic Grid', photos: 4 },
+    { id: 'vertical-duo', name: 'Vertical Duo', photos: 2 },
+    { id: 'horizontal-duo', name: 'Horizontal Duo', photos: 2 },
+    { id: 'creative-overlap', name: 'Creative Overlap', photos: 2 },
+    { id: 'full-frame', name: 'Full Frame', photos: 1 },
+  ];
 
   // Handle photo capture
   const handleCapture = () => {
@@ -56,6 +80,9 @@ const Dashboard = () => {
   const handleFrameColorChange = (color: string) => {
     setFrameColor(color);
   };
+
+  // Find the selected layout option
+  const selectedLayoutOption = layoutOptions.find(option => option.id === selectedLayout) || layoutOptions[0];
 
   return (
     <div className="min-h-screen flex bg-black text-white">
@@ -270,12 +297,25 @@ const Dashboard = () => {
             {/* Right Section - Layout */}
             <div className="w-[350px] flex flex-col gap-4">
               {/* Layout Selector */}
-              <div className="bg-blue-600 text-white p-3 rounded-lg flex items-center justify-between">
-                <span>Elegant Strip - 4 Photos</span>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M7 10l5 5 5-5H7z" fill="currentColor"/>
-                </svg>
-              </div>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button className="bg-booth-purple text-white p-3 rounded-lg flex items-center justify-between w-full">
+                    <span>{selectedLayoutOption.name} - {selectedLayoutOption.photos} Photos</span>
+                    <ChevronDown size={20} />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="bg-[#1A1A1A] border-[#333] text-white w-[350px]">
+                  {layoutOptions.map((option) => (
+                    <DropdownMenuItem 
+                      key={option.id}
+                      className="text-white hover:bg-booth-purple/80 cursor-pointer"
+                      onClick={() => setSelectedLayout(option.id)}
+                    >
+                      {option.name} - {option.photos} Photos
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
               
               {/* Photo Layout */}
               <div className="flex-1 bg-white rounded-lg overflow-hidden">
@@ -288,7 +328,8 @@ const Dashboard = () => {
               
               {/* Download Button */}
               <Button className="w-full bg-[#4b30ab] hover:bg-[#5b40bb] py-6 text-white text-lg font-medium">
-                Dowland
+                <Download className="mr-2 h-5 w-5" />
+                Download
               </Button>
             </div>
           </div>
