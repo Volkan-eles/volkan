@@ -101,5 +101,3 @@ export const FullFrameLayout: React.FC<LayoutProps> = ({ photos, backgroundColor
     </div>
   </div>
 );
-
-export { BigSmallLayout, CreativeOverlapLayout, FullFrameLayout };

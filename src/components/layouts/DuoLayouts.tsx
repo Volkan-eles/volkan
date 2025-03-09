@@ -54,5 +54,3 @@ export const HorizontalDuoLayout: React.FC<LayoutProps> = ({ photos, backgroundC
     </div>
   </div>
 );
-
-export { VerticalDuoLayout, HorizontalDuoLayout };

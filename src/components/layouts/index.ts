@@ -1,9 +1,9 @@
 
 import DiagonalStripsLayout from './DiagonalStripsLayout';
 import { ClassicStripLayout, VerticalStripLayout, ElegantStripLayout, LargeVerticalLayout } from './StripLayouts';
-import { BigSmallLayout, VerticalDuoLayout, HorizontalDuoLayout } from './DuoLayouts';
+import { VerticalDuoLayout, HorizontalDuoLayout } from './DuoLayouts';
+import { BigSmallLayout, CreativeOverlapLayout, FullFrameLayout } from './CreativeLayouts';
 import { GridLayout, SimpleGridLayout, ClassicGridLayout } from './GridLayouts';
-import { CreativeOverlapLayout, FullFrameLayout } from './CreativeLayouts';
 
 // Define the common interface for all layout components
 export interface LayoutProps {
