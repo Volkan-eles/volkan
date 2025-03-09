@@ -56,28 +56,28 @@ const LayoutSelector: React.FC<LayoutSelectorProps> = ({
     if (isMobile) {
       switch (category) {
         case 'tall-narrow':
-          return `${baseClasses} h-[450px] max-w-[250px] mx-auto`;
+          return `${baseClasses} h-[400px] max-w-[220px] mx-auto`;
         case 'large-vertical':
-          return `${baseClasses} h-[450px] max-w-[320px] mx-auto`;
+          return `${baseClasses} h-[400px] max-w-[280px] mx-auto`;
         case 'portrait':
-          return `${baseClasses} h-[400px] w-full`;
+          return `${baseClasses} h-[350px] w-full`;
         case 'wide-horizontal':
-          return `${baseClasses} h-[280px] w-full`;
+          return `${baseClasses} h-[250px] w-full`;
         default:
-          return `${baseClasses} h-[400px] w-full`;
+          return `${baseClasses} h-[350px] w-full`;
       }
     } else {
       switch (category) {
         case 'tall-narrow':
-          return `${baseClasses} h-[520px] md:h-[580px] lg:h-[620px] max-w-[280px] md:max-w-[300px] lg:max-w-[320px] mx-auto`;
+          return `${baseClasses} h-[480px] md:h-[520px] lg:h-[560px] max-w-[260px] md:max-w-[280px] lg:max-w-[300px] mx-auto`;
         case 'large-vertical':
-          return `${baseClasses} h-[500px] md:h-[550px] lg:h-[600px] max-w-[350px] md:max-w-[370px] lg:max-w-[390px] mx-auto`;
+          return `${baseClasses} h-[460px] md:h-[500px] lg:h-[540px] max-w-[320px] md:max-w-[340px] lg:max-w-[360px] mx-auto`;
         case 'portrait':
-          return `${baseClasses} h-[450px] md:h-[500px] lg:h-[550px] w-full`;
+          return `${baseClasses} h-[420px] md:h-[460px] lg:h-[500px] w-full`;
         case 'wide-horizontal':
-          return `${baseClasses} h-[350px] md:h-[380px] lg:h-[420px] w-full`;
+          return `${baseClasses} h-[320px] md:h-[350px] lg:h-[380px] w-full`;
         default:
-          return `${baseClasses} h-[450px] md:h-[500px] lg:h-[550px] w-full`;
+          return `${baseClasses} h-[420px] md:h-[460px] lg:h-[500px] w-full`;
       }
     }
   };
@@ -125,16 +125,16 @@ const LayoutSelector: React.FC<LayoutSelectorProps> = ({
   ];
 
   return (
-    <div className="w-full flex flex-col gap-1.5">
-      <div className="flex items-center gap-1.5">
+    <div className="w-full flex flex-col gap-1">
+      <div className="flex items-center gap-1">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="bg-[#4b30ab] text-white p-1 rounded-md flex items-center justify-between w-full text-xs h-8">
+            <Button variant="outline" className="bg-[#4b30ab] text-white p-1 rounded-md flex items-center justify-between w-full text-xs h-7">
               <span className="truncate">{selectedLayoutOption.name}</span>
               <ChevronDown size={12} />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="bg-[#1A1A1A] border-[#333] text-white w-[230px] max-h-[240px] overflow-y-auto">
+          <DropdownMenuContent className="bg-[#1A1A1A] border-[#333] text-white w-[220px] max-h-[220px] overflow-y-auto">
             {layoutOptions.map((option) => (
               <DropdownMenuItem 
                 key={option.id}
@@ -147,13 +147,13 @@ const LayoutSelector: React.FC<LayoutSelectorProps> = ({
           </DropdownMenuContent>
         </DropdownMenu>
         
-        <div className="flex items-center gap-1 bg-black/10 rounded-md p-1 h-8">
+        <div className="flex items-center gap-1 bg-black/10 rounded-md p-0.5 h-7">
           <span className="text-white text-xs ml-1">BG:</span>
           <div className="flex gap-1">
             {bgColorOptions.map((color) => (
               <button
                 key={color.value}
-                className={`w-4 h-4 rounded-sm ${color.value} ${
+                className={`w-3 h-3 rounded-sm ${color.value} ${
                   bgColor === color.value ? 'ring-1 ring-[#4b30ab]' : ''
                 }`}
                 onClick={() => setBgColor(color.value)}
@@ -174,7 +174,7 @@ const LayoutSelector: React.FC<LayoutSelectorProps> = ({
       </div>
       
       <Button 
-        className="w-full bg-[#4b30ab] hover:bg-[#5b40bb] text-white text-xs font-medium h-8 mt-1"
+        className="w-full bg-[#4b30ab] hover:bg-[#5b40bb] text-white text-xs font-medium h-7 mt-1"
         onClick={handleDownload}
       >
         <Download className="mr-1 h-3 w-3" />
