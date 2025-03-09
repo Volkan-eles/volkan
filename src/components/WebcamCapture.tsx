@@ -1,3 +1,4 @@
+
 import React, { useRef, useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Camera } from 'lucide-react';
@@ -95,13 +96,13 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
           const scaleRatio = Math.min(
             canvas.width / overlayImage.width,
             canvas.height / overlayImage.height
-          ) * 0.8;
+          ) * 0.9; // Increased scale factor from 0.8 to 0.9
           
           const overlayWidth = overlayImage.width * scaleRatio;
           const overlayHeight = overlayImage.height * scaleRatio;
           
-          const x = canvas.width - overlayWidth - 20;
-          const y = canvas.height - overlayHeight - 20;
+          const x = canvas.width - overlayWidth - 10; // Decreased padding from 20 to 10
+          const y = canvas.height - overlayHeight - 10; // Decreased padding from 20 to 10
           
           context.drawImage(overlayImage, x, y, overlayWidth, overlayHeight);
         }
@@ -131,7 +132,7 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
         />
         
         {overlayImage && (
-          <div className="absolute right-4 bottom-4 w-2/3 max-w-[280px] pointer-events-none">
+          <div className="absolute right-2 bottom-2 w-3/4 max-w-[400px] pointer-events-none">
             <img 
               src={overlayImage.src} 
               alt="Overlay" 
