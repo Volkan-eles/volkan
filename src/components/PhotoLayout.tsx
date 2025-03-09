@@ -69,20 +69,18 @@ const PhotoLayout: React.FC<PhotoLayoutProps> = ({
     const category = getLayoutCategory();
     switch (category) {
       case 'tall-narrow':
-        return 'aspect-[1/3] md:aspect-[600/1800] max-w-[600px] mx-auto';
+        return 'aspect-[1/2.8] md:aspect-[600/1680] max-w-[600px] mx-auto';
       case 'portrait':
-        return 'aspect-[3/4] md:aspect-[1200/1600] max-w-[1200px] mx-auto';
+        return 'aspect-[3/4] md:aspect-[1200/1500] max-w-[1100px] mx-auto';
       case 'wide-horizontal':
-        return 'aspect-[16/10] md:aspect-[16/10] w-full';
+        return 'aspect-[16/9] md:aspect-[16/9] w-full';
       default:
-        return 'aspect-[1/3] md:aspect-[600/1800]';
+        return 'aspect-[1/2.8] md:aspect-[600/1680]';
     }
   };
 
   // Render different layouts based on the layout prop
   const renderLayout = () => {
-    const layoutProps = { photos: getLayoutPhotos(4), backgroundColor };
-    
     switch (layout) {
       case 'diagonal-strips':
         return <DiagonalStripsLayout photos={getLayoutPhotos(3)} backgroundColor={backgroundColor} />;

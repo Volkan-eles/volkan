@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Download, ChevronDown } from 'lucide-react';
@@ -63,29 +64,29 @@ const LayoutSelector: React.FC<LayoutSelectorProps> = ({
       // Mobile sizing - prioritize fitting in the viewport
       switch (category) {
         case 'tall-narrow':
-          return `${baseClasses} h-[500px] max-w-[280px] mx-auto`;
+          return `${baseClasses} h-[450px] max-w-[250px] mx-auto`;
         case 'large-vertical':
-          return `${baseClasses} h-[500px] max-w-[350px] mx-auto`;
+          return `${baseClasses} h-[450px] max-w-[320px] mx-auto`;
         case 'portrait':
-          return `${baseClasses} h-[450px] w-full`;
+          return `${baseClasses} h-[400px] w-full`;
         case 'wide-horizontal':
-          return `${baseClasses} h-[300px] w-full`;
+          return `${baseClasses} h-[280px] w-full`;
         default:
-          return `${baseClasses} h-[450px] w-full`;
+          return `${baseClasses} h-[400px] w-full`;
       }
     } else {
       // Desktop/tablet sizing
       switch (category) {
         case 'tall-narrow':
-          return `${baseClasses} h-[600px] md:h-[650px] lg:h-[700px] max-w-[300px] md:max-w-[320px] lg:max-w-[350px] mx-auto`;
+          return `${baseClasses} h-[520px] md:h-[580px] lg:h-[620px] max-w-[280px] md:max-w-[300px] lg:max-w-[320px] mx-auto`;
         case 'large-vertical':
-          return `${baseClasses} h-[550px] md:h-[600px] lg:h-[650px] max-w-[380px] md:max-w-[400px] lg:max-w-[420px] mx-auto`;
+          return `${baseClasses} h-[500px] md:h-[550px] lg:h-[600px] max-w-[350px] md:max-w-[370px] lg:max-w-[390px] mx-auto`;
         case 'portrait':
-          return `${baseClasses} h-[500px] md:h-[550px] lg:h-[600px] w-full`;
+          return `${baseClasses} h-[450px] md:h-[500px] lg:h-[550px] w-full`;
         case 'wide-horizontal':
-          return `${baseClasses} h-[380px] md:h-[420px] lg:h-[450px] w-full`;
+          return `${baseClasses} h-[350px] md:h-[380px] lg:h-[420px] w-full`;
         default:
-          return `${baseClasses} h-[500px] md:h-[550px] lg:h-[600px] w-full`;
+          return `${baseClasses} h-[450px] md:h-[500px] lg:h-[550px] w-full`;
       }
     }
   };
@@ -145,31 +146,31 @@ const LayoutSelector: React.FC<LayoutSelectorProps> = ({
     }
   };
 
-  // Background color options
+  // Background color options - reduced and more minimal
   const bgColorOptions = [
     { name: 'White', value: 'white' },
-    { name: 'Light Gray', value: 'bg-gray-100' },
-    { name: 'Light Blue', value: 'bg-blue-100' },
-    { name: 'Light Pink', value: 'bg-pink-100' },
-    { name: 'Light Green', value: 'bg-green-100' },
-    { name: 'Light Yellow', value: 'bg-yellow-100' },
+    { name: 'Gray', value: 'bg-gray-100' },
+    { name: 'Blue', value: 'bg-blue-100' },
+    { name: 'Pink', value: 'bg-pink-100' },
+    { name: 'Green', value: 'bg-green-100' },
+    { name: 'Yellow', value: 'bg-yellow-100' },
   ];
 
   return (
-    <div className="w-full flex flex-col gap-4">
-      {/* Layout Selector */}
+    <div className="w-full flex flex-col gap-3">
+      {/* Layout Selector - Dropdown button with smaller padding */}
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button className="bg-[#4b30ab] text-white p-3 rounded-lg flex items-center justify-between w-full">
+          <Button className="bg-[#4b30ab] text-white p-2 rounded-lg flex items-center justify-between w-full text-sm">
             <span>{selectedLayoutOption.name} - {selectedLayoutOption.photos} Photos</span>
-            <ChevronDown size={20} />
+            <ChevronDown size={16} />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="bg-[#1A1A1A] border-[#333] text-white w-[350px]">
+        <DropdownMenuContent className="bg-[#1A1A1A] border-[#333] text-white w-[300px] max-h-[300px] overflow-y-auto">
           {layoutOptions.map((option) => (
             <DropdownMenuItem 
               key={option.id}
-              className="text-white hover:bg-[#4b30ab]/80 cursor-pointer"
+              className="text-white hover:bg-[#4b30ab]/80 cursor-pointer text-sm py-1.5"
               onClick={() => setSelectedLayout(option.id)}
             >
               {option.name} - {option.photos} Photos
@@ -178,20 +179,22 @@ const LayoutSelector: React.FC<LayoutSelectorProps> = ({
         </DropdownMenuContent>
       </DropdownMenu>
       
-      {/* Background Color Selector */}
-      <div className="mb-2">
-        <p className="text-white text-sm mb-2">Background Color</p>
-        <div className="flex flex-wrap gap-2">
-          {bgColorOptions.map((color) => (
-            <button
-              key={color.value}
-              className={`w-8 h-8 rounded-full ${color.value} border-2 ${
-                bgColor === color.value ? 'border-[#4b30ab]' : 'border-transparent'
-              }`}
-              onClick={() => setBgColor(color.value)}
-              title={color.name}
-            />
-          ))}
+      {/* Background Color Selector - More compact */}
+      <div className="mb-1">
+        <div className="flex items-center justify-between">
+          <p className="text-white text-xs">Background:</p>
+          <div className="flex flex-wrap gap-1.5">
+            {bgColorOptions.map((color) => (
+              <button
+                key={color.value}
+                className={`w-6 h-6 rounded-full ${color.value} border ${
+                  bgColor === color.value ? 'border-[#4b30ab]' : 'border-transparent'
+                }`}
+                onClick={() => setBgColor(color.value)}
+                title={color.name}
+              />
+            ))}
+          </div>
         </div>
       </div>
       
@@ -205,13 +208,13 @@ const LayoutSelector: React.FC<LayoutSelectorProps> = ({
         />
       </div>
       
-      {/* Download Button */}
+      {/* Download Button - Smaller padding */}
       <Button 
-        className="w-full bg-[#4b30ab] hover:bg-[#5b40bb] py-6 text-white text-lg font-medium"
+        className="w-full bg-[#4b30ab] hover:bg-[#5b40bb] py-3 text-white text-base font-medium"
         onClick={handleDownload}
         disabled={capturedPhotos.length === 0}
       >
-        <Download className="mr-2 h-5 w-5" />
+        <Download className="mr-1 h-4 w-4" />
         Download
       </Button>
     </div>
