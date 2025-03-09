@@ -114,7 +114,10 @@ const PhotoLayout: React.FC<PhotoLayoutProps> = ({
   };
 
   return (
-    <div className={`h-full w-full flex flex-col ${backgroundColor !== 'white' ? backgroundColor : 'bg-white'} ${getAspectRatioClass()}`}>
+    <div 
+      className={`h-full w-full flex flex-col ${backgroundColor !== 'white' ? backgroundColor : 'bg-white'} ${getAspectRatioClass()}`}
+      style={{ willChange: 'transform', containIntrinsicSize: 'auto' }}
+    >
       {renderLayout()}
     </div>
   );
