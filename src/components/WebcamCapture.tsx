@@ -1,7 +1,7 @@
 
 import React, { useRef, useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Camera } from 'lucide-react';
+import { Camera, FlipHorizontal } from 'lucide-react';
 
 interface WebcamCaptureProps {
   onCapture: (imageSrc: string) => void;
@@ -15,6 +15,7 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
   const [isCameraReady, setIsCameraReady] = useState(false);
   const [cameraError, setCameraError] = useState<string | null>(null);
   const [countdown, setCountdown] = useState<number | null>(null);
+  const [flipped, setFlipped] = useState(true); // Default to flipped (mirrored) for selfie view
   const captureTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
@@ -93,8 +94,18 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
         
-        // Draw the video frame to the canvas
-        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        // Draw the video frame to the canvas with correct orientation
+        context.save();
+        if (!flipped) {
+          // For unflipped capture, just draw normally
+          context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        } else {
+          // For flipped capture (default selfie mode), mirror the image
+          context.translate(canvas.width, 0);
+          context.scale(-1, 1);
+          context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        }
+        context.restore();
         
         // Add overlay if available
         if (overlayImage) {
@@ -120,6 +131,10 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
     }
   };
 
+  const toggleCameraFlip = () => {
+    setFlipped(!flipped);
+  };
+
   return (
     <div className="relative w-full flex flex-col items-center justify-center">
       {cameraError && (
@@ -135,8 +150,18 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
           playsInline
           muted
           className="w-full rounded-lg shadow-sm animate-fade-in"
-          style={{ transform: 'scaleX(-1)' }} // Mirror effect
+          style={{ transform: flipped ? 'scaleX(-1)' : 'none' }} // Apply mirroring based on state
         />
+        
+        {/* Camera orientation control */}
+        <Button 
+          variant="outline" 
+          size="icon" 
+          className="absolute top-2 right-2 bg-white/80 hover:bg-white/90 z-10"
+          onClick={toggleCameraFlip}
+        >
+          <FlipHorizontal className="h-4 w-4" />
+        </Button>
         
         {/* Live overlay preview */}
         {overlayImage && (
