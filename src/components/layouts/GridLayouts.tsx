@@ -4,7 +4,7 @@ import { MoreHorizontal } from 'lucide-react';
 import { LayoutProps } from './index';
 
 // Grid Layout (4 Photos)
-export const GridLayout: React.FC<LayoutProps> = ({ photos, backgroundColor = 'white', overlayImage = null }) => (
+export const GridLayout: React.FC<LayoutProps> = ({ photos, backgroundColor = 'white' }) => (
   <div className={`flex-1 p-3 ${backgroundColor !== 'white' ? backgroundColor : ''}`}>
     <div className="grid grid-cols-2 grid-rows-2 h-full gap-3">
       {photos.map((photo, index) => (
@@ -30,7 +30,7 @@ export const GridLayout: React.FC<LayoutProps> = ({ photos, backgroundColor = 'w
 );
 
 // Simple Grid Layout (4 Photos)
-export const SimpleGridLayout: React.FC<LayoutProps> = ({ photos, backgroundColor = 'white', overlayImage = null }) => (
+export const SimpleGridLayout: React.FC<LayoutProps> = ({ photos, backgroundColor = 'white' }) => (
   <div className={`flex-1 p-3 ${backgroundColor !== 'white' ? backgroundColor : ''}`}>
     <div className="grid grid-cols-2 grid-rows-2 h-full gap-2 relative">
       {photos.map((photo, index) => (
@@ -56,7 +56,7 @@ export const SimpleGridLayout: React.FC<LayoutProps> = ({ photos, backgroundColo
 );
 
 // Classic Grid Layout (4 Photos)
-export const ClassicGridLayout: React.FC<LayoutProps> = ({ photos, backgroundColor = 'white', overlayImage = null }) => (
+export const ClassicGridLayout: React.FC<LayoutProps> = ({ photos, backgroundColor = 'white' }) => (
   <div className={`flex-1 p-4 relative ${backgroundColor !== 'white' ? backgroundColor : ''}`}>
     <div className="grid grid-cols-2 grid-rows-2 h-full gap-4">
       {photos.map((photo, index) => (

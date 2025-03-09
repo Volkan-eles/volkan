@@ -1,12 +1,15 @@
 
 import React from 'react';
 import { MoreHorizontal } from 'lucide-react';
-import { LayoutProps } from './index';
+
+interface LayoutProps {
+  photos: string[];
+  backgroundColor?: string;
+}
 
 const DiagonalStripsLayout: React.FC<LayoutProps> = ({ 
   photos, 
-  backgroundColor = 'white',
-  overlayImage = null
+  backgroundColor = 'white' 
 }) => (
   <div className={`flex-1 flex flex-col p-3 gap-3 ${backgroundColor !== 'white' ? backgroundColor : ''}`}>
     {/* First photo - top right */}
