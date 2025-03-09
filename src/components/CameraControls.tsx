@@ -1,8 +1,10 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import WebcamCapture from '@/components/WebcamCapture';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import StickersGrid from '@/components/StickersGrid';
+import { HexColorPicker } from 'react-colorful';
 
 interface CameraControlsProps {
   onPhotoCaptured: (photoSrc: string) => void;
@@ -25,9 +27,55 @@ const CameraControls: React.FC<CameraControlsProps> = ({
   setActiveTab,
   overlayImageRef
 }) => {
+  const [selectedSticker, setSelectedSticker] = useState<string | null>(null);
+
   const handleCapture = () => {
     setIsCapturing(true);
   };
+
+  const handleSelectSticker = (sticker: {id: string; name: string; src: string}) => {
+    setSelectedSticker(sticker.id);
+    
+    // Create new image object for the overlay
+    const img = new Image();
+    img.src = sticker.src;
+    img.onload = () => {
+      // Update the ref through a function to avoid the read-only error
+      if (overlayImageRef) {
+        (overlayImageRef as any).current = img;
+      }
+    };
+  };
+
+  // Frame color selection component for the frame-color tab
+  const FrameColorSelector = () => (
+    <div className="mt-2 p-2">
+      <HexColorPicker color={frameColor} onChange={onFrameColorChange} className="w-full max-w-[200px] mx-auto" />
+      <div className="grid grid-cols-4 gap-2 mt-3">
+        {['#FFFFFF', '#000000', '#4b30ab', '#FF6B6B'].map(color => (
+          <div 
+            key={color}
+            onClick={() => onFrameColorChange(color)}
+            className={`w-full aspect-square rounded-md cursor-pointer border-2 ${frameColor === color ? 'border-white' : 'border-transparent'}`}
+            style={{ backgroundColor: color }}
+          />
+        ))}
+      </div>
+    </div>
+  );
+
+  // Idol selection for the idol tab
+  const IdolSelector = () => (
+    <div className="mt-2 text-center text-sm text-gray-400">
+      <p>Choose your favorite K-pop idol</p>
+      <div className="grid grid-cols-3 gap-2 mt-2">
+        {/* More idols can be added here */}
+        <div className="p-2 border border-[#333] rounded-md text-center hover:bg-[#333] transition-colors cursor-pointer">
+          <span>Coming soon</span>
+        </div>
+      </div>
+    </div>
+  );
 
   return (
     <div className="flex flex-col gap-2">
@@ -71,12 +119,10 @@ const CameraControls: React.FC<CameraControlsProps> = ({
           </TabsList>
         </Tabs>
         
-        {/* Stickers Grid */}
-        <div className="mt-2 grid grid-cols-4 gap-1">
-          {Array.from({length: 8}).map((_, index) => (
-            <div key={index} className="aspect-square border border-[#333] rounded-md"></div>
-          ))}
-        </div>
+        {/* Tab Content */}
+        {activeTab === 'frame-color' && <FrameColorSelector />}
+        {activeTab === 'stickers' && <StickersGrid onSelectSticker={handleSelectSticker} selectedSticker={selectedSticker} />}
+        {activeTab === 'idol' && <IdolSelector />}
       </div>
     </div>
   );
