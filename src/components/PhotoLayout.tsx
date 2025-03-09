@@ -1,7 +1,7 @@
 
 import React from 'react';
-import { ClassicStripLayout, VerticalStripLayout, ElegantStripLayout, LargeVerticalLayout } from './layouts/StripLayouts';
-import { DiagonalStripsLayout } from './layouts/DiagonalStripsLayout';
+import ClassicStripLayout, { VerticalStripLayout, ElegantStripLayout, LargeVerticalLayout } from './layouts/StripLayouts';
+import DiagonalStripsLayout from './layouts/DiagonalStripsLayout';
 import { BigSmallLayout, CreativeOverlapLayout, FullFrameLayout } from './layouts/CreativeLayouts';
 import { SimpleGridLayout, ClassicGridLayout, GridLayout } from './layouts/GridLayouts';
 import { VerticalDuoLayout, HorizontalDuoLayout } from './layouts/DuoLayouts';
@@ -32,42 +32,6 @@ const PhotoLayout: React.FC<PhotoLayoutProps> = ({ layout, photos, frameColor, o
       </div>
     );
   }
-
-  // Process photos with overlay if needed
-  const processedPhotos = photos.map((photoSrc) => {
-    if (!overlayImage) return photoSrc;
-    
-    // Create canvas to combine photo with overlay
-    const canvas = document.createElement('canvas');
-    const img = new Image();
-    img.src = photoSrc;
-    
-    // Use onload to ensure the image is loaded before drawing
-    return new Promise<string>((resolve) => {
-      img.onload = () => {
-        canvas.width = img.width;
-        canvas.height = img.height;
-        const ctx = canvas.getContext('2d');
-        if (!ctx) {
-          resolve(photoSrc);
-          return;
-        }
-        
-        // Draw the base photo
-        ctx.drawImage(img, 0, 0);
-        
-        // Draw the overlay
-        const overlayWidth = canvas.width * 0.5;
-        const overlayHeight = overlayImage.height * (overlayWidth / overlayImage.width);
-        const x = canvas.width - overlayWidth - 10;
-        const y = canvas.height - overlayHeight - 10;
-        
-        ctx.drawImage(overlayImage, x, y, overlayWidth, overlayHeight);
-        
-        resolve(canvas.toDataURL('image/png'));
-      };
-    });
-  });
 
   // Render appropriate layout based on selection
   switch (layout) {

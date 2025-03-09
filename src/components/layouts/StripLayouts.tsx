@@ -10,7 +10,7 @@ const processPhoto = (photo: string, overlayImage: HTMLImageElement | null): str
 };
 
 // Classic Strip Layout (4 Photos)
-export const ClassicStripLayout: React.FC<LayoutProps> = ({ photos, backgroundColor = 'white', overlayImage }) => (
+export const ClassicStripLayout: React.FC<LayoutProps> = ({ photos, backgroundColor = 'white', overlayImage = null }) => (
   <div className={`flex-1 flex flex-col p-3 gap-3 ${backgroundColor !== 'bg-white' ? backgroundColor : ''}`}>
     {photos.map((photo, index) => (
       <div key={index} className="relative h-1/4">
@@ -38,7 +38,7 @@ export const ClassicStripLayout: React.FC<LayoutProps> = ({ photos, backgroundCo
 );
 
 // Vertical Strip Layout (4 Photos)
-export const VerticalStripLayout: React.FC<LayoutProps> = ({ photos, backgroundColor = 'white', overlayImage }) => (
+export const VerticalStripLayout: React.FC<LayoutProps> = ({ photos, backgroundColor = 'white', overlayImage = null }) => (
   <div className={`flex-1 p-3 ${backgroundColor !== 'bg-white' ? backgroundColor : ''}`}>
     <div className="h-full flex flex-col gap-3">
       {photos.map((photo, index) => (
@@ -68,7 +68,7 @@ export const VerticalStripLayout: React.FC<LayoutProps> = ({ photos, backgroundC
 );
 
 // Elegant Strip Layout (4 Photos)
-export const ElegantStripLayout: React.FC<LayoutProps> = ({ photos, backgroundColor = 'white', overlayImage }) => (
+export const ElegantStripLayout: React.FC<LayoutProps> = ({ photos, backgroundColor = 'white', overlayImage = null }) => (
   <div className={`flex-1 flex flex-col p-5 gap-4 ${backgroundColor !== 'bg-white' ? backgroundColor : ''}`}>
     {/* Photo 1, 2, 3 */}
     {photos.slice(0, 3).map((photo, index) => (
@@ -98,7 +98,7 @@ export const ElegantStripLayout: React.FC<LayoutProps> = ({ photos, backgroundCo
 );
 
 // Large Vertical Layout (2 Photos)
-export const LargeVerticalLayout: React.FC<LayoutProps> = ({ photos, backgroundColor = 'white', overlayImage }) => (
+export const LargeVerticalLayout: React.FC<LayoutProps> = ({ photos, backgroundColor = 'white', overlayImage = null }) => (
   <div className={`flex-1 p-3 ${backgroundColor !== 'bg-white' ? backgroundColor : ''}`}>
     <div className="h-full flex flex-col gap-3">
       {photos.map((photo, index) => (
@@ -126,3 +126,5 @@ export const LargeVerticalLayout: React.FC<LayoutProps> = ({ photos, backgroundC
     </div>
   </div>
 );
+
+export default ClassicStripLayout;

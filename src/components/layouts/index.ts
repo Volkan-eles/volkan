@@ -9,6 +9,7 @@ import { CreativeOverlapLayout, FullFrameLayout } from './CreativeLayouts';
 export interface LayoutProps {
   photos: string[];
   backgroundColor?: string;
+  overlayImage?: HTMLImageElement | null;
 }
 
 export {
