@@ -24,15 +24,41 @@ export const combineImages = (
   // Draw the base image
   ctx.drawImage(baseImage, 0, 0, canvas.width, canvas.height);
   
+  // Apply subtle image enhancement
+  ctx.globalCompositeOperation = 'overlay';
+  ctx.globalAlpha = 0.1;
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.globalAlpha = 1.0;
+  ctx.globalCompositeOperation = 'source-over';
+  
   // If overlay exists, draw it on top
   if (overlayImage) {
     // Calculate position to center the overlay
-    const overlayWidth = canvas.width;
-    const overlayHeight = overlayImage.height * (canvas.width / overlayImage.width);
-    const y = canvas.height - overlayHeight;
+    const scaleRatio = Math.min(
+      canvas.width / overlayImage.width,
+      canvas.height / overlayImage.height
+    ) * 0.95; // Scale up overlay
+    
+    const overlayWidth = overlayImage.width * scaleRatio;
+    const overlayHeight = overlayImage.height * scaleRatio;
+    const x = canvas.width - overlayWidth - 10;
+    const y = canvas.height - overlayHeight - 10;
+    
+    // Add subtle shadow behind overlay
+    ctx.shadowColor = 'rgba(0,0,0,0.5)';
+    ctx.shadowBlur = 15;
+    ctx.shadowOffsetX = 2;
+    ctx.shadowOffsetY = 2;
     
     // Draw the overlay
-    ctx.drawImage(overlayImage, 0, y, overlayWidth, overlayHeight);
+    ctx.drawImage(overlayImage, x, y, overlayWidth, overlayHeight);
+    
+    // Reset shadow
+    ctx.shadowColor = 'transparent';
+    ctx.shadowBlur = 0;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 0;
   }
   
   return canvas;
@@ -55,10 +81,10 @@ export const createPhotoStrip = (
   
   if (photos.length === 0) return canvas;
   
-  // Set the dimensions of the photo strip
-  const photoWidth = photos[0].width;
-  const photoHeight = photos[0].height;
-  const padding = 10;
+  // Set the dimensions of the photo strip with higher resolution
+  const photoWidth = 800; // Higher resolution
+  const photoHeight = 600; // Higher resolution
+  const padding = 20;
   
   canvas.width = photoWidth + (padding * 2);
   canvas.height = (photoHeight * photos.length) + (padding * (photos.length + 1));
@@ -67,16 +93,48 @@ export const createPhotoStrip = (
   let bgColor = '#FFFFFF';
   if (frameStyle === 'black') bgColor = '#333333';
   if (frameStyle === 'red') bgColor = '#b32424';
+  if (frameStyle === 'blue') bgColor = '#3b82f6';
+  if (frameStyle === 'pink') bgColor = '#ec4899';
+  if (frameStyle === 'yellow') bgColor = '#fde047';
   
   // Fill the background
   ctx.fillStyle = bgColor;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   
-  // Draw each photo
+  // Draw each photo with enhanced quality
   photos.forEach((photo, index) => {
     const y = padding + (index * (photoHeight + padding));
+    
+    // Add shadow effect for depth
+    ctx.shadowColor = 'rgba(0,0,0,0.3)';
+    ctx.shadowBlur = 10;
+    ctx.shadowOffsetX = 3;
+    ctx.shadowOffsetY = 3;
+    
     ctx.drawImage(photo, padding, y, photoWidth, photoHeight);
+    
+    // Reset shadow
+    ctx.shadowColor = 'transparent';
+    ctx.shadowBlur = 0;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 0;
+    
+    // Add border
+    ctx.strokeStyle = frameStyle === 'white' || frameStyle === 'yellow' ? '#333' : '#fff';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(padding, y, photoWidth, photoHeight);
   });
+  
+  // Add frame border
+  ctx.strokeStyle = frameStyle === 'white' || frameStyle === 'yellow' ? '#333' : '#fff';
+  ctx.lineWidth = 3;
+  ctx.strokeRect(4, 4, canvas.width - 8, canvas.height - 8);
+  
+  // Add signature
+  ctx.font = 'bold 24px sans-serif';
+  ctx.fillStyle = frameStyle === 'white' || frameStyle === 'yellow' ? '#333' : '#fff';
+  ctx.textAlign = 'center';
+  ctx.fillText('K-pop Frame', canvas.width / 2, canvas.height - 15);
   
   return canvas;
 };
@@ -92,7 +150,7 @@ export const canvasToBlob = (canvas: HTMLCanvasElement): Promise<Blob> => {
       } else {
         reject(new Error('Canvas to Blob conversion failed'));
       }
-    }, 'image/png');
+    }, 'image/png', 0.95); // Higher quality PNG
   });
 };
 

@@ -23,7 +23,11 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
     const setupCamera = async () => {
       try {
         stream = await navigator.mediaDevices.getUserMedia({
-          video: { facingMode: 'user', width: { ideal: 640 }, height: { ideal: 480 } },
+          video: { 
+            facingMode: 'user',
+            width: { ideal: 1280 }, // Increased resolution for better quality
+            height: { ideal: 720 } 
+          },
           audio: false,
         });
         
@@ -90,24 +94,37 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
         
+        // Draw video frame (correcting for mirroring)
+        context.save();
+        context.translate(canvas.width, 0);
+        context.scale(-1, 1);
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        context.restore();
         
         if (overlayImage) {
           const scaleRatio = Math.min(
             canvas.width / overlayImage.width,
             canvas.height / overlayImage.height
-          ) * 0.9; // Increased scale factor from 0.8 to 0.9
+          ) * 0.95; // Increased scale factor for larger overlay
           
           const overlayWidth = overlayImage.width * scaleRatio;
           const overlayHeight = overlayImage.height * scaleRatio;
           
-          const x = canvas.width - overlayWidth - 10; // Decreased padding from 20 to 10
-          const y = canvas.height - overlayHeight - 10; // Decreased padding from 20 to 10
+          // Position overlay in bottom right with small padding
+          const x = canvas.width - overlayWidth - 10;
+          const y = canvas.height - overlayHeight - 10;
           
           context.drawImage(overlayImage, x, y, overlayWidth, overlayHeight);
         }
         
-        const imageSrc = canvas.toDataURL('image/png');
+        // Apply some basic image enhancement
+        context.globalCompositeOperation = 'source-over';
+        context.globalAlpha = 0.1;
+        context.fillStyle = '#ffffff';
+        context.fillRect(0, 0, canvas.width, canvas.height);
+        context.globalAlpha = 1.0;
+        
+        const imageSrc = canvas.toDataURL('image/png', 0.9); // Higher quality image
         onCapture(imageSrc);
       }
     }
@@ -128,7 +145,7 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
           playsInline
           muted
           className="w-full rounded-lg shadow-sm animate-fade-in"
-          style={{ transform: 'scaleX(-1)' }}
+          style={{ transform: 'scaleX(-1)' }} // Mirror horizontally for selfie mode
         />
         
         {overlayImage && (
