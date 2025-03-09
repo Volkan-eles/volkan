@@ -20,10 +20,10 @@ const PhotoStrip: React.FC<PhotoStripProps> = ({ photos, frameStyle }) => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Set dimensions for the photo strip - using 3:4 aspect ratio
-    const photoWidth = 600;  // Slightly narrower
-    const photoHeight = 800; // Taller for portrait orientation (3:4 ratio)
-    const padding = 20;
+    // Set dimensions for the photo strip
+    const photoWidth = 400;
+    const photoHeight = 300;
+    const padding = 10;
     
     canvas.width = photoWidth + (padding * 2);
     canvas.height = (photoHeight * photos.length) + (padding * (photos.length + 1));
@@ -43,10 +43,10 @@ const PhotoStrip: React.FC<PhotoStripProps> = ({ photos, frameStyle }) => {
     // Add a decorative pattern based on frame style
     if (frameStyle === 'pink' || frameStyle === 'yellow') {
       ctx.fillStyle = frameStyle === 'pink' ? '#fecdd3' : '#fef3c7';
-      for (let i = 0; i < 20; i++) { // More decoration elements
+      for (let i = 0; i < 10; i++) {
         const x = Math.random() * canvas.width;
         const y = Math.random() * canvas.height;
-        const size = 10 + Math.random() * 20; // Larger decorations
+        const size = 5 + Math.random() * 15;
         
         ctx.beginPath();
         ctx.arc(x, y, size, 0, Math.PI * 2);
@@ -54,7 +54,7 @@ const PhotoStrip: React.FC<PhotoStripProps> = ({ photos, frameStyle }) => {
       }
     }
     
-    // Load and draw each photo with improved quality
+    // Load and draw each photo
     const loadAndDrawPhotos = async () => {
       for (let i = 0; i < photos.length; i++) {
         const img = new Image();
@@ -62,21 +62,7 @@ const PhotoStrip: React.FC<PhotoStripProps> = ({ photos, frameStyle }) => {
         await new Promise<void>((resolve) => {
           img.onload = () => {
             const y = padding + (i * (photoHeight + padding));
-            
-            // Apply a subtle border effect
-            ctx.save();
-            ctx.shadowColor = 'rgba(0,0,0,0.2)';
-            ctx.shadowBlur = 12;
-            ctx.shadowOffsetX = 3;
-            ctx.shadowOffsetY = 3;
             ctx.drawImage(img, padding, y, photoWidth, photoHeight);
-            ctx.restore();
-            
-            // Add a thin border around each photo
-            ctx.strokeStyle = frameStyle === 'white' ? '#ddd' : '#000';
-            ctx.lineWidth = 2;
-            ctx.strokeRect(padding, y, photoWidth, photoHeight);
-            
             resolve();
           };
         });
@@ -85,19 +71,15 @@ const PhotoStrip: React.FC<PhotoStripProps> = ({ photos, frameStyle }) => {
       // Add frame decoration if needed
       if (frameStyle === 'white' || frameStyle === 'yellow') {
         ctx.strokeStyle = '#333';
-        ctx.lineWidth = 3;
-        ctx.strokeRect(4, 4, canvas.width - 8, canvas.height - 8);
+        ctx.lineWidth = 2;
+        ctx.strokeRect(3, 3, canvas.width - 6, canvas.height - 6);
       }
       
       // Add signature/branding to the photo strip
-      ctx.font = 'bold 24px sans-serif'; // Larger, bolder text
+      ctx.font = '14px sans-serif';
       ctx.fillStyle = frameStyle === 'white' || frameStyle === 'yellow' ? '#333' : '#fff';
       ctx.textAlign = 'center';
-      ctx.fillText('K-pop Frame', canvas.width / 2, canvas.height - 15);
-      
-      // Add date stamp
-      ctx.font = '16px sans-serif';
-      ctx.fillText(new Date().toLocaleDateString(), canvas.width / 2, canvas.height - 40);
+      ctx.fillText('K-pop Frame', canvas.width / 2, canvas.height - 6);
     };
     
     loadAndDrawPhotos();

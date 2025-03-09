@@ -23,12 +23,7 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
     const setupCamera = async () => {
       try {
         stream = await navigator.mediaDevices.getUserMedia({
-          video: { 
-            facingMode: 'user',
-            width: { ideal: 720 }, // Reduced width for better composition
-            height: { ideal: 720 }, // Higher height-to-width ratio
-            aspectRatio: { ideal: 3/4 } // Portrait-oriented aspect ratio
-          },
+          video: { facingMode: 'user', width: { ideal: 640 }, height: { ideal: 480 } },
           audio: false,
         });
         
@@ -46,6 +41,7 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
 
     setupCamera();
 
+    // Cleanup function
     return () => {
       if (stream) {
         stream.getTracks().forEach(track => track.stop());
@@ -74,6 +70,7 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
             captureTimerRef.current = null;
           }
           
+          // Use setTimeout to ensure state is updated before capturing
           setTimeout(() => {
             capturePhoto();
           }, 0);
@@ -92,52 +89,32 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
       const context = canvas.getContext('2d');
       
       if (context) {
-        // Use a 3:4 aspect ratio for the canvas (portrait orientation)
-        const aspectRatio = 3/4;
-        const captureWidth = video.videoWidth;
-        const captureHeight = video.videoWidth * aspectRatio;
+        // Match canvas size to video dimensions
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
         
-        canvas.width = captureWidth;
-        canvas.height = captureHeight;
+        // Draw the video frame to the canvas
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
         
-        // Draw video frame (correcting for mirroring)
-        context.save();
-        context.translate(canvas.width, 0);
-        context.scale(-1, 1);
-        
-        // Draw the video centered vertically if needed
-        const sourceY = Math.max(0, (video.videoHeight - captureHeight) / 2);
-        context.drawImage(
-          video, 
-          0, sourceY, video.videoWidth, captureHeight, // Source rectangle
-          0, 0, canvas.width, canvas.height // Destination rectangle
-        );
-        context.restore();
-        
+        // Add overlay if available
         if (overlayImage) {
           const scaleRatio = Math.min(
             canvas.width / overlayImage.width,
             canvas.height / overlayImage.height
-          ) * 0.95; // Scale factor for overlay
+          ) * 0.8; // Scale to 80% of the possible size
           
           const overlayWidth = overlayImage.width * scaleRatio;
           const overlayHeight = overlayImage.height * scaleRatio;
           
-          // Position overlay in bottom right with small padding
-          const x = canvas.width - overlayWidth - 10;
-          const y = canvas.height - overlayHeight - 10;
+          // Position the overlay in a good position - bottom right by default
+          const x = canvas.width - overlayWidth - 20;
+          const y = canvas.height - overlayHeight - 20;
           
           context.drawImage(overlayImage, x, y, overlayWidth, overlayHeight);
         }
         
-        // Apply some basic image enhancement
-        context.globalCompositeOperation = 'source-over';
-        context.globalAlpha = 0.1;
-        context.fillStyle = '#ffffff';
-        context.fillRect(0, 0, canvas.width, canvas.height);
-        context.globalAlpha = 1.0;
-        
-        const imageSrc = canvas.toDataURL('image/png', 0.9); // Higher quality image
+        // Convert to data URL and send back
+        const imageSrc = canvas.toDataURL('image/png');
         onCapture(imageSrc);
       }
     }
@@ -152,35 +129,33 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
       )}
       
       <div className={`relative w-full ${cameraError ? 'hidden' : 'block'}`}>
-        <div className="mx-auto max-w-[400px] aspect-[3/4] overflow-hidden rounded-lg shadow-sm">
-          <video
-            ref={videoRef}
-            autoPlay
-            playsInline
-            muted
-            className="w-full h-full object-cover rounded-lg shadow-sm animate-fade-in"
-            style={{ transform: 'scaleX(-1)' }} // Mirror horizontally for selfie mode
-          />
-          
-          {overlayImage && (
-            <div className="absolute right-2 bottom-2 w-3/4 max-w-[400px] pointer-events-none">
-              <img 
-                src={overlayImage.src} 
-                alt="Overlay" 
-                className="w-full h-auto object-contain animate-fade-in"
-                style={{ filter: 'drop-shadow(0 0 8px rgba(255,255,255,0.5))' }}
-              />
-            </div>
-          )}
-          
-          {countdown !== null && (
-            <div className="absolute inset-0 flex items-center justify-center bg-black/40 rounded-lg">
-              <span className="text-7xl font-bold text-white animate-pulse-gentle">
-                {countdown}
-              </span>
-            </div>
-          )}
-        </div>
+        <video
+          ref={videoRef}
+          autoPlay
+          playsInline
+          muted
+          className="w-full rounded-lg shadow-sm animate-fade-in"
+          style={{ transform: 'scaleX(-1)' }} // Mirror effect
+        />
+        
+        {/* Live overlay preview */}
+        {overlayImage && (
+          <div className="absolute right-4 bottom-4 w-1/3 pointer-events-none opacity-80">
+            <img 
+              src={overlayImage.src} 
+              alt="Overlay" 
+              className="w-full h-auto object-contain"
+            />
+          </div>
+        )}
+        
+        {countdown !== null && (
+          <div className="absolute inset-0 flex items-center justify-center bg-black/40 rounded-lg">
+            <span className="text-7xl font-bold text-white animate-pulse-gentle">
+              {countdown}
+            </span>
+          </div>
+        )}
         
         <canvas ref={canvasRef} className="hidden" />
       </div>
