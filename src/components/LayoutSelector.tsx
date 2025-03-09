@@ -1,3 +1,4 @@
+
 import React, { useState, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Download, ChevronDown } from 'lucide-react';
@@ -9,7 +10,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import PhotoLayout from '@/components/PhotoLayout';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { downloadImage } from '@/utils/imageProcessing';
 import { toast } from 'sonner';
 import html2canvas from 'html2canvas';
 
@@ -83,16 +83,20 @@ const LayoutSelector: React.FC<LayoutSelectorProps> = ({
   };
 
   const handleDownload = async () => {
-    if (!layoutRef.current || capturedPhotos.length === 0) {
-      toast.error("No photos to download");
+    if (!layoutRef.current) {
+      toast.error("Layout component not found");
       return;
     }
 
     try {
+      toast.loading("Preparing download...");
+      
       const canvas = await html2canvas(layoutRef.current, {
         backgroundColor: bgColor === 'white' ? '#ffffff' : null,
         useCORS: true,
-        scale: 2,
+        scale: 2, // Higher quality
+        logging: false, // Reduce console noise
+        allowTaint: true,
       });
       
       const dataUrl = canvas.toDataURL('image/png');
@@ -103,13 +107,16 @@ const LayoutSelector: React.FC<LayoutSelectorProps> = ({
       link.click();
       document.body.removeChild(link);
       
+      toast.dismiss();
       toast.success("Layout downloaded successfully!");
     } catch (error) {
       console.error("Download error:", error);
+      toast.dismiss();
       toast.error("Failed to download layout");
     }
   };
 
+  // Simplified background color options
   const bgColorOptions = [
     { name: 'White', value: 'white' },
     { name: 'Gray', value: 'bg-gray-50' },
@@ -118,40 +125,42 @@ const LayoutSelector: React.FC<LayoutSelectorProps> = ({
   ];
 
   return (
-    <div className="w-full flex flex-col gap-2">
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button className="bg-[#4b30ab] text-white p-1.5 rounded-md flex items-center justify-between w-full text-xs">
-            <span>{selectedLayoutOption.name}</span>
-            <ChevronDown size={14} />
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent className="bg-[#1A1A1A] border-[#333] text-white w-[250px] max-h-[280px] overflow-y-auto">
-          {layoutOptions.map((option) => (
-            <DropdownMenuItem 
-              key={option.id}
-              className="text-white hover:bg-[#4b30ab]/80 cursor-pointer text-xs py-1"
-              onClick={() => setSelectedLayout(option.id)}
-            >
-              {option.name} - {option.photos} Photos
-            </DropdownMenuItem>
-          ))}
-        </DropdownMenuContent>
-      </DropdownMenu>
-      
-      <div className="flex items-center justify-between">
-        <p className="text-white text-xs">BG:</p>
-        <div className="flex gap-1">
-          {bgColorOptions.map((color) => (
-            <button
-              key={color.value}
-              className={`w-5 h-5 rounded-sm ${color.value} ${
-                bgColor === color.value ? 'ring-1 ring-[#4b30ab]' : ''
-              }`}
-              onClick={() => setBgColor(color.value)}
-              title={color.name}
-            />
-          ))}
+    <div className="w-full flex flex-col gap-1.5">
+      <div className="flex items-center gap-1.5">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline" className="bg-[#4b30ab] text-white p-1 rounded-md flex items-center justify-between w-full text-xs h-8">
+              <span className="truncate">{selectedLayoutOption.name}</span>
+              <ChevronDown size={12} />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="bg-[#1A1A1A] border-[#333] text-white w-[230px] max-h-[240px] overflow-y-auto">
+            {layoutOptions.map((option) => (
+              <DropdownMenuItem 
+                key={option.id}
+                className="text-white hover:bg-[#4b30ab]/80 cursor-pointer text-xs py-1"
+                onClick={() => setSelectedLayout(option.id)}
+              >
+                {option.name} - {option.photos} Photos
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
+        
+        <div className="flex items-center gap-1 bg-black/10 rounded-md p-1 h-8">
+          <span className="text-white text-xs ml-1">BG:</span>
+          <div className="flex gap-1">
+            {bgColorOptions.map((color) => (
+              <button
+                key={color.value}
+                className={`w-4 h-4 rounded-sm ${color.value} ${
+                  bgColor === color.value ? 'ring-1 ring-[#4b30ab]' : ''
+                }`}
+                onClick={() => setBgColor(color.value)}
+                title={color.name}
+              />
+            ))}
+          </div>
         </div>
       </div>
       
@@ -165,11 +174,10 @@ const LayoutSelector: React.FC<LayoutSelectorProps> = ({
       </div>
       
       <Button 
-        className="w-full bg-[#4b30ab] hover:bg-[#5b40bb] py-2 text-white text-sm font-medium"
+        className="w-full bg-[#4b30ab] hover:bg-[#5b40bb] text-white text-xs font-medium h-8 mt-1"
         onClick={handleDownload}
-        disabled={capturedPhotos.length === 0}
       >
-        <Download className="mr-1 h-3.5 w-3.5" />
+        <Download className="mr-1 h-3 w-3" />
         Download
       </Button>
     </div>
