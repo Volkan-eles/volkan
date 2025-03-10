@@ -74,11 +74,11 @@ const PhotoLayout: React.FC<PhotoLayoutProps> = ({
     const category = getLayoutCategory();
     switch (category) {
       case 'tall-narrow':
-        return 'aspect-[1/2.3] md:aspect-[600/1380] max-w-[450px] mx-auto';
+        return 'aspect-[1/2.3] md:aspect-[600/1380] max-w-[400px] mx-auto';
       case 'portrait':
-        return 'aspect-[3/4] md:aspect-[900/1200] max-w-[800px] mx-auto';
+        return 'aspect-[3/4] md:aspect-[900/1200] max-w-[700px] mx-auto';
       case 'wide-horizontal':
-        return 'aspect-[16/9] md:aspect-[16/9] w-full max-w-[800px] mx-auto';
+        return 'aspect-[16/9] md:aspect-[16/9] w-full max-w-[700px] mx-auto';
       default:
         return 'aspect-[1/2.3] md:aspect-[600/1380]';
     }
