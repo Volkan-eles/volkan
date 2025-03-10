@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/sidebar';
 import { ChevronLeft, ChevronRight, Download, Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import SidebarMenuItems from './SidebarMenuItems';
+import SidebarMenuItems from './sidebar/SidebarMenuItems';
 
 const DashboardSidebar = () => {
   const { state, toggleSidebar } = useSidebar();
