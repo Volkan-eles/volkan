@@ -3,16 +3,11 @@ import React, { useState } from 'react';
 import { 
   SidebarMenu,
   SidebarMenuItem,
-  SidebarMenuButton,
   useSidebar
 } from '@/components/ui/sidebar';
-import { 
-  ChevronDown,
-  ChevronRight,
-} from 'lucide-react';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import SidebarPanel from './SidebarPanel';
 import { menuItems } from './MenuItemDefinition';
+import SidebarMenuItemComponent from './SidebarMenuItem';
 
 const SidebarMenuItems: React.FC = () => {
   const { state } = useSidebar();
@@ -45,44 +40,11 @@ const SidebarMenuItems: React.FC = () => {
       <SidebarMenu>
         {menuItems.map((item) => (
           <SidebarMenuItem key={item.label}>
-            {isCollapsed ? (
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <SidebarMenuButton 
-                      onClick={() => handlePanelToggle(item.panelType)}
-                      className={`flex items-center justify-center py-1.5 ${
-                        item.isActive || activePanel === item.panelType
-                          ? 'text-white bg-[#4b30ab] hover:bg-[#5b40bb]' 
-                          : 'text-gray-300 hover:bg-[#2A2A2A]'
-                      }`}
-                    >
-                      <item.icon size={16} />
-                    </SidebarMenuButton>
-                  </TooltipTrigger>
-                  <TooltipContent side="right">
-                    {item.label}
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            ) : (
-              <SidebarMenuButton 
-                onClick={() => handlePanelToggle(item.panelType)}
-                className={`flex items-center justify-between w-full py-1.5 ${
-                  item.isActive || activePanel === item.panelType
-                    ? 'text-white bg-[#4b30ab] hover:bg-[#5b40bb]' 
-                    : 'text-gray-300 hover:bg-[#2A2A2A]'
-                }`}
-              >
-                <div className="flex items-center gap-2">
-                  <item.icon size={16} />
-                  <span className="text-sm">{item.label}</span>
-                </div>
-                {item.panelType && (
-                  activePanel === item.panelType ? <ChevronDown size={14} /> : <ChevronRight size={14} />
-                )}
-              </SidebarMenuButton>
-            )}
+            <SidebarMenuItemComponent 
+              item={item} 
+              activePanel={activePanel} 
+              onPanelToggle={handlePanelToggle} 
+            />
           </SidebarMenuItem>
         ))}
       </SidebarMenu>
