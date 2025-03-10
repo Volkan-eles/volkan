@@ -109,19 +109,17 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
         
         // Add overlay if available
         if (overlayImage) {
-          // Increased scale factor from 1.0 to 1.5 for larger overlays in the final capture
           const scaleRatio = Math.min(
             canvas.width / overlayImage.width,
             canvas.height / overlayImage.height
-          ) * 1.5; // Increased from 1.0 to 1.5 for larger overlay
+          ) * 1.0; // Increased from 0.8 to 1.0 (100% of the possible size)
           
           const overlayWidth = overlayImage.width * scaleRatio;
           const overlayHeight = overlayImage.height * scaleRatio;
           
-          // Adjusted positioning to center the overlay better
-          // Moving slightly to the right and lower to match the example image
-          const x = canvas.width - overlayWidth - (canvas.width * 0.05); // Position closer to the right edge
-          const y = canvas.height - overlayHeight - (canvas.height * 0.05); // Position closer to the bottom
+          // Position the overlay higher and to the right - adjusted for better placement
+          const x = canvas.width - overlayWidth - 10;
+          const y = canvas.height - overlayHeight; // Moved to bottom edge for the strip
           
           context.drawImage(overlayImage, x, y, overlayWidth, overlayHeight);
         }
@@ -165,14 +163,13 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
           <FlipHorizontal className="h-4 w-4" />
         </Button>
         
-        {/* Live overlay preview - increased size and adjusted position */}
+        {/* Live overlay preview - increased size and positioned higher */}
         {overlayImage && (
-          <div className="absolute right-4 bottom-4 w-1/2 pointer-events-none">
+          <div className="absolute right-4 bottom-0 w-2/5 pointer-events-none">
             <img 
               src={overlayImage.src} 
               alt="Overlay" 
               className="w-full h-auto object-contain"
-              style={{ transform: 'scale(1.5)' }} // Increased size by 50%
             />
           </div>
         )}
