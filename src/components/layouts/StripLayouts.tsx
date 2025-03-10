@@ -7,7 +7,7 @@ import { LayoutProps } from './index';
 export const ClassicStripLayout: React.FC<LayoutProps> = ({ photos, backgroundColor = 'white' }) => (
   <div className={`flex-1 flex flex-col p-3 gap-3 ${backgroundColor !== 'white' ? backgroundColor : ''}`}>
     {photos.map((photo, index) => (
-      <div key={index} className="relative h-1/4">
+      <div key={index} className="relative h-1/4 flex items-end">
         <img 
           src={photo} 
           alt={`Photo ${index + 1}`} 
@@ -32,7 +32,7 @@ export const VerticalStripLayout: React.FC<LayoutProps> = ({ photos, backgroundC
   <div className={`flex-1 p-3 ${backgroundColor !== 'white' ? backgroundColor : ''}`}>
     <div className="h-full flex flex-col gap-3">
       {photos.map((photo, index) => (
-        <div key={index} className="relative h-1/4">
+        <div key={index} className="relative h-1/4 flex items-end">
           <img 
             src={photo} 
             alt={`Photo ${index + 1}`} 
@@ -58,7 +58,7 @@ export const ElegantStripLayout: React.FC<LayoutProps> = ({ photos, backgroundCo
   <div className={`flex-1 flex flex-col p-5 gap-4 ${backgroundColor !== 'white' ? backgroundColor : ''}`}>
     {/* Photo 1, 2, 3 */}
     {photos.slice(0, 3).map((photo, index) => (
-      <div key={index} className="relative h-1/4">
+      <div key={index} className="relative h-1/4 flex items-end">
         <img 
           src={photo} 
           alt={`Photo ${index + 1}`} 
@@ -84,7 +84,7 @@ export const LargeVerticalLayout: React.FC<LayoutProps> = ({ photos, backgroundC
   <div className={`flex-1 p-3 ${backgroundColor !== 'white' ? backgroundColor : ''}`}>
     <div className="h-full flex flex-col gap-3">
       {photos.map((photo, index) => (
-        <div key={index} className="relative h-1/2">
+        <div key={index} className="relative h-1/2 flex items-end">
           <img 
             src={photo} 
             alt={`Photo ${index + 1}`} 
