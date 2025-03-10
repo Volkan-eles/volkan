@@ -31,13 +31,13 @@ const DashboardSidebar = () => {
           onClick={toggleSidebar}
           size="sm" 
           variant="ghost" 
-          className="hidden md:flex p-0.5 h-6 w-6"
+          className="hidden md:flex p-0.5 h-6 w-6 text-gray-400 hover:text-white"
         >
           {isCollapsed ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}
         </Button>
       </SidebarHeader>
 
-      <SidebarContent>
+      <SidebarContent className="px-1">
         <SidebarMenuItems />
       </SidebarContent>
 
