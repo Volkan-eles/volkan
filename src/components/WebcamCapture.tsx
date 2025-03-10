@@ -1,15 +1,24 @@
 
 import React, { useRef, useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Camera, FlipHorizontal } from 'lucide-react';
+import { Camera, FlipHorizontal, RotateCcw } from 'lucide-react';
+import { playSound } from '@/utils/soundEffects';
 
 interface WebcamCaptureProps {
   onCapture: (imageSrc: string) => void;
   isCapturing: boolean;
   overlayImage: HTMLImageElement | null;
+  countdownDuration?: number;
+  onRetake?: () => void;
 }
 
-const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, overlayImage }) => {
+const WebcamCapture: React.FC<WebcamCaptureProps> = ({ 
+  onCapture, 
+  isCapturing, 
+  overlayImage, 
+  countdownDuration = 3,
+  onRetake 
+}) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isCameraReady, setIsCameraReady] = useState(false);
@@ -17,6 +26,8 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
   const [countdown, setCountdown] = useState<number | null>(null);
   const [flipped, setFlipped] = useState(true); // Default to flipped (mirrored) for selfie view
   const captureTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const [lastCapturedPhoto, setLastCapturedPhoto] = useState<string | null>(null);
+  const [showRetakeOption, setShowRetakeOption] = useState(false);
 
   useEffect(() => {
     let stream: MediaStream | null = null;
@@ -58,10 +69,13 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
     if (isCapturing && isCameraReady) {
       startCountdown();
     }
-  }, [isCapturing, isCameraReady]);
+  }, [isCapturing, isCameraReady, countdownDuration]);
 
   const startCountdown = () => {
-    setCountdown(3);
+    setCountdown(countdownDuration);
+    
+    // Play initial tick sound
+    playSound('tick');
     
     captureTimerRef.current = setInterval(() => {
       setCountdown(prev => {
@@ -71,6 +85,9 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
             captureTimerRef.current = null;
           }
           
+          // Play capture sound when countdown finishes
+          playSound('capture');
+          
           // Use setTimeout to ensure state is updated before capturing
           setTimeout(() => {
             capturePhoto();
@@ -78,6 +95,9 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
           
           return null;
         }
+        
+        // Play tick sound for each second
+        playSound('tick');
         return prev - 1;
       });
     }, 1000);
@@ -126,8 +146,18 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
         
         // Convert to data URL and send back
         const imageSrc = canvas.toDataURL('image/png');
+        setLastCapturedPhoto(imageSrc);
+        setShowRetakeOption(true);
         onCapture(imageSrc);
       }
+    }
+  };
+
+  const handleRetake = () => {
+    setLastCapturedPhoto(null);
+    setShowRetakeOption(false);
+    if (onRetake) {
+      onRetake();
     }
   };
 
@@ -144,42 +174,64 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
       )}
       
       <div className={`relative w-full ${cameraError ? 'hidden' : 'block'}`}>
-        <video
-          ref={videoRef}
-          autoPlay
-          playsInline
-          muted
-          className="w-full rounded-lg shadow-sm animate-fade-in"
-          style={{ transform: flipped ? 'scaleX(-1)' : 'none' }}
-        />
-        
-        {/* Camera orientation control */}
-        <Button 
-          variant="outline" 
-          size="icon" 
-          className="absolute top-2 right-2 bg-white/80 hover:bg-white/90 z-10"
-          onClick={toggleCameraFlip}
-        >
-          <FlipHorizontal className="h-4 w-4" />
-        </Button>
-        
-        {/* Live overlay preview - increased size and positioned higher */}
-        {overlayImage && (
-          <div className="absolute right-4 bottom-0 w-2/5 pointer-events-none">
+        {showRetakeOption && lastCapturedPhoto ? (
+          <div className="relative w-full">
             <img 
-              src={overlayImage.src} 
-              alt="Overlay" 
-              className="w-full h-auto object-contain"
+              src={lastCapturedPhoto} 
+              alt="Last captured" 
+              className="w-full rounded-lg shadow-sm"
             />
+            <div className="absolute inset-0 flex items-center justify-center bg-black/40 rounded-lg">
+              <Button 
+                onClick={handleRetake} 
+                variant="outline" 
+                className="bg-white text-black hover:bg-gray-200"
+              >
+                <RotateCcw className="mr-2 h-4 w-4" />
+                Retake Photo
+              </Button>
+            </div>
           </div>
-        )}
-        
-        {countdown !== null && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/40 rounded-lg">
-            <span className="text-7xl font-bold text-white animate-pulse-gentle">
-              {countdown}
-            </span>
-          </div>
+        ) : (
+          <>
+            <video
+              ref={videoRef}
+              autoPlay
+              playsInline
+              muted
+              className="w-full rounded-lg shadow-sm animate-fade-in"
+              style={{ transform: flipped ? 'scaleX(-1)' : 'none' }}
+            />
+            
+            {/* Camera orientation control */}
+            <Button 
+              variant="outline" 
+              size="icon" 
+              className="absolute top-2 right-2 bg-white/80 hover:bg-white/90 z-10"
+              onClick={toggleCameraFlip}
+            >
+              <FlipHorizontal className="h-4 w-4" />
+            </Button>
+            
+            {/* Live overlay preview - increased size and positioned higher */}
+            {overlayImage && (
+              <div className="absolute right-4 bottom-0 w-2/5 pointer-events-none">
+                <img 
+                  src={overlayImage.src} 
+                  alt="Overlay" 
+                  className="w-full h-auto object-contain"
+                />
+              </div>
+            )}
+            
+            {countdown !== null && (
+              <div className="absolute inset-0 flex items-center justify-center bg-black/40 rounded-lg">
+                <span className="text-7xl font-bold text-white animate-pulse-gentle">
+                  {countdown}
+                </span>
+              </div>
+            )}
+          </>
         )}
         
         <canvas ref={canvasRef} className="hidden" />

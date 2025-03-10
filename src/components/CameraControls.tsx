@@ -5,6 +5,7 @@ import WebcamCapture from '@/components/WebcamCapture';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import StickersGrid from '@/components/StickersGrid';
 import { HexColorPicker } from 'react-colorful';
+import { Clock } from 'lucide-react';
 
 interface CameraControlsProps {
   onPhotoCaptured: (photoSrc: string) => void;
@@ -15,6 +16,9 @@ interface CameraControlsProps {
   activeTab: string;
   setActiveTab: React.Dispatch<React.SetStateAction<string>>;
   overlayImageRef: React.RefObject<HTMLImageElement | null>;
+  countdownDuration?: number;
+  onCountdownChange?: (seconds: number) => void;
+  onRetake?: () => void;
 }
 
 const CameraControls: React.FC<CameraControlsProps> = ({
@@ -25,7 +29,10 @@ const CameraControls: React.FC<CameraControlsProps> = ({
   onFrameColorChange,
   activeTab,
   setActiveTab,
-  overlayImageRef
+  overlayImageRef,
+  countdownDuration = 3,
+  onCountdownChange,
+  onRetake
 }) => {
   const [selectedSticker, setSelectedSticker] = useState<string | null>(null);
 
@@ -77,12 +84,40 @@ const CameraControls: React.FC<CameraControlsProps> = ({
     </div>
   );
 
+  // Countdown settings tab
+  const CountdownSelector = () => (
+    <div className="mt-2 p-2">
+      <div className="flex items-center mb-2">
+        <Clock className="h-4 w-4 mr-2 text-gray-300" />
+        <span className="text-sm font-medium text-gray-300">Countdown Duration</span>
+      </div>
+      <div className="grid grid-cols-3 gap-2">
+        {[3, 5, 10].map(seconds => (
+          <Button 
+            key={seconds} 
+            variant={countdownDuration === seconds ? "default" : "outline"}
+            onClick={() => onCountdownChange && onCountdownChange(seconds)}
+            className={countdownDuration === seconds ? "bg-[#4b30ab]" : "border-[#333] text-gray-300"}
+          >
+            {seconds}s
+          </Button>
+        ))}
+      </div>
+    </div>
+  );
+
   return (
     <div className="flex flex-col gap-2">
       {/* Camera View */}
       <div className={`flex-1 bg-[#4b30ab] p-1 rounded-lg overflow-hidden`}>
         <div className="h-[220px] md:h-[280px] rounded-lg overflow-hidden bg-white">
-          <WebcamCapture onCapture={onPhotoCaptured} isCapturing={isCapturing} overlayImage={overlayImageRef.current} />
+          <WebcamCapture 
+            onCapture={onPhotoCaptured} 
+            isCapturing={isCapturing} 
+            overlayImage={overlayImageRef.current} 
+            countdownDuration={countdownDuration}
+            onRetake={onRetake}
+          />
         </div>
       </div>
       
@@ -106,15 +141,18 @@ const CameraControls: React.FC<CameraControlsProps> = ({
       {/* Control Tabs */}
       <div className="bg-[#1A1A1A] rounded-lg p-1.5">
         <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="grid grid-cols-3 bg-[#1A1A1A] p-0.5">
+          <TabsList className="grid grid-cols-4 bg-[#1A1A1A] p-0.5">
             <TabsTrigger value="frame-color" className={`text-xs py-1 ${activeTab === 'frame-color' ? 'bg-[#333] text-white' : 'text-gray-400'}`}>
-              Frame Color
+              Frame
             </TabsTrigger>
             <TabsTrigger value="stickers" className={`text-xs py-1 ${activeTab === 'stickers' ? 'bg-[#333] text-white' : 'text-gray-400'}`}>
               Stickers
             </TabsTrigger>
             <TabsTrigger value="idol" className={`text-xs py-1 ${activeTab === 'idol' ? 'bg-[#333] text-white' : 'text-gray-400'}`}>
               Idol
+            </TabsTrigger>
+            <TabsTrigger value="countdown" className={`text-xs py-1 ${activeTab === 'countdown' ? 'bg-[#333] text-white' : 'text-gray-400'}`}>
+              Timer
             </TabsTrigger>
           </TabsList>
         </Tabs>
@@ -123,6 +161,7 @@ const CameraControls: React.FC<CameraControlsProps> = ({
         {activeTab === 'frame-color' && <FrameColorSelector />}
         {activeTab === 'stickers' && <StickersGrid onSelectSticker={handleSelectSticker} selectedSticker={selectedSticker} />}
         {activeTab === 'idol' && <IdolSelector />}
+        {activeTab === 'countdown' && <CountdownSelector />}
       </div>
     </div>
   );

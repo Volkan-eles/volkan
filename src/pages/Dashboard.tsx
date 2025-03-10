@@ -6,6 +6,7 @@ import DashboardHeader from '@/components/DashboardHeader';
 import CameraControls from '@/components/CameraControls';
 import LayoutSelector from '@/components/LayoutSelector';
 import { Menu } from 'lucide-react';
+import { toast } from 'sonner';
 
 const Dashboard = () => {
   const [capturedPhotos, setCapturedPhotos] = useState<string[]>([]);
@@ -14,6 +15,7 @@ const Dashboard = () => {
   const [frameColor, setFrameColor] = useState<string>('white');
   const [isCapturing, setIsCapturing] = useState(false);
   const [activeTab, setActiveTab] = useState<string>('frame-color');
+  const [countdownDuration, setCountdownDuration] = useState<number>(3);
   const overlayImageRef = useRef<HTMLImageElement | null>(null);
 
   const layoutOptions = [
@@ -39,6 +41,17 @@ const Dashboard = () => {
 
   const handleFrameColorChange = (color: string) => {
     setFrameColor(color);
+  };
+
+  const handleCountdownChange = (seconds: number) => {
+    setCountdownDuration(seconds);
+    toast.success(`Countdown set to ${seconds} seconds`);
+  };
+
+  const handleRetake = () => {
+    // Remove the last photo and allow for retaking
+    setCapturedPhotos(prev => prev.slice(0, -1));
+    toast.info('Retaking photo');
   };
 
   return (
@@ -72,6 +85,9 @@ const Dashboard = () => {
                 activeTab={activeTab}
                 setActiveTab={setActiveTab}
                 overlayImageRef={overlayImageRef}
+                countdownDuration={countdownDuration}
+                onCountdownChange={handleCountdownChange}
+                onRetake={handleRetake}
               />
             </div>
             
