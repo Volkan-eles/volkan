@@ -1,3 +1,4 @@
+
 import React, { useState, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Download, ChevronDown } from 'lucide-react';
@@ -116,6 +117,7 @@ const LayoutSelector: React.FC<LayoutSelectorProps> = ({
   };
 
   const bgColorOptions = [
+    // Light colors
     { name: 'White', value: 'white' },
     { name: 'Light Gray', value: 'bg-gray-50' },
     { name: 'Sky Blue', value: 'bg-blue-50' },
@@ -125,18 +127,40 @@ const LayoutSelector: React.FC<LayoutSelectorProps> = ({
     { name: 'Mint Green', value: 'bg-green-50' },
     { name: 'Lavender', value: 'bg-indigo-50' },
     { name: 'Peach', value: 'bg-orange-50' },
-    { name: 'Teal', value: 'bg-teal-50' },
-    { name: 'Rose', value: 'bg-rose-50' },
-    { name: 'Amber', value: 'bg-amber-50' },
-    { name: 'Lime', value: 'bg-lime-50' },
-    { name: 'Emerald', value: 'bg-emerald-50' },
-    { name: 'Cyan', value: 'bg-cyan-50' },
-    { name: 'Violet', value: 'bg-violet-50' },
-    { name: 'Fuchsia', value: 'bg-fuchsia-50' },
-    { name: 'Slate', value: 'bg-slate-50' },
-    { name: 'Zinc', value: 'bg-zinc-50' },
-    { name: 'Stone', value: 'bg-stone-50' },
-    { name: 'Red', value: 'bg-red-50' },
+    
+    // Medium colors
+    { name: 'Blue 200', value: 'bg-blue-200' },
+    { name: 'Green 200', value: 'bg-green-200' },
+    { name: 'Yellow 200', value: 'bg-yellow-200' },
+    { name: 'Red 200', value: 'bg-red-200' },
+    { name: 'Purple 200', value: 'bg-purple-200' },
+    { name: 'Pink 200', value: 'bg-pink-200' },
+    { name: 'Indigo 200', value: 'bg-indigo-200' },
+    { name: 'Teal 200', value: 'bg-teal-200' },
+    
+    // Darker colors
+    { name: 'Gray 500', value: 'bg-gray-500' },
+    { name: 'Blue 500', value: 'bg-blue-500' },
+    { name: 'Green 500', value: 'bg-green-500' },
+    { name: 'Yellow 500', value: 'bg-yellow-500' },
+    { name: 'Red 500', value: 'bg-red-500' },
+    { name: 'Purple 500', value: 'bg-purple-500' },
+    { name: 'Pink 500', value: 'bg-pink-500' },
+    { name: 'Indigo 500', value: 'bg-indigo-500' },
+    
+    // Dark colors
+    { name: 'Gray 800', value: 'bg-gray-800' },
+    { name: 'Blue 800', value: 'bg-blue-800' },
+    { name: 'Green 800', value: 'bg-green-800' },
+    { name: 'Yellow 800', value: 'bg-yellow-800' },
+    { name: 'Red 800', value: 'bg-red-800' },
+    { name: 'Purple 800', value: 'bg-purple-800' },
+    { name: 'Pink 800', value: 'bg-pink-800' },
+    { name: 'Indigo 800', value: 'bg-indigo-800' },
+    
+    // Black and near-black
+    { name: 'Black', value: 'bg-black' },
+    { name: 'Dark Slate', value: 'bg-slate-900' },
   ];
 
   return (

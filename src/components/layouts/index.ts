@@ -10,6 +10,7 @@ export interface LayoutProps {
   photos: string[];
   backgroundColor?: string;
   dateString?: string;
+  textColor?: string; // Added to handle text color based on background darkness
 }
 
 export {
