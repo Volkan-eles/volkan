@@ -7,37 +7,12 @@ import {
   useSidebar
 } from '@/components/ui/sidebar';
 import { 
-  Home, 
-  Palette, 
-  LayoutGrid, 
-  Sticker, 
-  Type, 
-  FolderOpen, 
-  MoreHorizontal, 
-  Settings,
   ChevronDown,
   ChevronRight,
 } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import SidebarPanel from './SidebarPanel';
-
-interface SidebarMenuItemProps {
-  icon: React.ElementType;
-  label: string;
-  isActive?: boolean;
-  panelType?: 'stickers' | 'layouts' | 'text' | 'design' | 'categories';
-}
-
-const menuItems: SidebarMenuItemProps[] = [
-  { icon: Home, label: 'Dashboard', isActive: true },
-  { icon: Palette, label: 'Design', panelType: 'design' },
-  { icon: LayoutGrid, label: 'Layout', panelType: 'layouts' },
-  { icon: Sticker, label: 'Sticker', panelType: 'stickers' },
-  { icon: Type, label: 'Text', panelType: 'text' },
-  { icon: FolderOpen, label: 'Categories', panelType: 'categories' },
-  { icon: MoreHorizontal, label: 'More' },
-  { icon: Settings, label: 'Settings' },
-];
+import { menuItems } from './MenuItemDefinition';
 
 const SidebarMenuItems: React.FC = () => {
   const { state } = useSidebar();
