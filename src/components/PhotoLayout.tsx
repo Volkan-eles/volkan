@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import {
   DiagonalStripsLayout,
@@ -51,6 +50,7 @@ const PhotoLayout: React.FC<PhotoLayoutProps> = ({
     }
   ]);
 
+  // Move handleAddText to the top level
   const handleAddText = () => {
     const newText: TextElement = {
       id: `text-${Date.now()}`,
@@ -212,13 +212,15 @@ const PhotoLayout: React.FC<PhotoLayoutProps> = ({
 
   return (
     <div className="flex flex-col gap-4">
-      <TextEditor
-        texts={texts}
-        onAddText={handleAddText}
-        onUpdateText={handleUpdateText}
-        onDeleteText={handleDeleteText}
-        onMoveText={handleMoveText}
-      />
+      <div className="w-full">
+        <TextEditor
+          texts={texts}
+          onAddText={handleAddText}
+          onUpdateText={handleUpdateText}
+          onDeleteText={handleDeleteText}
+          onMoveText={handleMoveText}
+        />
+      </div>
       <div className={`h-full w-full flex flex-col ${getBackgroundColorStyle()} ${getAspectRatioClass()}`}>
         {renderLayout()}
       </div>

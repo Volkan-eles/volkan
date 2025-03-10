@@ -34,22 +34,26 @@ const TextEditor: React.FC<TextEditorProps> = ({
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <Collapsible open={isOpen} onOpenChange={setIsOpen} className="w-full">
+    <Collapsible 
+      open={isOpen} 
+      onOpenChange={setIsOpen} 
+      className="w-full bg-white rounded-lg shadow-sm"
+    >
       <CollapsibleTrigger asChild>
         <Button 
           variant="ghost" 
-          className="w-full flex items-center justify-between p-2 hover:bg-gray-100"
+          className="w-full flex items-center justify-between p-4 hover:bg-gray-100 rounded-lg"
         >
           <div className="flex items-center gap-2">
             <Text className="h-4 w-4" />
-            <span>Text Editor</span>
+            <span className="font-medium">Text Editor</span>
           </div>
           <ChevronDown className={`h-4 w-4 transform transition-transform ${isOpen ? 'rotate-180' : ''}`} />
         </Button>
       </CollapsibleTrigger>
       
-      <CollapsibleContent className="border-t">
-        <div className="p-2">
+      <CollapsibleContent className="border-t p-4">
+        <div className="space-y-4">
           <Button 
             variant="outline" 
             onClick={onAddText}
@@ -58,20 +62,22 @@ const TextEditor: React.FC<TextEditorProps> = ({
             <Plus className="h-4 w-4" />
             Add Text Box
           </Button>
+          
+          <div className="space-y-2">
+            {texts.map((text) => (
+              <TextControls
+                key={text.id}
+                currentText={text.text}
+                currentFontSize={text.fontSize}
+                onTextChange={(newText) => onUpdateText(text.id, { text: newText })}
+                onFontSize={(newSize) => onUpdateText(text.id, { fontSize: newSize })}
+                onDelete={() => onDeleteText(text.id)}
+                onMoveUp={() => onMoveText(text.id, 'up')}
+                onMoveDown={() => onMoveText(text.id, 'down')}
+              />
+            ))}
+          </div>
         </div>
-        
-        {texts.map((text) => (
-          <TextControls
-            key={text.id}
-            currentText={text.text}
-            currentFontSize={text.fontSize}
-            onTextChange={(newText) => onUpdateText(text.id, { text: newText })}
-            onFontSize={(newSize) => onUpdateText(text.id, { fontSize: newSize })}
-            onDelete={() => onDeleteText(text.id)}
-            onMoveUp={() => onMoveText(text.id, 'up')}
-            onMoveDown={() => onMoveText(text.id, 'down')}
-          />
-        ))}
       </CollapsibleContent>
     </Collapsible>
   );
