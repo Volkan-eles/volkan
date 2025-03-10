@@ -24,7 +24,7 @@ interface PhotoLayoutProps {
   backgroundColor?: string;
 }
 
-// Get current date for watermark - moved to the top
+// Define getCurrentDate function before it's used
 const getCurrentDate = () => {
   const date = new Date();
   return date.toISOString().split('T')[0].replace(/-/g, '.');
