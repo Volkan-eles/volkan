@@ -1,4 +1,3 @@
-
 import React from 'react';
 import {
   DiagonalStripsLayout,
@@ -75,13 +74,13 @@ const PhotoLayout: React.FC<PhotoLayoutProps> = ({
     const category = getLayoutCategory();
     switch (category) {
       case 'tall-narrow':
-        return 'aspect-[1/2.8] md:aspect-[600/1680] max-w-[600px] mx-auto';
+        return 'aspect-[1/2.5] md:aspect-[600/1500] max-w-[500px] mx-auto';
       case 'portrait':
-        return 'aspect-[3/4] md:aspect-[1200/1500] max-w-[1100px] mx-auto';
+        return 'aspect-[3/4] md:aspect-[900/1200] max-w-[900px] mx-auto';
       case 'wide-horizontal':
-        return 'aspect-[16/9] md:aspect-[16/9] w-full';
+        return 'aspect-[16/9] md:aspect-[16/9] w-full max-w-[900px] mx-auto';
       default:
-        return 'aspect-[1/2.8] md:aspect-[600/1680]';
+        return 'aspect-[1/2.5] md:aspect-[600/1500]';
     }
   };
 

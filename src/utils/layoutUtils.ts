@@ -27,28 +27,28 @@ export const useLayoutContainer = (selectedLayout: string) => {
     if (isMobile) {
       switch (category) {
         case 'tall-narrow':
-          return `${baseClasses} h-[400px] max-w-[220px] mx-auto`;
+          return `${baseClasses} h-[350px] max-w-[180px] mx-auto`;
         case 'large-vertical':
-          return `${baseClasses} h-[400px] max-w-[280px] mx-auto`;
+          return `${baseClasses} h-[350px] max-w-[220px] mx-auto`;
         case 'portrait':
-          return `${baseClasses} h-[350px] w-full`;
+          return `${baseClasses} h-[300px] w-full max-w-[280px] mx-auto`;
         case 'wide-horizontal':
-          return `${baseClasses} h-[250px] w-full`;
+          return `${baseClasses} h-[200px] w-full max-w-[320px] mx-auto`;
         default:
-          return `${baseClasses} h-[350px] w-full`;
+          return `${baseClasses} h-[300px] w-full max-w-[280px] mx-auto`;
       }
     } else {
       switch (category) {
         case 'tall-narrow':
-          return `${baseClasses} h-[480px] md:h-[520px] lg:h-[560px] max-w-[260px] md:max-w-[280px] lg:max-w-[300px] mx-auto`;
+          return `${baseClasses} h-[420px] md:h-[460px] lg:h-[480px] max-w-[220px] md:max-w-[240px] lg:max-w-[260px] mx-auto`;
         case 'large-vertical':
-          return `${baseClasses} h-[460px] md:h-[500px] lg:h-[540px] max-w-[320px] md:max-w-[340px] lg:max-w-[360px] mx-auto`;
+          return `${baseClasses} h-[400px] md:h-[440px] lg:h-[460px] max-w-[280px] md:max-w-[300px] lg:max-w-[320px] mx-auto`;
         case 'portrait':
-          return `${baseClasses} h-[420px] md:h-[460px] lg:h-[500px] w-full`;
+          return `${baseClasses} h-[380px] md:h-[400px] lg:h-[420px] max-w-[340px] md:max-w-[360px] lg:max-w-[380px] mx-auto`;
         case 'wide-horizontal':
-          return `${baseClasses} h-[320px] md:h-[350px] lg:h-[380px] w-full`;
+          return `${baseClasses} h-[280px] md:h-[300px] lg:h-[320px] max-w-[480px] md:max-w-[520px] lg:max-w-[540px] mx-auto`;
         default:
-          return `${baseClasses} h-[420px] md:h-[460px] lg:h-[500px] w-full`;
+          return `${baseClasses} h-[380px] md:h-[400px] lg:h-[420px] max-w-[340px] md:max-w-[360px] lg:max-w-[380px] mx-auto`;
       }
     }
   };
