@@ -1,3 +1,4 @@
+
 import type { Config } from 'tailwindcss'
 
 const config: Config = {
@@ -16,6 +17,12 @@ const config: Config = {
       colors: {
         'booth-blue': '#007BFF',
         'booth-light-blue': '#66B2FF',
+        'border': 'hsl(var(--border))',
+        'booth-white': '#FFFFFF',
+        'booth-black': '#000000',
+        'booth-red': '#EF4444',
+        'booth-green': '#10B981',
+        'booth-frame-border': '#DDDDDD',
       },
       fontFamily: {
         'playfair': ['Playfair Display', 'serif'],
