@@ -1,17 +1,18 @@
+
 import React from 'react';
 import { MoreHorizontal } from 'lucide-react';
 import { LayoutProps } from './index';
-import { TextElement } from '../TextEditor/TextEditor';
 
 const DiagonalStripsLayout: React.FC<LayoutProps> = ({ 
   photos, 
   backgroundColor = 'white',
-  texts = []
+  dateString = '2024.06.10'
 }) => {
+  // Determine if the background is dark to adjust text color
   const isDarkBackground = backgroundColor.includes('800') || 
-                         backgroundColor.includes('900') || 
-                         backgroundColor === 'bg-black' || 
-                         backgroundColor.includes('500');
+                           backgroundColor.includes('900') || 
+                           backgroundColor === 'bg-black' || 
+                           backgroundColor.includes('500');
   
   const textColorClass = isDarkBackground ? 'text-white' : 'text-black';
   const textBgClass = isDarkBackground ? 'bg-black/20' : 'bg-white/80';
@@ -54,17 +55,10 @@ const DiagonalStripsLayout: React.FC<LayoutProps> = ({
         </button>
       </div>
       
-      {/* Text elements */}
-      <div className="text-center mt-2 flex flex-col gap-2">
-        {texts.sort((a, b) => a.position - b.position).map((text: TextElement) => (
-          <p 
-            key={text.id}
-            className={`${textColorClass} ${backgroundColor !== 'white' ? `${textBgClass} px-2 py-1 rounded-md inline-block` : ''}`}
-            style={{ fontSize: `${text.fontSize}px` }}
-          >
-            {text.text}
-          </p>
-        ))}
+      {/* Text placement at bottom with responsive color */}
+      <div className="text-center mt-2">
+        <p className={`${textColorClass} text-sm font-medium ${backgroundColor !== 'white' ? `${textBgClass} px-2 py-1 rounded-md inline-block` : ''}`}>MEMORIES</p>
+        <p className={`${textColorClass} text-xs ${backgroundColor !== 'white' ? `${textBgClass} px-2 py-1 rounded-md inline-block mt-1` : ''}`}>{dateString}</p>
       </div>
     </div>
   );

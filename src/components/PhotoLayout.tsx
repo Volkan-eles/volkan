@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+
+import React from 'react';
 import {
   DiagonalStripsLayout,
   ClassicStripLayout,
@@ -14,7 +15,6 @@ import {
   CreativeOverlapLayout,
   FullFrameLayout
 } from './layouts';
-import TextEditor, { TextElement } from './TextEditor/TextEditor';
 
 interface PhotoLayoutProps {
   photos: string[];
@@ -23,75 +23,12 @@ interface PhotoLayoutProps {
   backgroundColor?: string;
 }
 
-// Define getCurrentDate function before it's used
-const getCurrentDate = () => {
-  const date = new Date();
-  return date.toISOString().split('T')[0].replace(/-/g, '.');
-};
-
 const PhotoLayout: React.FC<PhotoLayoutProps> = ({ 
   photos, 
   layout, 
   frameStyle, 
   backgroundColor = 'white' 
 }) => {
-  const [texts, setTexts] = useState<TextElement[]>([
-    {
-      id: 'default-1',
-      text: 'MEMORIES',
-      fontSize: 16,
-      position: 0
-    },
-    {
-      id: 'default-2',
-      text: getCurrentDate(),
-      fontSize: 12,
-      position: 1
-    }
-  ]);
-
-  // Move handleAddText to the top level
-  const handleAddText = () => {
-    const newText: TextElement = {
-      id: `text-${Date.now()}`,
-      text: 'New Text',
-      fontSize: 14,
-      position: texts.length
-    };
-    setTexts([...texts, newText]);
-  };
-
-  const handleUpdateText = (id: string, updates: Partial<TextElement>) => {
-    setTexts(texts.map(text => 
-      text.id === id ? { ...text, ...updates } : text
-    ));
-  };
-
-  const handleDeleteText = (id: string) => {
-    setTexts(texts.filter(text => text.id !== id));
-  };
-
-  const handleMoveText = (id: string, direction: 'up' | 'down') => {
-    const index = texts.findIndex(t => t.id === id);
-    if (
-      (direction === 'up' && index === 0) || 
-      (direction === 'down' && index === texts.length - 1)
-    ) {
-      return;
-    }
-
-    const newTexts = [...texts];
-    const newIndex = direction === 'up' ? index - 1 : index + 1;
-    [newTexts[index], newTexts[newIndex]] = [newTexts[newIndex], newTexts[index]];
-    
-    // Update positions
-    newTexts.forEach((text, i) => {
-      text.position = i;
-    });
-    
-    setTexts(newTexts);
-  };
-
   // Mock photo data when no real photos available
   const mockPhotos = [
     '/lovable-uploads/a8f26fe4-1a18-429a-ab24-18509a4b955b.png',
@@ -107,6 +44,12 @@ const PhotoLayout: React.FC<PhotoLayoutProps> = ({
   // Helper function to render the correct number of photos for a layout
   const getLayoutPhotos = (maxPhotos: number) => {
     return displayPhotos.slice(0, maxPhotos);
+  };
+
+  // Get current date for watermark
+  const getCurrentDate = () => {
+    const date = new Date();
+    return date.toISOString().split('T')[0].replace(/-/g, '.');
   };
 
   // Determine layout category for responsive styling
@@ -170,60 +113,45 @@ const PhotoLayout: React.FC<PhotoLayoutProps> = ({
 
   // Render different layouts based on the layout prop
   const renderLayout = () => {
-    const commonProps = {
-      photos: getLayoutPhotos(4),
-      backgroundColor,
-      dateString: getCurrentDate(),
-      textColor: getTextColor(),
-      texts
-    };
-
+    // Pass the current date to all layouts for consistent dating
+    const dateString = getCurrentDate();
+    const textColor = getTextColor();
+    
     switch (layout) {
       case 'diagonal-strips':
-        return <DiagonalStripsLayout {...commonProps} photos={getLayoutPhotos(3)} />;
+        return <DiagonalStripsLayout photos={getLayoutPhotos(3)} backgroundColor={backgroundColor} dateString={dateString} textColor={textColor} />;
       case 'classic-strip':
-        return <ClassicStripLayout {...commonProps} />;
+        return <ClassicStripLayout photos={getLayoutPhotos(4)} backgroundColor={backgroundColor} dateString={dateString} textColor={textColor} />;
       case 'vertical-strip':
-        return <VerticalStripLayout {...commonProps} />;
+        return <VerticalStripLayout photos={getLayoutPhotos(4)} backgroundColor={backgroundColor} dateString={dateString} textColor={textColor} />;
       case 'elegant-strip':
-        return <ElegantStripLayout {...commonProps} />;
+        return <ElegantStripLayout photos={getLayoutPhotos(4)} backgroundColor={backgroundColor} dateString={dateString} textColor={textColor} />;
       case 'large-vertical':
-        return <LargeVerticalLayout {...commonProps} photos={getLayoutPhotos(2)} />;
+        return <LargeVerticalLayout photos={getLayoutPhotos(2)} backgroundColor={backgroundColor} dateString={dateString} textColor={textColor} />;
       case 'big-small':
-        return <BigSmallLayout {...commonProps} photos={getLayoutPhotos(3)} />;
+        return <BigSmallLayout photos={getLayoutPhotos(3)} backgroundColor={backgroundColor} dateString={dateString} textColor={textColor} />;
       case 'grid':
-        return <GridLayout {...commonProps} />;
+        return <GridLayout photos={getLayoutPhotos(4)} backgroundColor={backgroundColor} dateString={dateString} textColor={textColor} />;
       case 'simple-grid':
-        return <SimpleGridLayout {...commonProps} />;
+        return <SimpleGridLayout photos={getLayoutPhotos(4)} backgroundColor={backgroundColor} dateString={dateString} textColor={textColor} />;
       case 'classic-grid':
-        return <ClassicGridLayout {...commonProps} />;
+        return <ClassicGridLayout photos={getLayoutPhotos(4)} backgroundColor={backgroundColor} dateString={dateString} textColor={textColor} />;
       case 'vertical-duo':
-        return <VerticalDuoLayout {...commonProps} photos={getLayoutPhotos(2)} />;
+        return <VerticalDuoLayout photos={getLayoutPhotos(2)} backgroundColor={backgroundColor} dateString={dateString} textColor={textColor} />;
       case 'horizontal-duo':
-        return <HorizontalDuoLayout {...commonProps} photos={getLayoutPhotos(2)} />;
+        return <HorizontalDuoLayout photos={getLayoutPhotos(2)} backgroundColor={backgroundColor} dateString={dateString} textColor={textColor} />;
       case 'creative-overlap':
-        return <CreativeOverlapLayout {...commonProps} photos={getLayoutPhotos(2)} />;
+        return <CreativeOverlapLayout photos={getLayoutPhotos(2)} backgroundColor={backgroundColor} dateString={dateString} textColor={textColor} />;
       case 'full-frame':
-        return <FullFrameLayout {...commonProps} photos={getLayoutPhotos(1)} />;
+        return <FullFrameLayout photos={getLayoutPhotos(1)} backgroundColor={backgroundColor} dateString={dateString} textColor={textColor} />;
       default:
-        return <ElegantStripLayout {...commonProps} />;
+        return <ElegantStripLayout photos={getLayoutPhotos(4)} backgroundColor={backgroundColor} dateString={dateString} textColor={textColor} />;
     }
   };
 
   return (
-    <div className="flex flex-col gap-4">
-      <div className="w-full">
-        <TextEditor
-          texts={texts}
-          onAddText={handleAddText}
-          onUpdateText={handleUpdateText}
-          onDeleteText={handleDeleteText}
-          onMoveText={handleMoveText}
-        />
-      </div>
-      <div className={`h-full w-full flex flex-col ${getBackgroundColorStyle()} ${getAspectRatioClass()}`}>
-        {renderLayout()}
-      </div>
+    <div className={`h-full w-full flex flex-col ${getBackgroundColorStyle()} ${getAspectRatioClass()}`}>
+      {renderLayout()}
     </div>
   );
 };
