@@ -27,28 +27,28 @@ export const useLayoutContainer = (selectedLayout: string) => {
     if (isMobile) {
       switch (category) {
         case 'tall-narrow':
-          return `${baseClasses} h-[350px] max-w-[180px] mx-auto`;
+          return `${baseClasses} h-[320px] max-w-[160px] mx-auto`;
         case 'large-vertical':
-          return `${baseClasses} h-[350px] max-w-[220px] mx-auto`;
+          return `${baseClasses} h-[320px] max-w-[200px] mx-auto`;
         case 'portrait':
-          return `${baseClasses} h-[300px] w-full max-w-[280px] mx-auto`;
+          return `${baseClasses} h-[270px] w-full max-w-[250px] mx-auto`;
         case 'wide-horizontal':
-          return `${baseClasses} h-[200px] w-full max-w-[320px] mx-auto`;
+          return `${baseClasses} h-[180px] w-full max-w-[280px] mx-auto`;
         default:
-          return `${baseClasses} h-[300px] w-full max-w-[280px] mx-auto`;
+          return `${baseClasses} h-[270px] w-full max-w-[250px] mx-auto`;
       }
     } else {
       switch (category) {
         case 'tall-narrow':
-          return `${baseClasses} h-[420px] md:h-[460px] lg:h-[480px] max-w-[220px] md:max-w-[240px] lg:max-w-[260px] mx-auto`;
+          return `${baseClasses} h-[380px] md:h-[420px] lg:h-[440px] max-w-[200px] md:max-w-[220px] lg:max-w-[240px] mx-auto`;
         case 'large-vertical':
-          return `${baseClasses} h-[400px] md:h-[440px] lg:h-[460px] max-w-[280px] md:max-w-[300px] lg:max-w-[320px] mx-auto`;
+          return `${baseClasses} h-[360px] md:h-[400px] lg:h-[420px] max-w-[240px] md:max-w-[260px] lg:max-w-[280px] mx-auto`;
         case 'portrait':
-          return `${baseClasses} h-[380px] md:h-[400px] lg:h-[420px] max-w-[340px] md:max-w-[360px] lg:max-w-[380px] mx-auto`;
+          return `${baseClasses} h-[340px] md:h-[360px] lg:h-[380px] max-w-[300px] md:max-w-[320px] lg:max-w-[340px] mx-auto`;
         case 'wide-horizontal':
-          return `${baseClasses} h-[280px] md:h-[300px] lg:h-[320px] max-w-[480px] md:max-w-[520px] lg:max-w-[540px] mx-auto`;
+          return `${baseClasses} h-[250px] md:h-[270px] lg:h-[290px] max-w-[420px] md:max-w-[460px] lg:max-w-[480px] mx-auto`;
         default:
-          return `${baseClasses} h-[380px] md:h-[400px] lg:h-[420px] max-w-[340px] md:max-w-[360px] lg:max-w-[380px] mx-auto`;
+          return `${baseClasses} h-[340px] md:h-[360px] lg:h-[380px] max-w-[300px] md:max-w-[320px] lg:max-w-[340px] mx-auto`;
       }
     }
   };
