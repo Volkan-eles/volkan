@@ -1,5 +1,4 @@
-
-import React from 'react';
+import React, { useState } from 'react';
 import {
   DiagonalStripsLayout,
   ClassicStripLayout,
@@ -15,6 +14,7 @@ import {
   CreativeOverlapLayout,
   FullFrameLayout
 } from './layouts';
+import TextEditor, { TextElement } from './TextEditor/TextEditor';
 
 interface PhotoLayoutProps {
   photos: string[];
@@ -29,6 +29,62 @@ const PhotoLayout: React.FC<PhotoLayoutProps> = ({
   frameStyle, 
   backgroundColor = 'white' 
 }) => {
+  const [texts, setTexts] = useState<TextElement[]>([
+    {
+      id: 'default-1',
+      text: 'MEMORIES',
+      fontSize: 16,
+      position: 0
+    },
+    {
+      id: 'default-2',
+      text: getCurrentDate(),
+      fontSize: 12,
+      position: 1
+    }
+  ]);
+
+  const handleAddText = () => {
+    const newText: TextElement = {
+      id: `text-${Date.now()}`,
+      text: 'New Text',
+      fontSize: 14,
+      position: texts.length
+    };
+    setTexts([...texts, newText]);
+  };
+
+  const handleUpdateText = (id: string, updates: Partial<TextElement>) => {
+    setTexts(texts.map(text => 
+      text.id === id ? { ...text, ...updates } : text
+    ));
+  };
+
+  const handleDeleteText = (id: string) => {
+    setTexts(texts.filter(text => text.id !== id));
+  };
+
+  const handleMoveText = (id: string, direction: 'up' | 'down') => {
+    const index = texts.findIndex(t => t.id === id);
+    if (
+      (direction === 'up' && index === 0) || 
+      (direction === 'down' && index === texts.length - 1)
+    ) {
+      return;
+    }
+
+    const newTexts = [...texts];
+    const newIndex = direction === 'up' ? index - 1 : index + 1;
+    [newTexts[index], newTexts[newIndex]] = [newTexts[newIndex], newTexts[index]];
+    
+    // Update positions
+    newTexts.forEach((text, i) => {
+      text.position = i;
+    });
+    
+    setTexts(newTexts);
+  };
+
   // Mock photo data when no real photos available
   const mockPhotos = [
     '/lovable-uploads/a8f26fe4-1a18-429a-ab24-18509a4b955b.png',
@@ -113,45 +169,58 @@ const PhotoLayout: React.FC<PhotoLayoutProps> = ({
 
   // Render different layouts based on the layout prop
   const renderLayout = () => {
-    // Pass the current date to all layouts for consistent dating
-    const dateString = getCurrentDate();
-    const textColor = getTextColor();
-    
+    const commonProps = {
+      photos: getLayoutPhotos(4),
+      backgroundColor,
+      dateString: getCurrentDate(),
+      textColor: getTextColor(),
+      texts
+    };
+
     switch (layout) {
       case 'diagonal-strips':
-        return <DiagonalStripsLayout photos={getLayoutPhotos(3)} backgroundColor={backgroundColor} dateString={dateString} textColor={textColor} />;
+        return <DiagonalStripsLayout {...commonProps} photos={getLayoutPhotos(3)} />;
       case 'classic-strip':
-        return <ClassicStripLayout photos={getLayoutPhotos(4)} backgroundColor={backgroundColor} dateString={dateString} textColor={textColor} />;
+        return <ClassicStripLayout {...commonProps} />;
       case 'vertical-strip':
-        return <VerticalStripLayout photos={getLayoutPhotos(4)} backgroundColor={backgroundColor} dateString={dateString} textColor={textColor} />;
+        return <VerticalStripLayout {...commonProps} />;
       case 'elegant-strip':
-        return <ElegantStripLayout photos={getLayoutPhotos(4)} backgroundColor={backgroundColor} dateString={dateString} textColor={textColor} />;
+        return <ElegantStripLayout {...commonProps} />;
       case 'large-vertical':
-        return <LargeVerticalLayout photos={getLayoutPhotos(2)} backgroundColor={backgroundColor} dateString={dateString} textColor={textColor} />;
+        return <LargeVerticalLayout {...commonProps} photos={getLayoutPhotos(2)} />;
       case 'big-small':
-        return <BigSmallLayout photos={getLayoutPhotos(3)} backgroundColor={backgroundColor} dateString={dateString} textColor={textColor} />;
+        return <BigSmallLayout {...commonProps} photos={getLayoutPhotos(3)} />;
       case 'grid':
-        return <GridLayout photos={getLayoutPhotos(4)} backgroundColor={backgroundColor} dateString={dateString} textColor={textColor} />;
+        return <GridLayout {...commonProps} />;
       case 'simple-grid':
-        return <SimpleGridLayout photos={getLayoutPhotos(4)} backgroundColor={backgroundColor} dateString={dateString} textColor={textColor} />;
+        return <SimpleGridLayout {...commonProps} />;
       case 'classic-grid':
-        return <ClassicGridLayout photos={getLayoutPhotos(4)} backgroundColor={backgroundColor} dateString={dateString} textColor={textColor} />;
+        return <ClassicGridLayout {...commonProps} />;
       case 'vertical-duo':
-        return <VerticalDuoLayout photos={getLayoutPhotos(2)} backgroundColor={backgroundColor} dateString={dateString} textColor={textColor} />;
+        return <VerticalDuoLayout {...commonProps} photos={getLayoutPhotos(2)} />;
       case 'horizontal-duo':
-        return <HorizontalDuoLayout photos={getLayoutPhotos(2)} backgroundColor={backgroundColor} dateString={dateString} textColor={textColor} />;
+        return <HorizontalDuoLayout {...commonProps} photos={getLayoutPhotos(2)} />;
       case 'creative-overlap':
-        return <CreativeOverlapLayout photos={getLayoutPhotos(2)} backgroundColor={backgroundColor} dateString={dateString} textColor={textColor} />;
+        return <CreativeOverlapLayout {...commonProps} photos={getLayoutPhotos(2)} />;
       case 'full-frame':
-        return <FullFrameLayout photos={getLayoutPhotos(1)} backgroundColor={backgroundColor} dateString={dateString} textColor={textColor} />;
+        return <FullFrameLayout {...commonProps} photos={getLayoutPhotos(1)} />;
       default:
-        return <ElegantStripLayout photos={getLayoutPhotos(4)} backgroundColor={backgroundColor} dateString={dateString} textColor={textColor} />;
+        return <ElegantStripLayout {...commonProps} />;
     }
   };
 
   return (
-    <div className={`h-full w-full flex flex-col ${getBackgroundColorStyle()} ${getAspectRatioClass()}`}>
-      {renderLayout()}
+    <div className="flex flex-col gap-4">
+      <TextEditor
+        texts={texts}
+        onAddText={handleAddText}
+        onUpdateText={handleUpdateText}
+        onDeleteText={handleDeleteText}
+        onMoveText={handleMoveText}
+      />
+      <div className={`h-full w-full flex flex-col ${getBackgroundColorStyle()} ${getAspectRatioClass()}`}>
+        {renderLayout()}
+      </div>
     </div>
   );
 };
