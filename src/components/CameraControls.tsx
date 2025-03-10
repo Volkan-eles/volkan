@@ -5,6 +5,8 @@ import WebcamCapture from '@/components/WebcamCapture';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import StickersGrid from '@/components/StickersGrid';
 import { HexColorPicker } from 'react-colorful';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 
 interface CameraControlsProps {
   onPhotoCaptured: (photoSrc: string) => void;
@@ -28,6 +30,7 @@ const CameraControls: React.FC<CameraControlsProps> = ({
   overlayImageRef
 }) => {
   const [selectedSticker, setSelectedSticker] = useState<string | null>(null);
+  const [isTabOpen, setIsTabOpen] = useState(true);
 
   const handleCapture = () => {
     setIsCapturing(true);
@@ -35,22 +38,28 @@ const CameraControls: React.FC<CameraControlsProps> = ({
 
   const handleSelectSticker = (sticker: {id: string; name: string; src: string}) => {
     setSelectedSticker(sticker.id);
-    
-    // Create new image object for the overlay
     const img = new Image();
     img.src = sticker.src;
     img.onload = () => {
-      // Update the ref through a function to avoid the read-only error
       if (overlayImageRef) {
         (overlayImageRef as any).current = img;
       }
     };
   };
 
-  // Frame color selection component for the frame-color tab
+  const handleTabChange = (value: string) => {
+    if (value === activeTab && isTabOpen) {
+      setIsTabOpen(false);
+    } else {
+      setActiveTab(value);
+      setIsTabOpen(true);
+    }
+  };
+
+  // Frame color selection component
   const FrameColorSelector = () => (
     <div className="mt-2 p-2">
-      <HexColorPicker color={frameColor} onChange={onFrameColorChange} className="w-full max-w-[200px] mx-auto" />
+      <HexColorPicker color={frameColor} onChange={onFrameColorChange} className="w-full max-w-[180px] mx-auto" />
       <div className="grid grid-cols-4 gap-2 mt-3">
         {['#FFFFFF', '#000000', '#4b30ab', '#FF6B6B'].map(color => (
           <div 
@@ -64,12 +73,11 @@ const CameraControls: React.FC<CameraControlsProps> = ({
     </div>
   );
 
-  // Idol selection for the idol tab
+  // Idol selection component
   const IdolSelector = () => (
     <div className="mt-2 text-center text-sm text-gray-400">
       <p>Choose your favorite K-pop idol</p>
       <div className="grid grid-cols-3 gap-2 mt-2">
-        {/* More idols can be added here */}
         <div className="p-2 border border-[#333] rounded-md text-center hover:bg-[#333] transition-colors cursor-pointer">
           <span>Coming soon</span>
         </div>
@@ -78,7 +86,7 @@ const CameraControls: React.FC<CameraControlsProps> = ({
   );
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 w-[95%] mx-auto">
       {/* Camera View */}
       <div className={`flex-1 bg-[#4b30ab] p-1 rounded-lg overflow-hidden`}>
         <div className="h-[220px] md:h-[280px] rounded-lg overflow-hidden bg-white">
@@ -104,26 +112,32 @@ const CameraControls: React.FC<CameraControlsProps> = ({
       </div>
       
       {/* Control Tabs */}
-      <div className="bg-[#1A1A1A] rounded-lg p-1.5">
-        <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="grid grid-cols-3 bg-[#1A1A1A] p-0.5">
-            <TabsTrigger value="frame-color" className={`text-xs py-1 ${activeTab === 'frame-color' ? 'bg-[#333] text-white' : 'text-gray-400'}`}>
-              Frame Color
-            </TabsTrigger>
-            <TabsTrigger value="stickers" className={`text-xs py-1 ${activeTab === 'stickers' ? 'bg-[#333] text-white' : 'text-gray-400'}`}>
-              Stickers
-            </TabsTrigger>
-            <TabsTrigger value="idol" className={`text-xs py-1 ${activeTab === 'idol' ? 'bg-[#333] text-white' : 'text-gray-400'}`}>
-              Idol
-            </TabsTrigger>
-          </TabsList>
-        </Tabs>
+      <Collapsible open={isTabOpen} className="bg-[#1A1A1A] rounded-lg p-1.5">
+        <div className="flex items-center justify-between px-2">
+          <Tabs value={activeTab} onValueChange={handleTabChange}>
+            <TabsList className="grid grid-cols-3 bg-[#1A1A1A] p-0.5">
+              <TabsTrigger value="frame-color" className={`text-xs py-1 ${activeTab === 'frame-color' ? 'bg-[#333] text-white' : 'text-gray-400'}`}>
+                Frame Color
+              </TabsTrigger>
+              <TabsTrigger value="stickers" className={`text-xs py-1 ${activeTab === 'stickers' ? 'bg-[#333] text-white' : 'text-gray-400'}`}>
+                Stickers
+              </TabsTrigger>
+              <TabsTrigger value="idol" className={`text-xs py-1 ${activeTab === 'idol' ? 'bg-[#333] text-white' : 'text-gray-400'}`}>
+                Idol
+              </TabsTrigger>
+            </TabsList>
+          </Tabs>
+          <CollapsibleTrigger className="text-gray-400 hover:text-white">
+            {isTabOpen ? <ChevronDown size={16} /> : <ChevronUp size={16} />}
+          </CollapsibleTrigger>
+        </div>
         
-        {/* Tab Content */}
-        {activeTab === 'frame-color' && <FrameColorSelector />}
-        {activeTab === 'stickers' && <StickersGrid onSelectSticker={handleSelectSticker} selectedSticker={selectedSticker} />}
-        {activeTab === 'idol' && <IdolSelector />}
-      </div>
+        <CollapsibleContent>
+          {activeTab === 'frame-color' && <FrameColorSelector />}
+          {activeTab === 'stickers' && <StickersGrid onSelectSticker={handleSelectSticker} selectedSticker={selectedSticker} />}
+          {activeTab === 'idol' && <IdolSelector />}
+        </CollapsibleContent>
+      </Collapsible>
     </div>
   );
 };

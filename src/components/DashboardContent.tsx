@@ -31,7 +31,7 @@ const DashboardContent = () => {
       </div>
 
       <div className="flex-1 p-1 md:p-2 flex flex-col md:flex-row gap-2">
-        <div className="w-full md:w-[40%]">
+        <div className="w-full md:w-[35%]">
           <CameraControls 
             onPhotoCaptured={handlePhotoCaptured}
             isCapturing={isCapturing}
@@ -44,7 +44,7 @@ const DashboardContent = () => {
           />
         </div>
         
-        <div className="w-full md:w-[60%]">
+        <div className="w-full md:w-[65%]">
           <LayoutSelector 
             selectedLayout={selectedLayout}
             setSelectedLayout={setSelectedLayout}
