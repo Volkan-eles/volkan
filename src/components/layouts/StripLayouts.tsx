@@ -2,35 +2,44 @@
 import React, { useState } from 'react';
 import { MoreHorizontal, Edit2 } from 'lucide-react';
 import { LayoutProps } from './index';
+import { Input } from '@/components/ui/input';
+
+// Reusable EditableText component
+const EditableText = ({ 
+  value, 
+  onChange, 
+  className, 
+  backgroundColor
+}) => {
+  const [isEditing, setIsEditing] = useState(false);
+  
+  return isEditing ? (
+    <Input
+      type="text"
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      onBlur={() => setIsEditing(false)}
+      onKeyDown={(e) => e.key === 'Enter' && setIsEditing(false)}
+      className={`${className} focus:outline-none px-2 py-1 bg-transparent ${backgroundColor !== 'white' ? 'bg-white/80 rounded-md' : ''}`}
+      autoFocus
+    />
+  ) : (
+    <div 
+      onClick={() => setIsEditing(true)}
+      className={`${className} cursor-pointer ${backgroundColor !== 'white' ? 'bg-white/80 px-2 py-1 rounded-md inline-block' : ''}`}
+    >
+      {value}
+    </div>
+  );
+};
 
 // Classic Strip Layout (4 Photos)
-export const ClassicStripLayout: React.FC<LayoutProps> = ({ photos, backgroundColor = 'white' }) => (
-  <div className={`flex-1 flex flex-col p-3 gap-3 ${backgroundColor !== 'white' ? backgroundColor : ''}`}>
-    {photos.map((photo, index) => (
-      <div key={index} className="relative h-1/4 flex items-end">
-        <img 
-          src={photo} 
-          alt={`Photo ${index + 1}`} 
-          className="w-full h-full object-cover rounded-md" 
-        />
-        <button className="absolute top-2 right-2 w-8 h-8 flex items-center justify-center text-black bg-white/80 rounded-full">
-          <MoreHorizontal size={16} />
-        </button>
-      </div>
-    ))}
-    
-    {/* Text placement at bottom */}
-    <div className="text-center mt-2">
-      <p className={`text-black text-sm font-medium ${backgroundColor !== 'white' ? 'bg-white/80 px-2 py-1 rounded-md inline-block' : ''}`}>MEMORIES</p>
-      <p className={`text-black text-xs ${backgroundColor !== 'white' ? 'bg-white/80 px-2 py-1 rounded-md inline-block mt-1' : ''}`}>2024.06.10</p>
-    </div>
-  </div>
-);
-
-// Vertical Strip Layout (4 Photos)
-export const VerticalStripLayout: React.FC<LayoutProps> = ({ photos, backgroundColor = 'white' }) => (
-  <div className={`flex-1 p-3 ${backgroundColor !== 'white' ? backgroundColor : ''}`}>
-    <div className="h-full flex flex-col gap-3">
+export const ClassicStripLayout: React.FC<LayoutProps> = ({ photos, backgroundColor = 'white' }) => {
+  const [title, setTitle] = useState("MEMORIES");
+  const [date, setDate] = useState("2024.06.10");
+  
+  return (
+    <div className={`flex-1 flex flex-col p-3 gap-3 ${backgroundColor !== 'white' ? backgroundColor : ''}`}>
       {photos.map((photo, index) => (
         <div key={index} className="relative h-1/4 flex items-end">
           <img 
@@ -46,12 +55,63 @@ export const VerticalStripLayout: React.FC<LayoutProps> = ({ photos, backgroundC
       
       {/* Text placement at bottom */}
       <div className="text-center mt-2">
-        <p className={`text-black text-sm font-medium ${backgroundColor !== 'white' ? 'bg-white/80 px-2 py-1 rounded-md inline-block' : ''}`}>MEMORIES</p>
-        <p className={`text-black text-xs ${backgroundColor !== 'white' ? 'bg-white/80 px-2 py-1 rounded-md inline-block mt-1' : ''}`}>2024.06.10</p>
+        <EditableText 
+          value={title}
+          onChange={setTitle}
+          className="text-black text-sm font-medium"
+          backgroundColor={backgroundColor}
+        />
+        <EditableText 
+          value={date}
+          onChange={setDate}
+          className="text-black text-xs mt-1"
+          backgroundColor={backgroundColor}
+        />
       </div>
     </div>
-  </div>
-);
+  );
+};
+
+// Vertical Strip Layout (4 Photos)
+export const VerticalStripLayout: React.FC<LayoutProps> = ({ photos, backgroundColor = 'white' }) => {
+  const [title, setTitle] = useState("MEMORIES");
+  const [date, setDate] = useState("2024.06.10");
+  
+  return (
+    <div className={`flex-1 p-3 ${backgroundColor !== 'white' ? backgroundColor : ''}`}>
+      <div className="h-full flex flex-col gap-3">
+        {photos.map((photo, index) => (
+          <div key={index} className="relative h-1/4 flex items-end">
+            <img 
+              src={photo} 
+              alt={`Photo ${index + 1}`} 
+              className="w-full h-full object-cover rounded-md" 
+            />
+            <button className="absolute top-2 right-2 w-8 h-8 flex items-center justify-center text-black bg-white/80 rounded-full">
+              <MoreHorizontal size={16} />
+            </button>
+          </div>
+        ))}
+        
+        {/* Text placement at bottom */}
+        <div className="text-center mt-2">
+          <EditableText 
+            value={title}
+            onChange={setTitle}
+            className="text-black text-sm font-medium"
+            backgroundColor={backgroundColor}
+          />
+          <EditableText 
+            value={date}
+            onChange={setDate}
+            className="text-black text-xs mt-1"
+            backgroundColor={backgroundColor}
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
 
 // Elegant Strip Layout (4 Photos)
 export const ElegantStripLayout: React.FC<LayoutProps> = ({ photos, backgroundColor = 'white' }) => {
@@ -122,27 +182,42 @@ export const ElegantStripLayout: React.FC<LayoutProps> = ({ photos, backgroundCo
 };
 
 // Large Vertical Layout (2 Photos)
-export const LargeVerticalLayout: React.FC<LayoutProps> = ({ photos, backgroundColor = 'white' }) => (
-  <div className={`flex-1 p-3 ${backgroundColor !== 'white' ? backgroundColor : ''}`}>
-    <div className="h-full flex flex-col gap-3">
-      {photos.map((photo, index) => (
-        <div key={index} className="relative h-1/2 flex items-end">
-          <img 
-            src={photo} 
-            alt={`Photo ${index + 1}`} 
-            className="w-full h-full object-cover rounded-md" 
+export const LargeVerticalLayout: React.FC<LayoutProps> = ({ photos, backgroundColor = 'white' }) => {
+  const [title, setTitle] = useState("MEMORIES");
+  const [date, setDate] = useState("2024.06.10");
+  
+  return (
+    <div className={`flex-1 p-3 ${backgroundColor !== 'white' ? backgroundColor : ''}`}>
+      <div className="h-full flex flex-col gap-3">
+        {photos.map((photo, index) => (
+          <div key={index} className="relative h-1/2 flex items-end">
+            <img 
+              src={photo} 
+              alt={`Photo ${index + 1}`} 
+              className="w-full h-full object-cover rounded-md" 
+            />
+            <button className="absolute top-2 right-2 w-8 h-8 flex items-center justify-center text-black bg-white/80 rounded-full">
+              <MoreHorizontal size={16} />
+            </button>
+          </div>
+        ))}
+        
+        {/* Text placement at bottom */}
+        <div className="text-center mt-2">
+          <EditableText 
+            value={title}
+            onChange={setTitle}
+            className="text-black text-sm font-medium"
+            backgroundColor={backgroundColor}
           />
-          <button className="absolute top-2 right-2 w-8 h-8 flex items-center justify-center text-black bg-white/80 rounded-full">
-            <MoreHorizontal size={16} />
-          </button>
+          <EditableText 
+            value={date}
+            onChange={setDate}
+            className="text-black text-xs mt-1"
+            backgroundColor={backgroundColor}
+          />
         </div>
-      ))}
-      
-      {/* Text placement at bottom */}
-      <div className="text-center mt-2">
-        <p className={`text-black text-sm font-medium ${backgroundColor !== 'white' ? 'bg-white/80 px-2 py-1 rounded-md inline-block' : ''}`}>MEMORIES</p>
-        <p className={`text-black text-xs ${backgroundColor !== 'white' ? 'bg-white/80 px-2 py-1 rounded-md inline-block mt-1' : ''}`}>2024.06.10</p>
       </div>
     </div>
-  </div>
-);
+  );
+};
