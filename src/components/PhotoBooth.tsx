@@ -8,13 +8,17 @@ import WebcamCapture from './WebcamCapture';
 import OverlaySelector from './OverlaySelector';
 import FrameSelector from './FrameSelector';
 import PhotoStrip from './PhotoStrip';
+import { OverlayItem, createOverlayItem } from '@/utils/overlayManager';
 
 const PhotoBooth: React.FC = () => {
   const [capturedPhotos, setCapturedPhotos] = useState<string[]>([]);
   const [selectedOverlay, setSelectedOverlay] = useState<{ id: string; name: string; src: string } | null>(null);
   const [frameStyle, setFrameStyle] = useState<string>('white');
   const [isCapturing, setIsCapturing] = useState(false);
-  const overlayImageRef = useRef<HTMLImageElement | null>(null);
+  
+  // Update to use the new overlay system
+  const [overlays, setOverlays] = useState<OverlayItem[]>([]);
+  const [overlayImages, setOverlayImages] = useState<Record<string, HTMLImageElement>>({});
 
   useEffect(() => {
     if (selectedOverlay) {
@@ -22,10 +26,26 @@ const PhotoBooth: React.FC = () => {
       const img = new Image();
       img.src = selectedOverlay.src;
       img.onload = () => {
-        overlayImageRef.current = img;
+        // Create a new overlay item when image loads
+        const newOverlay: OverlayItem = createOverlayItem(selectedOverlay.id, selectedOverlay.src);
+        
+        // Set initial dimensions based on loaded image
+        newOverlay.width = img.width;
+        newOverlay.height = img.height;
+        
+        // Position at bottom
+        newOverlay.y = 300; // Approximate position, will be adjusted
+        
+        // Add to overlays and images
+        setOverlays([newOverlay]);
+        setOverlayImages({
+          [selectedOverlay.id]: img
+        });
       };
     } else {
-      overlayImageRef.current = null;
+      // Clear overlays if no overlay is selected
+      setOverlays([]);
+      setOverlayImages({});
     }
   }, [selectedOverlay]);
 
@@ -58,6 +78,17 @@ const PhotoBooth: React.FC = () => {
     toast.success(`Selected ${frame} frame`);
   };
 
+  // Function to handle overlay position changes
+  const handleOverlayPositionChange = (id: string, x: number, y: number) => {
+    setOverlays(prev => 
+      prev.map(overlay => 
+        overlay.id === id 
+          ? { ...overlay, x, y } 
+          : overlay
+      )
+    );
+  };
+
   return (
     <div className="w-full max-w-7xl mx-auto p-4 md:p-6 animate-fade-in">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -67,7 +98,9 @@ const PhotoBooth: React.FC = () => {
             <WebcamCapture 
               onCapture={handlePhotoCaptured} 
               isCapturing={isCapturing}
-              overlayImage={overlayImageRef.current}
+              overlayImages={overlayImages}
+              overlays={overlays}
+              onOverlayPositionChange={handleOverlayPositionChange}
             />
           </div>
 
