@@ -112,14 +112,14 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
           const scaleRatio = Math.min(
             canvas.width / overlayImage.width,
             canvas.height / overlayImage.height
-          ) * 1.0; // Increased from 0.8 to 1.0 (100% of the possible size)
+          ) * 0.8; // Increase back from 0.5 to 0.8 (80% of the possible size)
           
           const overlayWidth = overlayImage.width * scaleRatio;
           const overlayHeight = overlayImage.height * scaleRatio;
           
           // Position the overlay higher and to the right - adjusted for better placement
-          const x = canvas.width - overlayWidth - 10;
-          const y = canvas.height - overlayHeight; // Moved to bottom edge for the strip
+          const x = canvas.width - overlayWidth - 20;
+          const y = canvas.height - overlayHeight - 40; // Moved higher by increasing this value
           
           context.drawImage(overlayImage, x, y, overlayWidth, overlayHeight);
         }
@@ -150,7 +150,7 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
           playsInline
           muted
           className="w-full rounded-lg shadow-sm animate-fade-in"
-          style={{ transform: flipped ? 'scaleX(-1)' : 'none' }}
+          style={{ transform: flipped ? 'scaleX(-1)' : 'none' }} // Apply mirroring based on state
         />
         
         {/* Camera orientation control */}
@@ -165,7 +165,7 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
         
         {/* Live overlay preview - increased size and positioned higher */}
         {overlayImage && (
-          <div className="absolute right-4 bottom-0 w-2/5 pointer-events-none">
+          <div className="absolute right-4 bottom-10 w-1/3 pointer-events-none">
             <img 
               src={overlayImage.src} 
               alt="Overlay" 
