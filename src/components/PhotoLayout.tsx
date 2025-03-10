@@ -1,4 +1,3 @@
-
 import React from 'react';
 import {
   DiagonalStripsLayout,
@@ -46,6 +45,12 @@ const PhotoLayout: React.FC<PhotoLayoutProps> = ({
     return displayPhotos.slice(0, maxPhotos);
   };
 
+  // Get current date for watermark
+  const getCurrentDate = () => {
+    const date = new Date();
+    return date.toISOString().split('T')[0].replace(/-/g, '.');
+  };
+
   // Determine layout category for responsive styling
   const getLayoutCategory = () => {
     // Tall and Narrow Layouts (Strip Format)
@@ -79,42 +84,60 @@ const PhotoLayout: React.FC<PhotoLayoutProps> = ({
     }
   };
 
+  // Apply the background color class based on the provided backgroundColor prop
+  const getBackgroundColorStyle = () => {
+    if (backgroundColor === 'white') {
+      return 'bg-white';
+    }
+    
+    // If it's one of our tailwind bg classes, return it directly
+    if (backgroundColor.startsWith('bg-')) {
+      return backgroundColor;
+    }
+    
+    // Otherwise, treat it as a color value
+    return backgroundColor;
+  };
+
   // Render different layouts based on the layout prop
   const renderLayout = () => {
+    // Pass the current date to all layouts for consistent dating
+    const dateString = getCurrentDate();
+    
     switch (layout) {
       case 'diagonal-strips':
-        return <DiagonalStripsLayout photos={getLayoutPhotos(3)} backgroundColor={backgroundColor} />;
+        return <DiagonalStripsLayout photos={getLayoutPhotos(3)} backgroundColor={backgroundColor} dateString={dateString} />;
       case 'classic-strip':
-        return <ClassicStripLayout photos={getLayoutPhotos(4)} backgroundColor={backgroundColor} />;
+        return <ClassicStripLayout photos={getLayoutPhotos(4)} backgroundColor={backgroundColor} dateString={dateString} />;
       case 'vertical-strip':
-        return <VerticalStripLayout photos={getLayoutPhotos(4)} backgroundColor={backgroundColor} />;
+        return <VerticalStripLayout photos={getLayoutPhotos(4)} backgroundColor={backgroundColor} dateString={dateString} />;
       case 'elegant-strip':
-        return <ElegantStripLayout photos={getLayoutPhotos(4)} backgroundColor={backgroundColor} />;
+        return <ElegantStripLayout photos={getLayoutPhotos(4)} backgroundColor={backgroundColor} dateString={dateString} />;
       case 'large-vertical':
-        return <LargeVerticalLayout photos={getLayoutPhotos(2)} backgroundColor={backgroundColor} />;
+        return <LargeVerticalLayout photos={getLayoutPhotos(2)} backgroundColor={backgroundColor} dateString={dateString} />;
       case 'big-small':
-        return <BigSmallLayout photos={getLayoutPhotos(3)} backgroundColor={backgroundColor} />;
+        return <BigSmallLayout photos={getLayoutPhotos(3)} backgroundColor={backgroundColor} dateString={dateString} />;
       case 'grid':
-        return <GridLayout photos={getLayoutPhotos(4)} backgroundColor={backgroundColor} />;
+        return <GridLayout photos={getLayoutPhotos(4)} backgroundColor={backgroundColor} dateString={dateString} />;
       case 'simple-grid':
-        return <SimpleGridLayout photos={getLayoutPhotos(4)} backgroundColor={backgroundColor} />;
+        return <SimpleGridLayout photos={getLayoutPhotos(4)} backgroundColor={backgroundColor} dateString={dateString} />;
       case 'classic-grid':
-        return <ClassicGridLayout photos={getLayoutPhotos(4)} backgroundColor={backgroundColor} />;
+        return <ClassicGridLayout photos={getLayoutPhotos(4)} backgroundColor={backgroundColor} dateString={dateString} />;
       case 'vertical-duo':
-        return <VerticalDuoLayout photos={getLayoutPhotos(2)} backgroundColor={backgroundColor} />;
+        return <VerticalDuoLayout photos={getLayoutPhotos(2)} backgroundColor={backgroundColor} dateString={dateString} />;
       case 'horizontal-duo':
-        return <HorizontalDuoLayout photos={getLayoutPhotos(2)} backgroundColor={backgroundColor} />;
+        return <HorizontalDuoLayout photos={getLayoutPhotos(2)} backgroundColor={backgroundColor} dateString={dateString} />;
       case 'creative-overlap':
-        return <CreativeOverlapLayout photos={getLayoutPhotos(2)} backgroundColor={backgroundColor} />;
+        return <CreativeOverlapLayout photos={getLayoutPhotos(2)} backgroundColor={backgroundColor} dateString={dateString} />;
       case 'full-frame':
-        return <FullFrameLayout photos={getLayoutPhotos(1)} backgroundColor={backgroundColor} />;
+        return <FullFrameLayout photos={getLayoutPhotos(1)} backgroundColor={backgroundColor} dateString={dateString} />;
       default:
-        return <ElegantStripLayout photos={getLayoutPhotos(4)} backgroundColor={backgroundColor} />;
+        return <ElegantStripLayout photos={getLayoutPhotos(4)} backgroundColor={backgroundColor} dateString={dateString} />;
     }
   };
 
   return (
-    <div className={`h-full w-full flex flex-col ${backgroundColor !== 'white' ? backgroundColor : 'bg-white'} ${getAspectRatioClass()}`}>
+    <div className={`h-full w-full flex flex-col ${getBackgroundColorStyle()} ${getAspectRatioClass()}`}>
       {renderLayout()}
     </div>
   );

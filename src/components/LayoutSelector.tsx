@@ -1,4 +1,3 @@
-
 import React, { useState, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Download, ChevronDown } from 'lucide-react';
@@ -116,12 +115,28 @@ const LayoutSelector: React.FC<LayoutSelectorProps> = ({
     }
   };
 
-  // Simplified background color options
   const bgColorOptions = [
     { name: 'White', value: 'white' },
-    { name: 'Gray', value: 'bg-gray-50' },
-    { name: 'Blue', value: 'bg-blue-50' },
-    { name: 'Pink', value: 'bg-pink-50' },
+    { name: 'Light Gray', value: 'bg-gray-50' },
+    { name: 'Sky Blue', value: 'bg-blue-50' },
+    { name: 'Light Pink', value: 'bg-pink-50' },
+    { name: 'Soft Purple', value: 'bg-purple-50' },
+    { name: 'Soft Yellow', value: 'bg-yellow-50' },
+    { name: 'Mint Green', value: 'bg-green-50' },
+    { name: 'Lavender', value: 'bg-indigo-50' },
+    { name: 'Peach', value: 'bg-orange-50' },
+    { name: 'Teal', value: 'bg-teal-50' },
+    { name: 'Rose', value: 'bg-rose-50' },
+    { name: 'Amber', value: 'bg-amber-50' },
+    { name: 'Lime', value: 'bg-lime-50' },
+    { name: 'Emerald', value: 'bg-emerald-50' },
+    { name: 'Cyan', value: 'bg-cyan-50' },
+    { name: 'Violet', value: 'bg-violet-50' },
+    { name: 'Fuchsia', value: 'bg-fuchsia-50' },
+    { name: 'Slate', value: 'bg-slate-50' },
+    { name: 'Zinc', value: 'bg-zinc-50' },
+    { name: 'Stone', value: 'bg-stone-50' },
+    { name: 'Red', value: 'bg-red-50' },
   ];
 
   return (
@@ -149,8 +164,8 @@ const LayoutSelector: React.FC<LayoutSelectorProps> = ({
         
         <div className="flex items-center gap-1 bg-black/10 rounded-md p-0.5 h-7">
           <span className="text-white text-xs ml-1">BG:</span>
-          <div className="flex gap-1">
-            {bgColorOptions.map((color) => (
+          <div className="flex flex-wrap gap-1 max-w-[140px] overflow-x-auto scrollbar-none">
+            {bgColorOptions.slice(0, 10).map((color) => (
               <button
                 key={color.value}
                 className={`w-3 h-3 rounded-sm ${color.value} ${
@@ -160,6 +175,26 @@ const LayoutSelector: React.FC<LayoutSelectorProps> = ({
                 title={color.name}
               />
             ))}
+            
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button className="w-3 h-3 rounded-sm bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 flex items-center justify-center text-white text-[8px] font-bold">
+                  +
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="bg-[#1A1A1A] border-[#333] text-white p-1 w-[180px] flex flex-wrap gap-1">
+                {bgColorOptions.slice(10).map((color) => (
+                  <button
+                    key={color.value}
+                    className={`w-5 h-5 rounded-sm ${color.value} ${
+                      bgColor === color.value ? 'ring-1 ring-[#4b30ab]' : ''
+                    }`}
+                    onClick={() => setBgColor(color.value)}
+                    title={color.name}
+                  />
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
       </div>
