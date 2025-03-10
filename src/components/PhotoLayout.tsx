@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import {
   DiagonalStripsLayout,
@@ -22,6 +23,12 @@ interface PhotoLayoutProps {
   frameStyle: string;
   backgroundColor?: string;
 }
+
+// Get current date for watermark - moved to the top
+const getCurrentDate = () => {
+  const date = new Date();
+  return date.toISOString().split('T')[0].replace(/-/g, '.');
+};
 
 const PhotoLayout: React.FC<PhotoLayoutProps> = ({ 
   photos, 
@@ -100,12 +107,6 @@ const PhotoLayout: React.FC<PhotoLayoutProps> = ({
   // Helper function to render the correct number of photos for a layout
   const getLayoutPhotos = (maxPhotos: number) => {
     return displayPhotos.slice(0, maxPhotos);
-  };
-
-  // Get current date for watermark
-  const getCurrentDate = () => {
-    const date = new Date();
-    return date.toISOString().split('T')[0].replace(/-/g, '.');
   };
 
   // Determine layout category for responsive styling
