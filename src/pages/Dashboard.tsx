@@ -10,7 +10,7 @@ const Dashboard = () => {
     <div className="min-h-screen flex bg-black text-white">
       <SidebarProvider>
         <Sidebar 
-          className="w-[160px] md:w-[170px] bg-[#1A1A1A] border-r border-[#333]"
+          className="w-[150px] md:w-[155px] bg-[#1A1A1A] border-r border-[#333]"
           collapsible="icon"
         >
           <DashboardSidebar />
