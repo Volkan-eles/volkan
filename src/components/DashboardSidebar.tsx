@@ -19,7 +19,7 @@ const DashboardSidebar = () => {
       <SidebarHeader className="p-2 flex items-center justify-between">
         <div className={`flex items-center gap-1 text-base font-bold ${isCollapsed ? 'hidden' : 'flex'}`}>
           <div className="text-[#9b87f5] font-bold">
-            <span className="text-lg">Photo Booth</span>
+            <span className="text-base">Photo Booth</span>
           </div>
         </div>
         <div className="md:hidden">

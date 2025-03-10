@@ -20,9 +20,8 @@ import {
   X
 } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
-import StickersGrid from './StickersGrid';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import StickersGrid from './StickersGrid';
 import { KPOP_STICKERS } from '@/constants/stickers';
 
 interface SidebarMenuItemProps {
@@ -116,14 +115,18 @@ const SidebarMenuItems: React.FC = () => {
         ))}
       </SidebarMenu>
 
-      {/* Panel overlay - shown when a panel is active */}
-      {activePanel && !isCollapsed && (
-        <div className="absolute top-0 left-full w-[300px] h-auto bg-[#242424] border border-[#333] rounded-md shadow-lg z-50 overflow-hidden">
-          <div className="flex items-center justify-between p-3 border-b border-[#333]">
+      {/* Panel overlay - fixed positioning to ensure it shows correctly */}
+      {activePanel && (
+        <div 
+          className="fixed left-[120px] md:left-[140px] top-0 h-full w-[280px] bg-[#242424] border-l border-[#333] z-50 overflow-auto"
+          style={{ height: '100vh' }}
+        >
+          <div className="flex items-center justify-between p-3 border-b border-[#333] sticky top-0 bg-[#242424] z-10">
             <h3 className="text-sm font-medium capitalize">{activePanel}</h3>
             <button 
               onClick={closePanel}
               className="p-1 rounded-md hover:bg-[#333] text-gray-400 hover:text-white"
+              aria-label="Close panel"
             >
               <X size={14} />
             </button>
@@ -288,6 +291,15 @@ const SidebarMenuItems: React.FC = () => {
             )}
           </div>
         </div>
+      )}
+
+      {/* Backdrop - to close the panel when clicking outside */}
+      {activePanel && (
+        <div 
+          className="fixed inset-0 bg-black/20 z-40"
+          onClick={closePanel}
+          style={{ marginLeft: isCollapsed ? '120px' : '140px' }}
+        ></div>
       )}
     </div>
   );
