@@ -2,20 +2,18 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
-import { Camera, Download, Trash2, Share2, Clock } from 'lucide-react';
+import { Camera, Download, Trash2, Share2 } from 'lucide-react';
 import { toast } from 'sonner';
 import WebcamCapture from './WebcamCapture';
 import OverlaySelector from './OverlaySelector';
 import FrameSelector from './FrameSelector';
 import PhotoStrip from './PhotoStrip';
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 const PhotoBooth: React.FC = () => {
   const [capturedPhotos, setCapturedPhotos] = useState<string[]>([]);
   const [selectedOverlay, setSelectedOverlay] = useState<{ id: string; name: string; src: string } | null>(null);
   const [frameStyle, setFrameStyle] = useState<string>('white');
   const [isCapturing, setIsCapturing] = useState(false);
-  const [countdownDuration, setCountdownDuration] = useState<number>(3);
   const overlayImageRef = useRef<HTMLImageElement | null>(null);
 
   useEffect(() => {
@@ -46,12 +44,6 @@ const PhotoBooth: React.FC = () => {
     toast.info('All photos cleared');
   };
 
-  const handleRetake = () => {
-    // Remove the last photo and allow for retaking
-    setCapturedPhotos(prev => prev.slice(0, -1));
-    toast.info('Retaking photo');
-  };
-
   const handleSelectOverlay = (overlay: { id: string; name: string; src: string } | null) => {
     setSelectedOverlay(overlay);
     if (overlay) {
@@ -66,11 +58,6 @@ const PhotoBooth: React.FC = () => {
     toast.success(`Selected ${frame} frame`);
   };
 
-  const handleSetCountdown = (seconds: number) => {
-    setCountdownDuration(seconds);
-    toast.success(`Countdown set to ${seconds} seconds`);
-  };
-
   return (
     <div className="w-full max-w-7xl mx-auto p-4 md:p-6 animate-fade-in">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -81,8 +68,6 @@ const PhotoBooth: React.FC = () => {
               onCapture={handlePhotoCaptured} 
               isCapturing={isCapturing}
               overlayImage={overlayImageRef.current}
-              countdownDuration={countdownDuration}
-              onRetake={handleRetake}
             />
           </div>
 
@@ -105,39 +90,6 @@ const PhotoBooth: React.FC = () => {
               <Trash2 className="mr-2 h-4 w-4" />
               Clear
             </Button>
-          </div>
-
-          {/* Countdown Timer Selection */}
-          <div className="bg-gray-100 p-2 rounded-lg">
-            <div className="flex items-center mb-2">
-              <Clock className="h-4 w-4 mr-2 text-gray-600" />
-              <span className="text-sm font-medium text-gray-700">Countdown Timer</span>
-            </div>
-            <Tabs defaultValue={countdownDuration.toString()} className="w-full">
-              <TabsList className="grid grid-cols-3 w-full">
-                <TabsTrigger 
-                  value="3" 
-                  onClick={() => handleSetCountdown(3)}
-                  className={countdownDuration === 3 ? "bg-blue-100" : ""}
-                >
-                  3s
-                </TabsTrigger>
-                <TabsTrigger 
-                  value="5" 
-                  onClick={() => handleSetCountdown(5)}
-                  className={countdownDuration === 5 ? "bg-blue-100" : ""}
-                >
-                  5s
-                </TabsTrigger>
-                <TabsTrigger 
-                  value="10" 
-                  onClick={() => handleSetCountdown(10)}
-                  className={countdownDuration === 10 ? "bg-blue-100" : ""}
-                >
-                  10s
-                </TabsTrigger>
-              </TabsList>
-            </Tabs>
           </div>
 
           <FrameSelector 
