@@ -5,6 +5,9 @@ import WebcamCapture from '@/components/WebcamCapture';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import StickersGrid from '@/components/StickersGrid';
 import { HexColorPicker } from 'react-colorful';
+import OverlayControls from '@/components/OverlayControls';
+import { OverlayItem, createOverlayItem, positionOverlayBottomRight } from '@/utils/overlayManager';
+import { toast } from 'sonner';
 
 interface CameraControlsProps {
   onPhotoCaptured: (photoSrc: string) => void;
@@ -14,7 +17,6 @@ interface CameraControlsProps {
   onFrameColorChange: (color: string) => void;
   activeTab: string;
   setActiveTab: React.Dispatch<React.SetStateAction<string>>;
-  overlayImageRef: React.RefObject<HTMLImageElement | null>;
 }
 
 const CameraControls: React.FC<CameraControlsProps> = ({
@@ -24,27 +26,119 @@ const CameraControls: React.FC<CameraControlsProps> = ({
   frameColor,
   onFrameColorChange,
   activeTab,
-  setActiveTab,
-  overlayImageRef
+  setActiveTab
 }) => {
-  const [selectedSticker, setSelectedSticker] = useState<string | null>(null);
+  const [overlays, setOverlays] = useState<OverlayItem[]>([]);
+  const [overlayImages, setOverlayImages] = useState<Record<string, HTMLImageElement>>({});
+  const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
+  const [containerRef, setContainerRef] = useState<HTMLDivElement | null>(null);
+
+  // Track container size for proper overlay positioning
+  useEffect(() => {
+    if (!containerRef) return;
+
+    const updateSize = () => {
+      setContainerSize({
+        width: containerRef.clientWidth,
+        height: containerRef.clientHeight
+      });
+    };
+
+    // Initial size
+    updateSize();
+
+    // Update on resize
+    const observer = new ResizeObserver(updateSize);
+    observer.observe(containerRef);
+
+    return () => observer.disconnect();
+  }, [containerRef]);
 
   const handleCapture = () => {
     setIsCapturing(true);
   };
 
   const handleSelectSticker = (sticker: {id: string; name: string; src: string}) => {
-    setSelectedSticker(sticker.id);
-    
     // Create new image object for the overlay
     const img = new Image();
     img.src = sticker.src;
+    
     img.onload = () => {
-      // Update the ref through a function to avoid the read-only error
-      if (overlayImageRef) {
-        (overlayImageRef as any).current = img;
-      }
+      // Create a new overlay item
+      const newOverlay = createOverlayItem(sticker.id, sticker.src);
+      
+      // Set the actual dimensions
+      newOverlay.width = img.width;
+      newOverlay.height = img.height;
+      
+      // Position at the bottom right of container
+      const positioned = positionOverlayBottomRight(
+        newOverlay,
+        containerSize.width,
+        containerSize.height
+      );
+      
+      // Update overlays state
+      setOverlays(prev => [...prev, positioned]);
+      
+      // Update overlay images
+      setOverlayImages(prev => ({
+        ...prev,
+        [sticker.id]: img
+      }));
+      
+      toast.success(`Added ${sticker.name} sticker`);
     };
+  };
+
+  const handleOverlayPositionChange = (id: string, x: number, y: number) => {
+    setOverlays(prev => 
+      prev.map(overlay => 
+        overlay.id === id 
+          ? { ...overlay, x, y } 
+          : overlay
+      )
+    );
+  };
+
+  const handleUpdateOverlay = (updatedOverlay: OverlayItem) => {
+    setOverlays(prev => 
+      prev.map(overlay => 
+        overlay.id === updatedOverlay.id 
+          ? updatedOverlay 
+          : overlay
+      )
+    );
+  };
+
+  const handleDeleteOverlay = (id: string) => {
+    setOverlays(prev => prev.filter(overlay => overlay.id !== id));
+    toast.info('Overlay removed');
+  };
+
+  const handleDuplicateOverlay = (id: string) => {
+    const original = overlays.find(o => o.id === id);
+    if (!original || !overlayImages[id]) return;
+    
+    // Create a duplicate with a unique ID
+    const newId = `${id}-copy-${Date.now()}`;
+    const duplicate: OverlayItem = {
+      ...original,
+      id: newId,
+      x: original.x + 20, // Offset slightly
+      y: original.y + 20
+    };
+    
+    // Add the duplicate overlay
+    setOverlays(prev => [...prev, duplicate]);
+    
+    // Share the same image reference
+    setOverlayImages(prev => ({
+      ...prev,
+      [newId]: overlayImages[id]
+    }));
+    
+    toast.success('Overlay duplicated');
   };
 
   // Frame color selection component for the frame-color tab
@@ -80,9 +174,18 @@ const CameraControls: React.FC<CameraControlsProps> = ({
   return (
     <div className="flex flex-col gap-2">
       {/* Camera View */}
-      <div className={`flex-1 bg-[#4b30ab] p-1 rounded-lg overflow-hidden`}>
+      <div 
+        className={`flex-1 bg-[#4b30ab] p-1 rounded-lg overflow-hidden`}
+        ref={setContainerRef}
+      >
         <div className="h-[220px] md:h-[280px] rounded-lg overflow-hidden bg-white">
-          <WebcamCapture onCapture={onPhotoCaptured} isCapturing={isCapturing} overlayImage={overlayImageRef.current} />
+          <WebcamCapture 
+            onCapture={onPhotoCaptured} 
+            isCapturing={isCapturing} 
+            overlayImages={overlayImages}
+            overlays={overlays}
+            onOverlayPositionChange={handleOverlayPositionChange}
+          />
         </div>
       </div>
       
@@ -103,6 +206,17 @@ const CameraControls: React.FC<CameraControlsProps> = ({
         </Button>
       </div>
       
+      {/* Active Overlay Controls */}
+      {overlays.map(overlay => (
+        <OverlayControls
+          key={overlay.id}
+          overlay={overlay}
+          onUpdate={handleUpdateOverlay}
+          onDelete={() => handleDeleteOverlay(overlay.id)}
+          onDuplicate={() => handleDuplicateOverlay(overlay.id)}
+        />
+      ))}
+      
       {/* Control Tabs */}
       <div className="bg-[#1A1A1A] rounded-lg p-1.5">
         <Tabs value={activeTab} onValueChange={setActiveTab}>
@@ -121,7 +235,7 @@ const CameraControls: React.FC<CameraControlsProps> = ({
         
         {/* Tab Content */}
         {activeTab === 'frame-color' && <FrameColorSelector />}
-        {activeTab === 'stickers' && <StickersGrid onSelectSticker={handleSelectSticker} selectedSticker={selectedSticker} />}
+        {activeTab === 'stickers' && <StickersGrid onSelectSticker={handleSelectSticker} selectedSticker={null} />}
         {activeTab === 'idol' && <IdolSelector />}
       </div>
     </div>

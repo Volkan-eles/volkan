@@ -1,22 +1,33 @@
-
 import React, { useRef, useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Camera, FlipHorizontal } from 'lucide-react';
+import { OverlayItem, drawOverlays } from '@/utils/overlayManager';
 
 interface WebcamCaptureProps {
   onCapture: (imageSrc: string) => void;
   isCapturing: boolean;
-  overlayImage: HTMLImageElement | null;
+  overlayImages: Record<string, HTMLImageElement>;
+  overlays: OverlayItem[];
+  onOverlayPositionChange?: (id: string, x: number, y: number) => void;
 }
 
-const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, overlayImage }) => {
+const WebcamCapture: React.FC<WebcamCaptureProps> = ({ 
+  onCapture, 
+  isCapturing, 
+  overlayImages,
+  overlays,
+  onOverlayPositionChange
+}) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [isCameraReady, setIsCameraReady] = useState(false);
   const [cameraError, setCameraError] = useState<string | null>(null);
   const [countdown, setCountdown] = useState<number | null>(null);
   const [flipped, setFlipped] = useState(true); // Default to flipped (mirrored) for selfie view
   const captureTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const [draggingOverlay, setDraggingOverlay] = useState<string | null>(null);
+  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     let stream: MediaStream | null = null;
@@ -107,21 +118,9 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
         }
         context.restore();
         
-        // Add overlay if available
-        if (overlayImage) {
-          const scaleRatio = Math.min(
-            canvas.width / overlayImage.width,
-            canvas.height / overlayImage.height
-          ) * 1.0; // Increased from 0.8 to 1.0 (100% of the possible size)
-          
-          const overlayWidth = overlayImage.width * scaleRatio;
-          const overlayHeight = overlayImage.height * scaleRatio;
-          
-          // Position the overlay higher and to the right - adjusted for better placement
-          const x = canvas.width - overlayWidth - 10;
-          const y = canvas.height - overlayHeight; // Moved to bottom edge for the strip
-          
-          context.drawImage(overlayImage, x, y, overlayWidth, overlayHeight);
+        // Add overlays if available
+        if (overlays.length > 0) {
+          drawOverlays(context, overlays, overlayImages);
         }
         
         // Convert to data URL and send back
@@ -135,6 +134,54 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
     setFlipped(!flipped);
   };
 
+  const handleMouseDown = (event: React.MouseEvent, overlayId: string) => {
+    // Start dragging the overlay
+    setDraggingOverlay(overlayId);
+    
+    // Calculate offset to maintain drag position relative to where the user clicked
+    const overlay = overlays.find(o => o.id === overlayId);
+    if (!overlay) return;
+    
+    const rect = (event.currentTarget as HTMLElement).getBoundingClientRect();
+    const offsetX = event.clientX - rect.left - overlay.x;
+    const offsetY = event.clientY - rect.top - overlay.y;
+    
+    setDragOffset({ x: offsetX, y: offsetY });
+  };
+
+  const handleMouseMove = (event: React.MouseEvent) => {
+    if (!draggingOverlay || !containerRef.current || !onOverlayPositionChange) return;
+    
+    const containerRect = containerRef.current.getBoundingClientRect();
+    const x = event.clientX - containerRect.left - dragOffset.x;
+    const y = event.clientY - containerRect.top - dragOffset.y;
+    
+    // Keep the overlay within the container bounds
+    const overlay = overlays.find(o => o.id === draggingOverlay);
+    if (!overlay) return;
+    
+    const maxX = containerRect.width - overlay.width * overlay.scale;
+    const maxY = containerRect.height - overlay.height * overlay.scale;
+    
+    const boundedX = Math.max(0, Math.min(x, maxX));
+    const boundedY = Math.max(0, Math.min(y, maxY));
+    
+    onOverlayPositionChange(draggingOverlay, boundedX, boundedY);
+  };
+
+  const handleMouseUp = () => {
+    setDraggingOverlay(null);
+  };
+
+  const calculateOverlayStyle = (overlay: OverlayItem) => {
+    return {
+      transform: `translate(${overlay.x}px, ${overlay.y}px) rotate(${overlay.rotation}deg) scale(${overlay.scale})`,
+      opacity: overlay.opacity,
+      width: overlay.width > 0 ? `${overlay.width}px` : 'auto', 
+      height: overlay.height > 0 ? `${overlay.height}px` : 'auto',
+    };
+  };
+
   return (
     <div className="relative w-full flex flex-col items-center justify-center">
       {cameraError && (
@@ -143,7 +190,13 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
         </div>
       )}
       
-      <div className={`relative w-full ${cameraError ? 'hidden' : 'block'}`}>
+      <div 
+        ref={containerRef}
+        className={`relative w-full ${cameraError ? 'hidden' : 'block'}`}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseUp}
+      >
         <video
           ref={videoRef}
           autoPlay
@@ -163,19 +216,39 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
           <FlipHorizontal className="h-4 w-4" />
         </Button>
         
-        {/* Live overlay preview - increased size and positioned higher */}
-        {overlayImage && (
-          <div className="absolute right-4 bottom-0 w-2/5 pointer-events-none">
-            <img 
-              src={overlayImage.src} 
-              alt="Overlay" 
-              className="w-full h-auto object-contain"
-            />
+        {/* Live overlay previews with drag support */}
+        {overlays.map((overlay) => (
+          <div
+            key={overlay.id}
+            className={`absolute pointer-events-auto cursor-move ${
+              draggingOverlay === overlay.id ? 'z-30' : 'z-20'
+            }`}
+            style={calculateOverlayStyle(overlay)}
+            onMouseDown={(e) => handleMouseDown(e, overlay.id)}
+          >
+            {overlayImages[overlay.id] && (
+              <img
+                src={overlayImages[overlay.id].src}
+                alt="Overlay"
+                className="w-full h-full object-contain"
+                draggable={false} // Prevent browser's default drag behavior
+              />
+            )}
+            
+            {/* Corner handles for resizing - only show when overlay is active */}
+            {draggingOverlay === overlay.id && (
+              <>
+                <div className="absolute w-2 h-2 bg-white border border-black rounded-full top-0 left-0" />
+                <div className="absolute w-2 h-2 bg-white border border-black rounded-full top-0 right-0" />
+                <div className="absolute w-2 h-2 bg-white border border-black rounded-full bottom-0 left-0" />
+                <div className="absolute w-2 h-2 bg-white border border-black rounded-full bottom-0 right-0" />
+              </>
+            )}
           </div>
-        )}
+        ))}
         
         {countdown !== null && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/40 rounded-lg">
+          <div className="absolute inset-0 flex items-center justify-center bg-black/40 rounded-lg z-40">
             <span className="text-7xl font-bold text-white animate-pulse-gentle">
               {countdown}
             </span>

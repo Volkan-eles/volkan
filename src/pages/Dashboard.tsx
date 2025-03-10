@@ -1,5 +1,5 @@
 
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { SidebarProvider, Sidebar, SidebarTrigger, SidebarRail } from '@/components/ui/sidebar';
 import DashboardSidebar from '@/components/DashboardSidebar';
 import DashboardHeader from '@/components/DashboardHeader';
@@ -10,11 +10,9 @@ import { Menu } from 'lucide-react';
 const Dashboard = () => {
   const [capturedPhotos, setCapturedPhotos] = useState<string[]>([]);
   const [selectedLayout, setSelectedLayout] = useState<string>('elegant-strip');
-  const [selectedOverlay, setSelectedOverlay] = useState<{ id: string; name: string; src: string } | null>(null);
   const [frameColor, setFrameColor] = useState<string>('white');
   const [isCapturing, setIsCapturing] = useState(false);
   const [activeTab, setActiveTab] = useState<string>('frame-color');
-  const overlayImageRef = useRef<HTMLImageElement | null>(null);
 
   const layoutOptions = [
     { id: 'diagonal-strips', name: 'Diagonal Strips', photos: 3 },
@@ -71,7 +69,6 @@ const Dashboard = () => {
                 onFrameColorChange={handleFrameColorChange}
                 activeTab={activeTab}
                 setActiveTab={setActiveTab}
-                overlayImageRef={overlayImageRef}
               />
             </div>
             
