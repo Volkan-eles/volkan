@@ -7,6 +7,7 @@ import StickersGrid from '@/components/StickersGrid';
 import { HexColorPicker } from 'react-colorful';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { ChevronDown, ChevronUp } from 'lucide-react';
+import TextPanel from '@/components/sidebar/TextPanel';
 
 interface CameraControlsProps {
   onPhotoCaptured: (photoSrc: string) => void;
@@ -17,6 +18,12 @@ interface CameraControlsProps {
   activeTab: string;
   setActiveTab: React.Dispatch<React.SetStateAction<string>>;
   overlayImageRef: React.RefObject<HTMLImageElement | null>;
+  onTextStyleChange?: (style: {
+    text?: string;
+    font?: string;
+    color?: string;
+    size?: string;
+  }) => void;
 }
 
 const CameraControls: React.FC<CameraControlsProps> = ({
@@ -27,7 +34,8 @@ const CameraControls: React.FC<CameraControlsProps> = ({
   onFrameColorChange,
   activeTab,
   setActiveTab,
-  overlayImageRef
+  overlayImageRef,
+  onTextStyleChange
 }) => {
   const [selectedSticker, setSelectedSticker] = useState<string | null>(null);
   const [isTabOpen, setIsTabOpen] = useState(true);
@@ -85,6 +93,13 @@ const CameraControls: React.FC<CameraControlsProps> = ({
     </div>
   );
 
+  // Text panel component
+  const TextControls = () => (
+    <div className="mt-2 p-3">
+      <TextPanel onTextStyleChange={onTextStyleChange} />
+    </div>
+  );
+
   return (
     <div className="flex flex-col gap-3 w-[95%] mx-auto">
       {/* Camera View */}
@@ -119,7 +134,7 @@ const CameraControls: React.FC<CameraControlsProps> = ({
       <Collapsible open={isTabOpen} className="bg-[#1A1A1A] rounded-lg p-2 shadow-md">
         <div className="flex items-center justify-between px-2">
           <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
-            <TabsList className="grid grid-cols-3 bg-[#1A1A1A] p-0.5 w-[90%]">
+            <TabsList className="grid grid-cols-4 bg-[#1A1A1A] p-0.5 w-[90%]">
               <TabsTrigger 
                 value="frame-color" 
                 className={`text-xs py-1.5 px-2 transition-all duration-200 ${activeTab === 'frame-color' ? 'bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white' : 'text-gray-400 hover:text-white'}`}
@@ -131,6 +146,12 @@ const CameraControls: React.FC<CameraControlsProps> = ({
                 className={`text-xs py-1.5 px-2 transition-all duration-200 ${activeTab === 'stickers' ? 'bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white' : 'text-gray-400 hover:text-white'}`}
               >
                 Stickers
+              </TabsTrigger>
+              <TabsTrigger 
+                value="text" 
+                className={`text-xs py-1.5 px-2 transition-all duration-200 ${activeTab === 'text' ? 'bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white' : 'text-gray-400 hover:text-white'}`}
+              >
+                Text
               </TabsTrigger>
               <TabsTrigger 
                 value="idol" 
@@ -148,6 +169,7 @@ const CameraControls: React.FC<CameraControlsProps> = ({
         <CollapsibleContent className="pt-2">
           {activeTab === 'frame-color' && <FrameColorSelector />}
           {activeTab === 'stickers' && <StickersGrid onSelectSticker={handleSelectSticker} selectedSticker={selectedSticker} />}
+          {activeTab === 'text' && <TextControls />}
           {activeTab === 'idol' && <IdolSelector />}
         </CollapsibleContent>
       </Collapsible>

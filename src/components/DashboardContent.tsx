@@ -1,3 +1,4 @@
+
 import React, { useRef } from 'react';
 import CameraControls from '@/components/CameraControls';
 import LayoutSelector from '@/components/LayoutSelector';
@@ -7,6 +8,8 @@ import usePhotoState from '@/hooks/usePhotoState';
 import { layoutOptions } from '@/data/layoutOptions';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+import { useTextElements } from '@/hooks/useTextElements';
+import TextLayer from '@/components/TextLayer';
 
 const DashboardContent = () => {
   const overlayImageRef = useRef<HTMLImageElement | null>(null);
@@ -23,13 +26,20 @@ const DashboardContent = () => {
     handleFrameColorChange
   } = usePhotoState();
 
+  const {
+    textElements,
+    addTextElement,
+    updateTextElement,
+    deleteTextElement
+  } = useTextElements();
+
   const handleTextStyleChange = (style: {
     text?: string;
     font?: string;
     color?: string;
     size?: string;
   }) => {
-    console.log('New text style:', style);
+    addTextElement(style);
   };
 
   return (
@@ -55,13 +65,18 @@ const DashboardContent = () => {
           />
         </div>
         
-        <div className="w-full md:w-[65%]">
+        <div className="w-full md:w-[65%] relative">
           <LayoutSelector 
             selectedLayout={selectedLayout} 
             setSelectedLayout={setSelectedLayout} 
             layoutOptions={layoutOptions} 
             capturedPhotos={capturedPhotos} 
             frameColor={frameColor}
+          />
+          <TextLayer 
+            textElements={textElements}
+            onUpdate={updateTextElement}
+            onDelete={deleteTextElement}
           />
         </div>
       </div>
