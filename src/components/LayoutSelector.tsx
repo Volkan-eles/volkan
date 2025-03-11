@@ -8,6 +8,7 @@ import BackgroundColorSelector from '@/components/BackgroundColorSelector';
 import { useLayoutContainer } from '@/utils/layoutUtils';
 import { downloadLayoutImage } from '@/utils/downloadLayout';
 import { useLayoutResponsive } from '@/hooks/useLayoutResponsive';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface LayoutSelectorProps {
   selectedLayout: string;
@@ -28,32 +29,36 @@ const LayoutSelector: React.FC<LayoutSelectorProps> = ({
   const layoutRef = useRef<HTMLDivElement>(null);
   const { getContainerClasses } = useLayoutContainer(selectedLayout);
   const { maxWidth, padding, aspectRatio } = useLayoutResponsive(selectedLayout);
+  const isMobile = useIsMobile();
 
   const handleDownload = async () => {
     await downloadLayoutImage(layoutRef, selectedLayout, bgColor);
   };
 
   return (
-    <div className="w-full flex flex-col gap-1">
-      <div className="flex items-center gap-1">
-        <LayoutDropdown 
-          selectedLayout={selectedLayout}
-          setSelectedLayout={setSelectedLayout}
-          layoutOptions={layoutOptions}
-        />
-        
-        <BackgroundColorSelector 
-          bgColor={bgColor}
-          setBgColor={setBgColor}
-        />
+    <div className="w-full flex flex-col gap-2 sm:gap-1">
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-1">
+        <div className="flex-1">
+          <LayoutDropdown 
+            selectedLayout={selectedLayout}
+            setSelectedLayout={setSelectedLayout}
+            layoutOptions={layoutOptions}
+          />
+        </div>
+        <div className="w-full sm:w-auto">
+          <BackgroundColorSelector 
+            bgColor={bgColor}
+            setBgColor={setBgColor}
+          />
+        </div>
       </div>
       
       <div 
         className={`${getContainerClasses()} transition-all duration-300`}
         ref={layoutRef}
         style={{
-          maxWidth,
-          padding,
+          maxWidth: isMobile ? '100%' : maxWidth,
+          padding: isMobile ? '0.5rem' : padding,
           aspectRatio,
         }}
       >
@@ -66,7 +71,7 @@ const LayoutSelector: React.FC<LayoutSelectorProps> = ({
       </div>
       
       <Button 
-        className="w-full bg-[#4b30ab] hover:bg-[#5b40bb] text-white text-xs font-medium h-7 mt-1"
+        className="w-full bg-[#4b30ab] hover:bg-[#5b40bb] text-white text-xs font-medium h-8 sm:h-7 mt-2 sm:mt-1"
         onClick={handleDownload}
       >
         <Download className="mr-1 h-3 w-3" />

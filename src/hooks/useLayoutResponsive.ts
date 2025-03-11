@@ -1,5 +1,6 @@
 
 import { useEffect, useState } from 'react';
+import { useIsMobile } from './use-mobile';
 
 type LayoutSize = {
   maxWidth: string;
@@ -13,25 +14,26 @@ export const useLayoutResponsive = (layout: string) => {
     padding: '0.75rem',
     aspectRatio: '1/2.3'
   });
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const updateLayoutSize = () => {
       const width = window.innerWidth;
       
       if (layout.includes('strip') || layout === 'diagonal-strips') {
-        if (width < 640) { // sm
+        if (isMobile) {
           setLayoutSize({
-            maxWidth: '320px',
+            maxWidth: '100%',
             padding: '0.5rem',
-            aspectRatio: '1/2'
+            aspectRatio: '1/1.8'
           });
-        } else if (width < 1024) { // md
+        } else if (width < 1024) {
           setLayoutSize({
             maxWidth: '380px',
             padding: '0.75rem',
             aspectRatio: '1/2.2'
           });
-        } else { // lg
+        } else {
           setLayoutSize({
             maxWidth: '450px',
             padding: '1rem',
@@ -39,11 +41,11 @@ export const useLayoutResponsive = (layout: string) => {
           });
         }
       } else if (layout === 'grid' || layout === 'simple-grid' || layout === 'classic-grid') {
-        if (width < 640) {
+        if (isMobile) {
           setLayoutSize({
-            maxWidth: '360px',
+            maxWidth: '100%',
             padding: '0.5rem',
-            aspectRatio: '4/5'
+            aspectRatio: '1/1'
           });
         } else if (width < 1024) {
           setLayoutSize({
@@ -59,11 +61,11 @@ export const useLayoutResponsive = (layout: string) => {
           });
         }
       } else {
-        if (width < 640) {
+        if (isMobile) {
           setLayoutSize({
-            maxWidth: '340px',
+            maxWidth: '100%',
             padding: '0.5rem',
-            aspectRatio: '3/4'
+            aspectRatio: '4/5'
           });
         } else if (width < 1024) {
           setLayoutSize({
@@ -84,7 +86,7 @@ export const useLayoutResponsive = (layout: string) => {
     updateLayoutSize();
     window.addEventListener('resize', updateLayoutSize);
     return () => window.removeEventListener('resize', updateLayoutSize);
-  }, [layout]);
+  }, [layout, isMobile]);
 
   return layoutSize;
 };
