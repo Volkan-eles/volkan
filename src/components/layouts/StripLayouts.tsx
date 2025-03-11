@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { MoreHorizontal, Edit2 } from 'lucide-react';
 import { LayoutProps } from './index';
@@ -23,11 +24,25 @@ export const ClassicStripLayout: React.FC<LayoutProps> = ({
 }) => {
   const [title, setTitle] = useState("MEMORIES");
   const [date, setDate] = useState("2024.06.10");
+  
+  // Helper function to handle both string and object photo types
+  const getSrc = (photo: string | { src: string; index: number }) => {
+    if (typeof photo === 'string') {
+      return photo;
+    }
+    return photo.src;
+  };
+  
   return <div className={`flex-1 flex flex-col p-3 gap-3 ${backgroundColor !== 'white' ? backgroundColor : ''}`}>
-      {photos.map((photo, index) => <div key={index} className="relative h-1/4 flex items-end">
-          <img src={photo} alt={`Photo ${index + 1}`} className="w-full h-full object-cover rounded-md" />
-          
-        </div>)}
+      {photos.map((photo, index) => (
+        <div key={index} className="relative aspect-square w-full max-w-[80%] mx-auto">
+          <img 
+            src={getSrc(photo)} 
+            alt={`Photo ${index + 1}`} 
+            className="w-full h-full object-cover rounded-md" 
+          />
+        </div>
+      ))}
       
       {/* Text placement at bottom */}
       <div className="text-center mt-2">
@@ -44,12 +59,26 @@ export const VerticalStripLayout: React.FC<LayoutProps> = ({
 }) => {
   const [title, setTitle] = useState("MEMORIES");
   const [date, setDate] = useState("2024.06.10");
+  
+  // Helper function to handle both string and object photo types
+  const getSrc = (photo: string | { src: string; index: number }) => {
+    if (typeof photo === 'string') {
+      return photo;
+    }
+    return photo.src;
+  };
+  
   return <div className={`flex-1 p-3 ${backgroundColor !== 'white' ? backgroundColor : ''}`}>
       <div className="h-full flex flex-col gap-3">
-        {photos.map((photo, index) => <div key={index} className="relative h-1/4 flex items-end">
-            <img src={photo} alt={`Photo ${index + 1}`} className="w-full h-full object-cover rounded-md" />
-            
-          </div>)}
+        {photos.map((photo, index) => (
+          <div key={index} className="relative aspect-square w-full max-w-[80%] mx-auto">
+            <img 
+              src={getSrc(photo)} 
+              alt={`Photo ${index + 1}`} 
+              className="w-full h-full object-cover rounded-md" 
+            />
+          </div>
+        ))}
         
         {/* Text placement at bottom */}
         <div className="text-center mt-2">
@@ -72,12 +101,26 @@ export const ElegantStripLayout: React.FC<LayoutProps> = ({
   const toggleEditing = () => {
     setIsEditing(!isEditing);
   };
+  
+  // Helper function to handle both string and object photo types
+  const getSrc = (photo: string | { src: string; index: number }) => {
+    if (typeof photo === 'string') {
+      return photo;
+    }
+    return photo.src;
+  };
+  
   return <div className={`flex-1 flex flex-col p-5 gap-4 ${backgroundColor !== 'white' ? backgroundColor : ''}`}>
       {/* Photo 1, 2, 3 */}
-      {photos.slice(0, 3).map((photo, index) => <div key={index} className="relative h-1/4 flex items-end">
-          <img src={photo} alt={`Photo ${index + 1}`} className="w-full h-full object-cover rounded-md" />
-          
-        </div>)}
+      {photos.slice(0, 3).map((photo, index) => (
+        <div key={index} className="relative aspect-square w-full max-w-[80%] mx-auto">
+          <img 
+            src={getSrc(photo)} 
+            alt={`Photo ${index + 1}`} 
+            className="w-full h-full object-cover rounded-md" 
+          />
+        </div>
+      ))}
       
       {/* Text Area */}
       <div className="h-1/4 flex flex-col items-center justify-center relative">
@@ -104,14 +147,29 @@ export const LargeVerticalLayout: React.FC<LayoutProps> = ({
 }) => {
   const [title, setTitle] = useState("MEMORIES");
   const [date, setDate] = useState("2024.06.10");
+  
+  // Helper function to handle both string and object photo types
+  const getSrc = (photo: string | { src: string; index: number }) => {
+    if (typeof photo === 'string') {
+      return photo;
+    }
+    return photo.src;
+  };
+  
   return <div className={`flex-1 p-3 ${backgroundColor !== 'white' ? backgroundColor : ''}`}>
       <div className="h-full flex flex-col gap-3">
-        {photos.map((photo, index) => <div key={index} className="relative h-1/2 flex items-end">
-            <img src={photo} alt={`Photo ${index + 1}`} className="w-full h-full object-cover rounded-md" />
+        {photos.map((photo, index) => (
+          <div key={index} className="relative aspect-square w-full max-w-[80%] mx-auto">
+            <img 
+              src={getSrc(photo)} 
+              alt={`Photo ${index + 1}`} 
+              className="w-full h-full object-cover rounded-md" 
+            />
             <button className="absolute top-2 right-2 w-8 h-8 flex items-center justify-center text-black bg-white/80 rounded-full">
               <MoreHorizontal size={16} />
             </button>
-          </div>)}
+          </div>
+        ))}
         
         {/* Text placement at bottom */}
         <div className="text-center mt-2">

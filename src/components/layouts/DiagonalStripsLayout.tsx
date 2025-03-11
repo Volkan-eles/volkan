@@ -34,17 +34,17 @@ const DiagonalStripsLayout: React.FC<LayoutProps> = ({
   return (
     <div className={`flex-1 flex flex-col p-3 gap-3 ${backgroundColor !== 'white' ? backgroundColor : ''}`}>
       {/* First photo - top right */}
-      <div className="relative h-1/3 ml-auto w-4/5">
+      <div className="relative aspect-square w-4/5 ml-auto max-w-[80%]">
         {photos[0] && renderPhoto(photos[0], 0, "Photo 1", "w-full h-full object-cover rounded-md")}
       </div>
       
       {/* Second photo - center */}
-      <div className="relative h-1/3 w-4/5 mx-auto">
+      <div className="relative aspect-square w-4/5 mx-auto max-w-[80%]">
         {photos[1] && renderPhoto(photos[1], 1, "Photo 2", "w-full h-full object-cover rounded-md")}
       </div>
       
       {/* Third photo - bottom left */}
-      <div className="relative h-1/3 w-4/5 mr-auto">
+      <div className="relative aspect-square w-4/5 mr-auto max-w-[80%]">
         {photos[2] && renderPhoto(photos[2], 2, "Photo 3", "w-full h-full object-cover rounded-md")}
       </div>
       
