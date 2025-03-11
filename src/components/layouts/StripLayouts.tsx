@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { MoreHorizontal, Edit2 } from 'lucide-react';
 import { LayoutProps } from './index';
@@ -42,7 +43,9 @@ export const ClassicStripLayout: React.FC<LayoutProps> = ({
           <img 
             src={getSrc(photo)} 
             alt={`Photo ${index + 1}`} 
-            className="w-full h-full object-cover rounded-md shadow-sm" 
+            className="w-full h-full object-contain rounded-md shadow-sm" 
+            crossOrigin="anonymous"
+            loading="eager"
           />
         </div>
       ))}
@@ -80,7 +83,9 @@ export const VerticalStripLayout: React.FC<LayoutProps> = ({
             <img 
               src={getSrc(photo)} 
               alt={`Photo ${index + 1}`} 
-              className="w-full h-full object-cover rounded-md shadow-sm" 
+              className="w-full h-full object-contain rounded-md shadow-sm" 
+              crossOrigin="anonymous"
+              loading="eager"
             />
           </div>
         ))}
@@ -124,7 +129,9 @@ export const ElegantStripLayout: React.FC<LayoutProps> = ({
           <img 
             src={getSrc(photo)} 
             alt={`Photo ${index + 1}`} 
-            className="w-full h-full object-cover rounded-md shadow-sm" 
+            className="w-full h-full object-contain rounded-md shadow-sm" 
+            crossOrigin="anonymous"
+            loading="eager"
           />
         </div>
       ))}
@@ -172,9 +179,11 @@ export const LargeVerticalLayout: React.FC<LayoutProps> = ({
             <img 
               src={getSrc(photo)} 
               alt={`Photo ${index + 1}`} 
-              className="w-full h-full object-cover rounded-md shadow-sm" 
+              className="w-full h-full object-contain rounded-md shadow-sm" 
+              crossOrigin="anonymous"
+              loading="eager"
             />
-            <button className="absolute top-2 right-2 w-8 h-8 flex items-center justify-center text-black bg-white/80 rounded-full">
+            <button className="absolute top-2 right-2 w-8 h-8 flex items-center justify-center text-black bg-white/80 rounded-full" data-html2canvas-ignore="true">
               <MoreHorizontal size={16} />
             </button>
           </div>
