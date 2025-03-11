@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { MoreHorizontal } from 'lucide-react';
 import { LayoutProps } from './index';
@@ -34,17 +33,17 @@ const DiagonalStripsLayout: React.FC<LayoutProps> = ({
   return (
     <div className={`flex-1 flex flex-col p-3 gap-4 ${backgroundColor !== 'white' ? backgroundColor : ''}`}>
       {/* First photo - top */}
-      <div className="relative aspect-square w-[85%] mx-auto">
+      <div className="relative aspect-square w-[90%] mx-auto">
         {photos[0] && renderPhoto(photos[0], 0, "Photo 1", "w-full h-full object-cover rounded-md shadow-sm")}
       </div>
       
       {/* Second photo - middle */}
-      <div className="relative aspect-square w-[85%] mx-auto">
+      <div className="relative aspect-square w-[90%] mx-auto">
         {photos[1] && renderPhoto(photos[1], 1, "Photo 2", "w-full h-full object-cover rounded-md shadow-sm")}
       </div>
       
       {/* Third photo - bottom */}
-      <div className="relative aspect-square w-[85%] mx-auto">
+      <div className="relative aspect-square w-[90%] mx-auto">
         {photos[2] && renderPhoto(photos[2], 2, "Photo 3", "w-full h-full object-cover rounded-md shadow-sm")}
       </div>
       

@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { MoreHorizontal, Edit2 } from 'lucide-react';
 import { LayoutProps } from './index';
@@ -35,7 +34,7 @@ export const ClassicStripLayout: React.FC<LayoutProps> = ({
   
   return <div className={`flex-1 flex flex-col p-3 gap-4 ${backgroundColor !== 'white' ? backgroundColor : ''}`}>
       {photos.map((photo, index) => (
-        <div key={index} className="relative aspect-square w-[85%] mx-auto">
+        <div key={index} className="relative aspect-square w-[90%] mx-auto">
           <img 
             src={getSrc(photo)} 
             alt={`Photo ${index + 1}`} 
@@ -71,7 +70,7 @@ export const VerticalStripLayout: React.FC<LayoutProps> = ({
   return <div className={`flex-1 p-3 ${backgroundColor !== 'white' ? backgroundColor : ''}`}>
       <div className="h-full flex flex-col gap-4">
         {photos.map((photo, index) => (
-          <div key={index} className="relative aspect-square w-[85%] mx-auto">
+          <div key={index} className="relative aspect-square w-[90%] mx-auto">
             <img 
               src={getSrc(photo)} 
               alt={`Photo ${index + 1}`} 
@@ -113,7 +112,7 @@ export const ElegantStripLayout: React.FC<LayoutProps> = ({
   return <div className={`flex-1 flex flex-col p-5 gap-4 ${backgroundColor !== 'white' ? backgroundColor : ''}`}>
       {/* Photo 1, 2, 3 */}
       {photos.slice(0, 3).map((photo, index) => (
-        <div key={index} className="relative aspect-square w-[85%] mx-auto">
+        <div key={index} className="relative aspect-square w-[90%] mx-auto">
           <img 
             src={getSrc(photo)} 
             alt={`Photo ${index + 1}`} 
@@ -159,7 +158,7 @@ export const LargeVerticalLayout: React.FC<LayoutProps> = ({
   return <div className={`flex-1 p-3 ${backgroundColor !== 'white' ? backgroundColor : ''}`}>
       <div className="h-full flex flex-col gap-4">
         {photos.map((photo, index) => (
-          <div key={index} className="relative aspect-square w-[85%] mx-auto">
+          <div key={index} className="relative aspect-square w-[90%] mx-auto">
             <img 
               src={getSrc(photo)} 
               alt={`Photo ${index + 1}`} 
