@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import { useIsMobile } from './use-mobile';
 
@@ -23,19 +22,19 @@ export const useLayoutResponsive = (layout: string) => {
       if (layout.includes('strip') || layout === 'diagonal-strips') {
         if (isMobile) {
           setLayoutSize({
-            maxWidth: '90%',  // Narrower on mobile
+            maxWidth: '70%',  // Narrower on mobile for strip layouts
             padding: '0.5rem',
-            aspectRatio: '1/1.8'
+            aspectRatio: '1/2'
           });
         } else if (width < 1024) {
           setLayoutSize({
-            maxWidth: '340px', // Narrower for aesthetic look
+            maxWidth: '300px', // Narrower for aesthetic look
             padding: '0.75rem',
             aspectRatio: '1/2.2'
           });
         } else {
           setLayoutSize({
-            maxWidth: '380px', // Narrower for aesthetic look
+            maxWidth: '340px', // Narrower for aesthetic look like second image
             padding: '1rem',
             aspectRatio: '1/2.3'
           });

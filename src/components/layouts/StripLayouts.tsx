@@ -33,9 +33,9 @@ export const ClassicStripLayout: React.FC<LayoutProps> = ({
     return photo.src;
   };
   
-  return <div className={`flex-1 flex flex-col p-3 gap-4 ${backgroundColor !== 'white' ? backgroundColor : ''}`}>
+  return <div className={`flex-1 flex flex-col p-3 gap-5 ${backgroundColor !== 'white' ? backgroundColor : ''}`}>
       {photos.map((photo, index) => (
-        <div key={index} className="relative aspect-square w-[85%] mx-auto">
+        <div key={index} className="relative aspect-square w-[80%] mx-auto">
           <img 
             src={getSrc(photo)} 
             alt={`Photo ${index + 1}`} 
@@ -69,9 +69,9 @@ export const VerticalStripLayout: React.FC<LayoutProps> = ({
   };
   
   return <div className={`flex-1 p-3 ${backgroundColor !== 'white' ? backgroundColor : ''}`}>
-      <div className="h-full flex flex-col gap-4">
+      <div className="h-full flex flex-col gap-5">
         {photos.map((photo, index) => (
-          <div key={index} className="relative aspect-square w-[85%] mx-auto">
+          <div key={index} className="relative aspect-square w-[80%] mx-auto">
             <img 
               src={getSrc(photo)} 
               alt={`Photo ${index + 1}`} 
@@ -110,10 +110,10 @@ export const ElegantStripLayout: React.FC<LayoutProps> = ({
     return photo.src;
   };
   
-  return <div className={`flex-1 flex flex-col p-5 gap-4 ${backgroundColor !== 'white' ? backgroundColor : ''}`}>
+  return <div className={`flex-1 flex flex-col p-5 gap-5 ${backgroundColor !== 'white' ? backgroundColor : ''}`}>
       {/* Photo 1, 2, 3 */}
       {photos.slice(0, 3).map((photo, index) => (
-        <div key={index} className="relative aspect-square w-[85%] mx-auto">
+        <div key={index} className="relative aspect-square w-[80%] mx-auto">
           <img 
             src={getSrc(photo)} 
             alt={`Photo ${index + 1}`} 
@@ -123,7 +123,7 @@ export const ElegantStripLayout: React.FC<LayoutProps> = ({
       ))}
       
       {/* Text Area */}
-      <div className="h-1/4 flex flex-col items-center justify-center relative mt-2 mb-2">
+      <div className="h-1/5 flex flex-col items-center justify-center relative mt-2 mb-2">
         {isEditing ? <div className="flex flex-col gap-2 w-full">
             <input type="text" value={title} onChange={e => setTitle(e.target.value)} className={`text-center text-black text-2xl uppercase font-semibold focus:outline-none bg-transparent ${backgroundColor !== 'white' ? 'bg-white/80 px-2 py-1 rounded-md' : ''}`} />
             <input type="text" value={subtitle} onChange={e => setSubtitle(e.target.value)} className={`text-center text-black text-3xl italic focus:outline-none bg-transparent ${backgroundColor !== 'white' ? 'bg-white/80 px-2 py-1 rounded-md' : ''}`} />
@@ -157,9 +157,9 @@ export const LargeVerticalLayout: React.FC<LayoutProps> = ({
   };
   
   return <div className={`flex-1 p-3 ${backgroundColor !== 'white' ? backgroundColor : ''}`}>
-      <div className="h-full flex flex-col gap-4">
+      <div className="h-full flex flex-col gap-5">
         {photos.map((photo, index) => (
-          <div key={index} className="relative aspect-square w-[85%] mx-auto">
+          <div key={index} className="relative aspect-square w-[80%] mx-auto">
             <img 
               src={getSrc(photo)} 
               alt={`Photo ${index + 1}`} 

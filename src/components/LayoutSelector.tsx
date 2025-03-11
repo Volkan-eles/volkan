@@ -38,9 +38,9 @@ const LayoutSelector: React.FC<LayoutSelectorProps> = ({
   // Determine if this is a strip layout
   const isStripLayout = selectedLayout.includes('strip') || selectedLayout === 'diagonal-strips';
   
-  // Custom container width for strip layouts
+  // Custom container width for strip layouts - narrower to match second image in attachment
   const containerWidth = isStripLayout 
-    ? isMobile ? '90%' : '70%' 
+    ? isMobile ? '70%' : '60%' 
     : isMobile ? '100%' : maxWidth;
 
   return (
@@ -66,7 +66,7 @@ const LayoutSelector: React.FC<LayoutSelectorProps> = ({
         ref={layoutRef}
         style={{
           maxWidth: containerWidth,
-          width: isStripLayout ? (isMobile ? '90%' : '70%') : '100%',
+          width: isStripLayout ? (isMobile ? '70%' : '60%') : '100%',
           padding: isMobile ? '0.5rem' : padding,
           aspectRatio,
         }}
