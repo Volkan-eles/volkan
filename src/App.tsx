@@ -1,9 +1,30 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
+
+// Import all page components
+import Index from "@/pages/Index";
+import Dashboard from "@/pages/Dashboard";
+import About from "@/pages/About";
+import Blog from "@/pages/Blog";
+import Contact from "@/pages/Contact";
+import PicaPicaPhotobooth from "@/pages/PicaPicaPhotobooth";
+import FAQ from "@/pages/FAQ";
+import Updates from "@/pages/Updates";
+import Community from "@/pages/Community";
+import HelpCenter from "@/pages/HelpCenter";
+import Partners from "@/pages/Partners";
+import Tutorials from "@/pages/Tutorials";
+import PrivacyPolicy from "@/pages/PrivacyPolicy";
+import TermsOfService from "@/pages/TermsOfService";
+import CookiePolicy from "@/pages/CookiePolicy";
+import Accessibility from "@/pages/Accessibility";
+import Sitemap from "@/pages/Sitemap";
+import NotFound from "@/pages/NotFound";
 
 const queryClient = new QueryClient();
 
