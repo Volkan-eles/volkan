@@ -1,13 +1,32 @@
 
 import React, { useState } from 'react';
-import { MoreHorizontal } from 'lucide-react';
+import { MoreHorizontal, Edit2 } from 'lucide-react';
 import { LayoutProps } from './index';
+import { Input } from '@/components/ui/input';
+
+// Reusable EditableText component
+const EditableText = ({
+  value,
+  onChange,
+  className,
+  backgroundColor
+}) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const showBackground = backgroundColor !== 'transparent' && backgroundColor !== 'white';
+  
+  return isEditing ? <Input type="text" value={value} onChange={e => onChange(e.target.value)} onBlur={() => setIsEditing(false)} onKeyDown={e => e.key === 'Enter' && setIsEditing(false)} className={`${className} focus:outline-none px-2 py-1 bg-transparent ${showBackground ? 'bg-white/80 rounded-md' : ''}`} autoFocus /> : <div onClick={() => setIsEditing(true)} className={`${className} cursor-pointer ${showBackground ? 'bg-white/80 px-2 py-1 rounded-md inline-block' : ''}`}>
+      {value}
+    </div>;
+};
 
 // Classic Strip Layout (4 Photos)
 export const ClassicStripLayout: React.FC<LayoutProps> = ({
   photos,
   backgroundColor = 'transparent'
 }) => {
+  const [title, setTitle] = useState("MEMORIES");
+  const [date, setDate] = useState("2024.06.10");
+  
   // Helper function to handle both string and object photo types
   const getSrc = (photo: string | { src: string; index: number }) => {
     if (typeof photo === 'string') {
@@ -28,6 +47,12 @@ export const ClassicStripLayout: React.FC<LayoutProps> = ({
           />
         </div>
       ))}
+      
+      {/* Text placement at bottom */}
+      <div className="text-center mt-3 mb-2">
+        <EditableText value={title} onChange={setTitle} className="text-black text-sm font-medium" backgroundColor={backgroundColor} />
+        <EditableText value={date} onChange={setDate} className="text-black text-xs mt-1" backgroundColor={backgroundColor} />
+      </div>
     </div>;
 };
 
@@ -36,6 +61,9 @@ export const VerticalStripLayout: React.FC<LayoutProps> = ({
   photos,
   backgroundColor = 'transparent'
 }) => {
+  const [title, setTitle] = useState("MEMORIES");
+  const [date, setDate] = useState("2024.06.10");
+  
   // Helper function to handle both string and object photo types
   const getSrc = (photo: string | { src: string; index: number }) => {
     if (typeof photo === 'string') {
@@ -57,6 +85,12 @@ export const VerticalStripLayout: React.FC<LayoutProps> = ({
             />
           </div>
         ))}
+        
+        {/* Text placement at bottom */}
+        <div className="text-center mt-3 mb-2">
+          <EditableText value={title} onChange={setTitle} className="text-black text-sm font-medium" backgroundColor={backgroundColor} />
+          <EditableText value={date} onChange={setDate} className="text-black text-xs mt-1" backgroundColor={backgroundColor} />
+        </div>
       </div>
     </div>;
 };
@@ -66,6 +100,14 @@ export const ElegantStripLayout: React.FC<LayoutProps> = ({
   photos,
   backgroundColor = 'transparent'
 }) => {
+  const [title, setTitle] = useState("LIVE IN");
+  const [subtitle, setSubtitle] = useState("THE moment");
+  const [date, setDate] = useState("2024.06.10");
+  const [isEditing, setIsEditing] = useState(false);
+  const toggleEditing = () => {
+    setIsEditing(!isEditing);
+  };
+  
   // Helper function to handle both string and object photo types
   const getSrc = (photo: string | { src: string; index: number }) => {
     if (typeof photo === 'string') {
@@ -88,9 +130,20 @@ export const ElegantStripLayout: React.FC<LayoutProps> = ({
         </div>
       ))}
       
-      {/* Empty space where text used to be */}
+      {/* Text Area */}
       <div className="h-1/5 flex flex-col items-center justify-center relative mt-2 mb-2">
-        {/* No text elements here - they will be added via TextLayer */}
+        {isEditing ? <div className="flex flex-col gap-2 w-full">
+            <input type="text" value={title} onChange={e => setTitle(e.target.value)} className={`text-center text-black text-2xl uppercase font-semibold focus:outline-none bg-transparent ${backgroundColor !== 'transparent' && backgroundColor !== 'white' ? 'bg-white/80 px-2 py-1 rounded-md' : ''}`} />
+            <input type="text" value={subtitle} onChange={e => setSubtitle(e.target.value)} className={`text-center text-black text-3xl italic focus:outline-none bg-transparent ${backgroundColor !== 'transparent' && backgroundColor !== 'white' ? 'bg-white/80 px-2 py-1 rounded-md' : ''}`} />
+            <input type="text" value={date} onChange={e => setDate(e.target.value)} className={`text-center text-black text-xs focus:outline-none bg-transparent ${backgroundColor !== 'transparent' && backgroundColor !== 'white' ? 'bg-white/80 px-2 py-1 rounded-md' : ''}`} />
+          </div> : <>
+            <h2 className={`text-black text-2xl uppercase font-semibold ${backgroundColor !== 'transparent' && backgroundColor !== 'white' ? 'bg-white/80 px-2 py-1 rounded-md inline-block' : ''}`}>{title}</h2>
+            <h3 className={`text-black text-3xl italic mt-1 ${backgroundColor !== 'transparent' && backgroundColor !== 'white' ? 'bg-white/80 px-2 py-1 rounded-md inline-block' : ''}`}>{subtitle}</h3>
+            <p className={`text-black text-xs mt-2 ${backgroundColor !== 'transparent' && backgroundColor !== 'white' ? 'bg-white/80 px-2 py-1 rounded-md inline-block' : ''}`}>{date}</p>
+          </>}
+        <button onClick={toggleEditing} className="absolute right-0 top-0 w-8 h-8 flex items-center justify-center bg-white/80 rounded-full shadow-sm">
+          <Edit2 size={14} />
+        </button>
       </div>
     </div>;
 };
@@ -100,6 +153,9 @@ export const LargeVerticalLayout: React.FC<LayoutProps> = ({
   photos,
   backgroundColor = 'transparent'
 }) => {
+  const [title, setTitle] = useState("MEMORIES");
+  const [date, setDate] = useState("2024.06.10");
+  
   // Helper function to handle both string and object photo types
   const getSrc = (photo: string | { src: string; index: number }) => {
     if (typeof photo === 'string') {
@@ -124,6 +180,12 @@ export const LargeVerticalLayout: React.FC<LayoutProps> = ({
             </button>
           </div>
         ))}
+        
+        {/* Text placement at bottom */}
+        <div className="text-center mt-3 mb-2">
+          <EditableText value={title} onChange={setTitle} className="text-black text-sm font-medium" backgroundColor={backgroundColor} />
+          <EditableText value={date} onChange={setDate} className="text-black text-xs mt-1" backgroundColor={backgroundColor} />
+        </div>
       </div>
     </div>;
 };
