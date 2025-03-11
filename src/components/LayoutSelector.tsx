@@ -67,7 +67,7 @@ const LayoutSelector: React.FC<LayoutSelectorProps> = ({
         style={{
           maxWidth: containerWidth,
           width: isStripLayout ? (isMobile ? '85%' : '65%') : '100%',
-          padding: isMobile ? '0.5rem' : padding,
+          padding: '0',
           aspectRatio,
         }}
       >
