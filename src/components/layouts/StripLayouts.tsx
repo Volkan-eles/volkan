@@ -26,9 +26,7 @@ export const ClassicStripLayout: React.FC<LayoutProps> = ({
   return <div className={`flex-1 flex flex-col p-3 gap-3 ${backgroundColor !== 'white' ? backgroundColor : ''}`}>
       {photos.map((photo, index) => <div key={index} className="relative h-1/4 flex items-end">
           <img src={photo} alt={`Photo ${index + 1}`} className="w-full h-full object-cover rounded-md" />
-          <button className="absolute top-2 right-2 w-8 h-8 flex items-center justify-center text-black bg-white/80 rounded-full">
-            <MoreHorizontal size={16} />
-          </button>
+          
         </div>)}
       
       {/* Text placement at bottom */}
