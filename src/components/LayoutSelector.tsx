@@ -1,5 +1,5 @@
 
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Download } from 'lucide-react';
 import PhotoLayout from '@/components/PhotoLayout';
@@ -7,6 +7,7 @@ import LayoutDropdown from '@/components/LayoutDropdown';
 import BackgroundColorSelector from '@/components/BackgroundColorSelector';
 import { useLayoutContainer } from '@/utils/layoutUtils';
 import { downloadLayoutImage } from '@/utils/downloadLayout';
+import { useLayoutResponsive } from '@/hooks/useLayoutResponsive';
 
 interface LayoutSelectorProps {
   selectedLayout: string;
@@ -23,9 +24,10 @@ const LayoutSelector: React.FC<LayoutSelectorProps> = ({
   capturedPhotos,
   frameColor
 }) => {
-  const [bgColor, setBgColor] = useState<string>('white');
+  const [bgColor, setBgColor] = React.useState<string>('white');
   const layoutRef = useRef<HTMLDivElement>(null);
   const { getContainerClasses } = useLayoutContainer(selectedLayout);
+  const { maxWidth, padding, aspectRatio } = useLayoutResponsive(selectedLayout);
 
   const handleDownload = async () => {
     await downloadLayoutImage(layoutRef, selectedLayout, bgColor);
@@ -46,7 +48,15 @@ const LayoutSelector: React.FC<LayoutSelectorProps> = ({
         />
       </div>
       
-      <div className={getContainerClasses()} ref={layoutRef}>
+      <div 
+        className={`${getContainerClasses()} transition-all duration-300`}
+        ref={layoutRef}
+        style={{
+          maxWidth,
+          padding,
+          aspectRatio,
+        }}
+      >
         <PhotoLayout 
           photos={capturedPhotos} 
           layout={selectedLayout}
