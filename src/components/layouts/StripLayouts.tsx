@@ -14,7 +14,7 @@ const EditableText = ({
   const [isEditing, setIsEditing] = useState(false);
   const showBackground = backgroundColor !== 'transparent' && backgroundColor !== 'white';
   
-  return isEditing ? <Input type="text" value={value} onChange={e => onChange(e.target.value)} onBlur={() => setIsEditing(false)} onKeyDown={e => e.key === 'Enter' && setIsEditing(false)} className={`${className} focus:outline-none px-2 py-1 bg-transparent ${showBackground ? 'bg-white/80 rounded-md' : ''}`} autoFocus data-html2canvas-ignore="true" /> : <div onClick={() => setIsEditing(true)} className={`${className} cursor-pointer ${showBackground ? 'bg-white/80 px-2 py-1 rounded-md inline-block' : ''}`} data-html2canvas-ignore="true">
+  return isEditing ? <Input type="text" value={value} onChange={e => onChange(e.target.value)} onBlur={() => setIsEditing(false)} onKeyDown={e => e.key === 'Enter' && setIsEditing(false)} className={`${className} focus:outline-none px-2 py-1 bg-transparent ${showBackground ? 'bg-white/80 rounded-md' : ''}`} autoFocus /> : <div onClick={() => setIsEditing(true)} className={`${className} cursor-pointer ${showBackground ? 'bg-white/80 px-2 py-1 rounded-md inline-block' : ''}`}>
       {value}
     </div>;
 };
@@ -43,9 +43,7 @@ export const ClassicStripLayout: React.FC<LayoutProps> = ({
           <img 
             src={getSrc(photo)} 
             alt={`Photo ${index + 1}`} 
-            className="w-full h-full object-contain rounded-md shadow-sm" 
-            crossOrigin="anonymous"
-            loading="eager"
+            className="w-full h-full object-cover rounded-md shadow-sm" 
           />
         </div>
       ))}
@@ -83,9 +81,7 @@ export const VerticalStripLayout: React.FC<LayoutProps> = ({
             <img 
               src={getSrc(photo)} 
               alt={`Photo ${index + 1}`} 
-              className="w-full h-full object-contain rounded-md shadow-sm" 
-              crossOrigin="anonymous"
-              loading="eager"
+              className="w-full h-full object-cover rounded-md shadow-sm" 
             />
           </div>
         ))}
@@ -129,16 +125,14 @@ export const ElegantStripLayout: React.FC<LayoutProps> = ({
           <img 
             src={getSrc(photo)} 
             alt={`Photo ${index + 1}`} 
-            className="w-full h-full object-contain rounded-md shadow-sm" 
-            crossOrigin="anonymous"
-            loading="eager"
+            className="w-full h-full object-cover rounded-md shadow-sm" 
           />
         </div>
       ))}
       
       {/* Text Area */}
       <div className="h-1/5 flex flex-col items-center justify-center relative mt-2 mb-2">
-        {isEditing ? <div className="flex flex-col gap-2 w-full" data-html2canvas-ignore="true">
+        {isEditing ? <div className="flex flex-col gap-2 w-full">
             <input type="text" value={title} onChange={e => setTitle(e.target.value)} className={`text-center text-black text-2xl uppercase font-semibold focus:outline-none bg-transparent ${backgroundColor !== 'transparent' && backgroundColor !== 'white' ? 'bg-white/80 px-2 py-1 rounded-md' : ''}`} />
             <input type="text" value={subtitle} onChange={e => setSubtitle(e.target.value)} className={`text-center text-black text-3xl italic focus:outline-none bg-transparent ${backgroundColor !== 'transparent' && backgroundColor !== 'white' ? 'bg-white/80 px-2 py-1 rounded-md' : ''}`} />
             <input type="text" value={date} onChange={e => setDate(e.target.value)} className={`text-center text-black text-xs focus:outline-none bg-transparent ${backgroundColor !== 'transparent' && backgroundColor !== 'white' ? 'bg-white/80 px-2 py-1 rounded-md' : ''}`} />
@@ -147,7 +141,7 @@ export const ElegantStripLayout: React.FC<LayoutProps> = ({
             <h3 className={`text-black text-3xl italic mt-1 ${backgroundColor !== 'transparent' && backgroundColor !== 'white' ? 'bg-white/80 px-2 py-1 rounded-md inline-block' : ''}`}>{subtitle}</h3>
             <p className={`text-black text-xs mt-2 ${backgroundColor !== 'transparent' && backgroundColor !== 'white' ? 'bg-white/80 px-2 py-1 rounded-md inline-block' : ''}`}>{date}</p>
           </>}
-        <button onClick={toggleEditing} className="absolute right-0 top-0 w-8 h-8 flex items-center justify-center bg-white/80 rounded-full shadow-sm" data-html2canvas-ignore="true">
+        <button onClick={toggleEditing} className="absolute right-0 top-0 w-8 h-8 flex items-center justify-center bg-white/80 rounded-full shadow-sm">
           <Edit2 size={14} />
         </button>
       </div>
@@ -179,11 +173,9 @@ export const LargeVerticalLayout: React.FC<LayoutProps> = ({
             <img 
               src={getSrc(photo)} 
               alt={`Photo ${index + 1}`} 
-              className="w-full h-full object-contain rounded-md shadow-sm" 
-              crossOrigin="anonymous"
-              loading="eager"
+              className="w-full h-full object-cover rounded-md shadow-sm" 
             />
-            <button className="absolute top-2 right-2 w-8 h-8 flex items-center justify-center text-black bg-white/80 rounded-full" data-html2canvas-ignore="true">
+            <button className="absolute top-2 right-2 w-8 h-8 flex items-center justify-center text-black bg-white/80 rounded-full">
               <MoreHorizontal size={16} />
             </button>
           </div>

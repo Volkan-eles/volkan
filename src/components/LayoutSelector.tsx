@@ -32,26 +32,7 @@ const LayoutSelector: React.FC<LayoutSelectorProps> = ({
   const isMobile = useIsMobile();
 
   const handleDownload = async () => {
-    // Ensure layout has proper dimensions before downloading
-    if (layoutRef.current) {
-      // Make sure images are fully loaded before capturing
-      const images = layoutRef.current.querySelectorAll('img');
-      const imagePromises = Array.from(images).map(img => {
-        if (img.complete) return Promise.resolve();
-        return new Promise(resolve => {
-          img.onload = resolve;
-          img.onerror = resolve; // Handle error case too
-        });
-      });
-      
-      // Wait for all images to load
-      await Promise.all(imagePromises);
-      
-      // Now proceed with download
-      await downloadLayoutImage(layoutRef, selectedLayout, bgColor);
-    } else {
-      await downloadLayoutImage(layoutRef, selectedLayout, bgColor);
-    }
+    await downloadLayoutImage(layoutRef, selectedLayout, bgColor);
   };
 
   // Determine if this is a strip layout

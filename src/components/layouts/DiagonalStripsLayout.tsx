@@ -28,15 +28,7 @@ const DiagonalStripsLayout: React.FC<LayoutProps> = ({
     if (renderImage && typeof photo !== 'string') {
       return renderImage(photo.src, photo.index, alt, className);
     }
-    return (
-      <img 
-        src={getSrc(photo, index)} 
-        alt={alt} 
-        className={`${className} w-full h-full object-contain rounded-md`} 
-        crossOrigin="anonymous"
-        loading="eager"
-      />
-    );
+    return <img src={getSrc(photo, index)} alt={alt} className={`${className} w-full h-full object-cover rounded-md`} />;
   };
 
   const bgColorClass = backgroundColor !== 'transparent' && backgroundColor !== 'white' ? backgroundColor : '';
@@ -45,17 +37,17 @@ const DiagonalStripsLayout: React.FC<LayoutProps> = ({
     <div className={`flex-1 flex flex-col p-3 gap-4 ${bgColorClass}`}>
       {/* First photo - top */}
       <div className="relative aspect-square w-[90%] mx-auto">
-        {photos[0] && renderPhoto(photos[0], 0, "Photo 1", "w-full h-full object-contain rounded-md shadow-sm")}
+        {photos[0] && renderPhoto(photos[0], 0, "Photo 1", "w-full h-full object-cover rounded-md shadow-sm")}
       </div>
       
       {/* Second photo - middle */}
       <div className="relative aspect-square w-[90%] mx-auto">
-        {photos[1] && renderPhoto(photos[1], 1, "Photo 2", "w-full h-full object-contain rounded-md shadow-sm")}
+        {photos[1] && renderPhoto(photos[1], 1, "Photo 2", "w-full h-full object-cover rounded-md shadow-sm")}
       </div>
       
       {/* Third photo - bottom */}
       <div className="relative aspect-square w-[90%] mx-auto">
-        {photos[2] && renderPhoto(photos[2], 2, "Photo 3", "w-full h-full object-contain rounded-md shadow-sm")}
+        {photos[2] && renderPhoto(photos[2], 2, "Photo 3", "w-full h-full object-cover rounded-md shadow-sm")}
       </div>
       
       {/* Text placement at bottom with responsive color */}
