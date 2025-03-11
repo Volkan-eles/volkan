@@ -28,30 +28,30 @@ const DiagonalStripsLayout: React.FC<LayoutProps> = ({
     if (renderImage && typeof photo !== 'string') {
       return renderImage(photo.src, photo.index, alt, className);
     }
-    return <img src={getSrc(photo, index)} alt={alt} className={`${className} w-full h-full object-cover rounded-md`} />;
+    return <img src={getSrc(photo, index)} alt={alt} className={`${className} w-full h-full object-cover rounded-lg`} />;
   };
 
   return (
-    <div className={`flex-1 flex flex-col p-3 gap-3 ${backgroundColor !== 'white' ? backgroundColor : ''}`}>
-      {/* First photo - top right */}
-      <div className="relative aspect-square w-4/5 ml-auto max-w-[80%]">
-        {photos[0] && renderPhoto(photos[0], 0, "Photo 1", "w-full h-full object-cover rounded-md")}
+    <div className={`flex-1 flex flex-col p-3 gap-4 ${backgroundColor !== 'white' ? backgroundColor : ''}`}>
+      {/* First photo - top */}
+      <div className="relative aspect-square w-[85%] mx-auto">
+        {photos[0] && renderPhoto(photos[0], 0, "Photo 1", "w-full h-full object-cover rounded-lg shadow-sm")}
       </div>
       
-      {/* Second photo - center */}
-      <div className="relative aspect-square w-4/5 mx-auto max-w-[80%]">
-        {photos[1] && renderPhoto(photos[1], 1, "Photo 2", "w-full h-full object-cover rounded-md")}
+      {/* Second photo - middle */}
+      <div className="relative aspect-square w-[85%] mx-auto">
+        {photos[1] && renderPhoto(photos[1], 1, "Photo 2", "w-full h-full object-cover rounded-lg shadow-sm")}
       </div>
       
-      {/* Third photo - bottom left */}
-      <div className="relative aspect-square w-4/5 mr-auto max-w-[80%]">
-        {photos[2] && renderPhoto(photos[2], 2, "Photo 3", "w-full h-full object-cover rounded-md")}
+      {/* Third photo - bottom */}
+      <div className="relative aspect-square w-[85%] mx-auto">
+        {photos[2] && renderPhoto(photos[2], 2, "Photo 3", "w-full h-full object-cover rounded-lg shadow-sm")}
       </div>
       
       {/* Text placement at bottom with responsive color */}
-      <div className="text-center mt-2">
+      <div className="text-center mt-4 mb-2">
         <p className={`${textColorClass} text-sm font-medium ${backgroundColor !== 'white' ? `${textBgClass} px-2 py-1 rounded-md inline-block` : ''}`}>MEMORIES</p>
-        <p className={`${textColorClass} text-xs ${backgroundColor !== 'white' ? `${textBgClass} px-2 py-1 rounded-md inline-block mt-1` : ''}`}>{dateString}</p>
+        <p className={`${textColorClass} text-xs mt-1 ${backgroundColor !== 'white' ? `${textBgClass} px-2 py-1 rounded-md inline-block` : ''}`}>{dateString}</p>
       </div>
     </div>
   );

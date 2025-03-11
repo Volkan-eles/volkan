@@ -23,19 +23,19 @@ export const useLayoutResponsive = (layout: string) => {
       if (layout.includes('strip') || layout === 'diagonal-strips') {
         if (isMobile) {
           setLayoutSize({
-            maxWidth: '100%',
+            maxWidth: '90%',  // Narrower on mobile
             padding: '0.5rem',
             aspectRatio: '1/1.8'
           });
         } else if (width < 1024) {
           setLayoutSize({
-            maxWidth: '380px',
+            maxWidth: '340px', // Narrower for aesthetic look
             padding: '0.75rem',
             aspectRatio: '1/2.2'
           });
         } else {
           setLayoutSize({
-            maxWidth: '450px',
+            maxWidth: '380px', // Narrower for aesthetic look
             padding: '1rem',
             aspectRatio: '1/2.3'
           });

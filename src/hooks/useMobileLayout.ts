@@ -22,9 +22,10 @@ export const useMobileLayout = (layout: string) => {
       case 'vertical-strip':
       case 'elegant-strip':
         return {
-          gap: '0.375rem',
+          gap: '0.5rem',
           padding: '0.5rem',
           textSize: 'text-xs',
+          width: '85%', // Make more narrow on mobile
         };
       case 'creative-overlap':
       case 'big-small':

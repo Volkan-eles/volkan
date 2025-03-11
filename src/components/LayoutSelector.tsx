@@ -35,6 +35,14 @@ const LayoutSelector: React.FC<LayoutSelectorProps> = ({
     await downloadLayoutImage(layoutRef, selectedLayout, bgColor);
   };
 
+  // Determine if this is a strip layout
+  const isStripLayout = selectedLayout.includes('strip') || selectedLayout === 'diagonal-strips';
+  
+  // Custom container width for strip layouts
+  const containerWidth = isStripLayout 
+    ? isMobile ? '90%' : '70%' 
+    : isMobile ? '100%' : maxWidth;
+
   return (
     <div className="w-full flex flex-col gap-2 sm:gap-1">
       <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-1">
@@ -54,10 +62,11 @@ const LayoutSelector: React.FC<LayoutSelectorProps> = ({
       </div>
       
       <div 
-        className={`${getContainerClasses()} transition-all duration-300`}
+        className={`${getContainerClasses()} mx-auto transition-all duration-300`}
         ref={layoutRef}
         style={{
-          maxWidth: isMobile ? '100%' : maxWidth,
+          maxWidth: containerWidth,
+          width: isStripLayout ? (isMobile ? '90%' : '70%') : '100%',
           padding: isMobile ? '0.5rem' : padding,
           aspectRatio,
         }}
