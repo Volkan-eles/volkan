@@ -1,3 +1,4 @@
+
 import React from 'react';
 import {
   DiagonalStripsLayout,
@@ -57,10 +58,7 @@ const PhotoLayout: React.FC<PhotoLayoutProps> = ({
   );
 
   const getLayoutPhotos = (maxPhotos: number) => {
-    return displayPhotos.slice(0, maxPhotos).map((photo, index) => ({
-      src: photo,
-      index,
-    }));
+    return displayPhotos.slice(0, maxPhotos);
   };
 
   const getCurrentDate = () => {
