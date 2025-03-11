@@ -1,18 +1,17 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Heart, Instagram, Music, Camera, Award } from 'lucide-react';
-
-const HeroSection = () => (
-  <section className="relative overflow-hidden" aria-labelledby="hero-heading">
+const HeroSection = () => <section className="relative overflow-hidden" aria-labelledby="hero-heading">
     {/* Background elements - updated for better visual appeal */}
     <div className="absolute inset-0 bg-gradient-to-br from-[#8B5CF6] via-[#D946EF] to-[#EC4899] opacity-90"></div>
     <div className="absolute inset-0 bg-[url('/lovable-uploads/3fc22a76-7d7a-4617-b0df-6998c07b60ea.png')] bg-cover bg-center opacity-10"></div>
     
     {/* Animated circles */}
     <div className="absolute top-20 left-10 w-64 h-64 rounded-full bg-pink-300 opacity-20 blur-3xl animate-pulse"></div>
-    <div className="absolute bottom-10 right-10 w-80 h-80 rounded-full bg-violet-300 opacity-20 blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+    <div className="absolute bottom-10 right-10 w-80 h-80 rounded-full bg-violet-300 opacity-20 blur-3xl animate-pulse" style={{
+    animationDelay: '1s'
+  }}></div>
     
     <div className="container mx-auto px-4 md:px-6 py-20 md:py-32 relative z-10">
       <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -65,15 +64,20 @@ const HeroSection = () => (
               <img alt="K-pop photo strip example" className="w-full h-auto rounded-lg" src="/lovable-uploads/3fc22a76-7d7a-4617-b0df-6998c07b60ea.png" />
             </div>
             <div className="absolute top-20 right-20 w-64 shadow-xl rounded-lg transform -rotate-3 hover:rotate-0 transition-transform duration-300 z-20">
-              <img src="/JAEHYUN.png" alt="K-pop idol sample" className="w-full h-auto rounded-lg" />
+              <img alt="K-pop idol sample" className="w-full h-auto rounded-lg" src="/lovable-uploads/95c01b04-2c56-4d10-8223-831f4995f862.png" />
             </div>
             <div className="absolute top-40 right-40 w-64 shadow-xl rounded-lg transform rotate-12 hover:rotate-0 transition-transform duration-300 z-10">
-              <img src="/Karina.png" alt="K-pop idol sample" className="w-full h-auto rounded-lg" />
+              <img alt="K-pop idol sample" className="w-full h-auto rounded-lg" src="/lovable-uploads/036b7ff5-1d94-44f6-982f-2306826a8053.png" />
             </div>
             
             {/* Decorative elements */}
-            <div className="absolute bottom-20 left-10 h-20 w-20 rounded-full bg-gradient-to-br from-pink-400 to-purple-600 opacity-80 animate-bounce" style={{ animationDuration: "3s" }}></div>
-            <div className="absolute top-10 left-20 h-12 w-12 rounded-full bg-gradient-to-br from-indigo-400 to-blue-600 opacity-80 animate-bounce" style={{ animationDuration: "4s", animationDelay: "1s" }}></div>
+            <div className="absolute bottom-20 left-10 h-20 w-20 rounded-full bg-gradient-to-br from-pink-400 to-purple-600 opacity-80 animate-bounce" style={{
+            animationDuration: "3s"
+          }}></div>
+            <div className="absolute top-10 left-20 h-12 w-12 rounded-full bg-gradient-to-br from-indigo-400 to-blue-600 opacity-80 animate-bounce" style={{
+            animationDuration: "4s",
+            animationDelay: "1s"
+          }}></div>
           </div>
         </div>
       </div>
@@ -97,7 +101,5 @@ const HeroSection = () => (
         <path d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"></path>
       </svg>
     </div>
-  </section>
-);
-
+  </section>;
 export default HeroSection;
