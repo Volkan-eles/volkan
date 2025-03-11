@@ -1,5 +1,6 @@
-
 import React from 'react';
+import { useTextElements } from '@/hooks/useTextElements';
+import TextLayer from '@/components/TextLayer';
 import {
   DiagonalStripsLayout,
   ClassicStripLayout,
@@ -29,6 +30,8 @@ const PhotoLayout: React.FC<PhotoLayoutProps> = ({
   frameStyle, 
   backgroundColor = 'transparent' 
 }) => {
+  const { textElements, addTextElement, updateTextElement, deleteTextElement } = useTextElements();
+  
   const mockPhotos = [
     '/lovable-uploads/a8f26fe4-1a18-429a-ab24-18509a4b955b.png',
     '/lovable-uploads/a8f26fe4-1a18-429a-ab24-18509a4b955b.png',
@@ -126,6 +129,9 @@ const PhotoLayout: React.FC<PhotoLayoutProps> = ({
       backgroundColor,
       dateString,
       textColor,
+      textElements,
+      onUpdateText: updateTextElement,
+      onDeleteText: deleteTextElement,
     };
 
     switch (layout) {
@@ -161,8 +167,13 @@ const PhotoLayout: React.FC<PhotoLayoutProps> = ({
   };
 
   return (
-    <div className={`h-full w-full flex flex-col ${getBackgroundColorStyle()} ${getAspectRatioClass()}`}>
+    <div className={`h-full w-full flex flex-col relative ${getBackgroundColorStyle()} ${getAspectRatioClass()}`}>
       {renderLayout()}
+      <TextLayer
+        textElements={textElements}
+        onUpdate={updateTextElement}
+        onDelete={deleteTextElement}
+      />
     </div>
   );
 };

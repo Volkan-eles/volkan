@@ -1,9 +1,9 @@
-
 import React, { useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Slider } from '@/components/ui/slider';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 import { fontFamilies, textColors, fontSizes } from '@/utils/textStyles';
 
 interface TextPanelProps {
@@ -41,6 +41,15 @@ const TextPanel: React.FC<TextPanelProps> = ({ onTextStyleChange }) => {
     onTextStyleChange?.({ size: `${value[0]}px` });
   };
 
+  const handleAddText = () => {
+    onTextStyleChange?.({
+      text: selectedText,
+      font: selectedFont,
+      color: selectedColor,
+      size: `${fontSize}px`,
+    });
+  };
+
   return (
     <Tabs defaultValue="text" className="w-full">
       <TabsList className="grid w-full grid-cols-4 bg-[#333] rounded-lg overflow-hidden">
@@ -59,6 +68,12 @@ const TextPanel: React.FC<TextPanelProps> = ({ onTextStyleChange }) => {
             placeholder="Enter your text here..."
             className="bg-[#333] border-0 focus-visible:ring-1 focus-visible:ring-violet-500 transition-all"
           />
+          <Button
+            onClick={handleAddText}
+            className="w-full bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white"
+          >
+            Add Text
+          </Button>
         </div>
       </TabsContent>
 
