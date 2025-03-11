@@ -33,13 +33,13 @@ export const ClassicStripLayout: React.FC<LayoutProps> = ({
     return photo.src;
   };
   
-  return <div className={`flex-1 flex flex-col p-3 gap-5 ${backgroundColor !== 'white' ? backgroundColor : ''}`}>
+  return <div className={`flex-1 flex flex-col p-3 gap-4 ${backgroundColor !== 'white' ? backgroundColor : ''}`}>
       {photos.map((photo, index) => (
-        <div key={index} className="relative aspect-square w-[80%] mx-auto">
+        <div key={index} className="relative aspect-square w-[85%] mx-auto">
           <img 
             src={getSrc(photo)} 
             alt={`Photo ${index + 1}`} 
-            className="w-full h-full object-cover rounded-lg shadow-sm" 
+            className="w-full h-full object-cover rounded-md shadow-sm" 
           />
         </div>
       ))}
@@ -69,13 +69,13 @@ export const VerticalStripLayout: React.FC<LayoutProps> = ({
   };
   
   return <div className={`flex-1 p-3 ${backgroundColor !== 'white' ? backgroundColor : ''}`}>
-      <div className="h-full flex flex-col gap-5">
+      <div className="h-full flex flex-col gap-4">
         {photos.map((photo, index) => (
-          <div key={index} className="relative aspect-square w-[80%] mx-auto">
+          <div key={index} className="relative aspect-square w-[85%] mx-auto">
             <img 
               src={getSrc(photo)} 
               alt={`Photo ${index + 1}`} 
-              className="w-full h-full object-cover rounded-lg shadow-sm" 
+              className="w-full h-full object-cover rounded-md shadow-sm" 
             />
           </div>
         ))}
@@ -110,14 +110,14 @@ export const ElegantStripLayout: React.FC<LayoutProps> = ({
     return photo.src;
   };
   
-  return <div className={`flex-1 flex flex-col p-5 gap-5 ${backgroundColor !== 'white' ? backgroundColor : ''}`}>
+  return <div className={`flex-1 flex flex-col p-5 gap-4 ${backgroundColor !== 'white' ? backgroundColor : ''}`}>
       {/* Photo 1, 2, 3 */}
       {photos.slice(0, 3).map((photo, index) => (
-        <div key={index} className="relative aspect-square w-[80%] mx-auto">
+        <div key={index} className="relative aspect-square w-[85%] mx-auto">
           <img 
             src={getSrc(photo)} 
             alt={`Photo ${index + 1}`} 
-            className="w-full h-full object-cover rounded-lg shadow-sm" 
+            className="w-full h-full object-cover rounded-md shadow-sm" 
           />
         </div>
       ))}
@@ -157,13 +157,13 @@ export const LargeVerticalLayout: React.FC<LayoutProps> = ({
   };
   
   return <div className={`flex-1 p-3 ${backgroundColor !== 'white' ? backgroundColor : ''}`}>
-      <div className="h-full flex flex-col gap-5">
+      <div className="h-full flex flex-col gap-4">
         {photos.map((photo, index) => (
-          <div key={index} className="relative aspect-square w-[80%] mx-auto">
+          <div key={index} className="relative aspect-square w-[85%] mx-auto">
             <img 
               src={getSrc(photo)} 
               alt={`Photo ${index + 1}`} 
-              className="w-full h-full object-cover rounded-lg shadow-sm" 
+              className="w-full h-full object-cover rounded-md shadow-sm" 
             />
             <button className="absolute top-2 right-2 w-8 h-8 flex items-center justify-center text-black bg-white/80 rounded-full">
               <MoreHorizontal size={16} />

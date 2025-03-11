@@ -28,28 +28,28 @@ const DiagonalStripsLayout: React.FC<LayoutProps> = ({
     if (renderImage && typeof photo !== 'string') {
       return renderImage(photo.src, photo.index, alt, className);
     }
-    return <img src={getSrc(photo, index)} alt={alt} className={`${className} w-full h-full object-cover rounded-lg`} />;
+    return <img src={getSrc(photo, index)} alt={alt} className={`${className} w-full h-full object-cover rounded-md`} />;
   };
 
   return (
-    <div className={`flex-1 flex flex-col p-3 gap-5 ${backgroundColor !== 'white' ? backgroundColor : ''}`}>
+    <div className={`flex-1 flex flex-col p-3 gap-4 ${backgroundColor !== 'white' ? backgroundColor : ''}`}>
       {/* First photo - top */}
-      <div className="relative aspect-square w-[80%] mx-auto">
-        {photos[0] && renderPhoto(photos[0], 0, "Photo 1", "w-full h-full object-cover rounded-lg shadow-sm")}
+      <div className="relative aspect-square w-[85%] mx-auto">
+        {photos[0] && renderPhoto(photos[0], 0, "Photo 1", "w-full h-full object-cover rounded-md shadow-sm")}
       </div>
       
       {/* Second photo - middle */}
-      <div className="relative aspect-square w-[80%] mx-auto">
-        {photos[1] && renderPhoto(photos[1], 1, "Photo 2", "w-full h-full object-cover rounded-lg shadow-sm")}
+      <div className="relative aspect-square w-[85%] mx-auto">
+        {photos[1] && renderPhoto(photos[1], 1, "Photo 2", "w-full h-full object-cover rounded-md shadow-sm")}
       </div>
       
       {/* Third photo - bottom */}
-      <div className="relative aspect-square w-[80%] mx-auto">
-        {photos[2] && renderPhoto(photos[2], 2, "Photo 3", "w-full h-full object-cover rounded-lg shadow-sm")}
+      <div className="relative aspect-square w-[85%] mx-auto">
+        {photos[2] && renderPhoto(photos[2], 2, "Photo 3", "w-full h-full object-cover rounded-md shadow-sm")}
       </div>
       
       {/* Text placement at bottom with responsive color */}
-      <div className="text-center mt-4 mb-2">
+      <div className="text-center mt-3 mb-2">
         <p className={`${textColorClass} text-sm font-medium ${backgroundColor !== 'white' ? `${textBgClass} px-2 py-1 rounded-md inline-block` : ''}`}>MEMORIES</p>
         <p className={`${textColorClass} text-xs mt-1 ${backgroundColor !== 'white' ? `${textBgClass} px-2 py-1 rounded-md inline-block` : ''}`}>{dateString}</p>
       </div>

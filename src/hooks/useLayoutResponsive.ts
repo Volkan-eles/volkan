@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import { useIsMobile } from './use-mobile';
 
@@ -22,21 +23,21 @@ export const useLayoutResponsive = (layout: string) => {
       if (layout.includes('strip') || layout === 'diagonal-strips') {
         if (isMobile) {
           setLayoutSize({
-            maxWidth: '70%',  // Narrower on mobile for strip layouts
+            maxWidth: '85%',  // Slightly wider on mobile for strip layouts
             padding: '0.5rem',
-            aspectRatio: '1/2'
+            aspectRatio: '1/1.8'
           });
         } else if (width < 1024) {
           setLayoutSize({
-            maxWidth: '300px', // Narrower for aesthetic look
+            maxWidth: '360px', // Wider for better aesthetic look
             padding: '0.75rem',
-            aspectRatio: '1/2.2'
+            aspectRatio: '1/2'
           });
         } else {
           setLayoutSize({
-            maxWidth: '340px', // Narrower for aesthetic look like second image
+            maxWidth: '380px', // Wider like in the second image
             padding: '1rem',
-            aspectRatio: '1/2.3'
+            aspectRatio: '1/2'
           });
         }
       } else if (layout === 'grid' || layout === 'simple-grid' || layout === 'classic-grid') {
