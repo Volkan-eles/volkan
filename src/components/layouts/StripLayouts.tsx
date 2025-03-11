@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+
+import React, { useState, useEffect, useRef } from 'react';
 import { MoreHorizontal, Edit2 } from 'lucide-react';
 import { LayoutProps } from './index';
 import { Input } from '@/components/ui/input';
+import { optimizeImageRendering } from '@/utils/downloadLayout';
 
 // Reusable EditableText component
 const EditableText = ({
@@ -18,6 +20,37 @@ const EditableText = ({
     </div>;
 };
 
+// Image component with quality optimizations
+const OptimizedImage = ({ photo, index, className }) => {
+  const imgRef = useRef(null);
+  
+  // Helper function to handle both string and object photo types
+  const getSrc = (photo) => {
+    if (typeof photo === 'string') {
+      return photo;
+    }
+    return photo.src;
+  };
+  
+  useEffect(() => {
+    if (imgRef.current) {
+      optimizeImageRendering(imgRef.current);
+    }
+  }, [photo]);
+  
+  return (
+    <img 
+      ref={imgRef}
+      src={getSrc(photo)} 
+      alt={`Photo ${index + 1}`}
+      className={`${className} object-cover rounded-md shadow-sm`}
+      crossOrigin="anonymous"
+      loading="eager"
+      decoding="sync"
+    />
+  );
+};
+
 // Classic Strip Layout (4 Photos)
 export const ClassicStripLayout: React.FC<LayoutProps> = ({
   photos,
@@ -26,23 +59,15 @@ export const ClassicStripLayout: React.FC<LayoutProps> = ({
   const [title, setTitle] = useState("MEMORIES");
   const [date, setDate] = useState("2024.06.10");
   
-  // Helper function to handle both string and object photo types
-  const getSrc = (photo: string | { src: string; index: number }) => {
-    if (typeof photo === 'string') {
-      return photo;
-    }
-    return photo.src;
-  };
-  
   const bgColorClass = backgroundColor !== 'transparent' && backgroundColor !== 'white' ? backgroundColor : '';
   
   return <div className={`flex-1 flex flex-col p-3 gap-4 ${bgColorClass}`}>
       {photos.map((photo, index) => (
         <div key={index} className="relative aspect-square w-[90%] mx-auto">
-          <img 
-            src={getSrc(photo)} 
-            alt={`Photo ${index + 1}`} 
-            className="w-full h-full object-cover rounded-md shadow-sm" 
+          <OptimizedImage 
+            photo={photo}
+            index={index}
+            className="w-full h-full"
           />
         </div>
       ))}
@@ -63,24 +88,16 @@ export const VerticalStripLayout: React.FC<LayoutProps> = ({
   const [title, setTitle] = useState("MEMORIES");
   const [date, setDate] = useState("2024.06.10");
   
-  // Helper function to handle both string and object photo types
-  const getSrc = (photo: string | { src: string; index: number }) => {
-    if (typeof photo === 'string') {
-      return photo;
-    }
-    return photo.src;
-  };
-  
   const bgColorClass = backgroundColor !== 'transparent' && backgroundColor !== 'white' ? backgroundColor : '';
   
   return <div className={`flex-1 p-3 ${bgColorClass}`}>
       <div className="h-full flex flex-col gap-4">
         {photos.map((photo, index) => (
           <div key={index} className="relative aspect-square w-[90%] mx-auto">
-            <img 
-              src={getSrc(photo)} 
-              alt={`Photo ${index + 1}`} 
-              className="w-full h-full object-cover rounded-md shadow-sm" 
+            <OptimizedImage 
+              photo={photo}
+              index={index}
+              className="w-full h-full"
             />
           </div>
         ))}
@@ -107,24 +124,16 @@ export const ElegantStripLayout: React.FC<LayoutProps> = ({
     setIsEditing(!isEditing);
   };
   
-  // Helper function to handle both string and object photo types
-  const getSrc = (photo: string | { src: string; index: number }) => {
-    if (typeof photo === 'string') {
-      return photo;
-    }
-    return photo.src;
-  };
-  
   const bgColorClass = backgroundColor !== 'transparent' && backgroundColor !== 'white' ? backgroundColor : '';
   
   return <div className={`flex-1 flex flex-col p-5 gap-4 ${bgColorClass}`}>
       {/* Photo 1, 2, 3 */}
       {photos.slice(0, 3).map((photo, index) => (
         <div key={index} className="relative aspect-square w-[90%] mx-auto">
-          <img 
-            src={getSrc(photo)} 
-            alt={`Photo ${index + 1}`} 
-            className="w-full h-full object-cover rounded-md shadow-sm" 
+          <OptimizedImage 
+            photo={photo}
+            index={index}
+            className="w-full h-full"
           />
         </div>
       ))}
@@ -155,26 +164,18 @@ export const LargeVerticalLayout: React.FC<LayoutProps> = ({
   const [title, setTitle] = useState("MEMORIES");
   const [date, setDate] = useState("2024.06.10");
   
-  // Helper function to handle both string and object photo types
-  const getSrc = (photo: string | { src: string; index: number }) => {
-    if (typeof photo === 'string') {
-      return photo;
-    }
-    return photo.src;
-  };
-  
   const bgColorClass = backgroundColor !== 'transparent' && backgroundColor !== 'white' ? backgroundColor : '';
   
   return <div className={`flex-1 p-3 ${bgColorClass}`}>
       <div className="h-full flex flex-col gap-4">
         {photos.map((photo, index) => (
           <div key={index} className="relative aspect-square w-[90%] mx-auto">
-            <img 
-              src={getSrc(photo)} 
-              alt={`Photo ${index + 1}`} 
-              className="w-full h-full object-cover rounded-md shadow-sm" 
+            <OptimizedImage 
+              photo={photo}
+              index={index}
+              className="w-full h-full"
             />
-            <button className="absolute top-2 right-2 w-8 h-8 flex items-center justify-center text-black bg-white/80 rounded-full">
+            <button className="absolute top-2 right-2 w-8 h-8 flex items-center justify-center text-black bg-white/80 rounded-full" data-html2canvas-ignore="true">
               <MoreHorizontal size={16} />
             </button>
           </div>
