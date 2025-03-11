@@ -12,7 +12,7 @@ export const downloadLayoutImage = async (layoutRef: React.RefObject<HTMLDivElem
     toast.loading("Preparing download...");
     
     const canvas = await html2canvas(layoutRef.current, {
-      backgroundColor: bgColor === 'white' ? '#ffffff' : null,
+      backgroundColor: bgColor === 'transparent' || bgColor === 'white' ? null : bgColor,
       useCORS: true,
       scale: 2, // Higher quality
       logging: false, // Reduce console noise

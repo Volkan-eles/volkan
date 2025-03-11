@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { MoreHorizontal, Edit2 } from 'lucide-react';
 import { LayoutProps } from './index';
@@ -11,7 +12,9 @@ const EditableText = ({
   backgroundColor
 }) => {
   const [isEditing, setIsEditing] = useState(false);
-  return isEditing ? <Input type="text" value={value} onChange={e => onChange(e.target.value)} onBlur={() => setIsEditing(false)} onKeyDown={e => e.key === 'Enter' && setIsEditing(false)} className={`${className} focus:outline-none px-2 py-1 bg-transparent ${backgroundColor !== 'white' ? 'bg-white/80 rounded-md' : ''}`} autoFocus /> : <div onClick={() => setIsEditing(true)} className={`${className} cursor-pointer ${backgroundColor !== 'white' ? 'bg-white/80 px-2 py-1 rounded-md inline-block' : ''}`}>
+  const showBackground = backgroundColor !== 'transparent' && backgroundColor !== 'white';
+  
+  return isEditing ? <Input type="text" value={value} onChange={e => onChange(e.target.value)} onBlur={() => setIsEditing(false)} onKeyDown={e => e.key === 'Enter' && setIsEditing(false)} className={`${className} focus:outline-none px-2 py-1 bg-transparent ${showBackground ? 'bg-white/80 rounded-md' : ''}`} autoFocus /> : <div onClick={() => setIsEditing(true)} className={`${className} cursor-pointer ${showBackground ? 'bg-white/80 px-2 py-1 rounded-md inline-block' : ''}`}>
       {value}
     </div>;
 };
@@ -19,7 +22,7 @@ const EditableText = ({
 // Classic Strip Layout (4 Photos)
 export const ClassicStripLayout: React.FC<LayoutProps> = ({
   photos,
-  backgroundColor = 'white'
+  backgroundColor = 'transparent'
 }) => {
   const [title, setTitle] = useState("MEMORIES");
   const [date, setDate] = useState("2024.06.10");
@@ -32,7 +35,9 @@ export const ClassicStripLayout: React.FC<LayoutProps> = ({
     return photo.src;
   };
   
-  return <div className={`flex-1 flex flex-col p-3 gap-4 ${backgroundColor !== 'white' ? backgroundColor : ''}`}>
+  const bgColorClass = backgroundColor !== 'transparent' && backgroundColor !== 'white' ? backgroundColor : '';
+  
+  return <div className={`flex-1 flex flex-col p-3 gap-4 ${bgColorClass}`}>
       {photos.map((photo, index) => (
         <div key={index} className="relative aspect-square w-[90%] mx-auto">
           <img 
@@ -54,7 +59,7 @@ export const ClassicStripLayout: React.FC<LayoutProps> = ({
 // Vertical Strip Layout (4 Photos)
 export const VerticalStripLayout: React.FC<LayoutProps> = ({
   photos,
-  backgroundColor = 'white'
+  backgroundColor = 'transparent'
 }) => {
   const [title, setTitle] = useState("MEMORIES");
   const [date, setDate] = useState("2024.06.10");
@@ -67,7 +72,9 @@ export const VerticalStripLayout: React.FC<LayoutProps> = ({
     return photo.src;
   };
   
-  return <div className={`flex-1 p-3 ${backgroundColor !== 'white' ? backgroundColor : ''}`}>
+  const bgColorClass = backgroundColor !== 'transparent' && backgroundColor !== 'white' ? backgroundColor : '';
+  
+  return <div className={`flex-1 p-3 ${bgColorClass}`}>
       <div className="h-full flex flex-col gap-4">
         {photos.map((photo, index) => (
           <div key={index} className="relative aspect-square w-[90%] mx-auto">
@@ -91,7 +98,7 @@ export const VerticalStripLayout: React.FC<LayoutProps> = ({
 // Elegant Strip Layout (4 Photos)
 export const ElegantStripLayout: React.FC<LayoutProps> = ({
   photos,
-  backgroundColor = 'white'
+  backgroundColor = 'transparent'
 }) => {
   const [title, setTitle] = useState("LIVE IN");
   const [subtitle, setSubtitle] = useState("THE moment");
@@ -109,7 +116,9 @@ export const ElegantStripLayout: React.FC<LayoutProps> = ({
     return photo.src;
   };
   
-  return <div className={`flex-1 flex flex-col p-5 gap-4 ${backgroundColor !== 'white' ? backgroundColor : ''}`}>
+  const bgColorClass = backgroundColor !== 'transparent' && backgroundColor !== 'white' ? backgroundColor : '';
+  
+  return <div className={`flex-1 flex flex-col p-5 gap-4 ${bgColorClass}`}>
       {/* Photo 1, 2, 3 */}
       {photos.slice(0, 3).map((photo, index) => (
         <div key={index} className="relative aspect-square w-[90%] mx-auto">
@@ -124,13 +133,13 @@ export const ElegantStripLayout: React.FC<LayoutProps> = ({
       {/* Text Area */}
       <div className="h-1/5 flex flex-col items-center justify-center relative mt-2 mb-2">
         {isEditing ? <div className="flex flex-col gap-2 w-full">
-            <input type="text" value={title} onChange={e => setTitle(e.target.value)} className={`text-center text-black text-2xl uppercase font-semibold focus:outline-none bg-transparent ${backgroundColor !== 'white' ? 'bg-white/80 px-2 py-1 rounded-md' : ''}`} />
-            <input type="text" value={subtitle} onChange={e => setSubtitle(e.target.value)} className={`text-center text-black text-3xl italic focus:outline-none bg-transparent ${backgroundColor !== 'white' ? 'bg-white/80 px-2 py-1 rounded-md' : ''}`} />
-            <input type="text" value={date} onChange={e => setDate(e.target.value)} className={`text-center text-black text-xs focus:outline-none bg-transparent ${backgroundColor !== 'white' ? 'bg-white/80 px-2 py-1 rounded-md' : ''}`} />
+            <input type="text" value={title} onChange={e => setTitle(e.target.value)} className={`text-center text-black text-2xl uppercase font-semibold focus:outline-none bg-transparent ${backgroundColor !== 'transparent' && backgroundColor !== 'white' ? 'bg-white/80 px-2 py-1 rounded-md' : ''}`} />
+            <input type="text" value={subtitle} onChange={e => setSubtitle(e.target.value)} className={`text-center text-black text-3xl italic focus:outline-none bg-transparent ${backgroundColor !== 'transparent' && backgroundColor !== 'white' ? 'bg-white/80 px-2 py-1 rounded-md' : ''}`} />
+            <input type="text" value={date} onChange={e => setDate(e.target.value)} className={`text-center text-black text-xs focus:outline-none bg-transparent ${backgroundColor !== 'transparent' && backgroundColor !== 'white' ? 'bg-white/80 px-2 py-1 rounded-md' : ''}`} />
           </div> : <>
-            <h2 className={`text-black text-2xl uppercase font-semibold ${backgroundColor !== 'white' ? 'bg-white/80 px-2 py-1 rounded-md inline-block' : ''}`}>{title}</h2>
-            <h3 className={`text-black text-3xl italic mt-1 ${backgroundColor !== 'white' ? 'bg-white/80 px-2 py-1 rounded-md inline-block' : ''}`}>{subtitle}</h3>
-            <p className={`text-black text-xs mt-2 ${backgroundColor !== 'white' ? 'bg-white/80 px-2 py-1 rounded-md inline-block' : ''}`}>{date}</p>
+            <h2 className={`text-black text-2xl uppercase font-semibold ${backgroundColor !== 'transparent' && backgroundColor !== 'white' ? 'bg-white/80 px-2 py-1 rounded-md inline-block' : ''}`}>{title}</h2>
+            <h3 className={`text-black text-3xl italic mt-1 ${backgroundColor !== 'transparent' && backgroundColor !== 'white' ? 'bg-white/80 px-2 py-1 rounded-md inline-block' : ''}`}>{subtitle}</h3>
+            <p className={`text-black text-xs mt-2 ${backgroundColor !== 'transparent' && backgroundColor !== 'white' ? 'bg-white/80 px-2 py-1 rounded-md inline-block' : ''}`}>{date}</p>
           </>}
         <button onClick={toggleEditing} className="absolute right-0 top-0 w-8 h-8 flex items-center justify-center bg-white/80 rounded-full shadow-sm">
           <Edit2 size={14} />
@@ -142,7 +151,7 @@ export const ElegantStripLayout: React.FC<LayoutProps> = ({
 // Large Vertical Layout (2 Photos)
 export const LargeVerticalLayout: React.FC<LayoutProps> = ({
   photos,
-  backgroundColor = 'white'
+  backgroundColor = 'transparent'
 }) => {
   const [title, setTitle] = useState("MEMORIES");
   const [date, setDate] = useState("2024.06.10");
@@ -155,7 +164,9 @@ export const LargeVerticalLayout: React.FC<LayoutProps> = ({
     return photo.src;
   };
   
-  return <div className={`flex-1 p-3 ${backgroundColor !== 'white' ? backgroundColor : ''}`}>
+  const bgColorClass = backgroundColor !== 'transparent' && backgroundColor !== 'white' ? backgroundColor : '';
+  
+  return <div className={`flex-1 p-3 ${bgColorClass}`}>
       <div className="h-full flex flex-col gap-4">
         {photos.map((photo, index) => (
           <div key={index} className="relative aspect-square w-[90%] mx-auto">

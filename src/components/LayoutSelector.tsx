@@ -25,7 +25,7 @@ const LayoutSelector: React.FC<LayoutSelectorProps> = ({
   capturedPhotos,
   frameColor
 }) => {
-  const [bgColor, setBgColor] = React.useState<string>('white');
+  const [bgColor, setBgColor] = React.useState<string>('transparent');
   const layoutRef = useRef<HTMLDivElement>(null);
   const { getContainerClasses } = useLayoutContainer(selectedLayout);
   const { maxWidth, padding, aspectRatio } = useLayoutResponsive(selectedLayout);
@@ -69,6 +69,7 @@ const LayoutSelector: React.FC<LayoutSelectorProps> = ({
           width: isStripLayout ? (isMobile ? '85%' : '65%') : '100%',
           padding: '0',
           aspectRatio,
+          backgroundColor: 'transparent'
         }}
       >
         <PhotoLayout 

@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { MoreHorizontal } from 'lucide-react';
 import { LayoutProps } from './index';
@@ -5,7 +6,7 @@ import { LayoutProps } from './index';
 const DiagonalStripsLayout: React.FC<LayoutProps> = ({
   photos,
   renderImage,
-  backgroundColor = 'white',
+  backgroundColor = 'transparent',
   dateString = '2024.06.10',
   textColor = 'text-black'
 }) => {
@@ -30,8 +31,10 @@ const DiagonalStripsLayout: React.FC<LayoutProps> = ({
     return <img src={getSrc(photo, index)} alt={alt} className={`${className} w-full h-full object-cover rounded-md`} />;
   };
 
+  const bgColorClass = backgroundColor !== 'transparent' && backgroundColor !== 'white' ? backgroundColor : '';
+
   return (
-    <div className={`flex-1 flex flex-col p-3 gap-4 ${backgroundColor !== 'white' ? backgroundColor : ''}`}>
+    <div className={`flex-1 flex flex-col p-3 gap-4 ${bgColorClass}`}>
       {/* First photo - top */}
       <div className="relative aspect-square w-[90%] mx-auto">
         {photos[0] && renderPhoto(photos[0], 0, "Photo 1", "w-full h-full object-cover rounded-md shadow-sm")}
@@ -49,8 +52,8 @@ const DiagonalStripsLayout: React.FC<LayoutProps> = ({
       
       {/* Text placement at bottom with responsive color */}
       <div className="text-center mt-3 mb-2">
-        <p className={`${textColorClass} text-sm font-medium ${backgroundColor !== 'white' ? `${textBgClass} px-2 py-1 rounded-md inline-block` : ''}`}>MEMORIES</p>
-        <p className={`${textColorClass} text-xs mt-1 ${backgroundColor !== 'white' ? `${textBgClass} px-2 py-1 rounded-md inline-block` : ''}`}>{dateString}</p>
+        <p className={`${textColorClass} text-sm font-medium ${backgroundColor !== 'transparent' && backgroundColor !== 'white' ? `${textBgClass} px-2 py-1 rounded-md inline-block` : ''}`}>MEMORIES</p>
+        <p className={`${textColorClass} text-xs mt-1 ${backgroundColor !== 'transparent' && backgroundColor !== 'white' ? `${textBgClass} px-2 py-1 rounded-md inline-block` : ''}`}>{dateString}</p>
       </div>
     </div>
   );

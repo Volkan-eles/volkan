@@ -27,7 +27,7 @@ const PhotoLayout: React.FC<PhotoLayoutProps> = ({
   photos, 
   layout, 
   frameStyle, 
-  backgroundColor = 'white' 
+  backgroundColor = 'transparent' 
 }) => {
   const mockPhotos = [
     '/lovable-uploads/a8f26fe4-1a18-429a-ab24-18509a4b955b.png',
@@ -94,8 +94,8 @@ const PhotoLayout: React.FC<PhotoLayoutProps> = ({
   };
 
   const getBackgroundColorStyle = () => {
-    if (backgroundColor === 'white') {
-      return 'bg-white';
+    if (backgroundColor === 'white' || backgroundColor === 'transparent') {
+      return 'bg-transparent';
     }
     
     if (backgroundColor.startsWith('bg-')) {
