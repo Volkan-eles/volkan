@@ -6,8 +6,9 @@ import {
   SidebarTrigger,
   useSidebar
 } from '@/components/ui/sidebar';
-import { ChevronLeft, ChevronRight, Download, Menu } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Download, Menu, Home } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
 import SidebarMenuItems from './sidebar/SidebarMenuItems';
 
 const DashboardSidebar = () => {
@@ -36,6 +37,19 @@ const DashboardSidebar = () => {
           {isCollapsed ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}
         </Button>
       </SidebarHeader>
+
+      <div className="px-2 mb-2">
+        <Link to="/">
+          <Button 
+            variant="ghost" 
+            size="sm"
+            className="w-full flex items-center gap-2 text-gray-400 hover:text-white hover:bg-[#333] transition-colors"
+          >
+            <Home size={16} />
+            {!isCollapsed && <span>Home</span>}
+          </Button>
+        </Link>
+      </div>
 
       <SidebarContent className="px-1">
         <SidebarMenuItems />
