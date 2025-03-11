@@ -11,6 +11,7 @@ import NotFound from "./pages/NotFound";
 import About from "./pages/About";
 import Blog from "./pages/Blog";
 import Contact from "./pages/Contact";
+import PicaPicaPhotobooth from "./pages/PicaPicaPhotobooth";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +28,7 @@ const App = () => (
             <Route path="/about" element={<About />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/pica-pica-photobooth" element={<PicaPicaPhotobooth />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
