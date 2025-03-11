@@ -17,6 +17,10 @@ export const downloadLayoutImage = async (layoutRef: React.RefObject<HTMLDivElem
       scale: 2, // Higher quality
       logging: false, // Reduce console noise
       allowTaint: true,
+      ignoreElements: (element) => {
+        return element.hasAttribute('data-html2canvas-ignore') || 
+               element.getAttribute('data-html2canvas-ignore') === 'true';
+      }
     });
     
     const dataUrl = canvas.toDataURL('image/png');
