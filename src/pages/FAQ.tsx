@@ -3,80 +3,88 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import Header from '@/components/landing/Header';
 import Footer from '@/components/landing/Footer';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-
-const faqItems = [
-  {
-    question: "How does the K-pop virtual photo booth work?",
-    answer: "Our K-pop photo booth uses advanced AI technology to create realistic photos of you with your favorite K-pop idols. Simply upload your photo, select your favorite idol, choose a pose or style, and our system will generate a high-quality composite image that looks like you took a real photo together."
-  },
-  {
-    question: "Which K-pop idols are available in the photo booth?",
-    answer: "We currently have over 200 idols from popular groups including BTS, Blackpink, Twice, EXO, Stray Kids, ENHYPEN, LE SSERAFIM, SEVENTEEN, and many more. We regularly add new idols based on user requests and popularity."
-  },
-  {
-    question: "Is the photo booth app free to use?",
-    answer: "We offer both free and premium options. The free version allows you to create a limited number of photos with basic features. Premium subscribers enjoy unlimited photo creation, access to exclusive poses and backgrounds, higher resolution downloads, and no watermarks."
-  },
-  {
-    question: "Can I share my K-pop virtual photos on social media?",
-    answer: "Absolutely! Your generated photos can be easily shared on Instagram, Twitter, Facebook, or any other social media platform. There's a direct share button for each photo you create, making it simple to show off your virtual K-pop meetup."
-  },
-  {
-    question: "How realistic do the photos look?",
-    answer: "Our technology creates impressively realistic composite images. While results can vary based on your original photo quality and lighting, users are often amazed by how authentic their virtual K-pop photo memories appear."
-  },
-  {
-    question: "What photo formats are supported for upload?",
-    answer: "We support JPG, PNG, and HEIC formats. For best results, we recommend using high-resolution photos with good lighting and a clear view of your face."
-  },
-  {
-    question: "How many photos can I create with the free version?",
-    answer: "Free users can create up to 5 photos per month. Premium subscribers enjoy unlimited photo creation."
-  },
-  {
-    question: "Can I suggest new K-pop idols to add to the platform?",
-    answer: "Yes! We welcome suggestions. You can submit idol requests through our Community page or by contacting our support team."
-  }
-];
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const FAQ = () => {
   return (
     <>
       <Helmet>
         <title>Frequently Asked Questions | K-pop Photo Booth</title>
-        <meta name="description" content="Find answers to commonly asked questions about our K-pop virtual photo booth app, pricing, features, and how to create the perfect idol photo memories." />
+        <meta name="description" content="Find answers to commonly asked questions about K-pop Frame's virtual photo booth services, pricing, and features." />
+        <meta name="keywords" content="K-pop photo booth FAQ, K-pop Frame questions, virtual photo booth help" />
+        <link rel="canonical" href="https://kpop-frame.com/faq" />
       </Helmet>
       <div className="min-h-screen flex flex-col">
         <Header />
-        <main className="flex-grow">
-          <section className="py-16 md:py-24 bg-gradient-to-br from-pink-500 to-purple-600 text-white">
+        <main className="flex-grow bg-gray-50">
+          <section className="py-12 md:py-20 bg-gradient-to-r from-pink-500 to-purple-600 text-white">
             <div className="container mx-auto px-4 md:px-6">
               <div className="max-w-3xl mx-auto text-center">
                 <h1 className="text-4xl md:text-5xl font-bold mb-6">Frequently Asked Questions</h1>
-                <p className="text-xl opacity-90">Everything you need to know about creating virtual K-pop photo memories</p>
+                <p className="text-xl opacity-90">Find answers to the most common questions about K-pop Frame</p>
               </div>
             </div>
           </section>
           
-          <section className="py-16 bg-white">
-            <div className="container mx-auto px-4 md:px-6">
-              <div className="max-w-3xl mx-auto">
-                <Accordion type="single" collapsible className="w-full">
-                  {faqItems.map((item, index) => (
-                    <AccordionItem key={index} value={`item-${index}`}>
-                      <AccordionTrigger className="text-left font-medium">{item.question}</AccordionTrigger>
-                      <AccordionContent className="text-gray-700">{item.answer}</AccordionContent>
-                    </AccordionItem>
-                  ))}
-                </Accordion>
+          <section className="py-16">
+            <div className="container mx-auto px-4 md:px-6 max-w-4xl">
+              <Accordion type="single" collapsible className="space-y-6">
+                <AccordionItem value="item-1" className="border bg-white rounded-lg shadow-sm">
+                  <AccordionTrigger className="px-6 py-4 text-lg font-medium">How does the virtual photo booth work?</AccordionTrigger>
+                  <AccordionContent className="px-6 pb-4 text-gray-600">
+                    Our virtual photo booth uses your device's camera to capture your image, then uses advanced technology to blend it with high-quality images of K-pop idols. You can choose from various layouts, filters, and stickers to create a personalized photo that looks realistic and professional.
+                  </AccordionContent>
+                </AccordionItem>
                 
-                <div className="mt-16 text-center">
-                  <p className="text-gray-700 mb-4">Still have questions?</p>
-                  <div className="inline-block py-3 px-6 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-medium rounded-lg">
-                    Contact our support team at <a href="mailto:support@kpopframe.com" className="underline">support@kpopframe.com</a>
-                  </div>
-                </div>
+                <AccordionItem value="item-2" className="border bg-white rounded-lg shadow-sm">
+                  <AccordionTrigger className="px-6 py-4 text-lg font-medium">Is K-pop Frame free to use?</AccordionTrigger>
+                  <AccordionContent className="px-6 pb-4 text-gray-600">
+                    We offer both free and premium plans. With the free plan, you can create basic photos with a limited selection of idols and layouts. Our premium plans offer access to all idols, exclusive layouts, high-resolution downloads, and the ability to remove watermarks.
+                  </AccordionContent>
+                </AccordionItem>
+                
+                <AccordionItem value="item-3" className="border bg-white rounded-lg shadow-sm">
+                  <AccordionTrigger className="px-6 py-4 text-lg font-medium">Which K-pop idols are available in the photo booth?</AccordionTrigger>
+                  <AccordionContent className="px-6 pb-4 text-gray-600">
+                    We currently have over 200 idols from popular groups including BTS, Blackpink, Twice, EXO, Stray Kids, aespa, ENHYPEN, NewJeans, and many more. We regularly update our library with new idols based on user requests and new debuts.
+                  </AccordionContent>
+                </AccordionItem>
+                
+                <AccordionItem value="item-4" className="border bg-white rounded-lg shadow-sm">
+                  <AccordionTrigger className="px-6 py-4 text-lg font-medium">Can I use the photos I create for commercial purposes?</AccordionTrigger>
+                  <AccordionContent className="px-6 pb-4 text-gray-600">
+                    No, photos created with K-pop Frame are for personal use only. Commercial use, including selling merchandise featuring these photos, is strictly prohibited and may violate copyright laws.
+                  </AccordionContent>
+                </AccordionItem>
+                
+                <AccordionItem value="item-5" className="border bg-white rounded-lg shadow-sm">
+                  <AccordionTrigger className="px-6 py-4 text-lg font-medium">How can I get the best photo quality?</AccordionTrigger>
+                  <AccordionContent className="px-6 pb-4 text-gray-600">
+                    For the best results, take your photo in a well-lit environment with a plain background. Position yourself similarly to how the idol is positioned in their photo. Premium subscribers can access our high-resolution download option for even better quality.
+                  </AccordionContent>
+                </AccordionItem>
+                
+                <AccordionItem value="item-6" className="border bg-white rounded-lg shadow-sm">
+                  <AccordionTrigger className="px-6 py-4 text-lg font-medium">How do I cancel my subscription?</AccordionTrigger>
+                  <AccordionContent className="px-6 pb-4 text-gray-600">
+                    You can cancel your subscription at any time from your account settings. Your premium access will continue until the end of your current billing period. We don't offer refunds for partially used subscription periods.
+                  </AccordionContent>
+                </AccordionItem>
+                
+                <AccordionItem value="item-7" className="border bg-white rounded-lg shadow-sm">
+                  <AccordionTrigger className="px-6 py-4 text-lg font-medium">Is my personal information secure?</AccordionTrigger>
+                  <AccordionContent className="px-6 pb-4 text-gray-600">
+                    Yes, we take data privacy seriously. We don't sell your personal information to third parties. Your photos are stored securely, and you can delete them from our servers at any time. Please refer to our Privacy Policy for more details.
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+              
+              <div className="mt-16 text-center">
+                <h3 className="text-xl font-semibold mb-4">Still have questions?</h3>
+                <p className="mb-6 text-gray-600">Our support team is ready to help you with any other questions you might have.</p>
+                <a href="/contact" className="inline-flex items-center justify-center px-6 py-3 bg-purple-600 text-white font-medium rounded-md hover:bg-purple-700 transition-colors">
+                  Contact Support
+                </a>
               </div>
             </div>
           </section>
