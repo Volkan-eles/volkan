@@ -1,5 +1,5 @@
 
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import CameraControls from '@/components/CameraControls';
 import LayoutSelector from '@/components/LayoutSelector';
 import { Menu, ExternalLink } from 'lucide-react';
@@ -11,9 +11,14 @@ import { Link } from 'react-router-dom';
 import { useTextElements } from '@/hooks/useTextElements';
 import TextLayer from '@/components/TextLayer';
 import PhotoStripPreview from '@/components/PhotoStripPreview';
+import { StickerType } from './photobooth/StickerSelector';
+import { FrameColorType } from './photobooth/FrameColorSelector';
 
 const DashboardContent = () => {
   const overlayImageRef = useRef<HTMLImageElement | null>(null);
+  const [sticker, setSticker] = useState<StickerType>('none');
+  const [stripFrameColor, setStripFrameColor] = useState<FrameColorType>('white');
+  
   const {
     capturedPhotos,
     selectedLayout,
@@ -41,6 +46,16 @@ const DashboardContent = () => {
     size?: string;
   }) => {
     addTextElement(style);
+  };
+
+  // Handler for strip frame color
+  const handleStripFrameColorChange = (color: FrameColorType) => {
+    setStripFrameColor(color);
+  };
+
+  // Handler for sticker selection
+  const handleStickerChange = (selectedSticker: StickerType) => {
+    setSticker(selectedSticker);
   };
 
   return (
@@ -84,7 +99,16 @@ const DashboardContent = () => {
           
           <div className="lg:w-[30%] bg-[#1A1A1A]/50 backdrop-blur-sm rounded-lg p-3 shadow-lg border border-white/10">
             <h3 className="text-lg font-medium mb-3 text-white/90">Recent Photos</h3>
-            <PhotoStripPreview photos={capturedPhotos} maxDisplay={3} />
+            <PhotoStripPreview 
+              photos={capturedPhotos} 
+              maxDisplay={3} 
+              frameColor={stripFrameColor}
+              setFrameColor={handleStripFrameColorChange}
+              sticker={sticker}
+              setSticker={handleStickerChange}
+              onDownload={() => {}} 
+              onTakeNewPhotos={() => setIsCapturing(true)}
+            />
           </div>
         </div>
       </div>
