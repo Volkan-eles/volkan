@@ -1,14 +1,18 @@
 
 import React from 'react';
+import { Download } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 interface PhotoStripPreviewProps {
   photos: string[];
   maxDisplay?: number;
+  onDownload?: () => void;
 }
 
 const PhotoStripPreview: React.FC<PhotoStripPreviewProps> = ({ 
   photos, 
-  maxDisplay = 3 
+  maxDisplay = 3,
+  onDownload
 }) => {
   const displayPhotos = photos.slice(-maxDisplay);
   
@@ -36,6 +40,16 @@ const PhotoStripPreview: React.FC<PhotoStripPreviewProps> = ({
           />
         </div>
       ))}
+      
+      {photos.length >= 3 && onDownload && (
+        <Button 
+          onClick={onDownload}
+          className="w-full mt-4 bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white"
+        >
+          <Download className="mr-2 h-4 w-4" />
+          Download Strip
+        </Button>
+      )}
     </div>
   );
 };
