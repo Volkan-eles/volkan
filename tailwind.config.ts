@@ -81,10 +81,37 @@ const config: Config = {
             opacity: "0.7",
           },
         },
+        "shimmer": {
+          "0%": {
+            backgroundPosition: "-500px 0",
+          },
+          "100%": {
+            backgroundPosition: "500px 0",
+          },
+        },
+        "bounce-subtle": {
+          "0%, 100%": {
+            transform: "translateY(0)",
+          },
+          "50%": {
+            transform: "translateY(-2px)",
+          },
+        },
+        "scale-up-down": {
+          "0%, 100%": {
+            transform: "scale(1)",
+          },
+          "50%": {
+            transform: "scale(1.05)",
+          },
+        },
       },
       animation: {
         "fade-in": "fade-in 0.3s ease-out",
         "pulse-gentle": "pulse-gentle 2s ease-in-out infinite",
+        "shimmer": "shimmer 1.5s infinite",
+        "bounce-subtle": "bounce-subtle 2s ease-in-out infinite",
+        "scale-up-down": "scale-up-down 3s ease-in-out infinite",
       },
     },
   },

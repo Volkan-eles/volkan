@@ -37,9 +37,13 @@ const SidebarMenuItems: React.FC = () => {
 
   return (
     <div className="relative">
-      <SidebarMenu className="px-1.5 py-2 space-y-1.5">
-        {menuItems.map((item) => (
-          <SidebarMenuItem key={item.label} className="transition-transform duration-200 hover:scale-[1.02]">
+      <SidebarMenu className="px-1.5 py-2 space-y-2">
+        {menuItems.map((item, index) => (
+          <SidebarMenuItem 
+            key={item.label} 
+            className="transition-all duration-300 hover:scale-[1.02] animate-fade-in"
+            style={{ animationDelay: `${index * 50}ms` }} // Staggered animation
+          >
             <SidebarMenuItemComponent 
               item={item} 
               activePanel={activePanel} 
