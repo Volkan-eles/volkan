@@ -62,14 +62,16 @@ const LayoutSelector: React.FC<LayoutSelectorProps> = ({
       </div>
       
       <div 
-        className={`${getContainerClasses()} mx-auto transition-all duration-300`}
+        className={`${getContainerClasses()} mx-auto transition-all duration-300 high-quality-container`}
         ref={layoutRef}
         style={{
           maxWidth: containerWidth,
           width: isStripLayout ? (isMobile ? '85%' : '65%') : '100%',
           padding: '0',
           aspectRatio,
-          backgroundColor: 'transparent'
+          backgroundColor: 'transparent',
+          position: 'relative',
+          overflow: 'hidden'
         }}
       >
         <PhotoLayout 

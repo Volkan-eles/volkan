@@ -39,7 +39,7 @@ const DiagonalStripsLayout: React.FC<LayoutProps> = ({
     }
     
     return (
-      <div className="w-full h-full" style={{ aspectRatio: '1/1' }}>
+      <div className={`w-full h-full image-container`} style={{ aspectRatio: '1/1', overflow: 'hidden', position: 'relative' }}>
         <img 
           ref={imgRef}
           src={getSrc(photo, index)} 
@@ -51,7 +51,9 @@ const DiagonalStripsLayout: React.FC<LayoutProps> = ({
           style={{
             objectFit: 'cover',
             width: '100%',
-            height: '100%'
+            height: '100%',
+            display: 'block',
+            position: 'relative'
           }}
         />
       </div>
@@ -64,7 +66,7 @@ const DiagonalStripsLayout: React.FC<LayoutProps> = ({
     <div className={`flex-1 flex flex-col p-3 gap-4 ${bgColorClass}`}>
       {/* Photos */}
       {photos.slice(0, 3).map((photo, index) => (
-        <div key={index} className="relative w-[90%] mx-auto" style={{ aspectRatio: '1/1' }}>
+        <div key={index} className="relative w-[90%] mx-auto image-container" style={{ aspectRatio: '1/1', overflow: 'hidden' }}>
           {renderOptimizedImage(photo, index, `Photo ${index + 1}`, "w-full h-full")}
         </div>
       ))}

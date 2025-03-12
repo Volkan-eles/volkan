@@ -44,19 +44,20 @@ export const downloadLayoutImage = async (layoutRef: React.RefObject<HTMLDivElem
     // Allow a brief moment for any transitions or final renders
     await new Promise(resolve => setTimeout(resolve, 100));
 
-    // Create a copy of the layout container to preserve original dimensions
-    const tempContainer = layoutRef.current.cloneNode(true) as HTMLDivElement;
-    
-    // Preserve original aspect ratio and size
+    // Get the original dimensions before cloning
     const originalWidth = layoutRef.current.offsetWidth;
     const originalHeight = layoutRef.current.offsetHeight;
     
-    // Apply original dimensions to the clone
+    // Create a deep clone of the layout to avoid modifying the original
+    const tempContainer = layoutRef.current.cloneNode(true) as HTMLDivElement;
+    
+    // Set fixed dimensions to prevent responsive scaling during capture
     tempContainer.style.width = `${originalWidth}px`;
     tempContainer.style.height = `${originalHeight}px`;
     tempContainer.style.position = 'absolute';
     tempContainer.style.left = '-9999px';
     tempContainer.style.top = '-9999px';
+    tempContainer.style.overflow = 'hidden';  // Prevent any overflow issues
     
     // Temporarily append to the document
     document.body.appendChild(tempContainer);
@@ -66,37 +67,70 @@ export const downloadLayoutImage = async (layoutRef: React.RefObject<HTMLDivElem
       el.remove();
     });
     
-    // Fix image aspect ratios in the clone
-    Array.from(tempContainer.querySelectorAll('img')).forEach((img) => {
-      // Preserve object-fit properties
+    // Fix image aspect ratios in the clone by explicitly setting dimensions and styles
+    const imageContainers = Array.from(tempContainer.querySelectorAll('.image-container'));
+    imageContainers.forEach((container: HTMLElement) => {
+      container.style.position = 'relative';
+      container.style.overflow = 'hidden';
+      // Ensure container maintains aspect ratio
+      if (!container.style.aspectRatio) {
+        container.style.aspectRatio = '1/1';
+      }
+    });
+    
+    // Properly style all images in the clone
+    Array.from(tempContainer.querySelectorAll('img')).forEach((img: HTMLImageElement) => {
+      // Apply explicit styling to ensure proper rendering
       img.style.objectFit = 'cover';
       img.style.width = '100%';
       img.style.height = '100%';
+      img.style.display = 'block'; // Ensures no extra space
+      img.style.position = 'relative';
       
-      // Ensure CORS is set properly
+      // Parent container enforces aspect ratio - ensure image fills it completely
+      if (img.parentElement) {
+        if (img.parentElement.style.aspectRatio === '') {
+          img.parentElement.style.aspectRatio = '1/1';
+        }
+        img.parentElement.style.overflow = 'hidden';
+      }
+      
+      // Set CORS attributes
       img.crossOrigin = 'anonymous';
+      
+      // Force reload if needed (helps with CORS issues)
+      const originalSrc = img.src;
+      if (originalSrc.startsWith('http') && !originalSrc.includes('?')) {
+        img.src = `${originalSrc}?${new Date().getTime()}`;
+      }
     });
     
-    // Create a higher quality canvas
+    // Create a higher quality canvas with increased pixel density
     const canvas = await html2canvas(tempContainer, {
       backgroundColor: bgColor === 'transparent' || bgColor === 'white' ? null : bgColor,
       useCORS: true,
-      scale: 4, // Higher quality (increased from 2)
+      scale: 4, // Higher quality for sharper images
       logging: false,
       allowTaint: true,
       imageTimeout: 30000, // Increased timeout for image loading
-      width: originalWidth, // Use original dimensions
+      width: originalWidth,
       height: originalHeight,
       onclone: (document, clonedDoc) => {
         // Any additional modifications to the cloned document can go here
+        const clonedImages = clonedDoc.querySelectorAll('img');
+        clonedImages.forEach((img: HTMLImageElement) => {
+          img.style.objectFit = 'cover';
+          img.style.width = '100%';
+          img.style.height = '100%';
+        });
       },
     });
     
     // Remove the temporary container
     document.body.removeChild(tempContainer);
     
-    // Convert to high-quality PNG
-    const dataUrl = canvas.toDataURL('image/png', 1.0); // Maximum quality setting
+    // Convert to high-quality PNG with maximum quality
+    const dataUrl = canvas.toDataURL('image/png', 1.0);
     
     // Create and trigger download
     const link = document.createElement('a');
