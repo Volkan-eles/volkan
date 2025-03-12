@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { MoreHorizontal } from 'lucide-react';
 import { LayoutProps } from './index';
 import { optimizeImageRendering } from '@/utils/downloadLayout';
 

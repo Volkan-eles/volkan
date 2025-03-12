@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { MoreHorizontal } from 'lucide-react';
 import { LayoutProps } from './index';
 
 // Helper function to get the src from either a string or an object
@@ -40,9 +39,6 @@ export const BigSmallLayout: React.FC<LayoutProps> = ({
             className="w-full h-full object-cover rounded-md" 
           />)
         }
-        <button className="absolute top-2 right-2 w-8 h-8 flex items-center justify-center text-black bg-white/80 rounded-full">
-          <MoreHorizontal size={16} />
-        </button>
       </div>
       
       {/* Two small photos (bottom) */}
@@ -59,9 +55,6 @@ export const BigSmallLayout: React.FC<LayoutProps> = ({
               className="w-full h-full object-cover rounded-md" 
             />)
           }
-          <button className="absolute top-2 right-2 w-8 h-8 flex items-center justify-center text-black bg-white/80 rounded-full">
-            <MoreHorizontal size={16} />
-          </button>
         </div>
         <div className="relative w-1/2 h-full">
           {photos[2] && (renderImage ? 
@@ -75,9 +68,6 @@ export const BigSmallLayout: React.FC<LayoutProps> = ({
               className="w-full h-full object-cover rounded-md" 
             />)
           }
-          <button className="absolute top-2 right-2 w-8 h-8 flex items-center justify-center text-black bg-white/80 rounded-full">
-            <MoreHorizontal size={16} />
-          </button>
         </div>
       </div>
       
@@ -120,9 +110,6 @@ export const VerticalDuoLayout: React.FC<LayoutProps> = ({
                 className="w-full h-full object-cover rounded-md" 
               />
             }
-            <button className="absolute top-2 right-2 w-8 h-8 flex items-center justify-center text-black bg-white/80 rounded-full">
-              <MoreHorizontal size={16} />
-            </button>
           </div>
         ))}
         
@@ -166,9 +153,6 @@ export const HorizontalDuoLayout: React.FC<LayoutProps> = ({
                 className="w-full h-full object-cover rounded-md" 
               />
             }
-            <button className="absolute top-2 right-2 w-8 h-8 flex items-center justify-center text-black bg-white/80 rounded-full">
-              <MoreHorizontal size={16} />
-            </button>
           </div>
         ))}
         
