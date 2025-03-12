@@ -2,6 +2,7 @@
 import React from 'react';
 import { MoreHorizontal } from 'lucide-react';
 import { LayoutProps } from './index';
+import { optimizeImageRendering } from '@/utils/downloadLayout';
 
 const DiagonalStripsLayout: React.FC<LayoutProps> = ({
   photos,
@@ -23,32 +24,50 @@ const DiagonalStripsLayout: React.FC<LayoutProps> = ({
     return photo.src;
   };
 
-  // Helper function to render an image
-  const renderPhoto = (photo: string | { src: string; index: number }, index: number, alt: string, className: string) => {
+  // Helper function to render an optimized image
+  const renderOptimizedImage = (photo: string | { src: string; index: number }, index: number, alt: string, className: string) => {
+    const imgRef = React.useRef<HTMLImageElement>(null);
+    
+    React.useEffect(() => {
+      if (imgRef.current) {
+        optimizeImageRendering(imgRef.current);
+      }
+    }, []);
+    
     if (renderImage && typeof photo !== 'string') {
       return renderImage(photo.src, photo.index, alt, className);
     }
-    return <img src={getSrc(photo, index)} alt={alt} className={`${className} w-full h-full object-cover rounded-md`} />;
+    
+    return (
+      <div className="w-full h-full" style={{ aspectRatio: '1/1' }}>
+        <img 
+          ref={imgRef}
+          src={getSrc(photo, index)} 
+          alt={alt} 
+          className={`w-full h-full object-cover rounded-md shadow-sm`}
+          crossOrigin="anonymous"
+          loading="eager"
+          decoding="sync"
+          style={{
+            objectFit: 'cover',
+            width: '100%',
+            height: '100%'
+          }}
+        />
+      </div>
+    );
   };
 
   const bgColorClass = backgroundColor !== 'transparent' && backgroundColor !== 'white' ? backgroundColor : '';
 
   return (
     <div className={`flex-1 flex flex-col p-3 gap-4 ${bgColorClass}`}>
-      {/* First photo - top */}
-      <div className="relative aspect-square w-[90%] mx-auto">
-        {photos[0] && renderPhoto(photos[0], 0, "Photo 1", "w-full h-full object-cover rounded-md shadow-sm")}
-      </div>
-      
-      {/* Second photo - middle */}
-      <div className="relative aspect-square w-[90%] mx-auto">
-        {photos[1] && renderPhoto(photos[1], 1, "Photo 2", "w-full h-full object-cover rounded-md shadow-sm")}
-      </div>
-      
-      {/* Third photo - bottom */}
-      <div className="relative aspect-square w-[90%] mx-auto">
-        {photos[2] && renderPhoto(photos[2], 2, "Photo 3", "w-full h-full object-cover rounded-md shadow-sm")}
-      </div>
+      {/* Photos */}
+      {photos.slice(0, 3).map((photo, index) => (
+        <div key={index} className="relative w-[90%] mx-auto" style={{ aspectRatio: '1/1' }}>
+          {renderOptimizedImage(photo, index, `Photo ${index + 1}`, "w-full h-full")}
+        </div>
+      ))}
       
       {/* Text placement at bottom with responsive color */}
       <div className="text-center mt-3 mb-2">

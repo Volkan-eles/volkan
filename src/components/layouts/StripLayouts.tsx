@@ -38,15 +38,22 @@ const OptimizedImage = ({ photo, index, className }) => {
   }, [photo]);
   
   return (
-    <img 
-      ref={imgRef}
-      src={getSrc(photo)} 
-      alt={`Photo ${index + 1}`}
-      className={`${className} object-cover rounded-md shadow-sm`}
-      crossOrigin="anonymous"
-      loading="eager"
-      decoding="sync"
-    />
+    <div className={`${className} relative`} style={{ aspectRatio: '1/1' }}>
+      <img 
+        ref={imgRef}
+        src={getSrc(photo)} 
+        alt={`Photo ${index + 1}`}
+        className="w-full h-full object-cover rounded-md shadow-sm"
+        crossOrigin="anonymous"
+        loading="eager"
+        decoding="sync"
+        style={{
+          objectFit: 'cover',
+          width: '100%',
+          height: '100%'
+        }}
+      />
+    </div>
   );
 };
 
@@ -62,7 +69,7 @@ export const ClassicStripLayout: React.FC<LayoutProps> = ({
   
   return <div className={`flex-1 flex flex-col p-3 gap-4 ${bgColorClass}`}>
       {photos.map((photo, index) => (
-        <div key={index} className="relative aspect-square w-[90%] mx-auto">
+        <div key={index} className="relative w-[90%] mx-auto" style={{ aspectRatio: '1/1' }}>
           <OptimizedImage 
             photo={photo}
             index={index}
@@ -92,7 +99,7 @@ export const VerticalStripLayout: React.FC<LayoutProps> = ({
   return <div className={`flex-1 p-3 ${bgColorClass}`}>
       <div className="h-full flex flex-col gap-4">
         {photos.map((photo, index) => (
-          <div key={index} className="relative aspect-square w-[90%] mx-auto">
+          <div key={index} className="relative w-[90%] mx-auto" style={{ aspectRatio: '1/1' }}>
             <OptimizedImage 
               photo={photo}
               index={index}

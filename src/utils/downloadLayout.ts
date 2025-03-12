@@ -1,3 +1,4 @@
+
 import html2canvas from 'html2canvas';
 import { toast } from 'sonner';
 
@@ -42,29 +43,57 @@ export const downloadLayoutImage = async (layoutRef: React.RefObject<HTMLDivElem
     
     // Allow a brief moment for any transitions or final renders
     await new Promise(resolve => setTimeout(resolve, 100));
+
+    // Create a copy of the layout container to preserve original dimensions
+    const tempContainer = layoutRef.current.cloneNode(true) as HTMLDivElement;
+    
+    // Preserve original aspect ratio and size
+    const originalWidth = layoutRef.current.offsetWidth;
+    const originalHeight = layoutRef.current.offsetHeight;
+    
+    // Apply original dimensions to the clone
+    tempContainer.style.width = `${originalWidth}px`;
+    tempContainer.style.height = `${originalHeight}px`;
+    tempContainer.style.position = 'absolute';
+    tempContainer.style.left = '-9999px';
+    tempContainer.style.top = '-9999px';
+    
+    // Temporarily append to the document
+    document.body.appendChild(tempContainer);
+    
+    // Find and remove any elements marked to be excluded from download
+    Array.from(tempContainer.querySelectorAll('[data-html2canvas-ignore="true"]')).forEach(el => {
+      el.remove();
+    });
+    
+    // Fix image aspect ratios in the clone
+    Array.from(tempContainer.querySelectorAll('img')).forEach((img) => {
+      // Preserve object-fit properties
+      img.style.objectFit = 'cover';
+      img.style.width = '100%';
+      img.style.height = '100%';
+      
+      // Ensure CORS is set properly
+      img.crossOrigin = 'anonymous';
+    });
     
     // Create a higher quality canvas
-    const canvas = await html2canvas(layoutRef.current, {
+    const canvas = await html2canvas(tempContainer, {
       backgroundColor: bgColor === 'transparent' || bgColor === 'white' ? null : bgColor,
       useCORS: true,
       scale: 4, // Higher quality (increased from 2)
       logging: false,
       allowTaint: true,
-      onclone: (document, clonedDoc) => {
-        // Additional modifications to the cloned document before rendering
-        const clonedElement = clonedDoc.querySelector('[data-html2canvas-ignore]');
-        if (clonedElement) {
-          clonedElement.remove();
-        }
-      },
-      ignoreElements: (element) => {
-        return element.hasAttribute('data-html2canvas-ignore') || 
-               element.getAttribute('data-html2canvas-ignore') === 'true';
-      },
       imageTimeout: 30000, // Increased timeout for image loading
-      width: layoutRef.current.offsetWidth, // Explicitly set width
-      height: layoutRef.current.offsetHeight, // Explicitly set height
+      width: originalWidth, // Use original dimensions
+      height: originalHeight,
+      onclone: (document, clonedDoc) => {
+        // Any additional modifications to the cloned document can go here
+      },
     });
+    
+    // Remove the temporary container
+    document.body.removeChild(tempContainer);
     
     // Convert to high-quality PNG
     const dataUrl = canvas.toDataURL('image/png', 1.0); // Maximum quality setting
@@ -99,6 +128,11 @@ export const optimizeImageRendering = (imgElement: HTMLImageElement): void => {
   // Ensure proper rendering
   imgElement.decoding = "sync";
   
-  // Prevent any scaling artifacts by using pixelated rendering
+  // Prevent any scaling artifacts
   imgElement.style.imageRendering = "auto";
+  
+  // Ensure proper aspect ratio
+  imgElement.style.objectFit = "cover";
+  imgElement.style.width = "100%";
+  imgElement.style.height = "100%";
 };
