@@ -28,6 +28,7 @@ const PicaPicaPhotobooth = () => {
   const [frameColor, setFrameColor] = useState<FrameColorType>('white');
   const [selectedSticker, setSelectedSticker] = useState<StickerType>('none');
   const [showControls, setShowControls] = useState<boolean>(true);
+  const [isDownloading, setIsDownloading] = useState<boolean>(false);
   
   // Refs
   const overlayImageRef = useRef<HTMLImageElement | null>(null);
@@ -86,43 +87,79 @@ const PicaPicaPhotobooth = () => {
 
   // Handle downloading the photo strip
   const handleDownloadStrip = async () => {
-    if (!photoStripRef.current || capturedPhotos.length < 3) return;
+    if (capturedPhotos.length < 3) {
+      toast.error('Please take at least 3 photos first');
+      return;
+    }
+    
+    setIsDownloading(true);
     
     try {
       toast.loading('Creating your photo strip...');
       
-      // Improved high-quality rendering
-      const canvas = await html2canvas(photoStripRef.current, {
-        backgroundColor: null,
+      // Find the strip container - look for the specific ID we added
+      const stripContainer = document.getElementById('photo-strip-container');
+      
+      if (!stripContainer) {
+        toast.error('Could not find the photo strip element');
+        setIsDownloading(false);
+        return;
+      }
+      
+      // Create a clone to avoid modifying the original during capturing
+      const clonedContainer = stripContainer.cloneNode(true) as HTMLElement;
+      clonedContainer.style.position = 'absolute';
+      clonedContainer.style.left = '-9999px';
+      clonedContainer.style.top = '0';
+      
+      // Add to the document body temporarily
+      document.body.appendChild(clonedContainer);
+      
+      // Set all images to crossOrigin anonymous
+      Array.from(clonedContainer.querySelectorAll('img')).forEach(img => {
+        img.crossOrigin = 'anonymous';
+        img.style.maxWidth = 'none';
+        img.style.maxHeight = 'none';
+      });
+      
+      // Render with higher quality settings
+      const canvas = await html2canvas(clonedContainer, {
         scale: 4, // Higher scale for better quality
         useCORS: true,
+        allowTaint: true,
         logging: false,
-        onclone: (document, clone) => {
-          // Find the cloned element
-          const clonedStrip = clone.querySelector('#photo-strip-container');
-          if (clonedStrip) {
-            // Make any adjustments to the clone before rendering
-            Array.from(clonedStrip.querySelectorAll('img')).forEach(img => {
-              img.crossOrigin = 'anonymous';
-              img.style.imageRendering = 'high-quality';
-            });
-          }
+        backgroundColor: null,
+        onclone: (doc, clone) => {
+          // Additional adjustments to the clone
+          Array.from(clone.querySelectorAll('img')).forEach(img => {
+            img.crossOrigin = 'anonymous';
+            img.style.imageRendering = 'high-quality';
+          });
         }
       });
       
-      const dataUrl = canvas.toDataURL('image/png', 1.0); // Set quality to maximum
+      // Remove the cloned element
+      document.body.removeChild(clonedContainer);
       
+      // Convert to high-quality PNG
+      const dataUrl = canvas.toDataURL('image/png', 1.0);
+      
+      // Create and trigger download
       const link = document.createElement('a');
-      link.download = `pica-pica-photostrip-${Date.now()}.png`;
+      const timestamp = new Date().toISOString().replace(/:/g, '-').replace(/\..+/, '');
+      link.download = `pica-pica-photostrip-${timestamp}.png`;
       link.href = dataUrl;
+      document.body.appendChild(link);
       link.click();
+      document.body.removeChild(link);
       
       toast.dismiss();
-      toast.success('Photo strip downloaded!');
+      toast.success('Photo strip downloaded successfully!');
     } catch (error) {
-      console.error('Error generating photo strip:', error);
-      toast.dismiss();
+      console.error('Error downloading photo strip:', error);
       toast.error('Failed to download photo strip. Please try again.');
+    } finally {
+      setIsDownloading(false);
     }
   };
 
@@ -205,18 +242,16 @@ const PicaPicaPhotobooth = () => {
             
             {/* Side panel for photo strip */}
             <div className="lg:w-[40%] bg-white rounded-xl shadow-lg p-6">
-              <div id="photo-strip-container">
-                <PhotoStripPreview 
-                  photos={capturedPhotos} 
-                  maxDisplay={4} 
-                  onDownload={capturedPhotos.length >= 3 ? handleDownloadStrip : undefined} 
-                  onTakeNewPhotos={handleTakeNewPhotos}
-                  frameColor={frameColor}
-                  setFrameColor={setFrameColor}
-                  sticker={selectedSticker}
-                  setSticker={setSelectedSticker}
-                />
-              </div>
+              <PhotoStripPreview 
+                photos={capturedPhotos} 
+                maxDisplay={4} 
+                onDownload={handleDownloadStrip} 
+                onTakeNewPhotos={handleTakeNewPhotos}
+                frameColor={frameColor}
+                setFrameColor={setFrameColor}
+                sticker={selectedSticker}
+                setSticker={setSelectedSticker}
+              />
             </div>
           </div>
         </main>
@@ -226,3 +261,4 @@ const PicaPicaPhotobooth = () => {
 };
 
 export default PicaPicaPhotobooth;
+

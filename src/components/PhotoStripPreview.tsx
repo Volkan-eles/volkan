@@ -65,6 +65,18 @@ const PhotoStripPreview: React.FC<PhotoStripPreviewProps> = ({
   };
 
   const textColor = ['white', 'yellow'].includes(frameColor) ? 'text-gray-800' : 'text-white';
+  
+  // Format date for footer
+  const formatDate = () => {
+    const now = new Date();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const year = now.getFullYear();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    
+    return `${month}/${day}/${year} ${hours}:${minutes} ${now.getHours() >= 12 ? 'PM' : 'AM'}`;
+  };
 
   return (
     <div className="space-y-6 animate-fade-in">
@@ -83,6 +95,7 @@ const PhotoStripPreview: React.FC<PhotoStripPreviewProps> = ({
       
       <div 
         ref={photoStripRef} 
+        id="photo-strip-container"
         className={`mx-auto max-w-[300px] p-4 border-8 rounded-lg shadow-lg ${getBorderColor()}`}
       >
         <div className="flex flex-col gap-2">
@@ -95,18 +108,21 @@ const PhotoStripPreview: React.FC<PhotoStripPreviewProps> = ({
                 src={photo} 
                 alt={`Captured photo ${photos.length - displayPhotos.length + index + 1}`} 
                 className="w-full h-auto" 
+                crossOrigin="anonymous"
               />
               {sticker !== 'none' && getStickerImage() && index === 0 && (
                 <img 
                   src={getStickerImage()} 
                   alt="Sticker"
                   className="absolute bottom-0 right-0 w-1/3 h-auto pointer-events-none"
+                  crossOrigin="anonymous"
                 />
               )}
             </div>
           ))}
-          <div className={`text-center text-xs py-1 ${textColor}`}>
-            Picapica {new Date().toLocaleDateString()} {new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+          <div className={`text-center py-1 ${textColor}`}>
+            <div className="text-sm font-medium">Picapica {formatDate()}</div>
+            <div className="text-xs">© 2025 AW</div>
           </div>
         </div>
       </div>
