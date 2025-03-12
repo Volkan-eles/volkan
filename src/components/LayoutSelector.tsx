@@ -87,7 +87,7 @@ const LayoutSelector: React.FC<LayoutSelectorProps> = ({
         onClick={handleDownload}
       >
         <Download className="mr-1 h-3 w-3" />
-        Download
+        Download High Quality
       </Button>
     </div>
   );

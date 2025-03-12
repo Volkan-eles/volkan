@@ -36,13 +36,13 @@ export const downloadLayoutImage = async (layoutRef: React.RefObject<HTMLDivElem
   }
 
   try {
-    toast.loading("Preparing download...");
+    toast.loading("Preparing high-quality download...");
     
     // First, ensure all images are fully loaded
     await preloadAllImages(layoutRef.current);
     
     // Allow a brief moment for any transitions or final renders
-    await new Promise(resolve => setTimeout(resolve, 100));
+    await new Promise(resolve => setTimeout(resolve, 200));
 
     // Get the original dimensions before cloning
     const originalWidth = layoutRef.current.offsetWidth;
@@ -57,7 +57,7 @@ export const downloadLayoutImage = async (layoutRef: React.RefObject<HTMLDivElem
     tempContainer.style.position = 'absolute';
     tempContainer.style.left = '-9999px';
     tempContainer.style.top = '-9999px';
-    tempContainer.style.overflow = 'hidden';  // Prevent any overflow issues
+    tempContainer.style.overflow = 'hidden';
     
     // Temporarily append to the document
     document.body.appendChild(tempContainer);
@@ -67,32 +67,41 @@ export const downloadLayoutImage = async (layoutRef: React.RefObject<HTMLDivElem
       el.remove();
     });
     
-    // Fix image aspect ratios in the clone by explicitly setting dimensions and styles
-    const imageContainers = Array.from(tempContainer.querySelectorAll('.image-container'));
-    imageContainers.forEach((container: HTMLElement) => {
+    // Fix aspect ratios for all image containers
+    Array.from(tempContainer.querySelectorAll('.image-container, .high-quality-image-container')).forEach((container: HTMLElement) => {
       container.style.position = 'relative';
       container.style.overflow = 'hidden';
+      container.style.display = 'flex';
+      container.style.alignItems = 'center';
+      container.style.justifyContent = 'center';
+      
       // Ensure container maintains aspect ratio
       if (!container.style.aspectRatio) {
         container.style.aspectRatio = '1/1';
       }
     });
     
-    // Properly style all images in the clone
+    // Properly style all images in the clone to preserve quality
     Array.from(tempContainer.querySelectorAll('img')).forEach((img: HTMLImageElement) => {
       // Apply explicit styling to ensure proper rendering
       img.style.objectFit = 'cover';
       img.style.width = '100%';
       img.style.height = '100%';
-      img.style.display = 'block'; // Ensures no extra space
+      img.style.display = 'block';
       img.style.position = 'relative';
+      img.style.maxWidth = 'none'; // Prevent max-width constraint
+      img.style.maxHeight = 'none'; // Prevent max-height constraint
+      
+      // Apply high-quality rendering
+      img.style.imageRendering = 'high-quality';
       
       // Parent container enforces aspect ratio - ensure image fills it completely
       if (img.parentElement) {
+        img.parentElement.style.overflow = 'hidden';
+        
         if (img.parentElement.style.aspectRatio === '') {
           img.parentElement.style.aspectRatio = '1/1';
         }
-        img.parentElement.style.overflow = 'hidden';
       }
       
       // Set CORS attributes
@@ -109,19 +118,22 @@ export const downloadLayoutImage = async (layoutRef: React.RefObject<HTMLDivElem
     const canvas = await html2canvas(tempContainer, {
       backgroundColor: bgColor === 'transparent' || bgColor === 'white' ? null : bgColor,
       useCORS: true,
-      scale: 4, // Higher quality for sharper images
+      scale: 5, // Higher quality for sharper images (increased from 4 to 5)
       logging: false,
       allowTaint: true,
       imageTimeout: 30000, // Increased timeout for image loading
       width: originalWidth,
       height: originalHeight,
       onclone: (document, clonedDoc) => {
-        // Any additional modifications to the cloned document can go here
+        // Apply high-quality rendering to all images
         const clonedImages = clonedDoc.querySelectorAll('img');
         clonedImages.forEach((img: HTMLImageElement) => {
           img.style.objectFit = 'cover';
           img.style.width = '100%';
           img.style.height = '100%';
+          img.style.imageRendering = 'high-quality';
+          img.style.maxWidth = 'none';
+          img.style.maxHeight = 'none';
         });
       },
     });
@@ -135,13 +147,13 @@ export const downloadLayoutImage = async (layoutRef: React.RefObject<HTMLDivElem
     // Create and trigger download
     const link = document.createElement('a');
     link.href = dataUrl;
-    link.download = `photo-layout-${selectedLayout}.png`;
+    link.download = `photo-layout-${selectedLayout}-hq.png`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
     
     toast.dismiss();
-    toast.success("Layout downloaded successfully!");
+    toast.success("High-quality layout downloaded successfully!");
   } catch (error) {
     console.error("Download error:", error);
     toast.dismiss();
@@ -162,11 +174,13 @@ export const optimizeImageRendering = (imgElement: HTMLImageElement): void => {
   // Ensure proper rendering
   imgElement.decoding = "sync";
   
-  // Prevent any scaling artifacts
-  imgElement.style.imageRendering = "auto";
+  // Improve rendering quality
+  imgElement.style.imageRendering = "high-quality";
   
-  // Ensure proper aspect ratio
+  // Ensure proper aspect ratio preservation
   imgElement.style.objectFit = "cover";
   imgElement.style.width = "100%";
   imgElement.style.height = "100%";
+  imgElement.style.maxWidth = "none";
+  imgElement.style.maxHeight = "none";
 };
