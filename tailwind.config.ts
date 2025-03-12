@@ -62,6 +62,30 @@ const config: Config = {
         'dancing': ['Dancing Script', 'cursive'],
         'mono': ['Roboto Mono', 'monospace'],
       },
+      keyframes: {
+        "fade-in": {
+          "0%": {
+            opacity: "0",
+            transform: "translateY(10px)"
+          },
+          "100%": {
+            opacity: "1",
+            transform: "translateY(0)"
+          }
+        },
+        "pulse-gentle": {
+          "0%, 100%": {
+            opacity: "1",
+          },
+          "50%": {
+            opacity: "0.7",
+          },
+        },
+      },
+      animation: {
+        "fade-in": "fade-in 0.3s ease-out",
+        "pulse-gentle": "pulse-gentle 2s ease-in-out infinite",
+      },
     },
   },
   plugins: [],

@@ -68,7 +68,7 @@ const LayoutSelector: React.FC<LayoutSelectorProps> = ({
       </div>
       
       <div 
-        className={`${getContainerClasses()} mx-auto transition-all duration-300 high-quality-container relative group`}
+        className={`${getContainerClasses()} mx-auto transition-all duration-300 high-quality-container relative group backdrop-blur-sm`}
         ref={layoutRef}
         style={{
           maxWidth: containerWidth,
@@ -87,12 +87,16 @@ const LayoutSelector: React.FC<LayoutSelectorProps> = ({
           backgroundColor={bgColor}
         />
         
-        {/* Subtle frame indicator on hover */}
-        <div className="absolute inset-0 border-2 border-transparent group-hover:border-white/20 transition-all duration-300 pointer-events-none rounded-md"></div>
+        {/* Enhanced frame indicator on hover with gradient border */}
+        <div className="absolute inset-0 border-2 border-transparent group-hover:border-white/30 transition-all duration-300 pointer-events-none rounded-md group-hover:shadow-[0_0_15px_rgba(255,255,255,0.15)]"></div>
       </div>
       
       <Button 
-        className={`w-full ${isDownloading ? 'bg-[#5b40bb]' : 'bg-[#4b30ab]'} hover:bg-[#5b40bb] text-white text-xs font-medium h-8 sm:h-7 mt-2 sm:mt-1 relative overflow-hidden transition-all duration-300`}
+        className={`w-full transition-all duration-300 relative overflow-hidden h-8 sm:h-7 mt-2 sm:mt-1 text-xs font-medium ${
+          isDownloading 
+            ? 'bg-gradient-to-r from-violet-600/90 to-fuchsia-600/90' 
+            : 'bg-gradient-to-r from-violet-500 to-fuchsia-500 hover:from-violet-600 hover:to-fuchsia-600'
+        } text-white shadow-md hover:shadow-lg`}
         onClick={handleDownload}
         disabled={isDownloading}
       >

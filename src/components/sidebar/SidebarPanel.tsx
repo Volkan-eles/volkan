@@ -44,20 +44,24 @@ const SidebarPanel: React.FC<SidebarPanelProps> = ({
 
   return (
     <>
-      {/* Panel overlay */}
+      {/* Panel with glassmorphism effect */}
       <div 
-        className="fixed top-0 h-full bg-[#242424] border-l border-[#333] z-50 overflow-auto transition-all duration-200"
+        className="fixed top-0 h-full border-l border-white/10 z-50 overflow-auto transition-all duration-300 backdrop-blur-md bg-[#242424]/90 shadow-xl animate-fade-in"
         style={{ 
           left: sidebarWidth, 
           width: panelWidth,
-          height: '100vh' 
+          height: '100vh',
+          boxShadow: '0 4px 30px rgba(0, 0, 0, 0.3)'
         }}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="panel-title"
       >
-        <div className="flex items-center justify-between p-3 border-b border-[#333] sticky top-0 bg-[#242424] z-10">
-          <h3 className="text-sm font-medium capitalize">{activePanel}</h3>
+        <div className="flex items-center justify-between p-3 border-b border-white/10 sticky top-0 z-10 bg-gradient-to-r from-[#242424]/95 to-[#2a2a2a]/95 backdrop-blur-md">
+          <h3 id="panel-title" className="text-sm font-medium capitalize bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">{activePanel}</h3>
           <button 
             onClick={onClose}
-            className="p-1 rounded-md hover:bg-[#333] text-gray-400 hover:text-white transition-colors"
+            className="p-1.5 rounded-full hover:bg-white/10 text-gray-400 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-white/20"
             aria-label="Close panel"
           >
             <X size={14} />
@@ -82,11 +86,12 @@ const SidebarPanel: React.FC<SidebarPanelProps> = ({
         </div>
       </div>
 
-      {/* Backdrop */}
+      {/* Improved backdrop with blur effect */}
       <div 
-        className="fixed inset-0 bg-black/20 z-40 transition-opacity duration-200"
+        className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40 transition-opacity duration-300 animate-fade-in"
         onClick={onClose}
         style={{ marginLeft: sidebarWidth }}
+        role="presentation"
       />
     </>
   );

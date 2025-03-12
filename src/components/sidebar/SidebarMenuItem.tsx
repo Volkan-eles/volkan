@@ -26,6 +26,7 @@ const SidebarMenuItemComponent: React.FC<SidebarMenuItemProps> = ({
 }) => {
   const { state } = useSidebar();
   const isCollapsed = state === 'collapsed';
+  const isActive = item.isActive || activePanel === item.panelType;
   
   if (isCollapsed) {
     return (
@@ -34,16 +35,22 @@ const SidebarMenuItemComponent: React.FC<SidebarMenuItemProps> = ({
           <TooltipTrigger asChild>
             <SidebarMenuButton 
               onClick={() => onPanelToggle(item.panelType)}
-              className={`flex items-center justify-center py-1.5 ${
-                item.isActive || activePanel === item.panelType
-                  ? 'text-white bg-[#4b30ab] hover:bg-[#5b40bb]' 
-                  : 'text-gray-300 hover:bg-[#2A2A2A]'
+              className={`flex items-center justify-center py-1.5 transition-all duration-300 relative overflow-hidden ${
+                isActive
+                  ? 'text-white shadow-lg' 
+                  : 'text-gray-300 hover:text-white hover:bg-white/10'
               }`}
+              aria-label={item.label}
+              aria-expanded={isActive}
+              aria-pressed={isActive}
             >
-              <item.icon size={16} />
+              {isActive && (
+                <span className="absolute inset-0 bg-gradient-to-r from-violet-600/90 to-fuchsia-600/90 blur-[1px] opacity-90" />
+              )}
+              <item.icon size={16} className="relative z-10" />
             </SidebarMenuButton>
           </TooltipTrigger>
-          <TooltipContent side="right">
+          <TooltipContent side="right" align="center" className="bg-[#333] border-[#555]">
             {item.label}
           </TooltipContent>
         </Tooltip>
@@ -54,18 +61,26 @@ const SidebarMenuItemComponent: React.FC<SidebarMenuItemProps> = ({
   return (
     <SidebarMenuButton 
       onClick={() => onPanelToggle(item.panelType)}
-      className={`flex items-center justify-between w-full py-1.5 ${
-        item.isActive || activePanel === item.panelType
-          ? 'text-white bg-[#4b30ab] hover:bg-[#5b40bb]' 
-          : 'text-gray-300 hover:bg-[#2A2A2A]'
+      className={`flex items-center justify-between w-full py-1.5 px-2 rounded-md transition-all duration-300 relative overflow-hidden ${
+        isActive
+          ? 'text-white shadow-lg' 
+          : 'text-gray-300 hover:text-white hover:bg-white/10'
       }`}
+      aria-label={item.label}
+      aria-expanded={isActive}
+      aria-pressed={isActive}
     >
-      <div className="flex items-center gap-2">
+      {isActive && (
+        <span className="absolute inset-0 bg-gradient-to-r from-violet-600/90 to-fuchsia-600/90 blur-[1px] opacity-90" />
+      )}
+      <div className="flex items-center gap-2 relative z-10">
         <item.icon size={16} />
         <span className="text-sm">{item.label}</span>
       </div>
       {item.panelType && (
-        activePanel === item.panelType ? <ChevronDown size={14} /> : <ChevronRight size={14} />
+        <span className="relative z-10">
+          {isActive ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
+        </span>
       )}
     </SidebarMenuButton>
   );

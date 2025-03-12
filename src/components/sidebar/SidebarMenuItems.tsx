@@ -37,9 +37,9 @@ const SidebarMenuItems: React.FC = () => {
 
   return (
     <div className="relative">
-      <SidebarMenu>
+      <SidebarMenu className="px-1.5 py-2 space-y-1.5">
         {menuItems.map((item) => (
-          <SidebarMenuItem key={item.label}>
+          <SidebarMenuItem key={item.label} className="transition-transform duration-200 hover:scale-[1.02]">
             <SidebarMenuItemComponent 
               item={item} 
               activePanel={activePanel} 
