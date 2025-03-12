@@ -1,7 +1,8 @@
 
 import React, { useRef, useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Camera, FlipHorizontal } from 'lucide-react';
+import { FlipHorizontal } from 'lucide-react';
+import CountdownOverlay from './CountdownOverlay';
 
 interface WebcamCaptureProps {
   onCapture: (imageSrc: string) => void;
@@ -14,9 +15,8 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isCameraReady, setIsCameraReady] = useState(false);
   const [cameraError, setCameraError] = useState<string | null>(null);
-  const [countdown, setCountdown] = useState<number | null>(null);
   const [flipped, setFlipped] = useState(true); // Default to flipped (mirrored) for selfie view
-  const captureTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const [countdownActive, setCountdownActive] = useState(false);
 
   useEffect(() => {
     let stream: MediaStream | null = null;
@@ -47,41 +47,14 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
       if (stream) {
         stream.getTracks().forEach(track => track.stop());
       }
-      
-      if (captureTimerRef.current) {
-        clearInterval(captureTimerRef.current);
-      }
     };
   }, []);
 
   useEffect(() => {
     if (isCapturing && isCameraReady) {
-      startCountdown();
+      setCountdownActive(true);
     }
   }, [isCapturing, isCameraReady]);
-
-  const startCountdown = () => {
-    setCountdown(3);
-    
-    captureTimerRef.current = setInterval(() => {
-      setCountdown(prev => {
-        if (prev === null || prev <= 1) {
-          if (captureTimerRef.current) {
-            clearInterval(captureTimerRef.current);
-            captureTimerRef.current = null;
-          }
-          
-          // Use setTimeout to ensure state is updated before capturing
-          setTimeout(() => {
-            capturePhoto();
-          }, 0);
-          
-          return null;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-  };
 
   const capturePhoto = () => {
     if (videoRef.current && canvasRef.current) {
@@ -112,14 +85,14 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
           const scaleRatio = Math.min(
             canvas.width / overlayImage.width,
             canvas.height / overlayImage.height
-          ) * 1.0; // Increased from 0.8 to 1.0 (100% of the possible size)
+          ) * 1.0; // 100% of the possible size
           
           const overlayWidth = overlayImage.width * scaleRatio;
           const overlayHeight = overlayImage.height * scaleRatio;
           
-          // Position the overlay higher and to the right - adjusted for better placement
+          // Position the overlay
           const x = canvas.width - overlayWidth - 10;
-          const y = canvas.height - overlayHeight; // Moved to bottom edge for the strip
+          const y = canvas.height - overlayHeight; 
           
           context.drawImage(overlayImage, x, y, overlayWidth, overlayHeight);
         }
@@ -133,6 +106,11 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
 
   const toggleCameraFlip = () => {
     setFlipped(!flipped);
+  };
+
+  const handleCountdownComplete = () => {
+    setCountdownActive(false);
+    capturePhoto();
   };
 
   return (
@@ -163,7 +141,7 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
           <FlipHorizontal className="h-4 w-4" />
         </Button>
         
-        {/* Live overlay preview - increased size and positioned higher */}
+        {/* Live overlay preview */}
         {overlayImage && (
           <div className="absolute right-4 bottom-0 w-2/5 pointer-events-none">
             <img 
@@ -174,13 +152,12 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
           </div>
         )}
         
-        {countdown !== null && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/40 rounded-lg">
-            <span className="text-7xl font-bold text-white animate-pulse-gentle">
-              {countdown}
-            </span>
-          </div>
-        )}
+        {/* Countdown overlay */}
+        <CountdownOverlay 
+          isActive={countdownActive} 
+          seconds={3} 
+          onComplete={handleCountdownComplete} 
+        />
         
         <canvas ref={canvasRef} className="hidden" />
       </div>

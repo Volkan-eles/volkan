@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { useTextElements } from '@/hooks/useTextElements';
 import TextLayer from '@/components/TextLayer';
+import PhotoStripPreview from '@/components/PhotoStripPreview';
 
 const DashboardContent = () => {
   const overlayImageRef = useRef<HTMLImageElement | null>(null);
@@ -65,19 +66,26 @@ const DashboardContent = () => {
           />
         </div>
         
-        <div className="w-full md:w-[65%] relative">
-          <LayoutSelector 
-            selectedLayout={selectedLayout} 
-            setSelectedLayout={setSelectedLayout} 
-            layoutOptions={layoutOptions} 
-            capturedPhotos={capturedPhotos} 
-            frameColor={frameColor}
-          />
-          <TextLayer 
-            textElements={textElements}
-            onUpdate={updateTextElement}
-            onDelete={deleteTextElement}
-          />
+        <div className="w-full md:w-[65%] flex flex-col lg:flex-row gap-2">
+          <div className="lg:w-[70%] relative">
+            <LayoutSelector 
+              selectedLayout={selectedLayout} 
+              setSelectedLayout={setSelectedLayout} 
+              layoutOptions={layoutOptions} 
+              capturedPhotos={capturedPhotos} 
+              frameColor={frameColor}
+            />
+            <TextLayer 
+              textElements={textElements}
+              onUpdate={updateTextElement}
+              onDelete={deleteTextElement}
+            />
+          </div>
+          
+          <div className="lg:w-[30%] bg-[#1A1A1A]/50 backdrop-blur-sm rounded-lg p-3 shadow-lg border border-white/10">
+            <h3 className="text-lg font-medium mb-3 text-white/90">Recent Photos</h3>
+            <PhotoStripPreview photos={capturedPhotos} maxDisplay={3} />
+          </div>
         </div>
       </div>
     </div>
