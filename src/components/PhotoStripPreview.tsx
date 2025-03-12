@@ -7,14 +7,12 @@ interface PhotoStripPreviewProps {
   photos: string[];
   maxDisplay?: number;
   onDownload?: () => void;
-  frameColor?: string;
 }
 
 const PhotoStripPreview: React.FC<PhotoStripPreviewProps> = ({ 
   photos, 
   maxDisplay = 3,
-  onDownload,
-  frameColor = 'white'
+  onDownload
 }) => {
   const displayPhotos = photos.slice(-maxDisplay);
   
@@ -27,48 +25,21 @@ const PhotoStripPreview: React.FC<PhotoStripPreviewProps> = ({
     );
   }
 
-  // Generate frame style based on the selected color
-  const getFrameStyle = () => {
-    // Handle special cases
-    if (frameColor === 'white') {
-      return 'bg-white border-2 border-gray-200';
-    }
-    if (frameColor === 'black') {
-      return 'bg-black border-2 border-black';
-    }
-    // For other colors, use the Tailwind classes
-    return `bg-${frameColor} border-2 border-${frameColor}`;
-  };
-
-  const frameStyle = getFrameStyle();
-
   return (
     <div className="space-y-3 animate-fade-in">
-      <div className={`rounded-lg overflow-hidden ${frameStyle} p-2 shadow-md`}>
-        {displayPhotos.map((photo, index) => (
-          <div 
-            key={index} 
-            className="mb-2 last:mb-0 overflow-hidden shadow-sm hover:shadow-md transition-all transform hover:scale-[1.01] duration-200"
-            style={{ animationDelay: `${index * 150}ms` }}
-          >
-            <img 
-              src={photo} 
-              alt={`Captured photo ${photos.length - displayPhotos.length + index + 1}`} 
-              className="w-full h-auto rounded" 
-            />
-          </div>
-        ))}
-
-        {/* Add timestamp and branding */}
-        <div className="mt-1 flex items-center justify-between text-xs">
-          <span className={`${frameColor === 'black' ? 'text-white' : 'text-gray-600'}`}>
-            Picapica {new Date().toLocaleDateString()} {new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
-          </span>
-          <span className={`text-xs font-light ${frameColor === 'black' ? 'text-white/60' : 'text-gray-400'}`}>
-            © 2023 pic
-          </span>
+      {displayPhotos.map((photo, index) => (
+        <div 
+          key={index} 
+          className="rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all transform hover:scale-[1.02] duration-200"
+          style={{ animationDelay: `${index * 150}ms` }}
+        >
+          <img 
+            src={photo} 
+            alt={`Captured photo ${photos.length - displayPhotos.length + index + 1}`} 
+            className="w-full h-auto" 
+          />
         </div>
-      </div>
+      ))}
       
       {photos.length >= 3 && onDownload && (
         <Button 
