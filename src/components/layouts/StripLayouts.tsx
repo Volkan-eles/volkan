@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { MoreHorizontal, Edit2 } from 'lucide-react';
 import { LayoutProps } from './index';
