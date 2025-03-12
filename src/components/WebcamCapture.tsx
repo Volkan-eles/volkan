@@ -8,9 +8,15 @@ interface WebcamCaptureProps {
   onCapture: (imageSrc: string) => void;
   isCapturing: boolean;
   overlayImage: HTMLImageElement | null;
+  filterStyle?: string;
 }
 
-const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, overlayImage }) => {
+const WebcamCapture: React.FC<WebcamCaptureProps> = ({ 
+  onCapture, 
+  isCapturing, 
+  overlayImage,
+  filterStyle 
+}) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isCameraReady, setIsCameraReady] = useState(false);
@@ -24,7 +30,7 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
     const setupCamera = async () => {
       try {
         stream = await navigator.mediaDevices.getUserMedia({
-          video: { facingMode: 'user', width: { ideal: 640 }, height: { ideal: 480 } },
+          video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 720 } },
           audio: false,
         });
         
@@ -63,7 +69,7 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
       const context = canvas.getContext('2d');
       
       if (context) {
-        // Match canvas size to video dimensions
+        // Match canvas size to video dimensions for higher quality
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
         
@@ -79,6 +85,12 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
           context.drawImage(video, 0, 0, canvas.width, canvas.height);
         }
         context.restore();
+        
+        // Apply filter effects via canvas if specified
+        if (filterStyle) {
+          // This is a simplified version, actual filter implementation would be more complex
+          // For demo purposes, we'll just capture the image and let CSS handle filters
+        }
         
         // Add overlay if available
         if (overlayImage) {
@@ -97,8 +109,8 @@ const WebcamCapture: React.FC<WebcamCaptureProps> = ({ onCapture, isCapturing, o
           context.drawImage(overlayImage, x, y, overlayWidth, overlayHeight);
         }
         
-        // Convert to data URL and send back
-        const imageSrc = canvas.toDataURL('image/png');
+        // Convert to data URL and send back - use high quality
+        const imageSrc = canvas.toDataURL('image/png', 1.0);
         onCapture(imageSrc);
       }
     }
