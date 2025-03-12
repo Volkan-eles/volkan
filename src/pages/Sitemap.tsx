@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import Header from '@/components/landing/Header';
@@ -16,7 +15,7 @@ const sitemapStructure = [
       { title: "About Us", path: "/about" },
       { title: "Blog", path: "/blog" },
       { title: "Contact", path: "/contact" },
-      { title: "Pica Pica Photobooth", path: "/pica-pica-photobooth" },
+      { title: "Pica Pica Booth", path: "/pica-pica-booth" },
     ]
   },
   {

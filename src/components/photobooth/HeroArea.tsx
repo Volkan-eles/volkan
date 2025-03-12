@@ -24,7 +24,7 @@ const HeroArea = () => {
           <span className="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-white text-sm font-medium mb-6 animate-fade-in">
             ✨ Create Memorable Photo Strips
           </span>
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">Pica Pica Photobooth</h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">Pica Pica Booth</h1>
           <p className="text-lg text-white/80 mb-8">
             Capture magical moments with our virtual photobooth. Take fun photos, customize your background, and download your photo strip to share with friends.
           </p>

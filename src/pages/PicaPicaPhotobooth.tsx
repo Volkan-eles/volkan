@@ -1,7 +1,6 @@
 
-import React, { useRef } from 'react';
+import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import html2canvas from 'html2canvas';
 import { toast } from 'sonner';
 
 // Components
@@ -50,8 +49,8 @@ const PicaPicaPhotobooth = () => {
   return (
     <>
       <Helmet>
-        <title>Pica Pica Photobooth | Pica Pica Netlify App</title>
-        <meta name="description" content="Create fun and memorable photo experiences with Pica Pica Photobooth. Perfect for K-pop fans who want to capture special moments with customized frames and effects." />
+        <title>Pica Pica Booth | Pica Pica Netlify App</title>
+        <meta name="description" content="Create fun and memorable photo experiences with Pica Pica Booth. Perfect for K-pop fans who want to capture special moments with customized frames and effects." />
       </Helmet>
       
       <div className={`min-h-screen flex flex-col ${bgColor}`}>
