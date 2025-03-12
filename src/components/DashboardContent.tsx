@@ -1,3 +1,4 @@
+
 import React, { useRef, useState } from 'react';
 import CameraControls from '@/components/CameraControls';
 import LayoutSelector from '@/components/LayoutSelector';
@@ -12,10 +13,12 @@ import TextLayer from '@/components/TextLayer';
 import PhotoStripPreview from '@/components/PhotoStripPreview';
 import { StickerType } from './photobooth/StickerSelector';
 import { FrameColorType } from './photobooth/FrameColorSelector';
+
 const DashboardContent = () => {
   const overlayImageRef = useRef<HTMLImageElement | null>(null);
   const [sticker, setSticker] = useState<StickerType>('none');
   const [stripFrameColor, setStripFrameColor] = useState<FrameColorType>('white');
+  
   const {
     capturedPhotos,
     selectedLayout,
@@ -28,12 +31,14 @@ const DashboardContent = () => {
     handlePhotoCaptured,
     handleFrameColorChange
   } = usePhotoState();
+
   const {
     textElements,
     addTextElement,
     updateTextElement,
     deleteTextElement
   } = useTextElements();
+
   const handleTextStyleChange = (style: {
     text?: string;
     font?: string;
@@ -52,7 +57,9 @@ const DashboardContent = () => {
   const handleStickerChange = (selectedSticker: StickerType) => {
     setSticker(selectedSticker);
   };
-  return <div className="flex-1 flex flex-col">
+
+  return (
+    <div className="flex-1 flex flex-col">
       <div className="md:hidden p-2">
         <SidebarTrigger className="bg-[#1A1A1A] text-white p-2 rounded">
           <Menu size={20} />
@@ -61,18 +68,52 @@ const DashboardContent = () => {
 
       <div className="flex-1 p-1 md:p-2 flex flex-col md:flex-row gap-2">
         <div className="w-full md:w-[35%]">
-          <CameraControls onPhotoCaptured={handlePhotoCaptured} isCapturing={isCapturing} setIsCapturing={setIsCapturing} frameColor={frameColor} onFrameColorChange={handleFrameColorChange} activeTab={activeTab} setActiveTab={setActiveTab} overlayImageRef={overlayImageRef} onTextStyleChange={handleTextStyleChange} />
+          <CameraControls 
+            onPhotoCaptured={handlePhotoCaptured} 
+            isCapturing={isCapturing} 
+            setIsCapturing={setIsCapturing} 
+            frameColor={frameColor} 
+            onFrameColorChange={handleFrameColorChange} 
+            activeTab={activeTab} 
+            setActiveTab={setActiveTab} 
+            overlayImageRef={overlayImageRef}
+            onTextStyleChange={handleTextStyleChange}
+          />
         </div>
         
         <div className="w-full md:w-[65%] flex flex-col lg:flex-row gap-2">
-          
+          <div className="lg:w-[70%] relative">
+            <LayoutSelector 
+              selectedLayout={selectedLayout} 
+              setSelectedLayout={setSelectedLayout} 
+              layoutOptions={layoutOptions} 
+              capturedPhotos={capturedPhotos} 
+              frameColor={frameColor}
+            />
+            <TextLayer 
+              textElements={textElements}
+              onUpdate={updateTextElement}
+              onDelete={deleteTextElement}
+            />
+          </div>
           
           <div className="lg:w-[30%] bg-[#1A1A1A]/50 backdrop-blur-sm rounded-lg p-3 shadow-lg border border-white/10">
             <h3 className="text-lg font-medium mb-3 text-white/90">Recent Photos</h3>
-            <PhotoStripPreview photos={capturedPhotos} maxDisplay={3} frameColor={stripFrameColor} setFrameColor={handleStripFrameColorChange} sticker={sticker} setSticker={handleStickerChange} onDownload={() => {}} onTakeNewPhotos={() => setIsCapturing(true)} />
+            <PhotoStripPreview 
+              photos={capturedPhotos} 
+              maxDisplay={3} 
+              frameColor={stripFrameColor}
+              setFrameColor={handleStripFrameColorChange}
+              sticker={sticker}
+              setSticker={handleStickerChange}
+              onDownload={() => {}} 
+              onTakeNewPhotos={() => setIsCapturing(true)}
+            />
           </div>
         </div>
       </div>
-    </div>;
+    </div>
+  );
 };
+
 export default DashboardContent;
