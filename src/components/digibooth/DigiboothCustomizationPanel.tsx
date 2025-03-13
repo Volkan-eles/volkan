@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { FrameColorType } from '@/components/photobooth/FrameColorSelector';
 import { StickerType } from '@/components/photobooth/StickerSelector';
@@ -44,9 +43,9 @@ const DigiboothCustomizationPanel: React.FC<DigiboothCustomizationPanelProps> = 
   const isMobile = useIsMobile();
   
   return (
-    <div className="mx-auto bg-white/70 backdrop-blur-md p-2 rounded-lg shadow-sm max-w-full overflow-x-auto">
+    <div className="mx-auto bg-white/70 backdrop-blur-md p-2 rounded-lg shadow-sm overflow-x-auto">
       <div className="flex flex-col space-y-1">
-        <div className={`flex ${isMobile ? 'flex-row flex-wrap justify-center gap-3' : 'space-x-4 overflow-x-auto pb-1'}`}>
+        <div className={`flex ${isMobile ? 'flex-row flex-wrap justify-center gap-2' : 'space-x-3 overflow-x-auto pb-1'}`}>
           {/* Frame Theme Section (if available) */}
           {setFrameTheme && (
             <div className="min-w-fit">

@@ -22,13 +22,22 @@ const FrameColorOptions: React.FC<FrameColorOptionsProps> = ({
     { id: 'yellow', name: 'Yellow' },
     { id: 'purple', name: 'Purple' },
     { id: 'maroon', name: 'Maroon' },
-    { id: 'burgundy', name: 'Burgundy' }
+    { id: 'burgundy', name: 'Burgundy' },
+    // New soft colors
+    { id: 'softGreen', name: 'Soft Green' },
+    { id: 'softYellow', name: 'Soft Yellow' },
+    { id: 'softOrange', name: 'Soft Orange' },
+    { id: 'softPurple', name: 'Soft Purple' },
+    { id: 'softPink', name: 'Soft Pink' },
+    { id: 'softPeach', name: 'Soft Peach' },
+    { id: 'softBlue', name: 'Soft Blue' },
+    { id: 'softGray', name: 'Soft Gray' }
   ];
 
   return (
     <div>
       <h3 className="text-xs font-medium text-gray-600 mb-1">Frame</h3>
-      <div className="flex flex-wrap gap-1">
+      <div className="flex flex-wrap gap-1 max-w-[250px]">
         {frameColors.map(color => (
           <Button
             key={color.id}
@@ -61,6 +70,15 @@ const getColorClass = (colorId: FrameColorType): string => {
     case 'purple': return 'bg-purple-400';
     case 'maroon': return 'bg-red-800';
     case 'burgundy': return 'bg-red-900';
+    // New soft colors
+    case 'softGreen': return 'bg-[#F2FCE2]';
+    case 'softYellow': return 'bg-[#FEF7CD]';
+    case 'softOrange': return 'bg-[#FEC6A1]';
+    case 'softPurple': return 'bg-[#E5DEFF]';
+    case 'softPink': return 'bg-[#FFDEE2]';
+    case 'softPeach': return 'bg-[#FDE1D3]';
+    case 'softBlue': return 'bg-[#D3E4FD]';
+    case 'softGray': return 'bg-[#F1F0FB]';
     default: return 'bg-white';
   }
 };

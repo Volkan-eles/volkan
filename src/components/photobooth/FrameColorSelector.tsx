@@ -2,7 +2,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 
-export type FrameColorType = 'white' | 'black' | 'pink' | 'green' | 'blue' | 'yellow' | 'purple' | 'maroon' | 'burgundy';
+export type FrameColorType = 'white' | 'black' | 'pink' | 'green' | 'blue' | 'yellow' | 'purple' | 'maroon' | 'burgundy' | 'softGreen' | 'softYellow' | 'softOrange' | 'softPurple' | 'softPink' | 'softPeach' | 'softBlue' | 'softGray';
 
 interface FrameColorSelectorProps {
   selectedColor: FrameColorType;
@@ -22,7 +22,16 @@ const FrameColorSelector: React.FC<FrameColorSelectorProps> = ({
     { id: 'yellow', name: 'Yellow', bgClass: 'bg-yellow-300 text-black' },
     { id: 'purple', name: 'Purple', bgClass: 'bg-purple-400 text-white' },
     { id: 'maroon', name: 'Maroon', bgClass: 'bg-red-800 text-white' },
-    { id: 'burgundy', name: 'Burgundy', bgClass: 'bg-red-900 text-white' }
+    { id: 'burgundy', name: 'Burgundy', bgClass: 'bg-red-900 text-white' },
+    // New soft colors
+    { id: 'softGreen', name: 'Soft Green', bgClass: 'bg-[#F2FCE2] text-black' },
+    { id: 'softYellow', name: 'Soft Yellow', bgClass: 'bg-[#FEF7CD] text-black' },
+    { id: 'softOrange', name: 'Soft Orange', bgClass: 'bg-[#FEC6A1] text-black' },
+    { id: 'softPurple', name: 'Soft Purple', bgClass: 'bg-[#E5DEFF] text-black' },
+    { id: 'softPink', name: 'Soft Pink', bgClass: 'bg-[#FFDEE2] text-black' },
+    { id: 'softPeach', name: 'Soft Peach', bgClass: 'bg-[#FDE1D3] text-black' },
+    { id: 'softBlue', name: 'Soft Blue', bgClass: 'bg-[#D3E4FD] text-black' },
+    { id: 'softGray', name: 'Soft Gray', bgClass: 'bg-[#F1F0FB] text-black' }
   ];
 
   return (
