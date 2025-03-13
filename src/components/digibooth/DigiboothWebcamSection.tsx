@@ -1,23 +1,23 @@
 
 import React, { useRef } from 'react';
-import WebcamCapture from '@/components/WebcamCapture';
+import DigiboothWebcamCapture from '@/components/digibooth/DigiboothWebcamCapture';
 import CountdownSelector from '@/components/photobooth/CountdownSelector';
-import FilterSelector from '@/components/photobooth/FilterSelector';
+import DigiboothFilterSelector from '@/components/digibooth/DigiboothFilterSelector';
 import DigiboothControls from '@/components/digibooth/DigiboothControls';
 import { Button } from '@/components/ui/button';
 import { Camera } from 'lucide-react';
-import { FilterType } from '@/components/photobooth/FilterSelector';
+import { DigiboothFilterType } from '@/components/digibooth/DigiboothFilterSelector';
 
 interface DigiboothWebcamSectionProps {
   isCapturing: boolean;
   showControls: boolean;
-  selectedFilter: FilterType;
+  selectedFilter: DigiboothFilterType;
   countdownTime: number;
   capturedPhotos: string[];
   onCapture: (photoSrc: string) => void;
   onTakePhoto: () => void;
   onRetakePhoto: () => void;
-  onFilterChange: (filter: FilterType) => void;
+  onFilterChange: (filter: DigiboothFilterType) => void;
   onCountdownChange: (time: number) => void;
 }
 
@@ -52,7 +52,7 @@ const DigiboothWebcamSection: React.FC<DigiboothWebcamSectionProps> = ({
     <div className="flex-grow lg:w-[60%] bg-white rounded-xl shadow-lg p-6 overflow-hidden">
       <div className="relative aspect-video bg-gray-100 rounded-lg overflow-hidden shadow-inner">
         <div style={{ filter: getFilterStyle() }} className="w-full h-full">
-          <WebcamCapture 
+          <DigiboothWebcamCapture 
             onCapture={onCapture} 
             isCapturing={isCapturing} 
             overlayImage={overlayImageRef.current}
@@ -80,7 +80,7 @@ const DigiboothWebcamSection: React.FC<DigiboothWebcamSectionProps> = ({
             </Button>
           </div>
           
-          <FilterSelector 
+          <DigiboothFilterSelector 
             selectedFilter={selectedFilter}
             onSelectFilter={(filter) => {
               console.log('Filter changing to:', filter);

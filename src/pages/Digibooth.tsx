@@ -5,9 +5,9 @@ import { toast } from 'sonner';
 
 // Components
 import Header from '@/components/landing/Header';
-import PhotoStripPreview from '@/components/PhotoStripPreview';
 import DigiboothHeroArea from '@/components/digibooth/DigiboothHeroArea';
 import DigiboothWebcamSection from '@/components/digibooth/DigiboothWebcamSection';
+import DigiboothPhotoStripPreview from '@/components/digibooth/DigiboothPhotoStripPreview';
 
 // Hooks
 import useDigiboothState from '@/hooks/useDigiboothState';
@@ -78,7 +78,7 @@ const Digibooth = () => {
             
             {/* Side panel for photo strip */}
             <div className="lg:w-[40%] bg-white rounded-xl shadow-lg p-6">
-              <PhotoStripPreview 
+              <DigiboothPhotoStripPreview 
                 photos={capturedPhotos} 
                 maxDisplay={4} 
                 onDownload={handleDownloadStrip} 

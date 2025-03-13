@@ -17,7 +17,7 @@ const DigiboothControls: React.FC<DigiboothControlsProps> = ({
   hasPhotos
 }) => {
   return (
-    <div className="mt-4 flex justify-center gap-4">
+    <div className="mt-6 flex justify-center gap-4">
       <Button 
         onClick={onTakePhoto} 
         className="bg-gradient-to-r from-blue-500 to-teal-500 hover:from-blue-600 hover:to-teal-600 text-white font-medium px-8 py-6 rounded-full shadow-md hover:shadow-lg transition-all"

@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
 import { toast } from 'sonner';
-import { FilterType } from '@/components/photobooth/FilterSelector';
+import { DigiboothFilterType } from '@/components/digibooth/DigiboothFilterSelector';
 import { FrameColorType } from '@/components/photobooth/FrameColorSelector';
 import { StickerType } from '@/components/photobooth/StickerSelector';
 
@@ -10,7 +10,7 @@ export default function useDigiboothState() {
   const [capturedPhotos, setCapturedPhotos] = useState<string[]>([]);
   const [isCapturing, setIsCapturing] = useState(false);
   const [bgColor, setBgColor] = useState<string>('bg-gradient-to-r from-blue-100 to-teal-100');
-  const [selectedFilter, setSelectedFilter] = useState<FilterType>('none');
+  const [selectedFilter, setSelectedFilter] = useState<DigiboothFilterType>('none');
   const [countdownTime, setCountdownTime] = useState<number>(3);
   const [frameColor, setFrameColor] = useState<FrameColorType>('blue');
   const [selectedSticker, setSelectedSticker] = useState<StickerType>('none');
@@ -52,7 +52,7 @@ export default function useDigiboothState() {
   };
 
   // Handle filter change
-  const handleFilterChange = (filter: FilterType) => {
+  const handleFilterChange = (filter: DigiboothFilterType) => {
     setSelectedFilter(filter);
     toast.success(`${filter === 'none' ? 'No filter' : filter} selected!`);
   };
