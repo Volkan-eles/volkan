@@ -13,28 +13,28 @@ const FrameColorOptions: React.FC<FrameColorOptionsProps> = ({
   setFrameColor
 }) => {
   // Frame color options
-  const frameColors: { id: FrameColorType; name: string; bgClass: string }[] = [
-    { id: 'white', name: 'White', bgClass: 'bg-white text-black' },
-    { id: 'black', name: 'Black', bgClass: 'bg-black text-white' },
-    { id: 'pink', name: 'Pink', bgClass: 'bg-pink-400 text-white' },
-    { id: 'green', name: 'Green', bgClass: 'bg-green-500 text-white' },
-    { id: 'blue', name: 'Blue', bgClass: 'bg-blue-500 text-white' },
-    { id: 'yellow', name: 'Yellow', bgClass: 'bg-yellow-400 text-black' },
-    { id: 'purple', name: 'Purple', bgClass: 'bg-purple-500 text-white' },
-    { id: 'maroon', name: 'Maroon', bgClass: 'bg-red-800 text-white' },
-    { id: 'burgundy', name: 'Burgundy', bgClass: 'bg-red-900 text-white' }
+  const frameColors: { id: FrameColorType; name: string }[] = [
+    { id: 'white', name: 'White' },
+    { id: 'black', name: 'Black' },
+    { id: 'pink', name: 'Pink' },
+    { id: 'green', name: 'Green' },
+    { id: 'blue', name: 'Blue' },
+    { id: 'yellow', name: 'Yellow' },
+    { id: 'purple', name: 'Purple' }
   ];
 
   return (
-    <div className="mb-4">
-      <h3 className="text-md font-medium text-gray-600 mb-2">Frame Color</h3>
-      <div className="flex flex-wrap justify-center gap-1.5">
+    <div>
+      <h3 className="text-sm font-medium text-gray-600 mb-1">Frame</h3>
+      <div className="flex flex-wrap gap-1">
         {frameColors.map(color => (
           <Button
             key={color.id}
-            className={`px-2.5 py-1 rounded-md text-xs ${color.bgClass} ${
-              frameColor === color.id ? 'ring-1 ring-offset-1 ring-primary' : ''
-            } hover:opacity-90 transition-all`}
+            className={`px-2 py-0.5 rounded-md text-xs h-auto transition-all ${
+              frameColor === color.id 
+                ? "bg-primary text-white ring-1 ring-offset-1 ring-primary" 
+                : "bg-gray-100 hover:bg-gray-200 text-gray-700"
+            }`}
             onClick={() => setFrameColor(color.id)}
           >
             {color.name}

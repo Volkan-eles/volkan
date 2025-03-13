@@ -14,7 +14,7 @@ const StickerOptions: React.FC<StickerOptionsProps> = ({
 }) => {
   // Sticker options
   const stickers: { id: StickerType; name: string }[] = [
-    { id: 'none', name: 'No Stickers' },
+    { id: 'none', name: 'None' },
     { id: 'girlypop', name: 'Girlypop' },
     { id: 'cute', name: 'Cute' },
     { id: 'mofusand', name: 'Mofusand' },
@@ -24,12 +24,12 @@ const StickerOptions: React.FC<StickerOptionsProps> = ({
 
   return (
     <div>
-      <h3 className="text-md font-medium text-gray-600 mb-2">Stickers</h3>
-      <div className="flex flex-wrap justify-center gap-1.5">
+      <h3 className="text-sm font-medium text-gray-600 mb-1">Stickers</h3>
+      <div className="flex flex-wrap gap-1">
         {stickers.map(stickerOption => (
           <Button
             key={stickerOption.id}
-            className={`px-2.5 py-1 rounded-md text-xs transition-all ${
+            className={`px-2 py-0.5 rounded-md text-xs h-auto transition-all ${
               sticker === stickerOption.id 
                 ? "bg-primary text-white ring-1 ring-offset-1 ring-primary" 
                 : "bg-gray-100 hover:bg-gray-200 text-gray-700"

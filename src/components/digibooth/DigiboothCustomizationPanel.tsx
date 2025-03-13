@@ -3,6 +3,7 @@ import React from 'react';
 import { FrameColorType } from '@/components/photobooth/FrameColorSelector';
 import { StickerType } from '@/components/photobooth/StickerSelector';
 import { BorderStyle, BorderWidth, FrameTheme } from './BorderStyleSelector';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 // Import the smaller, focused components
 import FrameColorOptions from './customization/FrameColorOptions';
@@ -40,48 +41,63 @@ const DigiboothCustomizationPanel: React.FC<DigiboothCustomizationPanelProps> = 
   showBackgroundRemoval = false,
   toggleBackgroundRemoval
 }) => {
+  const isMobile = useIsMobile();
+
   return (
-    <div className="max-w-3xl mx-auto bg-white/90 backdrop-blur-sm border-0 p-4 rounded-lg shadow-sm">
-      <h2 className="text-xl font-semibold text-center text-gray-700 mb-1">Digibooth Strip Preview</h2>
-      <p className="text-center text-gray-500 text-sm mb-4">Customize your digital photo strip</p>
-      
-      {/* Frame Theme Section (if available) */}
-      {setFrameTheme && (
-        <FrameThemeOptions 
-          frameTheme={frameTheme} 
-          setFrameTheme={setFrameTheme} 
-        />
-      )}
-      
-      {/* Frame Color Section */}
-      <FrameColorOptions 
-        frameColor={frameColor} 
-        setFrameColor={setFrameColor} 
-      />
-      
-      {/* Border Style Section (if available) */}
-      {setBorderStyle && setBorderWidth && (
-        <BorderOptions 
-          borderStyle={borderStyle} 
-          setBorderStyle={setBorderStyle} 
-          borderWidth={borderWidth} 
-          setBorderWidth={setBorderWidth} 
-        />
-      )}
-      
-      {/* Background Removal Toggle (if available) */}
-      {toggleBackgroundRemoval && (
-        <BackgroundRemovalToggle 
-          showBackgroundRemoval={showBackgroundRemoval} 
-          toggleBackgroundRemoval={toggleBackgroundRemoval} 
-        />
-      )}
-      
-      {/* Stickers Section */}
-      <StickerOptions 
-        sticker={sticker} 
-        setSticker={setSticker} 
-      />
+    <div className="mx-auto bg-white/80 backdrop-blur-md p-3 rounded-xl shadow-sm max-w-full overflow-x-auto">
+      <div className="flex flex-col space-y-1">
+        <h2 className="text-lg font-medium text-gray-700 text-center">Customize</h2>
+        
+        <div className={`flex ${isMobile ? 'flex-col space-y-3' : 'flex-row space-x-4 overflow-x-auto pb-2'}`}>
+          {/* Frame Theme Section (if available) */}
+          {setFrameTheme && (
+            <div className="min-w-fit">
+              <FrameThemeOptions 
+                frameTheme={frameTheme} 
+                setFrameTheme={setFrameTheme} 
+              />
+            </div>
+          )}
+          
+          {/* Frame Color Section */}
+          <div className="min-w-fit">
+            <FrameColorOptions 
+              frameColor={frameColor} 
+              setFrameColor={setFrameColor} 
+            />
+          </div>
+          
+          {/* Border Style Section (if available) */}
+          {setBorderStyle && setBorderWidth && (
+            <div className="min-w-fit">
+              <BorderOptions 
+                borderStyle={borderStyle} 
+                setBorderStyle={setBorderStyle} 
+                borderWidth={borderWidth} 
+                setBorderWidth={setBorderWidth} 
+              />
+            </div>
+          )}
+          
+          {/* Background Removal Toggle (if available) */}
+          {toggleBackgroundRemoval && (
+            <div className="min-w-fit">
+              <BackgroundRemovalToggle 
+                showBackgroundRemoval={showBackgroundRemoval} 
+                toggleBackgroundRemoval={toggleBackgroundRemoval} 
+              />
+            </div>
+          )}
+          
+          {/* Stickers Section */}
+          <div className="min-w-fit">
+            <StickerOptions 
+              sticker={sticker} 
+              setSticker={setSticker} 
+            />
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
