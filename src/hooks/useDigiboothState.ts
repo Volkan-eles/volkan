@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
 import { toast } from 'sonner';
-import { DigiboothFilterType } from '@/components/digibooth/DigiboothFilterSelector';
+import { DigiboothFilterType, FilterAdjustmentValues, DEFAULT_FILTER_ADJUSTMENTS } from '@/components/digibooth/DigiboothFilterSelector';
 import { FrameColorType } from '@/components/photobooth/FrameColorSelector';
 import { StickerType } from '@/components/photobooth/StickerSelector';
 
@@ -11,6 +11,7 @@ export default function useDigiboothState() {
   const [isCapturing, setIsCapturing] = useState(false);
   const [bgColor, setBgColor] = useState<string>('bg-gradient-to-r from-blue-100 to-teal-100');
   const [selectedFilter, setSelectedFilter] = useState<DigiboothFilterType>('none');
+  const [filterAdjustments, setFilterAdjustments] = useState<FilterAdjustmentValues>({ ...DEFAULT_FILTER_ADJUSTMENTS });
   const [countdownTime, setCountdownTime] = useState<number>(3);
   const [frameColor, setFrameColor] = useState<FrameColorType>('blue');
   const [selectedSticker, setSelectedSticker] = useState<StickerType>('none');
@@ -57,6 +58,11 @@ export default function useDigiboothState() {
     toast.success(`${filter === 'none' ? 'No filter' : filter} selected!`);
   };
 
+  // Handle filter adjustment change
+  const handleFilterAdjustmentChange = (adjustments: FilterAdjustmentValues) => {
+    setFilterAdjustments(adjustments);
+  };
+
   // Handle countdown time change
   const handleCountdownChange = (time: number) => {
     setCountdownTime(time);
@@ -72,6 +78,8 @@ export default function useDigiboothState() {
     setBgColor,
     selectedFilter,
     setSelectedFilter,
+    filterAdjustments,
+    setFilterAdjustments,
     countdownTime,
     setCountdownTime,
     frameColor,
@@ -87,6 +95,7 @@ export default function useDigiboothState() {
     handleRetakePhoto,
     handleTakeNewPhotos,
     handleFilterChange,
+    handleFilterAdjustmentChange,
     handleCountdownChange
   };
 }

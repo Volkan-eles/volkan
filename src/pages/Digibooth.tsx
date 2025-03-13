@@ -21,6 +21,7 @@ const Digibooth = () => {
     isCapturing,
     bgColor,
     selectedFilter,
+    filterAdjustments,
     countdownTime,
     frameColor,
     selectedSticker,
@@ -32,6 +33,7 @@ const Digibooth = () => {
     handleRetakePhoto,
     handleTakeNewPhotos,
     handleFilterChange,
+    handleFilterAdjustmentChange,
     handleCountdownChange,
     setFrameColor,
     setSelectedSticker
@@ -80,12 +82,14 @@ const Digibooth = () => {
               isCapturing={isCapturing}
               showControls={showControls}
               selectedFilter={selectedFilter}
+              filterAdjustments={filterAdjustments}
               countdownTime={countdownTime}
               capturedPhotos={capturedPhotos}
               onCapture={handlePhotoCaptured}
               onTakePhoto={handleTakePhoto}
               onRetakePhoto={handleRetakePhoto}
               onFilterChange={handleFilterChange}
+              onAdjustmentChange={handleFilterAdjustmentChange}
               onCountdownChange={handleCountdownChange}
             />
             

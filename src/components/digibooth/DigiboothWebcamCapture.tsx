@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { FilterType } from '@/components/photobooth/FilterSelector';
+import { DigiboothFilterType, FilterAdjustmentValues } from '@/components/digibooth/DigiboothFilterSelector';
 import useWebcam from '@/hooks/useWebcam';
 import DigiboothCameraView from './DigiboothCameraView';
 
@@ -9,7 +10,8 @@ interface DigiboothWebcamCaptureProps {
   isCapturing: boolean;
   overlayImage: HTMLImageElement | null;
   filterStyle?: string;
-  selectedFilter?: FilterType;
+  selectedFilter?: DigiboothFilterType | FilterType;
+  filterAdjustments?: FilterAdjustmentValues;
 }
 
 const DigiboothWebcamCapture: React.FC<DigiboothWebcamCaptureProps> = ({ 
@@ -17,7 +19,8 @@ const DigiboothWebcamCapture: React.FC<DigiboothWebcamCaptureProps> = ({
   isCapturing, 
   overlayImage,
   filterStyle,
-  selectedFilter = 'none'
+  selectedFilter = 'none',
+  filterAdjustments
 }) => {
   const {
     videoRef,
@@ -31,7 +34,8 @@ const DigiboothWebcamCapture: React.FC<DigiboothWebcamCaptureProps> = ({
     onCapture,
     isCapturing,
     overlayImage,
-    selectedFilter
+    selectedFilter,
+    filterAdjustments
   });
 
   return (

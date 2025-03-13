@@ -1,16 +1,24 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { FilterType } from '@/components/photobooth/FilterSelector';
+import { DigiboothFilterType, FilterAdjustmentValues } from '@/components/digibooth/DigiboothFilterSelector';
 import { applyCanvasFilter } from '@/utils/filterUtils';
 
 interface UseWebcamProps {
   onCapture: (imageSrc: string) => void;
   isCapturing: boolean;
   overlayImage: HTMLImageElement | null;
-  selectedFilter?: FilterType;
+  selectedFilter?: FilterType | DigiboothFilterType;
+  filterAdjustments?: FilterAdjustmentValues;
 }
 
-const useWebcam = ({ onCapture, isCapturing, overlayImage, selectedFilter = 'none' }: UseWebcamProps) => {
+const useWebcam = ({ 
+  onCapture, 
+  isCapturing, 
+  overlayImage, 
+  selectedFilter = 'none',
+  filterAdjustments
+}: UseWebcamProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isCameraReady, setIsCameraReady] = useState(false);
@@ -75,7 +83,8 @@ const useWebcam = ({ onCapture, isCapturing, overlayImage, selectedFilter = 'non
         }
         context.restore();
         
-        applyCanvasFilter(context, canvas, selectedFilter);
+        // Apply filters to the photo
+        applyCanvasFilter(context, canvas, selectedFilter, filterAdjustments);
         
         if (overlayImage) {
           const scaleRatio = Math.min(
@@ -96,7 +105,7 @@ const useWebcam = ({ onCapture, isCapturing, overlayImage, selectedFilter = 'non
         onCapture(imageSrc);
       }
     }
-  }, [flipped, onCapture, overlayImage, selectedFilter]);
+  }, [flipped, onCapture, overlayImage, selectedFilter, filterAdjustments]);
 
   const toggleCameraFlip = useCallback(() => {
     setFlipped(!flipped);

@@ -5,18 +5,21 @@ import CountdownSelector from '@/components/photobooth/CountdownSelector';
 import DigiboothControls from '@/components/digibooth/DigiboothControls';
 import DigiboothCameraButtons from '@/components/digibooth/DigiboothCameraButtons';
 import DigiboothFilterDisplay from '@/components/digibooth/DigiboothFilterDisplay';
-import { DigiboothFilterType } from '@/components/digibooth/DigiboothFilterSelector';
+import { DigiboothFilterType, FilterAdjustmentValues } from '@/components/digibooth/DigiboothFilterSelector';
+import { getFilterStyle } from '@/utils/filterUtils';
 
 interface DigiboothWebcamSectionProps {
   isCapturing: boolean;
   showControls: boolean;
   selectedFilter: DigiboothFilterType;
+  filterAdjustments: FilterAdjustmentValues;
   countdownTime: number;
   capturedPhotos: string[];
   onCapture: (photoSrc: string) => void;
   onTakePhoto: () => void;
   onRetakePhoto: () => void;
   onFilterChange: (filter: DigiboothFilterType) => void;
+  onAdjustmentChange: (adjustments: FilterAdjustmentValues) => void;
   onCountdownChange: (time: number) => void;
 }
 
@@ -24,28 +27,20 @@ const DigiboothWebcamSection: React.FC<DigiboothWebcamSectionProps> = ({
   isCapturing,
   showControls,
   selectedFilter,
+  filterAdjustments,
   countdownTime,
   capturedPhotos,
   onCapture,
   onTakePhoto,
   onRetakePhoto,
   onFilterChange,
+  onAdjustmentChange,
   onCountdownChange
 }) => {
   const overlayImageRef = useRef<HTMLImageElement | null>(null);
 
-  // Apply filters to the webcam
-  const getFilterStyle = () => {
-    switch(selectedFilter) {
-      case 'bw': return 'grayscale(100%)';
-      case 'sepia': return 'sepia(100%)';
-      case 'vintage': return 'sepia(50%) contrast(80%) brightness(90%)';
-      case 'soft': return 'contrast(90%) brightness(110%) saturate(85%)';
-      case 'noir': return 'grayscale(100%) contrast(120%) brightness(90%)';
-      case 'vivid': return 'saturate(150%) contrast(110%)';
-      default: return 'none';
-    }
-  };
+  // Get CSS filter style for preview
+  const filterStyle = getFilterStyle(selectedFilter, filterAdjustments);
 
   return (
     <div className="flex-grow lg:w-[60%] bg-white rounded-xl shadow-lg p-6 overflow-hidden">
@@ -56,7 +51,8 @@ const DigiboothWebcamSection: React.FC<DigiboothWebcamSectionProps> = ({
             isCapturing={isCapturing} 
             overlayImage={overlayImageRef.current}
             selectedFilter={selectedFilter}
-            filterStyle={getFilterStyle()}
+            filterAdjustments={filterAdjustments}
+            filterStyle={filterStyle}
           />
         </div>
       </div>
@@ -78,6 +74,8 @@ const DigiboothWebcamSection: React.FC<DigiboothWebcamSectionProps> = ({
           <DigiboothFilterDisplay
             selectedFilter={selectedFilter}
             onFilterChange={onFilterChange}
+            adjustmentValues={filterAdjustments}
+            onAdjustmentChange={onAdjustmentChange}
           />
         </>
       )}

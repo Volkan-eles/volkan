@@ -3,7 +3,6 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { FlipHorizontal } from 'lucide-react';
 import CountdownOverlay from '@/components/CountdownOverlay';
-import { FilterType } from '@/components/photobooth/FilterSelector';
 
 interface DigiboothCameraViewProps {
   videoRef: React.RefObject<HTMLVideoElement>;
@@ -43,7 +42,12 @@ const DigiboothCameraView: React.FC<DigiboothCameraViewProps> = ({
           playsInline
           muted
           className="w-full rounded-lg shadow-sm animate-fade-in"
-          style={{ transform: flipped ? 'scaleX(-1)' : 'none', filter: filterStyle }}
+          style={{ 
+            transform: flipped ? 'scaleX(-1)' : 'none', 
+            filter: filterStyle || 'none',
+            // Add transition for smoother filter change
+            transition: 'filter 0.3s ease'
+          }}
         />
         
         <Button 
