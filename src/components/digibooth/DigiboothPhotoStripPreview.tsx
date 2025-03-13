@@ -89,25 +89,6 @@ const DigiboothPhotoStripPreview: React.FC<DigiboothPhotoStripPreviewProps> = ({
       default: return 'border-white bg-white';
     }
   };
-  
-  const getBorderStyle = () => {
-    switch(borderStyle) {
-      case 'dashed': return 'border-dashed';
-      case 'dotted': return 'border-dotted';
-      case 'double': return 'border-double';
-      case 'groove': return 'border-groove';
-      case 'ridge': return 'border-ridge';
-      default: return 'border-solid';
-    }
-  };
-  
-  const getBorderWidth = () => {
-    switch(borderWidth) {
-      case 'thin': return 'border-2';
-      case 'thick': return 'border-8';
-      default: return 'border-4';
-    }
-  };
 
   const textColor = ['white', 'yellow'].includes(frameColor) ? 'text-gray-800' : 'text-white';
   
@@ -128,7 +109,7 @@ const DigiboothPhotoStripPreview: React.FC<DigiboothPhotoStripPreviewProps> = ({
       <div 
         ref={photoStripRef} 
         id="photo-strip-container"
-        className={`mx-auto max-w-[300px] p-4 ${getBorderStyle()} ${getBorderWidth()} rounded-lg shadow-lg ${getBorderColor()}`}
+        className={`mx-auto max-w-[300px] p-4 rounded-lg shadow-lg ${getBorderColor()}`}
       >
         <div className="flex flex-col gap-2">
           {displayPhotos.map((photo, index) => (

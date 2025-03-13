@@ -100,7 +100,7 @@ const PhotoStripFooter: React.FC<PhotoStripFooterProps> = ({
       case 'newyear':
         return 'bg-gradient-to-r from-purple-700 via-blue-500 to-purple-700 text-white p-3 rounded';
       default:
-        return 'p-3 rounded';
+        return 'bg-white p-3 rounded'; // Changed from just 'p-3 rounded' to provide a default background
     }
   };
   
@@ -118,9 +118,9 @@ const PhotoStripFooter: React.FC<PhotoStripFooterProps> = ({
     }
   };
   
-  // Content rendering with enhanced styling
+  // Enhanced rendering with proper theme application
   return (
-    <div className={`py-3 ${textColor} ${getThemeClass()} ${getBorderStyleClass()} ${getBorderWidthClass()} transition-all duration-300`}>
+    <div className={`py-3 ${getThemeClass()} ${getBorderStyleClass()} ${getBorderWidthClass()} transition-all duration-300`}>
       {/* Title text with custom font */}
       <div 
         className={`font-${titleFont} ${titleSize} cursor-pointer ${getAlignmentClass(titleAlignment)} ${getItalicClass(titleItalic)} hover:opacity-80 transition-opacity`}
