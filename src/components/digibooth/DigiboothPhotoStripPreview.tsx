@@ -3,13 +3,10 @@ import React, { useRef, useState } from 'react';
 import { FrameColorType } from '@/components/photobooth/FrameColorSelector';
 import { StickerType } from '@/components/photobooth/StickerSelector';
 import EmptyState from '@/components/photostrip/EmptyState';
-import PhotoItem from '@/components/photostrip/PhotoItem';
-import StripControls from '@/components/photostrip/StripControls';
 import { fontFamilies, textColors, fontSizes } from '@/utils/textStyles';
-import PhotoStripFooter from './PhotoStripFooter';
-import PhotoStripStylePanel from './PhotoStripStylePanel';
 import { BorderStyle, BorderWidth, FrameTheme } from './BorderStyleSelector';
-import BorderStyleSelector from './BorderStyleSelector';
+import PhotoStripContainer from './photostrip/PhotoStripContainer';
+import PhotoStripControlPanel from './photostrip/PhotoStripControlPanel';
 
 interface DigiboothPhotoStripPreviewProps {
   photos: string[];
@@ -75,40 +72,6 @@ const DigiboothPhotoStripPreview: React.FC<DigiboothPhotoStripPreviewProps> = ({
     return <EmptyState />;
   }
 
-  const getBorderColor = () => {
-    switch(frameColor) {
-      case 'white': return 'border-white bg-white';
-      case 'black': return 'border-black bg-black';
-      case 'pink': return 'border-pink-400 bg-pink-400';
-      case 'green': return 'border-green-500 bg-green-500';
-      case 'blue': return 'border-blue-500 bg-blue-500';
-      case 'yellow': return 'border-yellow-400 bg-yellow-400';
-      case 'purple': return 'border-purple-500 bg-purple-500';
-      case 'maroon': return 'border-red-800 bg-red-800';
-      case 'burgundy': return 'border-red-900 bg-red-900';
-      default: return 'border-white bg-white';
-    }
-  };
-  
-  const getBorderStyle = () => {
-    switch(borderStyle) {
-      case 'dashed': return 'border-dashed';
-      case 'dotted': return 'border-dotted';
-      case 'double': return 'border-double';
-      case 'groove': return 'border-groove';
-      case 'ridge': return 'border-ridge';
-      default: return 'border-solid';
-    }
-  };
-  
-  const getBorderWidth = () => {
-    switch(borderWidth) {
-      case 'thin': return 'border-2';
-      case 'thick': return 'border-8';
-      default: return 'border-4';
-    }
-  };
-
   const textColor = ['white', 'yellow'].includes(frameColor) ? 'text-gray-800' : 'text-white';
   
   // Handler for title text click
@@ -124,91 +87,67 @@ const DigiboothPhotoStripPreview: React.FC<DigiboothPhotoStripPreviewProps> = ({
   };
   
   return (
-    <div className="space-y-6 animate-fade-in">      
-      <div 
-        ref={photoStripRef} 
-        id="photo-strip-container"
-        className={`mx-auto max-w-[300px] p-4 ${getBorderStyle()} ${getBorderWidth()} rounded-lg shadow-lg ${getBorderColor()}`}
-      >
-        <div className="flex flex-col gap-2">
-          {displayPhotos.map((photo, index) => (
-            <PhotoItem 
-              key={index}
-              photo={photo}
-              index={index}
-              sticker={sticker}
-            />
-          ))}
-          
-          <PhotoStripFooter
-            titleText={titleText}
-            customMessage={customMessage}
-            dateFormat={dateFormat}
-            titleFont={titleFont}
-            titleColor={titleColor}
-            titleSize={titleSize}
-            customFont={customFont}
-            customColor={customColor}
-            customSize={customSize}
-            titleAlignment={titleAlignment}
-            customAlignment={customAlignment}
-            titleItalic={titleItalic}
-            customItalic={customItalic}
-            textColor={textColor}
-            borderStyle={borderStyle}
-            borderWidth={borderWidth}
-            frameTheme={frameTheme}
-            onTitleClick={handleTitleClick}
-            onCustomMessageClick={handleCustomMessageClick}
-            onDateClick={toggleDateFormat}
-          />
-        </div>
-      </div>
-      
-      {/* Border Style Selector */}
-      <BorderStyleSelector
-        selectedStyle={borderStyle}
-        selectedWidth={borderWidth}
-        selectedTheme={frameTheme}
-        onStyleChange={setBorderStyle}
-        onWidthChange={setBorderWidth}
-        onThemeChange={setFrameTheme}
+    <div className="space-y-6 animate-fade-in">
+      <PhotoStripContainer
+        photoStripRef={photoStripRef}
+        displayPhotos={displayPhotos}
+        frameColor={frameColor}
+        sticker={sticker}
+        borderStyle={borderStyle}
+        borderWidth={borderWidth}
+        frameTheme={frameTheme}
+        titleText={titleText}
+        customMessage={customMessage}
+        dateFormat={dateFormat}
+        titleFont={titleFont}
+        titleColor={titleColor}
+        titleSize={titleSize}
+        customFont={customFont}
+        customColor={customColor}
+        customSize={customSize}
+        titleAlignment={titleAlignment}
+        customAlignment={customAlignment}
+        titleItalic={titleItalic}
+        customItalic={customItalic}
+        textColor={textColor}
+        onTitleClick={handleTitleClick}
+        onCustomMessageClick={handleCustomMessageClick}
+        onDateClick={toggleDateFormat}
       />
       
-      {/* Font and Color Controls */}
-      <PhotoStripStylePanel
+      <PhotoStripControlPanel
+        borderStyle={borderStyle}
+        borderWidth={borderWidth}
+        frameTheme={frameTheme}
         titleFont={titleFont}
         titleColor={titleColor}
         titleSize={titleSize}
         titleAlignment={titleAlignment}
         titleItalic={titleItalic}
-        setTitleFont={setTitleFont}
-        setTitleColor={setTitleColor}
-        setTitleSize={setTitleSize}
-        setTitleAlignment={setTitleAlignment}
-        setTitleItalic={setTitleItalic}
         customFont={customFont}
         customColor={customColor}
         customSize={customSize}
         customAlignment={customAlignment}
         customItalic={customItalic}
+        onStyleChange={setBorderStyle}
+        onWidthChange={setBorderWidth}
+        onThemeChange={setFrameTheme}
+        setTitleFont={setTitleFont}
+        setTitleColor={setTitleColor}
+        setTitleSize={setTitleSize}
+        setTitleAlignment={setTitleAlignment}
+        setTitleItalic={setTitleItalic}
         setCustomFont={setCustomFont}
         setCustomColor={setCustomColor}
         setCustomSize={setCustomSize}
         setCustomAlignment={setCustomAlignment}
         setCustomItalic={setCustomItalic}
-        borderStyle={borderStyle}
         setBorderStyle={setBorderStyle}
-        borderWidth={borderWidth}
         setBorderWidth={setBorderWidth}
+        photoCount={photos.length}
+        onDownload={onDownload}
+        onTakeNewPhotos={onTakeNewPhotos}
       />
-      
-      {photos.length >= 3 && (
-        <StripControls
-          onDownload={onDownload || (() => {})}
-          onTakeNewPhotos={onTakeNewPhotos || (() => {})}
-        />
-      )}
     </div>
   );
 };
