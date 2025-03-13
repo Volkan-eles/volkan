@@ -160,7 +160,8 @@ const DigiboothPhotoStripPreview: React.FC<DigiboothPhotoStripPreviewProps> = ({
                 <div 
                   key={index} 
                   className={`${isFirst ? 'w-2/3' : 'w-1/3'} ${
-                    selectedLayout === 'vertical-duo' ? 'h-full' : ''
+                    // Fix the TypeScript error by comparing as string literals with appropriate comparison
+                    selectedLayout === 'large-vertical' ? 'h-full' : ''
                   }`}
                 >
                   <PhotoItem 

@@ -1,7 +1,22 @@
-
 import { FilterType } from '@/components/photobooth/FilterSelector';
 import { DigiboothFilterType } from '@/components/digibooth/DigiboothFilterSelector';
 import { FilterAdjustmentValues } from '@/components/digibooth/DigiboothFilterSelector';
+
+// Map of filter types to their CSS filter strings
+export const filterStyleMap: Record<DigiboothFilterType, string> = {
+  'none': '',
+  'bw': 'grayscale(100%)',
+  'sepia': 'sepia(100%)',
+  'vintage': 'sepia(50%) contrast(80%) brightness(90%)',
+  'soft': 'contrast(90%) brightness(110%) saturate(85%)',
+  'noir': 'grayscale(100%) contrast(120%) brightness(90%)',
+  'vivid': 'saturate(150%) contrast(110%)',
+  'dreamy': 'brightness(105%) contrast(90%) saturate(80%) sepia(20%)',
+  'retro70s': 'sepia(40%) saturate(120%) hue-rotate(-10deg)',
+  'polaroid': 'contrast(90%) brightness(110%) sepia(20%) saturate(80%)',
+  'cyberpunk': 'contrast(140%) brightness(110%) saturate(170%) hue-rotate(10deg)',
+  'faded': 'contrast(85%) brightness(120%) saturate(80%)'
+};
 
 export const applyCanvasFilter = (
   ctx: CanvasRenderingContext2D, 
@@ -173,6 +188,9 @@ export const getFilterStyle = (filter: DigiboothFilterType, adjustments?: Filter
   let filterString = '';
   
   switch(filter) {
+    case 'none': 
+      filterString = ''; 
+      break;
     case 'bw': 
       filterString = 'grayscale(100%)'; 
       break;

@@ -50,7 +50,7 @@ const DigiboothWebcamSection: React.FC<DigiboothWebcamSectionProps> = ({
     // Add adjustments if they exist
     if (filterAdjustments) {
       const { brightness, contrast, saturation } = filterAdjustments;
-      style += ` brightness(${brightness}) contrast(${contrast}) saturate(${saturation})`;
+      style += ` brightness(${brightness / 100}) contrast(${contrast / 100}) saturate(${saturation / 100})`;
     }
     
     setFilterStyle(style);
@@ -76,7 +76,8 @@ const DigiboothWebcamSection: React.FC<DigiboothWebcamSectionProps> = ({
             <DigiboothControls 
               onTakePhoto={onTakePhoto} 
               onRetakePhoto={onRetakePhoto}
-              retakeDisabled={capturedPhotos.length === 0}
+              isCapturing={isCapturing}
+              hasPhotos={capturedPhotos.length > 0}
               takingPhoto={isCapturing}
             />
           </div>
@@ -94,6 +95,8 @@ const DigiboothWebcamSection: React.FC<DigiboothWebcamSectionProps> = ({
           />
           
           <DigiboothCountdownSelector 
+            value={countdownTime}
+            onChange={onCountdownChange}
             selectedTime={countdownTime}
             onSelectTime={onCountdownChange}
           />

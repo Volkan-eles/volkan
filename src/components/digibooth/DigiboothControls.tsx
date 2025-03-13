@@ -8,21 +8,30 @@ interface DigiboothControlsProps {
   onRetakePhoto: () => void;
   isCapturing: boolean;
   hasPhotos: boolean;
+  // Add the missing prop that causes the error
+  retakeDisabled?: boolean;
+  takingPhoto?: boolean;
 }
 
 const DigiboothControls: React.FC<DigiboothControlsProps> = ({
   onTakePhoto,
   onRetakePhoto,
   isCapturing,
-  hasPhotos
+  hasPhotos,
+  retakeDisabled = false,
+  takingPhoto = false
 }) => {
+  // Use either isCapturing or takingPhoto props (to maintain backward compatibility)
+  const isButtonDisabled = isCapturing || takingPhoto;
+  const isRetakeDisabled = !hasPhotos || retakeDisabled;
+  
   return (
     <div className="mt-6 flex justify-center gap-4">
       <Button 
         onClick={onTakePhoto} 
         className="bg-gradient-to-r from-blue-500 to-teal-500 hover:from-blue-600 hover:to-teal-600 text-white font-medium px-8 py-6 rounded-full shadow-md hover:shadow-lg transition-all"
         size="lg"
-        disabled={isCapturing}
+        disabled={isButtonDisabled}
       >
         <Camera className="mr-2 h-5 w-5" />
         Take Photo
@@ -32,7 +41,7 @@ const DigiboothControls: React.FC<DigiboothControlsProps> = ({
         onClick={onRetakePhoto} 
         className="bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium px-6 py-6 rounded-full shadow-md hover:shadow-lg transition-all"
         size="lg"
-        disabled={isCapturing || !hasPhotos}
+        disabled={isButtonDisabled || isRetakeDisabled}
       >
         <RefreshCcw className="mr-2 h-5 w-5" />
         Retake
