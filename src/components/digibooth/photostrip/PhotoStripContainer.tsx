@@ -70,6 +70,15 @@ const PhotoStripContainer: React.FC<PhotoStripContainerProps> = ({
       case 'purple': return 'border-purple-500 bg-purple-500';
       case 'maroon': return 'border-red-800 bg-red-800';
       case 'burgundy': return 'border-red-900 bg-red-900';
+      // New soft colors
+      case 'softGreen': return 'border-[#F2FCE2] bg-[#F2FCE2]';
+      case 'softYellow': return 'border-[#FEF7CD] bg-[#FEF7CD]';
+      case 'softOrange': return 'border-[#FEC6A1] bg-[#FEC6A1]';
+      case 'softPurple': return 'border-[#E5DEFF] bg-[#E5DEFF]';
+      case 'softPink': return 'border-[#FFDEE2] bg-[#FFDEE2]';
+      case 'softPeach': return 'border-[#FDE1D3] bg-[#FDE1D3]';
+      case 'softBlue': return 'border-[#D3E4FD] bg-[#D3E4FD]';
+      case 'softGray': return 'border-[#F1F0FB] bg-[#F1F0FB]';
       default: return 'border-white bg-white';
     }
   };

@@ -1,8 +1,9 @@
 
 import React from 'react';
+import { FrameColorType } from '@/components/photobooth/FrameColorSelector';
 
 interface StripFooterProps {
-  frameColor: string;
+  frameColor: FrameColorType;
   textColor: string;
 }
 

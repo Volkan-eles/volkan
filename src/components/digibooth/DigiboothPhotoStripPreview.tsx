@@ -72,7 +72,9 @@ const DigiboothPhotoStripPreview: React.FC<DigiboothPhotoStripPreviewProps> = ({
     return <EmptyState />;
   }
 
-  const textColor = ['white', 'yellow'].includes(frameColor) ? 'text-gray-800' : 'text-white';
+  const textColor = ['white', 'yellow', 'softGreen', 'softYellow', 'softOrange', 'softPurple', 'softPink', 'softPeach', 'softBlue', 'softGray'].includes(frameColor) 
+    ? 'text-gray-800' 
+    : 'text-white';
   
   // Handler for title text click
   const handleTitleClick = () => {
