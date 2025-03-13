@@ -6,9 +6,8 @@ import EmptyState from '@/components/photostrip/EmptyState';
 import PhotoItem from '@/components/photostrip/PhotoItem';
 import StripControls from '@/components/photostrip/StripControls';
 import { fontFamilies, textColors, fontSizes } from '@/utils/textStyles';
-import { Italic, AlignLeft, AlignCenter, AlignRight } from 'lucide-react';
-import { Toggle } from '@/components/ui/toggle';
-import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
+import PhotoStripFooter from './PhotoStripFooter';
+import PhotoStripStylePanel from './PhotoStripStylePanel';
 
 interface DigiboothPhotoStripPreviewProps {
   photos: string[];
@@ -78,32 +77,16 @@ const DigiboothPhotoStripPreview: React.FC<DigiboothPhotoStripPreviewProps> = ({
 
   const textColor = ['white', 'yellow'].includes(frameColor) ? 'text-gray-800' : 'text-white';
   
-  const formatDate = () => {
-    const today = new Date();
-    if (dateFormat === 'short') {
-      return today.toLocaleDateString();
-    } else {
-      return today.toLocaleDateString(undefined, { 
-        weekday: 'long', 
-        year: 'numeric', 
-        month: 'long', 
-        day: 'numeric' 
-      });
-    }
+  // Handler for title text click
+  const handleTitleClick = () => {
+    const newTitle = prompt('Enter title text:', titleText);
+    if (newTitle) setTitleText(newTitle);
   };
   
-  // Helper function to get alignment class
-  const getAlignmentClass = (alignment: 'left' | 'center' | 'right') => {
-    switch (alignment) {
-      case 'left': return 'text-left';
-      case 'right': return 'text-right';
-      default: return 'text-center';
-    }
-  };
-  
-  // Helper function to get italic class
-  const getItalicClass = (isItalic: boolean) => {
-    return isItalic ? 'italic' : '';
+  // Handler for custom message click
+  const handleCustomMessageClick = () => {
+    const newMessage = prompt('Enter custom message:', customMessage);
+    if (newMessage) setCustomMessage(newMessage);
   };
   
   return (
@@ -123,166 +106,51 @@ const DigiboothPhotoStripPreview: React.FC<DigiboothPhotoStripPreviewProps> = ({
             />
           ))}
           
-          <div className={`py-2 ${textColor}`}>
-            {/* Title text with custom font */}
-            <div 
-              className={`font-${titleFont} ${titleSize} cursor-pointer ${getAlignmentClass(titleAlignment)} ${getItalicClass(titleItalic)}`}
-              style={{ color: titleColor }}
-              onClick={() => {
-                const newTitle = prompt('Enter title text:', titleText);
-                if (newTitle) setTitleText(newTitle);
-              }}
-            >
-              {titleText}
-            </div>
-            
-            {/* Date with toggle functionality */}
-            <div 
-              className={`text-xs mt-1 cursor-pointer ${getAlignmentClass(titleAlignment)}`}
-              onClick={toggleDateFormat}
-            >
-              {formatDate()}
-            </div>
-            
-            {/* Custom message with different font */}
-            <div 
-              className={`font-${customFont} ${customSize} mt-2 cursor-pointer ${getAlignmentClass(customAlignment)} ${getItalicClass(customItalic)}`}
-              style={{ color: customColor }}
-              onClick={() => {
-                const newMessage = prompt('Enter custom message:', customMessage);
-                if (newMessage) setCustomMessage(newMessage);
-              }}
-            >
-              {customMessage}
-            </div>
-          </div>
+          <PhotoStripFooter
+            titleText={titleText}
+            customMessage={customMessage}
+            dateFormat={dateFormat}
+            titleFont={titleFont}
+            titleColor={titleColor}
+            titleSize={titleSize}
+            customFont={customFont}
+            customColor={customColor}
+            customSize={customSize}
+            titleAlignment={titleAlignment}
+            customAlignment={customAlignment}
+            titleItalic={titleItalic}
+            customItalic={customItalic}
+            textColor={textColor}
+            onTitleClick={handleTitleClick}
+            onCustomMessageClick={handleCustomMessageClick}
+            onDateClick={toggleDateFormat}
+          />
         </div>
       </div>
       
       {/* Font and Color Controls */}
-      <div className="bg-white p-4 rounded-lg shadow-md">
-        {/* Title styling controls */}
-        <div className="mb-4">
-          <h3 className="font-medium text-sm mb-2">Title Style</h3>
-          <div className="flex flex-wrap gap-2 mb-2">
-            <select 
-              className="px-2 py-1 border rounded text-sm"
-              value={titleFont}
-              onChange={(e) => setTitleFont(e.target.value)}
-            >
-              {fontFamilies.map((font) => (
-                <option key={font.value} value={font.value}>{font.name}</option>
-              ))}
-            </select>
-            
-            <select 
-              className="px-2 py-1 border rounded text-sm"
-              value={titleSize}
-              onChange={(e) => setTitleSize(e.target.value)}
-            >
-              {fontSizes.map((size) => (
-                <option key={size.value} value={size.value}>{size.name}</option>
-              ))}
-            </select>
-            
-            <div className="flex gap-1">
-              {textColors.map((color) => (
-                <button
-                  key={color.value}
-                  className={`w-6 h-6 rounded-full ${titleColor === color.value ? 'ring-2 ring-offset-2 ring-blue-500' : ''}`}
-                  style={{ backgroundColor: color.value }}
-                  onClick={() => setTitleColor(color.value)}
-                />
-              ))}
-            </div>
-          </div>
-          
-          {/* Title alignment and styling */}
-          <div className="flex flex-wrap gap-2 items-center">
-            <ToggleGroup type="single" value={titleAlignment} onValueChange={(value) => value && setTitleAlignment(value as 'left' | 'center' | 'right')}>
-              <ToggleGroupItem value="left" aria-label="Left align">
-                <AlignLeft className="h-4 w-4" />
-              </ToggleGroupItem>
-              <ToggleGroupItem value="center" aria-label="Center align">
-                <AlignCenter className="h-4 w-4" />
-              </ToggleGroupItem>
-              <ToggleGroupItem value="right" aria-label="Right align">
-                <AlignRight className="h-4 w-4" />
-              </ToggleGroupItem>
-            </ToggleGroup>
-            
-            <Toggle 
-              pressed={titleItalic} 
-              onPressedChange={setTitleItalic}
-              aria-label="Toggle italic"
-              className="ml-2"
-            >
-              <Italic className="h-4 w-4" />
-            </Toggle>
-          </div>
-        </div>
-        
-        {/* Custom message styling controls */}
-        <div>
-          <h3 className="font-medium text-sm mb-2">Custom Message Style</h3>
-          <div className="flex flex-wrap gap-2 mb-2">
-            <select 
-              className="px-2 py-1 border rounded text-sm"
-              value={customFont}
-              onChange={(e) => setCustomFont(e.target.value)}
-            >
-              {fontFamilies.map((font) => (
-                <option key={font.value} value={font.value}>{font.name}</option>
-              ))}
-            </select>
-            
-            <select 
-              className="px-2 py-1 border rounded text-sm"
-              value={customSize}
-              onChange={(e) => setCustomSize(e.target.value)}
-            >
-              {fontSizes.map((size) => (
-                <option key={size.value} value={size.value}>{size.name}</option>
-              ))}
-            </select>
-            
-            <div className="flex gap-1">
-              {textColors.map((color) => (
-                <button
-                  key={color.value}
-                  className={`w-6 h-6 rounded-full ${customColor === color.value ? 'ring-2 ring-offset-2 ring-blue-500' : ''}`}
-                  style={{ backgroundColor: color.value }}
-                  onClick={() => setCustomColor(color.value)}
-                />
-              ))}
-            </div>
-          </div>
-          
-          {/* Custom message alignment and styling */}
-          <div className="flex flex-wrap gap-2 items-center">
-            <ToggleGroup type="single" value={customAlignment} onValueChange={(value) => value && setCustomAlignment(value as 'left' | 'center' | 'right')}>
-              <ToggleGroupItem value="left" aria-label="Left align">
-                <AlignLeft className="h-4 w-4" />
-              </ToggleGroupItem>
-              <ToggleGroupItem value="center" aria-label="Center align">
-                <AlignCenter className="h-4 w-4" />
-              </ToggleGroupItem>
-              <ToggleGroupItem value="right" aria-label="Right align">
-                <AlignRight className="h-4 w-4" />
-              </ToggleGroupItem>
-            </ToggleGroup>
-            
-            <Toggle 
-              pressed={customItalic} 
-              onPressedChange={setCustomItalic}
-              aria-label="Toggle italic"
-              className="ml-2"
-            >
-              <Italic className="h-4 w-4" />
-            </Toggle>
-          </div>
-        </div>
-      </div>
+      <PhotoStripStylePanel
+        titleFont={titleFont}
+        titleColor={titleColor}
+        titleSize={titleSize}
+        titleAlignment={titleAlignment}
+        titleItalic={titleItalic}
+        setTitleFont={setTitleFont}
+        setTitleColor={setTitleColor}
+        setTitleSize={setTitleSize}
+        setTitleAlignment={setTitleAlignment}
+        setTitleItalic={setTitleItalic}
+        customFont={customFont}
+        customColor={customColor}
+        customSize={customSize}
+        customAlignment={customAlignment}
+        customItalic={customItalic}
+        setCustomFont={setCustomFont}
+        setCustomColor={setCustomColor}
+        setCustomSize={setCustomSize}
+        setCustomAlignment={setCustomAlignment}
+        setCustomItalic={setCustomItalic}
+      />
       
       {photos.length >= 3 && (
         <StripControls
