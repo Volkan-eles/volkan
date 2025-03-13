@@ -14,8 +14,7 @@ const DigiboothFilterDisplay: React.FC<DigiboothFilterDisplayProps> = ({
 }) => {
   return (
     <div className="mt-8 space-y-4">
-      <h3 className="text-center text-lg font-medium">Choose a filter and strip layout</h3>
-      <p className="text-center text-sm text-gray-600">Apply filters before taking photos, and select your favorite layout in the preview panel</p>
+      <h3 className="text-center text-lg font-medium">Choose a filter before starting capture!</h3>
       <DigiboothFilterSelector 
         selectedFilter={selectedFilter}
         onSelectFilter={(filter) => {
