@@ -9,6 +9,7 @@ import DigiboothHeroArea from '@/components/digibooth/DigiboothHeroArea';
 import DigiboothWebcamSection from '@/components/digibooth/DigiboothWebcamSection';
 import DigiboothPhotoStripPreview from '@/components/digibooth/DigiboothPhotoStripPreview';
 import DigiboothCustomizationPanel from '@/components/digibooth/DigiboothCustomizationPanel';
+import DigiboothLayoutSelector from '@/components/digibooth/DigiboothLayoutSelector';
 
 // Hooks
 import useDigiboothState from '@/hooks/useDigiboothState';
@@ -27,6 +28,7 @@ const Digibooth = () => {
     selectedSticker,
     showControls,
     isDownloading,
+    selectedLayout,
     setIsDownloading,
     handlePhotoCaptured,
     handleTakePhoto,
@@ -35,6 +37,7 @@ const Digibooth = () => {
     handleFilterChange,
     handleFilterAdjustmentChange,
     handleCountdownChange,
+    handleLayoutChange,
     setFrameColor,
     setSelectedSticker
   } = useDigiboothState();
@@ -76,6 +79,16 @@ const Digibooth = () => {
             </div>
           )}
           
+          {/* Layout Selector - If we have no photos yet, show layout options */}
+          {capturedPhotos.length === 0 && showControls && (
+            <div className="mb-6">
+              <DigiboothLayoutSelector
+                selectedLayout={selectedLayout}
+                onLayoutChange={handleLayoutChange}
+              />
+            </div>
+          )}
+          
           <div className="flex flex-col lg:flex-row gap-6">
             {/* Main webcam display */}
             <DigiboothWebcamSection 
@@ -85,12 +98,14 @@ const Digibooth = () => {
               filterAdjustments={filterAdjustments}
               countdownTime={countdownTime}
               capturedPhotos={capturedPhotos}
+              selectedLayout={selectedLayout}
               onCapture={handlePhotoCaptured}
               onTakePhoto={handleTakePhoto}
               onRetakePhoto={handleRetakePhoto}
               onFilterChange={handleFilterChange}
               onAdjustmentChange={handleFilterAdjustmentChange}
               onCountdownChange={handleCountdownChange}
+              onLayoutChange={handleLayoutChange}
             />
             
             {/* Side panel for photo strip */}
@@ -105,6 +120,8 @@ const Digibooth = () => {
                 setFrameColor={setFrameColor}
                 sticker={selectedSticker}
                 setSticker={setSelectedSticker}
+                selectedLayout={selectedLayout}
+                onLayoutChange={handleLayoutChange}
               />
             </div>
           </div>

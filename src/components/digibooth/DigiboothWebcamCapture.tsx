@@ -12,6 +12,7 @@ interface DigiboothWebcamCaptureProps {
   filterStyle?: string;
   selectedFilter?: DigiboothFilterType | FilterType;
   filterAdjustments?: FilterAdjustmentValues;
+  selectedLayout?: string;
 }
 
 const DigiboothWebcamCapture: React.FC<DigiboothWebcamCaptureProps> = ({ 
@@ -20,7 +21,8 @@ const DigiboothWebcamCapture: React.FC<DigiboothWebcamCaptureProps> = ({
   overlayImage,
   filterStyle,
   selectedFilter = 'none',
-  filterAdjustments
+  filterAdjustments,
+  selectedLayout = 'classic-strip'
 }) => {
   const {
     videoRef,
@@ -49,6 +51,7 @@ const DigiboothWebcamCapture: React.FC<DigiboothWebcamCaptureProps> = ({
       handleCountdownComplete={handleCountdownComplete}
       overlayImage={overlayImage}
       filterStyle={filterStyle}
+      selectedLayout={selectedLayout}
     />
   );
 };
