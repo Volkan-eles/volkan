@@ -6,6 +6,9 @@ import EmptyState from '@/components/photostrip/EmptyState';
 import PhotoItem from '@/components/photostrip/PhotoItem';
 import StripControls from '@/components/photostrip/StripControls';
 import { fontFamilies, textColors, fontSizes } from '@/utils/textStyles';
+import { Italic, AlignLeft, AlignCenter, AlignRight } from 'lucide-react';
+import { Toggle } from '@/components/ui/toggle';
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 
 interface DigiboothPhotoStripPreviewProps {
   photos: string[];
@@ -42,6 +45,12 @@ const DigiboothPhotoStripPreview: React.FC<DigiboothPhotoStripPreviewProps> = ({
   const [customFont, setCustomFont] = useState(fontFamilies[3].value);
   const [customColor, setCustomColor] = useState(textColors[2].value);
   const [customSize, setCustomSize] = useState(fontSizes[1].value);
+  
+  // Text alignment and styling options
+  const [titleAlignment, setTitleAlignment] = useState<'left' | 'center' | 'right'>('center');
+  const [customAlignment, setCustomAlignment] = useState<'left' | 'center' | 'right'>('center');
+  const [titleItalic, setTitleItalic] = useState(false);
+  const [customItalic, setCustomItalic] = useState(false);
   
   // Date format toggle
   const toggleDateFormat = () => {
@@ -83,6 +92,20 @@ const DigiboothPhotoStripPreview: React.FC<DigiboothPhotoStripPreviewProps> = ({
     }
   };
   
+  // Helper function to get alignment class
+  const getAlignmentClass = (alignment: 'left' | 'center' | 'right') => {
+    switch (alignment) {
+      case 'left': return 'text-left';
+      case 'right': return 'text-right';
+      default: return 'text-center';
+    }
+  };
+  
+  // Helper function to get italic class
+  const getItalicClass = (isItalic: boolean) => {
+    return isItalic ? 'italic' : '';
+  };
+  
   return (
     <div className="space-y-6 animate-fade-in">      
       <div 
@@ -100,10 +123,10 @@ const DigiboothPhotoStripPreview: React.FC<DigiboothPhotoStripPreviewProps> = ({
             />
           ))}
           
-          <div className={`text-center py-2 ${textColor}`}>
+          <div className={`py-2 ${textColor}`}>
             {/* Title text with custom font */}
             <div 
-              className={`font-${titleFont} ${titleSize} cursor-pointer`}
+              className={`font-${titleFont} ${titleSize} cursor-pointer ${getAlignmentClass(titleAlignment)} ${getItalicClass(titleItalic)}`}
               style={{ color: titleColor }}
               onClick={() => {
                 const newTitle = prompt('Enter title text:', titleText);
@@ -115,7 +138,7 @@ const DigiboothPhotoStripPreview: React.FC<DigiboothPhotoStripPreviewProps> = ({
             
             {/* Date with toggle functionality */}
             <div 
-              className="text-xs mt-1 cursor-pointer"
+              className={`text-xs mt-1 cursor-pointer ${getAlignmentClass(titleAlignment)}`}
               onClick={toggleDateFormat}
             >
               {formatDate()}
@@ -123,7 +146,7 @@ const DigiboothPhotoStripPreview: React.FC<DigiboothPhotoStripPreviewProps> = ({
             
             {/* Custom message with different font */}
             <div 
-              className={`font-${customFont} ${customSize} mt-2 cursor-pointer`}
+              className={`font-${customFont} ${customSize} mt-2 cursor-pointer ${getAlignmentClass(customAlignment)} ${getItalicClass(customItalic)}`}
               style={{ color: customColor }}
               onClick={() => {
                 const newMessage = prompt('Enter custom message:', customMessage);
@@ -138,9 +161,10 @@ const DigiboothPhotoStripPreview: React.FC<DigiboothPhotoStripPreviewProps> = ({
       
       {/* Font and Color Controls */}
       <div className="bg-white p-4 rounded-lg shadow-md">
+        {/* Title styling controls */}
         <div className="mb-4">
           <h3 className="font-medium text-sm mb-2">Title Style</h3>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2 mb-2">
             <select 
               className="px-2 py-1 border rounded text-sm"
               value={titleFont}
@@ -172,11 +196,36 @@ const DigiboothPhotoStripPreview: React.FC<DigiboothPhotoStripPreviewProps> = ({
               ))}
             </div>
           </div>
+          
+          {/* Title alignment and styling */}
+          <div className="flex flex-wrap gap-2 items-center">
+            <ToggleGroup type="single" value={titleAlignment} onValueChange={(value) => value && setTitleAlignment(value as 'left' | 'center' | 'right')}>
+              <ToggleGroupItem value="left" aria-label="Left align">
+                <AlignLeft className="h-4 w-4" />
+              </ToggleGroupItem>
+              <ToggleGroupItem value="center" aria-label="Center align">
+                <AlignCenter className="h-4 w-4" />
+              </ToggleGroupItem>
+              <ToggleGroupItem value="right" aria-label="Right align">
+                <AlignRight className="h-4 w-4" />
+              </ToggleGroupItem>
+            </ToggleGroup>
+            
+            <Toggle 
+              pressed={titleItalic} 
+              onPressedChange={setTitleItalic}
+              aria-label="Toggle italic"
+              className="ml-2"
+            >
+              <Italic className="h-4 w-4" />
+            </Toggle>
+          </div>
         </div>
         
+        {/* Custom message styling controls */}
         <div>
           <h3 className="font-medium text-sm mb-2">Custom Message Style</h3>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2 mb-2">
             <select 
               className="px-2 py-1 border rounded text-sm"
               value={customFont}
@@ -207,6 +256,30 @@ const DigiboothPhotoStripPreview: React.FC<DigiboothPhotoStripPreviewProps> = ({
                 />
               ))}
             </div>
+          </div>
+          
+          {/* Custom message alignment and styling */}
+          <div className="flex flex-wrap gap-2 items-center">
+            <ToggleGroup type="single" value={customAlignment} onValueChange={(value) => value && setCustomAlignment(value as 'left' | 'center' | 'right')}>
+              <ToggleGroupItem value="left" aria-label="Left align">
+                <AlignLeft className="h-4 w-4" />
+              </ToggleGroupItem>
+              <ToggleGroupItem value="center" aria-label="Center align">
+                <AlignCenter className="h-4 w-4" />
+              </ToggleGroupItem>
+              <ToggleGroupItem value="right" aria-label="Right align">
+                <AlignRight className="h-4 w-4" />
+              </ToggleGroupItem>
+            </ToggleGroup>
+            
+            <Toggle 
+              pressed={customItalic} 
+              onPressedChange={setCustomItalic}
+              aria-label="Toggle italic"
+              className="ml-2"
+            >
+              <Italic className="h-4 w-4" />
+            </Toggle>
           </div>
         </div>
       </div>
