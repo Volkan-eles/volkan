@@ -41,9 +41,9 @@ const DigiboothCustomizationPanel: React.FC<DigiboothCustomizationPanelProps> = 
   toggleBackgroundRemoval
 }) => {
   return (
-    <div className="w-full bg-white backdrop-blur-sm border border-gray-100 p-6 rounded-xl shadow-sm">
-      <h2 className="text-2xl font-bold text-center text-gray-800 mb-2">Digibooth Strip Preview</h2>
-      <p className="text-center text-gray-500 mb-6">Customize your digital photo strip</p>
+    <div className="max-w-3xl mx-auto bg-white/90 backdrop-blur-sm border-0 p-4 rounded-lg shadow-sm">
+      <h2 className="text-xl font-semibold text-center text-gray-700 mb-1">Digibooth Strip Preview</h2>
+      <p className="text-center text-gray-500 text-sm mb-4">Customize your digital photo strip</p>
       
       {/* Frame Theme Section (if available) */}
       {setFrameTheme && (

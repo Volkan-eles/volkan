@@ -12,13 +12,13 @@ const BackgroundRemovalToggle: React.FC<BackgroundRemovalToggleProps> = ({
   toggleBackgroundRemoval
 }) => {
   return (
-    <div className="mb-6">
-      <h3 className="text-lg font-medium text-gray-700 mb-3">Background Removal</h3>
+    <div className="mb-4">
+      <h3 className="text-md font-medium text-gray-600 mb-2">Background Removal</h3>
       <div className="flex justify-center">
         <Button
-          className={`px-3 py-1.5 rounded-md text-sm transition-all ${
+          className={`px-3 py-1 rounded-md text-sm transition-all ${
             showBackgroundRemoval
-              ? "bg-blue-500 text-white ring-2 ring-offset-1 ring-blue-500"
+              ? "bg-primary text-white ring-1 ring-offset-1 ring-primary"
               : "bg-gray-100 hover:bg-gray-200 text-gray-700"
           }`}
           onClick={toggleBackgroundRemoval}

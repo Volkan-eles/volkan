@@ -24,14 +24,14 @@ const StickerOptions: React.FC<StickerOptionsProps> = ({
 
   return (
     <div>
-      <h3 className="text-lg font-medium text-gray-700 mb-3">Stickers</h3>
-      <div className="flex flex-wrap justify-center gap-2">
+      <h3 className="text-md font-medium text-gray-600 mb-2">Stickers</h3>
+      <div className="flex flex-wrap justify-center gap-1.5">
         {stickers.map(stickerOption => (
           <Button
             key={stickerOption.id}
-            className={`px-3 py-1.5 rounded-md text-sm transition-all ${
+            className={`px-2.5 py-1 rounded-md text-xs transition-all ${
               sticker === stickerOption.id 
-                ? "bg-blue-500 text-white ring-2 ring-offset-1 ring-blue-500" 
+                ? "bg-primary text-white ring-1 ring-offset-1 ring-primary" 
                 : "bg-gray-100 hover:bg-gray-200 text-gray-700"
             }`}
             onClick={() => setSticker(stickerOption.id)}

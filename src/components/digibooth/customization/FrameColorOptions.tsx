@@ -26,14 +26,14 @@ const FrameColorOptions: React.FC<FrameColorOptionsProps> = ({
   ];
 
   return (
-    <div className="mb-6">
-      <h3 className="text-lg font-medium text-gray-700 mb-3">Frame Color</h3>
-      <div className="flex flex-wrap justify-center gap-2">
+    <div className="mb-4">
+      <h3 className="text-md font-medium text-gray-600 mb-2">Frame Color</h3>
+      <div className="flex flex-wrap justify-center gap-1.5">
         {frameColors.map(color => (
           <Button
             key={color.id}
-            className={`px-3 py-1.5 rounded-md text-sm ${color.bgClass} ${
-              frameColor === color.id ? 'ring-2 ring-offset-1 ring-blue-500' : ''
+            className={`px-2.5 py-1 rounded-md text-xs ${color.bgClass} ${
+              frameColor === color.id ? 'ring-1 ring-offset-1 ring-primary' : ''
             } hover:opacity-90 transition-all`}
             onClick={() => setFrameColor(color.id)}
           >
