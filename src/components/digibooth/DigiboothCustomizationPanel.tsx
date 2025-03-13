@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { FrameColorType } from '@/components/photobooth/FrameColorSelector';
 import { StickerType } from '@/components/photobooth/StickerSelector';
@@ -84,20 +83,20 @@ const DigiboothCustomizationPanel: React.FC<DigiboothCustomizationPanelProps> = 
   ];
 
   return (
-    <div className="w-full bg-gradient-to-r from-blue-500 to-blue-600 p-6 rounded-xl shadow-md">
-      <h2 className="text-2xl font-bold text-center text-white mb-2">Digibooth Strip Preview</h2>
-      <p className="text-center text-white/80 mb-6">Customize your digital photo strip</p>
+    <div className="w-full bg-white backdrop-blur-sm border border-gray-100 p-6 rounded-xl shadow-sm">
+      <h2 className="text-2xl font-bold text-center text-gray-800 mb-2">Digibooth Strip Preview</h2>
+      <p className="text-center text-gray-500 mb-6">Customize your digital photo strip</p>
       
       {/* Frame Theme Section (if available) */}
       {setFrameTheme && (
         <div className="mb-6">
-          <h3 className="text-center font-medium text-white mb-3">Frame Theme</h3>
+          <h3 className="text-lg font-medium text-gray-700 mb-3">Frame Theme</h3>
           <div className="flex flex-wrap justify-center gap-2">
             {themes.map(theme => (
               <button
                 key={theme.id}
-                className={`px-4 py-2 ${theme.bgClass} rounded-full ${
-                  frameTheme === theme.id ? 'ring-2 ring-offset-2 ring-white' : ''
+                className={`px-3 py-1.5 ${theme.bgClass} rounded-md text-sm ${
+                  frameTheme === theme.id ? 'ring-2 ring-offset-1 ring-blue-500' : ''
                 } hover:opacity-90 transition-all`}
                 onClick={() => setFrameTheme(theme.id)}
               >
@@ -110,13 +109,13 @@ const DigiboothCustomizationPanel: React.FC<DigiboothCustomizationPanelProps> = 
       
       {/* Frame Color Section */}
       <div className="mb-6">
-        <h3 className="text-center font-medium text-white mb-3">Frame Color</h3>
+        <h3 className="text-lg font-medium text-gray-700 mb-3">Frame Color</h3>
         <div className="flex flex-wrap justify-center gap-2">
           {frameColors.map(color => (
             <button
               key={color.id}
-              className={`px-4 py-2 rounded-full ${color.bgClass} ${
-                frameColor === color.id ? 'ring-2 ring-offset-2 ring-white' : ''
+              className={`px-3 py-1.5 rounded-md text-sm ${color.bgClass} ${
+                frameColor === color.id ? 'ring-2 ring-offset-1 ring-blue-500' : ''
               } hover:opacity-90 transition-all`}
               onClick={() => setFrameColor(color.id)}
             >
@@ -129,15 +128,15 @@ const DigiboothCustomizationPanel: React.FC<DigiboothCustomizationPanelProps> = 
       {/* Border Style Section (if available) */}
       {setBorderStyle && setBorderWidth && (
         <div className="mb-6">
-          <h3 className="text-center font-medium text-white mb-3">Border Style</h3>
+          <h3 className="text-lg font-medium text-gray-700 mb-3">Border Style</h3>
           <div className="flex flex-wrap justify-center gap-2 mb-3">
             {borderStyles.map(style => (
               <button
                 key={style.id}
-                className={`px-4 py-2 rounded-full transition-all ${
+                className={`px-3 py-1.5 rounded-md text-sm transition-all ${
                   borderStyle === style.id 
-                    ? "bg-pink-400 text-white ring-2 ring-offset-2 ring-white" 
-                    : "bg-white/80 hover:bg-white text-gray-800"
+                    ? "bg-blue-500 text-white ring-2 ring-offset-1 ring-blue-500" 
+                    : "bg-gray-100 hover:bg-gray-200 text-gray-700"
                 }`}
                 onClick={() => setBorderStyle(style.id)}
               >
@@ -149,10 +148,10 @@ const DigiboothCustomizationPanel: React.FC<DigiboothCustomizationPanelProps> = 
             {borderWidths.map(width => (
               <button
                 key={width.id}
-                className={`px-4 py-2 rounded-full transition-all ${
+                className={`px-3 py-1.5 rounded-md text-sm transition-all ${
                   borderWidth === width.id 
-                    ? "bg-pink-400 text-white ring-2 ring-offset-2 ring-white" 
-                    : "bg-white/80 hover:bg-white text-gray-800"
+                    ? "bg-blue-500 text-white ring-2 ring-offset-1 ring-blue-500" 
+                    : "bg-gray-100 hover:bg-gray-200 text-gray-700"
                 }`}
                 onClick={() => setBorderWidth(width.id)}
               >
@@ -166,13 +165,13 @@ const DigiboothCustomizationPanel: React.FC<DigiboothCustomizationPanelProps> = 
       {/* Background Removal Toggle (if available) */}
       {toggleBackgroundRemoval && (
         <div className="mb-6">
-          <h3 className="text-center font-medium text-white mb-3">Background Removal</h3>
+          <h3 className="text-lg font-medium text-gray-700 mb-3">Background Removal</h3>
           <div className="flex justify-center">
             <button
-              className={`px-4 py-2 rounded-full transition-all ${
+              className={`px-3 py-1.5 rounded-md text-sm transition-all ${
                 showBackgroundRemoval
-                  ? "bg-pink-400 text-white ring-2 ring-offset-2 ring-white"
-                  : "bg-white/80 hover:bg-white text-gray-800"
+                  ? "bg-blue-500 text-white ring-2 ring-offset-1 ring-blue-500"
+                  : "bg-gray-100 hover:bg-gray-200 text-gray-700"
               }`}
               onClick={toggleBackgroundRemoval}
             >
@@ -184,15 +183,15 @@ const DigiboothCustomizationPanel: React.FC<DigiboothCustomizationPanelProps> = 
       
       {/* Stickers Section */}
       <div>
-        <h3 className="text-center font-medium text-white mb-3">Stickers</h3>
+        <h3 className="text-lg font-medium text-gray-700 mb-3">Stickers</h3>
         <div className="flex flex-wrap justify-center gap-2">
           {stickers.map(stickerOption => (
             <button
               key={stickerOption.id}
-              className={`px-4 py-2 rounded-full transition-all ${
+              className={`px-3 py-1.5 rounded-md text-sm transition-all ${
                 sticker === stickerOption.id 
-                  ? "bg-pink-400 text-white ring-2 ring-offset-2 ring-white" 
-                  : "bg-white/80 hover:bg-white text-gray-800"
+                  ? "bg-blue-500 text-white ring-2 ring-offset-1 ring-blue-500" 
+                  : "bg-gray-100 hover:bg-gray-200 text-gray-700"
               }`}
               onClick={() => setSticker(stickerOption.id)}
             >
