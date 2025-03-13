@@ -16,11 +16,11 @@ const FrameColorSelector: React.FC<FrameColorSelectorProps> = ({
   const colors: { id: FrameColorType; name: string; bgClass: string }[] = [
     { id: 'white', name: 'White', bgClass: 'bg-white text-black' },
     { id: 'black', name: 'Black', bgClass: 'bg-black text-white' },
-    { id: 'pink', name: 'Pink', bgClass: 'bg-pink-400 text-white' },
-    { id: 'green', name: 'Green', bgClass: 'bg-green-500 text-white' },
-    { id: 'blue', name: 'Blue', bgClass: 'bg-blue-500 text-white' },
-    { id: 'yellow', name: 'Yellow', bgClass: 'bg-yellow-400 text-black' },
-    { id: 'purple', name: 'Purple', bgClass: 'bg-purple-500 text-white' },
+    { id: 'pink', name: 'Pink', bgClass: 'bg-pink-300 text-white' },
+    { id: 'green', name: 'Green', bgClass: 'bg-green-400 text-white' },
+    { id: 'blue', name: 'Blue', bgClass: 'bg-blue-400 text-white' },
+    { id: 'yellow', name: 'Yellow', bgClass: 'bg-yellow-300 text-black' },
+    { id: 'purple', name: 'Purple', bgClass: 'bg-purple-400 text-white' },
     { id: 'maroon', name: 'Maroon', bgClass: 'bg-red-800 text-white' },
     { id: 'burgundy', name: 'Burgundy', bgClass: 'bg-red-900 text-white' }
   ];
@@ -32,13 +32,13 @@ const FrameColorSelector: React.FC<FrameColorSelectorProps> = ({
         {colors.map(color => (
           <Button
             key={color.id}
-            className={`rounded-full ${color.bgClass} ${
+            className={`rounded-full w-8 h-8 ${color.bgClass} ${
               selectedColor === color.id ? 'ring-2 ring-offset-2 ring-pink-500' : ''
             } hover:opacity-90 transition-all`}
             onClick={() => onSelectColor(color.id)}
-          >
-            {color.name}
-          </Button>
+            aria-label={color.name}
+            title={color.name}
+          />
         ))}
       </div>
     </div>

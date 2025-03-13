@@ -12,7 +12,7 @@ const FrameColorOptions: React.FC<FrameColorOptionsProps> = ({
   frameColor,
   setFrameColor
 }) => {
-  // Frame color options
+  // Enhanced frame color options with more soft colors
   const frameColors: { id: FrameColorType; name: string }[] = [
     { id: 'white', name: 'White' },
     { id: 'black', name: 'Black' },
@@ -20,29 +20,49 @@ const FrameColorOptions: React.FC<FrameColorOptionsProps> = ({
     { id: 'green', name: 'Green' },
     { id: 'blue', name: 'Blue' },
     { id: 'yellow', name: 'Yellow' },
-    { id: 'purple', name: 'Purple' }
+    { id: 'purple', name: 'Purple' },
+    { id: 'maroon', name: 'Maroon' },
+    { id: 'burgundy', name: 'Burgundy' }
   ];
 
   return (
     <div>
-      <h3 className="text-sm font-medium text-gray-600 mb-1">Frame</h3>
+      <h3 className="text-xs font-medium text-gray-600 mb-1">Frame</h3>
       <div className="flex flex-wrap gap-1">
         {frameColors.map(color => (
           <Button
             key={color.id}
-            className={`px-2 py-0.5 rounded-md text-xs h-auto transition-all ${
+            className={`w-6 h-6 p-0 rounded-full transition-all ${
+              getColorClass(color.id)
+            } ${
               frameColor === color.id 
-                ? "bg-primary text-white ring-1 ring-offset-1 ring-primary" 
-                : "bg-gray-100 hover:bg-gray-200 text-gray-700"
+                ? "ring-2 ring-offset-1 ring-primary" 
+                : "hover:ring-1 hover:ring-offset-1 hover:ring-gray-300"
             }`}
             onClick={() => setFrameColor(color.id)}
-          >
-            {color.name}
-          </Button>
+            aria-label={color.name}
+            title={color.name}
+          />
         ))}
       </div>
     </div>
   );
+};
+
+// Helper function to get color classes
+const getColorClass = (colorId: FrameColorType): string => {
+  switch(colorId) {
+    case 'white': return 'bg-white';
+    case 'black': return 'bg-black';
+    case 'pink': return 'bg-pink-300';
+    case 'green': return 'bg-green-400';
+    case 'blue': return 'bg-blue-400';
+    case 'yellow': return 'bg-yellow-300';
+    case 'purple': return 'bg-purple-400';
+    case 'maroon': return 'bg-red-800';
+    case 'burgundy': return 'bg-red-900';
+    default: return 'bg-white';
+  }
 };
 
 export default FrameColorOptions;
