@@ -81,7 +81,10 @@ const WebcamSection: React.FC<WebcamSectionProps> = ({
           
           <FilterSelector 
             selectedFilter={selectedFilter}
-            onSelectFilter={onFilterChange}
+            onSelectFilter={(filter) => {
+              console.log('Filter changing to:', filter);
+              onFilterChange(filter);
+            }}
           />
         </>
       )}

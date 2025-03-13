@@ -36,7 +36,10 @@ const FilterSelector: React.FC<FilterSelectorProps> = ({
                 ? "bg-gradient-to-r from-pink-500 to-purple-500 text-white" 
                 : "bg-white/80 hover:bg-white text-gray-800"
             }`}
-            onClick={() => onSelectFilter(filter.id)}
+            onClick={() => {
+              onSelectFilter(filter.id);
+              console.log(`Filter selected: ${filter.id}`);
+            }}
           >
             {filter.name}
           </Button>
