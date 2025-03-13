@@ -2,19 +2,36 @@
 import React from 'react';
 import { FrameColorType } from '@/components/photobooth/FrameColorSelector';
 import { StickerType } from '@/components/photobooth/StickerSelector';
+import { BorderStyle, BorderWidth, FrameTheme } from './BorderStyleSelector';
 
 interface DigiboothCustomizationPanelProps {
   frameColor: FrameColorType;
   setFrameColor: (color: FrameColorType) => void;
   sticker: StickerType;
   setSticker: (sticker: StickerType) => void;
+  borderStyle?: BorderStyle;
+  setBorderStyle?: (style: BorderStyle) => void;
+  borderWidth?: BorderWidth;
+  setBorderWidth?: (width: BorderWidth) => void;
+  frameTheme?: FrameTheme;
+  setFrameTheme?: (theme: FrameTheme) => void;
+  showBackgroundRemoval?: boolean;
+  toggleBackgroundRemoval?: () => void;
 }
 
 const DigiboothCustomizationPanel: React.FC<DigiboothCustomizationPanelProps> = ({
   frameColor,
   setFrameColor,
   sticker,
-  setSticker
+  setSticker,
+  borderStyle = 'solid',
+  setBorderStyle,
+  borderWidth = 'medium',
+  setBorderWidth,
+  frameTheme = 'default',
+  setFrameTheme,
+  showBackgroundRemoval = false,
+  toggleBackgroundRemoval
 }) => {
   // Frame color options
   const frameColors: { id: FrameColorType; name: string; bgClass: string }[] = [
@@ -39,10 +56,57 @@ const DigiboothCustomizationPanel: React.FC<DigiboothCustomizationPanelProps> = 
     { id: 'miffy', name: 'Miffy' }
   ];
 
+  // Theme options
+  const themes: { id: FrameTheme; name: string; bgClass: string }[] = [
+    { id: 'default', name: 'Default', bgClass: 'bg-blue-500 text-white' },
+    { id: 'birthday', name: 'Birthday', bgClass: 'bg-gradient-to-r from-yellow-400 to-pink-500 text-white' },
+    { id: 'christmas', name: 'Christmas', bgClass: 'bg-gradient-to-r from-green-600 to-red-600 text-white' },
+    { id: 'halloween', name: 'Halloween', bgClass: 'bg-gradient-to-r from-orange-500 to-purple-900 text-white' },
+    { id: 'valentines', name: 'Valentine\'s', bgClass: 'bg-gradient-to-r from-pink-400 to-red-400 text-white' },
+    { id: 'wedding', name: 'Wedding', bgClass: 'bg-gradient-to-r from-blue-100 via-white to-blue-100 text-gray-800 border border-gray-200' }
+  ];
+
+  // Border style options
+  const borderStyles: { id: BorderStyle; name: string }[] = [
+    { id: 'solid', name: 'Solid' },
+    { id: 'dashed', name: 'Dashed' },
+    { id: 'dotted', name: 'Dotted' },
+    { id: 'double', name: 'Double' },
+    { id: 'groove', name: 'Groove' },
+    { id: 'ridge', name: 'Ridge' }
+  ];
+
+  // Border width options
+  const borderWidths: { id: BorderWidth; name: string }[] = [
+    { id: 'thin', name: 'Thin' },
+    { id: 'medium', name: 'Medium' },
+    { id: 'thick', name: 'Thick' }
+  ];
+
   return (
     <div className="w-full bg-gradient-to-r from-blue-500 to-blue-600 p-6 rounded-xl shadow-md">
       <h2 className="text-2xl font-bold text-center text-white mb-2">Digibooth Strip Preview</h2>
       <p className="text-center text-white/80 mb-6">Customize your digital photo strip</p>
+      
+      {/* Frame Theme Section (if available) */}
+      {setFrameTheme && (
+        <div className="mb-6">
+          <h3 className="text-center font-medium text-white mb-3">Frame Theme</h3>
+          <div className="flex flex-wrap justify-center gap-2">
+            {themes.map(theme => (
+              <button
+                key={theme.id}
+                className={`px-4 py-2 ${theme.bgClass} rounded-full ${
+                  frameTheme === theme.id ? 'ring-2 ring-offset-2 ring-white' : ''
+                } hover:opacity-90 transition-all`}
+                onClick={() => setFrameTheme(theme.id)}
+              >
+                {theme.name}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
       
       {/* Frame Color Section */}
       <div className="mb-6">
@@ -61,6 +125,62 @@ const DigiboothCustomizationPanel: React.FC<DigiboothCustomizationPanelProps> = 
           ))}
         </div>
       </div>
+      
+      {/* Border Style Section (if available) */}
+      {setBorderStyle && setBorderWidth && (
+        <div className="mb-6">
+          <h3 className="text-center font-medium text-white mb-3">Border Style</h3>
+          <div className="flex flex-wrap justify-center gap-2 mb-3">
+            {borderStyles.map(style => (
+              <button
+                key={style.id}
+                className={`px-4 py-2 rounded-full transition-all ${
+                  borderStyle === style.id 
+                    ? "bg-pink-400 text-white ring-2 ring-offset-2 ring-white" 
+                    : "bg-white/80 hover:bg-white text-gray-800"
+                }`}
+                onClick={() => setBorderStyle(style.id)}
+              >
+                {style.name}
+              </button>
+            ))}
+          </div>
+          <div className="flex flex-wrap justify-center gap-2">
+            {borderWidths.map(width => (
+              <button
+                key={width.id}
+                className={`px-4 py-2 rounded-full transition-all ${
+                  borderWidth === width.id 
+                    ? "bg-pink-400 text-white ring-2 ring-offset-2 ring-white" 
+                    : "bg-white/80 hover:bg-white text-gray-800"
+                }`}
+                onClick={() => setBorderWidth(width.id)}
+              >
+                {width.name}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+      
+      {/* Background Removal Toggle (if available) */}
+      {toggleBackgroundRemoval && (
+        <div className="mb-6">
+          <h3 className="text-center font-medium text-white mb-3">Background Removal</h3>
+          <div className="flex justify-center">
+            <button
+              className={`px-4 py-2 rounded-full transition-all ${
+                showBackgroundRemoval
+                  ? "bg-pink-400 text-white ring-2 ring-offset-2 ring-white"
+                  : "bg-white/80 hover:bg-white text-gray-800"
+              }`}
+              onClick={toggleBackgroundRemoval}
+            >
+              {showBackgroundRemoval ? 'Background Removal On' : 'Background Removal Off'}
+            </button>
+          </div>
+        </div>
+      )}
       
       {/* Stickers Section */}
       <div>

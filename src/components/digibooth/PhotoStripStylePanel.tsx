@@ -1,6 +1,7 @@
 
 import React from 'react';
 import TextStyleControls from './TextStyleControls';
+import { BorderStyle, BorderWidth } from '@/components/digibooth/BorderStyleSelector';
 
 interface PhotoStripStylePanelProps {
   titleFont: string;
@@ -23,6 +24,10 @@ interface PhotoStripStylePanelProps {
   setCustomSize: (size: string) => void;
   setCustomAlignment: (alignment: 'left' | 'center' | 'right') => void;
   setCustomItalic: (italic: boolean) => void;
+  borderStyle?: BorderStyle;
+  setBorderStyle?: (style: BorderStyle) => void;
+  borderWidth?: BorderWidth;
+  setBorderWidth?: (width: BorderWidth) => void;
 }
 
 const PhotoStripStylePanel: React.FC<PhotoStripStylePanelProps> = ({
@@ -45,7 +50,11 @@ const PhotoStripStylePanel: React.FC<PhotoStripStylePanelProps> = ({
   setCustomColor,
   setCustomSize,
   setCustomAlignment,
-  setCustomItalic
+  setCustomItalic,
+  borderStyle = 'solid',
+  setBorderStyle,
+  borderWidth = 'medium',
+  setBorderWidth
 }) => {
   return (
     <div className="bg-white p-4 rounded-lg shadow-md">
@@ -67,7 +76,7 @@ const PhotoStripStylePanel: React.FC<PhotoStripStylePanelProps> = ({
       </div>
       
       {/* Custom message styling controls */}
-      <div>
+      <div className="mb-4">
         <TextStyleControls
           textFont={customFont}
           textColor={customColor}
@@ -82,6 +91,37 @@ const PhotoStripStylePanel: React.FC<PhotoStripStylePanelProps> = ({
           label="Custom Message Style"
         />
       </div>
+      
+      {/* Border styling controls (if available) */}
+      {setBorderStyle && setBorderWidth && (
+        <div className="mt-4">
+          <h3 className="font-medium text-sm mb-2">Border Style</h3>
+          <div className="flex flex-wrap gap-2 mb-2">
+            <select 
+              className="px-2 py-1 border rounded text-sm"
+              value={borderStyle}
+              onChange={(e) => setBorderStyle(e.target.value as BorderStyle)}
+            >
+              <option value="solid">Solid</option>
+              <option value="dashed">Dashed</option>
+              <option value="dotted">Dotted</option>
+              <option value="double">Double</option>
+              <option value="groove">Groove</option>
+              <option value="ridge">Ridge</option>
+            </select>
+            
+            <select 
+              className="px-2 py-1 border rounded text-sm"
+              value={borderWidth}
+              onChange={(e) => setBorderWidth(e.target.value as BorderWidth)}
+            >
+              <option value="thin">Thin</option>
+              <option value="medium">Medium</option>
+              <option value="thick">Thick</option>
+            </select>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

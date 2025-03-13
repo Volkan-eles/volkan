@@ -8,6 +8,8 @@ import StripControls from '@/components/photostrip/StripControls';
 import { fontFamilies, textColors, fontSizes } from '@/utils/textStyles';
 import PhotoStripFooter from './PhotoStripFooter';
 import PhotoStripStylePanel from './PhotoStripStylePanel';
+import { BorderStyle, BorderWidth, FrameTheme } from './BorderStyleSelector';
+import BorderStyleSelector from './BorderStyleSelector';
 
 interface DigiboothPhotoStripPreviewProps {
   photos: string[];
@@ -51,9 +53,22 @@ const DigiboothPhotoStripPreview: React.FC<DigiboothPhotoStripPreviewProps> = ({
   const [titleItalic, setTitleItalic] = useState(false);
   const [customItalic, setCustomItalic] = useState(false);
   
+  // Border style options
+  const [borderStyle, setBorderStyle] = useState<BorderStyle>('solid');
+  const [borderWidth, setBorderWidth] = useState<BorderWidth>('medium');
+  const [frameTheme, setFrameTheme] = useState<FrameTheme>('default');
+  
+  // Background removal toggle
+  const [showBackgroundRemoval, setShowBackgroundRemoval] = useState(false);
+  
   // Date format toggle
   const toggleDateFormat = () => {
     setDateFormat(dateFormat === 'short' ? 'long' : 'short');
+  };
+  
+  // Background removal toggle
+  const toggleBackgroundRemoval = () => {
+    setShowBackgroundRemoval(!showBackgroundRemoval);
   };
   
   if (photos.length === 0) {
@@ -72,6 +87,25 @@ const DigiboothPhotoStripPreview: React.FC<DigiboothPhotoStripPreviewProps> = ({
       case 'maroon': return 'border-red-800 bg-red-800';
       case 'burgundy': return 'border-red-900 bg-red-900';
       default: return 'border-white bg-white';
+    }
+  };
+  
+  const getBorderStyle = () => {
+    switch(borderStyle) {
+      case 'dashed': return 'border-dashed';
+      case 'dotted': return 'border-dotted';
+      case 'double': return 'border-double';
+      case 'groove': return 'border-groove';
+      case 'ridge': return 'border-ridge';
+      default: return 'border-solid';
+    }
+  };
+  
+  const getBorderWidth = () => {
+    switch(borderWidth) {
+      case 'thin': return 'border-2';
+      case 'thick': return 'border-8';
+      default: return 'border-4';
     }
   };
 
@@ -94,7 +128,7 @@ const DigiboothPhotoStripPreview: React.FC<DigiboothPhotoStripPreviewProps> = ({
       <div 
         ref={photoStripRef} 
         id="photo-strip-container"
-        className={`mx-auto max-w-[300px] p-4 border-8 rounded-lg shadow-lg ${getBorderColor()}`}
+        className={`mx-auto max-w-[300px] p-4 ${getBorderStyle()} ${getBorderWidth()} rounded-lg shadow-lg ${getBorderColor()}`}
       >
         <div className="flex flex-col gap-2">
           {displayPhotos.map((photo, index) => (
@@ -121,12 +155,25 @@ const DigiboothPhotoStripPreview: React.FC<DigiboothPhotoStripPreviewProps> = ({
             titleItalic={titleItalic}
             customItalic={customItalic}
             textColor={textColor}
+            borderStyle={borderStyle}
+            borderWidth={borderWidth}
+            frameTheme={frameTheme}
             onTitleClick={handleTitleClick}
             onCustomMessageClick={handleCustomMessageClick}
             onDateClick={toggleDateFormat}
           />
         </div>
       </div>
+      
+      {/* Border Style Selector */}
+      <BorderStyleSelector
+        selectedStyle={borderStyle}
+        selectedWidth={borderWidth}
+        selectedTheme={frameTheme}
+        onStyleChange={setBorderStyle}
+        onWidthChange={setBorderWidth}
+        onThemeChange={setFrameTheme}
+      />
       
       {/* Font and Color Controls */}
       <PhotoStripStylePanel
@@ -150,6 +197,10 @@ const DigiboothPhotoStripPreview: React.FC<DigiboothPhotoStripPreviewProps> = ({
         setCustomSize={setCustomSize}
         setCustomAlignment={setCustomAlignment}
         setCustomItalic={setCustomItalic}
+        borderStyle={borderStyle}
+        setBorderStyle={setBorderStyle}
+        borderWidth={borderWidth}
+        setBorderWidth={setBorderWidth}
       />
       
       {photos.length >= 3 && (

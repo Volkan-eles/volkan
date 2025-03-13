@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { toast } from 'sonner';
 
@@ -13,6 +13,7 @@ import DigiboothCustomizationPanel from '@/components/digibooth/DigiboothCustomi
 // Hooks
 import useDigiboothState from '@/hooks/useDigiboothState';
 import { downloadPhotoStrip } from '@/utils/downloadPhotoStrip';
+import { BorderStyle, BorderWidth, FrameTheme } from '@/components/digibooth/BorderStyleSelector';
 
 const Digibooth = () => {
   // Use our custom hook for state management
@@ -39,6 +40,12 @@ const Digibooth = () => {
     setSelectedSticker
   } = useDigiboothState();
   
+  // New state for enhanced features
+  const [borderStyle, setBorderStyle] = useState<BorderStyle>('solid');
+  const [borderWidth, setBorderWidth] = useState<BorderWidth>('medium');
+  const [frameTheme, setFrameTheme] = useState<FrameTheme>('default');
+  const [showBackgroundRemoval, setShowBackgroundRemoval] = useState(false);
+  
   // Handle downloading the photo strip
   const handleDownloadStrip = async () => {
     if (capturedPhotos.length < 3) {
@@ -47,6 +54,12 @@ const Digibooth = () => {
     }
     
     downloadPhotoStrip(setIsDownloading);
+  };
+  
+  // Toggle background removal
+  const toggleBackgroundRemoval = () => {
+    setShowBackgroundRemoval(!showBackgroundRemoval);
+    toast.success(showBackgroundRemoval ? 'Background removal disabled' : 'Background removal enabled');
   };
 
   return (
@@ -72,6 +85,14 @@ const Digibooth = () => {
                 setFrameColor={setFrameColor}
                 sticker={selectedSticker}
                 setSticker={setSelectedSticker}
+                borderStyle={borderStyle}
+                setBorderStyle={setBorderStyle}
+                borderWidth={borderWidth}
+                setBorderWidth={setBorderWidth}
+                frameTheme={frameTheme}
+                setFrameTheme={setFrameTheme}
+                showBackgroundRemoval={showBackgroundRemoval}
+                toggleBackgroundRemoval={toggleBackgroundRemoval}
               />
             </div>
           )}

@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { BorderStyle, BorderWidth, FrameTheme } from './BorderStyleSelector';
 
 interface PhotoStripFooterProps {
   titleText: string;
@@ -16,6 +17,9 @@ interface PhotoStripFooterProps {
   titleItalic: boolean;
   customItalic: boolean;
   textColor: string;
+  borderStyle?: BorderStyle;
+  borderWidth?: BorderWidth;
+  frameTheme?: FrameTheme;
   onTitleClick: () => void;
   onCustomMessageClick: () => void;
   onDateClick: () => void;
@@ -36,6 +40,9 @@ const PhotoStripFooter: React.FC<PhotoStripFooterProps> = ({
   titleItalic,
   customItalic,
   textColor,
+  borderStyle = 'solid',
+  borderWidth = 'medium',
+  frameTheme = 'default',
   onTitleClick,
   onCustomMessageClick,
   onDateClick
@@ -53,6 +60,42 @@ const PhotoStripFooter: React.FC<PhotoStripFooterProps> = ({
     return isItalic ? 'italic' : '';
   };
   
+  const getBorderStyleClass = () => {
+    switch (borderStyle) {
+      case 'dashed': return 'border-dashed';
+      case 'dotted': return 'border-dotted';
+      case 'double': return 'border-double';
+      case 'groove': return 'border-groove';
+      case 'ridge': return 'border-ridge';
+      default: return 'border-solid';
+    }
+  };
+  
+  const getBorderWidthClass = () => {
+    switch (borderWidth) {
+      case 'thin': return 'border';
+      case 'thick': return 'border-4';
+      default: return 'border-2';
+    }
+  };
+  
+  const getThemeClass = () => {
+    switch (frameTheme) {
+      case 'birthday':
+        return 'bg-gradient-to-r from-yellow-400 to-pink-500 text-white p-2 rounded';
+      case 'christmas':
+        return 'bg-gradient-to-r from-green-600 to-red-600 text-white p-2 rounded';
+      case 'halloween':
+        return 'bg-gradient-to-r from-orange-500 to-purple-900 text-white p-2 rounded';
+      case 'valentines':
+        return 'bg-gradient-to-r from-pink-400 to-red-400 text-white p-2 rounded';
+      case 'wedding':
+        return 'bg-gradient-to-r from-blue-100 via-white to-blue-100 text-gray-800 p-2 rounded';
+      default:
+        return '';
+    }
+  };
+  
   const formatDate = () => {
     const today = new Date();
     if (dateFormat === 'short') {
@@ -68,7 +111,7 @@ const PhotoStripFooter: React.FC<PhotoStripFooterProps> = ({
   };
   
   return (
-    <div className={`py-2 ${textColor}`}>
+    <div className={`py-2 ${textColor} ${getThemeClass()} ${getBorderStyleClass()} ${getBorderWidthClass()}`}>
       {/* Title text with custom font */}
       <div 
         className={`font-${titleFont} ${titleSize} cursor-pointer ${getAlignmentClass(titleAlignment)} ${getItalicClass(titleItalic)}`}
