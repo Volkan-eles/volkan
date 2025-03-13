@@ -2,13 +2,15 @@
 import React from 'react';
 import TextPanelComponent from '@/components/sidebar/TextPanel';
 
+interface TextStyleProps {
+  text?: string;
+  font?: string;
+  color?: string;
+  size?: string;
+}
+
 interface TextPanelProps {
-  onTextStyleChange?: (style: {
-    text?: string;
-    font?: string;
-    color?: string;
-    size?: string;
-  }) => void;
+  onTextStyleChange?: (style: TextStyleProps) => void;
 }
 
 const TextPanel: React.FC<TextPanelProps> = ({ onTextStyleChange }) => {
