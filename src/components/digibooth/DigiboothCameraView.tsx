@@ -14,7 +14,6 @@ interface DigiboothCameraViewProps {
   handleCountdownComplete: () => void;
   overlayImage: HTMLImageElement | null;
   filterStyle?: string;
-  selectedLayout?: string;
 }
 
 const DigiboothCameraView: React.FC<DigiboothCameraViewProps> = ({ 
@@ -26,19 +25,8 @@ const DigiboothCameraView: React.FC<DigiboothCameraViewProps> = ({
   toggleCameraFlip,
   handleCountdownComplete,
   overlayImage,
-  filterStyle,
-  selectedLayout = 'classic-strip'
+  filterStyle
 }) => {
-  // Define aspect ratio based on selected layout
-  const getAspectRatio = () => {
-    if (['vertical-strip', 'elegant-strip', 'classic-strip'].includes(selectedLayout || '')) {
-      return 'aspect-[3/4]'; // Portrait orientation for strip layouts
-    } else if (['grid', 'simple-grid', 'classic-grid'].includes(selectedLayout || '')) {
-      return 'aspect-[4/3]'; // Landscape orientation for grid layouts
-    }
-    return 'aspect-[1/1]'; // Default square
-  };
-
   return (
     <div className="relative w-full flex flex-col items-center justify-center">
       {cameraError && (
@@ -53,7 +41,7 @@ const DigiboothCameraView: React.FC<DigiboothCameraViewProps> = ({
           autoPlay
           playsInline
           muted
-          className={`w-full rounded-lg shadow-sm animate-fade-in ${getAspectRatio()}`}
+          className="w-full rounded-lg shadow-sm animate-fade-in"
           style={{ 
             transform: flipped ? 'scaleX(-1)' : 'none', 
             filter: filterStyle || 'none',

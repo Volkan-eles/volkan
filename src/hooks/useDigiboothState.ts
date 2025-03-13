@@ -17,7 +17,6 @@ export default function useDigiboothState() {
   const [selectedSticker, setSelectedSticker] = useState<StickerType>('none');
   const [showControls, setShowControls] = useState<boolean>(true);
   const [isDownloading, setIsDownloading] = useState<boolean>(false);
-  const [selectedLayout, setSelectedLayout] = useState<string>('classic-strip');
 
   // Handle photo capture
   const handlePhotoCaptured = (photoSrc: string) => {
@@ -69,12 +68,6 @@ export default function useDigiboothState() {
     setCountdownTime(time);
     toast.success(`Countdown set to ${time} seconds`);
   };
-  
-  // Handle layout change
-  const handleLayoutChange = (layout: string) => {
-    setSelectedLayout(layout);
-    toast.success(`Layout changed to ${layout.replace('-', ' ')}`);
-  };
 
   return {
     capturedPhotos,
@@ -97,15 +90,12 @@ export default function useDigiboothState() {
     setShowControls,
     isDownloading,
     setIsDownloading,
-    selectedLayout,
-    setSelectedLayout,
     handlePhotoCaptured,
     handleTakePhoto,
     handleRetakePhoto,
     handleTakeNewPhotos,
     handleFilterChange,
     handleFilterAdjustmentChange,
-    handleCountdownChange,
-    handleLayoutChange
+    handleCountdownChange
   };
 }
