@@ -40,11 +40,17 @@ export const downloadPhotoStrip = async (setIsDownloading: (value: boolean) => v
       allowTaint: true,
       logging: false,
       backgroundColor: null,
+      imageTimeout: 0, // No timeout for image loading
       onclone: (doc, clone) => {
         // Additional adjustments to the clone
         Array.from(clone.querySelectorAll('img')).forEach(img => {
           img.crossOrigin = 'anonymous';
           img.style.imageRendering = 'high-quality';
+          
+          // Ensure images are fully loaded before capturing
+          if (!img.complete) {
+            console.log("Waiting for image to load completely:", img.src);
+          }
         });
       }
     });

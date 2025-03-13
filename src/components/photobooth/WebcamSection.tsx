@@ -55,7 +55,8 @@ const WebcamSection: React.FC<WebcamSectionProps> = ({
           <WebcamCapture 
             onCapture={onCapture} 
             isCapturing={isCapturing} 
-            overlayImage={overlayImageRef.current} 
+            overlayImage={overlayImageRef.current}
+            selectedFilter={selectedFilter}
           />
         </div>
       </div>

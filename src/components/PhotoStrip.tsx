@@ -58,12 +58,18 @@ const PhotoStrip: React.FC<PhotoStripProps> = ({ photos, frameStyle }) => {
     const loadAndDrawPhotos = async () => {
       for (let i = 0; i < photos.length; i++) {
         const img = new Image();
+        img.crossOrigin = "anonymous"; // Ensure we can draw the image to canvas
         img.src = photos[i];
         await new Promise<void>((resolve) => {
           img.onload = () => {
             const y = padding + (i * (photoHeight + padding));
             ctx.drawImage(img, padding, y, photoWidth, photoHeight);
             resolve();
+          };
+          // Handle loading errors
+          img.onerror = () => {
+            console.error("Failed to load image:", photos[i]);
+            resolve(); // Continue with other images
           };
         });
       }
