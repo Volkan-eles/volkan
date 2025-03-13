@@ -9,6 +9,7 @@ import DigiboothHeroArea from '@/components/digibooth/DigiboothHeroArea';
 import DigiboothWebcamSection from '@/components/digibooth/DigiboothWebcamSection';
 import DigiboothPhotoStripPreview from '@/components/digibooth/DigiboothPhotoStripPreview';
 import DigiboothCustomizationPanel from '@/components/digibooth/DigiboothCustomizationPanel';
+import DigiboothSaasFooter from '@/components/digibooth/DigiboothSaasFooter';
 
 // Hooks
 import useDigiboothState from '@/hooks/useDigiboothState';
@@ -65,8 +66,16 @@ const Digibooth = () => {
   return (
     <>
       <Helmet>
-        <title>Digibooth | Pica Pica Netlify App</title>
-        <meta name="description" content="Create fun and memorable digital photo experiences with Digibooth. Perfect for fans who want to capture special moments with customized frames and effects." />
+        <title>Digibooth Dietherdave - Digi Photo Booth | Pica Pica Netlify App</title>
+        <meta name="description" content="Create stunning digital photo booth experiences with Digibooth Dietherdave. Perfect for events, weddings, parties, and corporate gatherings. Customize frames, add effects, and share memorable moments instantly." />
+        <meta name="keywords" content="digital photo booth, digi booth, photo booth software, event photo booth, photo strip creator, custom photo frames, Dietherdave photo booth" />
+        <meta property="og:title" content="Digibooth Dietherdave - Digi Photo Booth | Create Memorable Photo Experiences" />
+        <meta property="og:description" content="Create stunning digital photo booth experiences with Digibooth. Perfect for events, weddings, parties and corporate gatherings." />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="/og-image.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Digibooth Dietherdave - Digi Photo Booth" />
+        <meta name="twitter:description" content="Create stunning digital photo booth experiences with Digibooth Dietherdave." />
       </Helmet>
       
       <div className={`min-h-screen flex flex-col ${bgColor}`}>
@@ -130,6 +139,9 @@ const Digibooth = () => {
             </div>
           </div>
         </main>
+        
+        {/* SaaS Landing Section */}
+        <DigiboothSaasFooter />
       </div>
     </>
   );
