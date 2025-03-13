@@ -2,11 +2,8 @@
 import React, { useRef } from 'react';
 import { FrameColorType } from '@/components/photobooth/FrameColorSelector';
 import { StickerType } from '@/components/photobooth/StickerSelector';
-import FrameColorSelector from '@/components/photobooth/FrameColorSelector';
-import StickerSelector from '@/components/photobooth/StickerSelector';
 import EmptyState from '@/components/photostrip/EmptyState';
 import PhotoItem from '@/components/photostrip/PhotoItem';
-import StripFooter from '@/components/photostrip/StripFooter';
 import StripControls from '@/components/photostrip/StripControls';
 
 interface DigiboothPhotoStripPreviewProps {
@@ -26,9 +23,7 @@ const DigiboothPhotoStripPreview: React.FC<DigiboothPhotoStripPreviewProps> = ({
   onDownload,
   onTakeNewPhotos,
   frameColor,
-  setFrameColor,
-  sticker,
-  setSticker
+  sticker
 }) => {
   const photoStripRef = useRef<HTMLDivElement>(null);
   const displayPhotos = photos.slice(-maxDisplay);
@@ -55,20 +50,7 @@ const DigiboothPhotoStripPreview: React.FC<DigiboothPhotoStripPreviewProps> = ({
   const textColor = ['white', 'yellow'].includes(frameColor) ? 'text-gray-800' : 'text-white';
   
   return (
-    <div className="space-y-6 animate-fade-in">
-      <h2 className="text-2xl font-bold text-center text-blue-600">Digibooth Strip Preview</h2>
-      <p className="text-center text-gray-600">Customize your digital photo strip</p>
-      
-      <FrameColorSelector 
-        selectedColor={frameColor} 
-        onSelectColor={setFrameColor} 
-      />
-      
-      <StickerSelector
-        selectedSticker={sticker}
-        onSelectSticker={setSticker}
-      />
-      
+    <div className="space-y-6 animate-fade-in">      
       <div 
         ref={photoStripRef} 
         id="photo-strip-container"

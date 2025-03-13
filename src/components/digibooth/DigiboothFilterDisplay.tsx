@@ -13,8 +13,9 @@ const DigiboothFilterDisplay: React.FC<DigiboothFilterDisplayProps> = ({
   onFilterChange
 }) => {
   return (
-    <div className="mt-8 space-y-4">
-      <h3 className="text-center text-lg font-medium">Choose a filter before starting capture!</h3>
+    <div className="mt-8 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-100">
+      <h3 className="text-center text-lg font-medium text-blue-700 mb-2">Photo Filter</h3>
+      <p className="text-center text-blue-600 text-sm mb-4">Choose a filter to enhance your photos!</p>
       <DigiboothFilterSelector 
         selectedFilter={selectedFilter}
         onSelectFilter={(filter) => {

@@ -8,6 +8,7 @@ import Header from '@/components/landing/Header';
 import DigiboothHeroArea from '@/components/digibooth/DigiboothHeroArea';
 import DigiboothWebcamSection from '@/components/digibooth/DigiboothWebcamSection';
 import DigiboothPhotoStripPreview from '@/components/digibooth/DigiboothPhotoStripPreview';
+import DigiboothCustomizationPanel from '@/components/digibooth/DigiboothCustomizationPanel';
 
 // Hooks
 import useDigiboothState from '@/hooks/useDigiboothState';
@@ -61,6 +62,18 @@ const Digibooth = () => {
         
         {/* Main Photobooth Area */}
         <main id="photobooth-area" className="flex-grow container mx-auto px-4 py-8">
+          {/* Customization Panel - Above the main content */}
+          {capturedPhotos.length > 0 && (
+            <div className="mb-6">
+              <DigiboothCustomizationPanel
+                frameColor={frameColor}
+                setFrameColor={setFrameColor}
+                sticker={selectedSticker}
+                setSticker={setSelectedSticker}
+              />
+            </div>
+          )}
+          
           <div className="flex flex-col lg:flex-row gap-6">
             {/* Main webcam display */}
             <DigiboothWebcamSection 
@@ -78,6 +91,7 @@ const Digibooth = () => {
             
             {/* Side panel for photo strip */}
             <div className="lg:w-[40%] bg-white rounded-xl shadow-lg p-6">
+              <h2 className="text-2xl font-bold text-center text-blue-600 mb-4">Photo Strip Preview</h2>
               <DigiboothPhotoStripPreview 
                 photos={capturedPhotos} 
                 maxDisplay={4} 
