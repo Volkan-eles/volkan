@@ -82,17 +82,25 @@ const PhotoStripFooter: React.FC<PhotoStripFooterProps> = ({
   const getThemeClass = () => {
     switch (frameTheme) {
       case 'birthday':
-        return 'bg-gradient-to-r from-yellow-400 to-pink-500 text-white p-2 rounded';
+        return 'bg-gradient-to-r from-yellow-400 to-pink-500 text-white p-3 rounded';
       case 'christmas':
-        return 'bg-gradient-to-r from-green-600 to-red-600 text-white p-2 rounded';
+        return 'bg-gradient-to-r from-green-600 to-red-600 text-white p-3 rounded';
       case 'halloween':
-        return 'bg-gradient-to-r from-orange-500 to-purple-900 text-white p-2 rounded';
+        return 'bg-gradient-to-r from-orange-500 to-purple-900 text-white p-3 rounded';
       case 'valentines':
-        return 'bg-gradient-to-r from-pink-400 to-red-400 text-white p-2 rounded';
+        return 'bg-gradient-to-r from-pink-400 to-red-400 text-white p-3 rounded';
       case 'wedding':
-        return 'bg-gradient-to-r from-blue-100 via-white to-blue-100 text-gray-800 p-2 rounded';
+        return 'bg-gradient-to-r from-blue-100 via-white to-blue-100 text-gray-800 p-3 rounded';
+      case 'graduation':
+        return 'bg-gradient-to-r from-blue-800 to-indigo-900 text-white p-3 rounded';
+      case 'babyshower':
+        return 'bg-gradient-to-r from-blue-200 to-pink-200 text-gray-800 p-3 rounded';
+      case 'anniversary':
+        return 'bg-gradient-to-r from-yellow-200 to-yellow-600 text-gray-800 p-3 rounded';
+      case 'newyear':
+        return 'bg-gradient-to-r from-purple-700 via-blue-500 to-purple-700 text-white p-3 rounded';
       default:
-        return '';
+        return 'p-3 rounded';
     }
   };
   
@@ -110,30 +118,34 @@ const PhotoStripFooter: React.FC<PhotoStripFooterProps> = ({
     }
   };
   
+  // Content rendering with enhanced styling
   return (
-    <div className={`py-2 ${textColor} ${getThemeClass()} ${getBorderStyleClass()} ${getBorderWidthClass()}`}>
+    <div className={`py-3 ${textColor} ${getThemeClass()} ${getBorderStyleClass()} ${getBorderWidthClass()} transition-all duration-300`}>
       {/* Title text with custom font */}
       <div 
-        className={`font-${titleFont} ${titleSize} cursor-pointer ${getAlignmentClass(titleAlignment)} ${getItalicClass(titleItalic)}`}
+        className={`font-${titleFont} ${titleSize} cursor-pointer ${getAlignmentClass(titleAlignment)} ${getItalicClass(titleItalic)} hover:opacity-80 transition-opacity`}
         style={{ color: titleColor }}
         onClick={onTitleClick}
+        title="Click to edit title"
       >
         {titleText}
       </div>
       
       {/* Date with toggle functionality */}
       <div 
-        className={`text-xs mt-1 cursor-pointer ${getAlignmentClass(titleAlignment)}`}
+        className={`text-xs mt-2 cursor-pointer ${getAlignmentClass(titleAlignment)} hover:opacity-80 transition-opacity`}
         onClick={onDateClick}
+        title="Click to toggle date format"
       >
         {formatDate()}
       </div>
       
       {/* Custom message with different font */}
       <div 
-        className={`font-${customFont} ${customSize} mt-2 cursor-pointer ${getAlignmentClass(customAlignment)} ${getItalicClass(customItalic)}`}
+        className={`font-${customFont} ${customSize} mt-3 cursor-pointer ${getAlignmentClass(customAlignment)} ${getItalicClass(customItalic)} hover:opacity-80 transition-opacity`}
         style={{ color: customColor }}
         onClick={onCustomMessageClick}
+        title="Click to edit message"
       >
         {customMessage}
       </div>

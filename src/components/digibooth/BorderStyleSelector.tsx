@@ -3,7 +3,7 @@ import React from 'react';
 
 export type BorderStyle = 'solid' | 'dashed' | 'dotted' | 'double' | 'groove' | 'ridge';
 export type BorderWidth = 'thin' | 'medium' | 'thick';
-export type FrameTheme = 'default' | 'birthday' | 'christmas' | 'halloween' | 'valentines' | 'wedding';
+export type FrameTheme = 'default' | 'birthday' | 'christmas' | 'halloween' | 'valentines' | 'wedding' | 'graduation' | 'babyshower' | 'anniversary' | 'newyear';
 
 interface BorderStyleSelectorProps {
   selectedStyle: BorderStyle;
@@ -46,73 +46,81 @@ const BorderStyleSelector: React.FC<BorderStyleSelectorProps> = ({
     { id: 'christmas', name: 'Christmas', description: 'Holiday theme', class: 'bg-gradient-to-r from-green-600 to-red-600 text-white' },
     { id: 'halloween', name: 'Halloween', description: 'Spooky theme', class: 'bg-gradient-to-r from-orange-500 to-purple-900 text-white' },
     { id: 'valentines', name: 'Valentine\'s', description: 'Love theme', class: 'bg-gradient-to-r from-pink-400 to-red-400 text-white' },
-    { id: 'wedding', name: 'Wedding', description: 'Elegant theme', class: 'bg-gradient-to-r from-blue-100 via-white to-blue-100 text-gray-800 border border-gray-200' }
+    { id: 'wedding', name: 'Wedding', description: 'Elegant theme', class: 'bg-gradient-to-r from-blue-100 via-white to-blue-100 text-gray-800 border border-gray-200' },
+    { id: 'graduation', name: 'Graduation', description: 'Achievement theme', class: 'bg-gradient-to-r from-blue-800 to-indigo-900 text-white' },
+    { id: 'babyshower', name: 'Baby Shower', description: 'Gentle theme', class: 'bg-gradient-to-r from-blue-200 to-pink-200 text-gray-800' },
+    { id: 'anniversary', name: 'Anniversary', description: 'Celebration theme', class: 'bg-gradient-to-r from-yellow-200 to-yellow-600 text-gray-800' },
+    { id: 'newyear', name: 'New Year', description: 'Festive theme', class: 'bg-gradient-to-r from-purple-700 via-blue-500 to-purple-700 text-white' }
   ];
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
       {/* Border Themes */}
       <div>
-        <h3 className="font-medium mb-2">Theme</h3>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+        <h3 className="font-medium mb-3 text-gray-700">Theme</h3>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
           {themes.map(theme => (
-            <button
+            <div
               key={theme.id}
-              className={`px-3 py-2 rounded-lg text-sm transition-all ${
+              className={`p-3 rounded-lg cursor-pointer transition-all duration-300 ${
                 selectedTheme === theme.id
-                  ? `${theme.class} ring-2 ring-offset-2 ring-blue-400`
-                  : `${theme.class} opacity-70 hover:opacity-100`
+                  ? `${theme.class} shadow-lg scale-105`
+                  : `${theme.class} opacity-70 hover:opacity-100 hover:scale-105`
               }`}
               onClick={() => onThemeChange(theme.id)}
             >
-              {theme.name}
-            </button>
+              <div className="text-center">
+                <div className="font-medium text-sm">{theme.name}</div>
+                <div className="text-xs mt-1 opacity-80">{theme.description}</div>
+              </div>
+            </div>
           ))}
         </div>
       </div>
 
       {/* Border Style */}
       <div>
-        <h3 className="font-medium mb-2">Border Style</h3>
-        <div className="grid grid-cols-3 gap-2">
+        <h3 className="font-medium mb-3 text-gray-700">Border Style</h3>
+        <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
           {borderStyles.map(style => (
-            <button
+            <div
               key={style.id}
-              className={`px-3 py-2 border ${
+              className={`p-3 border ${
                 style.id === 'solid' ? 'border-solid' :
                 style.id === 'dashed' ? 'border-dashed' :
                 style.id === 'dotted' ? 'border-dotted' :
                 style.id === 'double' ? 'border-double' :
-                'border-solid'
-              } rounded-lg ${
+                style.id === 'groove' ? 'border-groove' : 
+                'border-ridge'
+              } rounded-lg cursor-pointer transition-all duration-300 ${
                 selectedStyle === style.id
-                  ? 'bg-blue-500 text-white'
-                  : 'bg-white text-gray-800 hover:bg-gray-100'
+                  ? 'bg-blue-500 text-white shadow-md scale-105'
+                  : 'bg-white text-gray-800 hover:bg-gray-100 hover:scale-105'
               }`}
               onClick={() => onStyleChange(style.id)}
             >
-              {style.name}
-            </button>
+              <div className="text-center text-sm">{style.name}</div>
+            </div>
           ))}
         </div>
       </div>
 
       {/* Border Width */}
       <div>
-        <h3 className="font-medium mb-2">Border Width</h3>
-        <div className="grid grid-cols-3 gap-2">
+        <h3 className="font-medium mb-3 text-gray-700">Border Width</h3>
+        <div className="grid grid-cols-3 gap-3">
           {borderWidths.map(width => (
-            <button
+            <div
               key={width.id}
-              className={`px-3 py-2 rounded-lg ${
+              className={`p-3 rounded-lg cursor-pointer transition-all duration-300 ${
                 selectedWidth === width.id
-                  ? 'bg-blue-500 text-white'
-                  : 'bg-white text-gray-800 border border-gray-200 hover:bg-gray-100'
+                  ? 'bg-blue-500 text-white shadow-md scale-105'
+                  : 'bg-white text-gray-800 border border-gray-200 hover:bg-gray-100 hover:scale-105'
               }`}
               onClick={() => onWidthChange(width.id)}
             >
-              {width.name}
-            </button>
+              <div className="text-center text-sm">{width.name}</div>
+            </div>
           ))}
         </div>
       </div>

@@ -57,9 +57,15 @@ const PhotoStripStylePanel: React.FC<PhotoStripStylePanelProps> = ({
   setBorderWidth
 }) => {
   return (
-    <div className="bg-white p-4 rounded-lg shadow-md">
+    <div className="bg-white p-6 rounded-lg shadow-lg transition-all duration-300">
+      <h2 className="text-xl font-bold mb-4 text-gray-800 border-b pb-2">Text Styling</h2>
+      
       {/* Title styling controls */}
-      <div className="mb-4">
+      <div className="mb-6">
+        <div className="flex items-center mb-2">
+          <div className="w-3 h-3 bg-blue-500 rounded-full mr-2"></div>
+          <h3 className="font-medium text-gray-700">Title Style</h3>
+        </div>
         <TextStyleControls
           textFont={titleFont}
           textColor={titleColor}
@@ -76,7 +82,11 @@ const PhotoStripStylePanel: React.FC<PhotoStripStylePanelProps> = ({
       </div>
       
       {/* Custom message styling controls */}
-      <div className="mb-4">
+      <div className="mb-6">
+        <div className="flex items-center mb-2">
+          <div className="w-3 h-3 bg-pink-500 rounded-full mr-2"></div>
+          <h3 className="font-medium text-gray-700">Custom Message Style</h3>
+        </div>
         <TextStyleControls
           textFont={customFont}
           textColor={customColor}
@@ -94,31 +104,49 @@ const PhotoStripStylePanel: React.FC<PhotoStripStylePanelProps> = ({
       
       {/* Border styling controls (if available) */}
       {setBorderStyle && setBorderWidth && (
-        <div className="mt-4">
-          <h3 className="font-medium text-sm mb-2">Border Style</h3>
-          <div className="flex flex-wrap gap-2 mb-2">
-            <select 
-              className="px-2 py-1 border rounded text-sm"
-              value={borderStyle}
-              onChange={(e) => setBorderStyle(e.target.value as BorderStyle)}
-            >
-              <option value="solid">Solid</option>
-              <option value="dashed">Dashed</option>
-              <option value="dotted">Dotted</option>
-              <option value="double">Double</option>
-              <option value="groove">Groove</option>
-              <option value="ridge">Ridge</option>
-            </select>
+        <div className="mt-6">
+          <div className="flex items-center mb-2">
+            <div className="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
+            <h3 className="font-medium text-gray-700">Border Style</h3>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-600 mb-1">Border Type</label>
+              <select 
+                className="w-full px-3 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+                value={borderStyle}
+                onChange={(e) => setBorderStyle(e.target.value as BorderStyle)}
+              >
+                <option value="solid">Solid</option>
+                <option value="dashed">Dashed</option>
+                <option value="dotted">Dotted</option>
+                <option value="double">Double</option>
+                <option value="groove">Groove</option>
+                <option value="ridge">Ridge</option>
+              </select>
+            </div>
             
-            <select 
-              className="px-2 py-1 border rounded text-sm"
-              value={borderWidth}
-              onChange={(e) => setBorderWidth(e.target.value as BorderWidth)}
-            >
-              <option value="thin">Thin</option>
-              <option value="medium">Medium</option>
-              <option value="thick">Thick</option>
-            </select>
+            <div>
+              <label className="block text-sm font-medium text-gray-600 mb-1">Border Thickness</label>
+              <select 
+                className="w-full px-3 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+                value={borderWidth}
+                onChange={(e) => setBorderWidth(e.target.value as BorderWidth)}
+              >
+                <option value="thin">Thin</option>
+                <option value="medium">Medium</option>
+                <option value="thick">Thick</option>
+              </select>
+            </div>
+          </div>
+          
+          <div className="mt-4 bg-gray-50 p-4 rounded-lg">
+            <div className="text-sm text-gray-500">
+              <span className="font-medium text-gray-700">Preview: </span> 
+              <span className={`inline-block mx-2 px-4 py-1 ${borderStyle === 'solid' ? 'border-solid' : borderStyle === 'dashed' ? 'border-dashed' : borderStyle === 'dotted' ? 'border-dotted' : borderStyle === 'double' ? 'border-double' : borderStyle === 'groove' ? 'border-groove' : 'border-ridge'} ${borderWidth === 'thin' ? 'border' : borderWidth === 'thick' ? 'border-4' : 'border-2'} border-gray-400 rounded`}>
+                Border Style Example
+              </span>
+            </div>
           </div>
         </div>
       )}
