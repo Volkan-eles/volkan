@@ -56,6 +56,20 @@ const PhotoStripStylePanel: React.FC<PhotoStripStylePanelProps> = ({
   borderWidth = 'medium',
   setBorderWidth
 }) => {
+  // Helper function to get the border width preview class
+  const getBorderWidthClass = (width: BorderWidth) => {
+    switch(width) {
+      case 'none': return 'border-0';
+      case 'hairline': return 'border-[1px]';
+      case 'thin': return 'border-2';
+      case 'medium': return 'border-4';
+      case 'thick': return 'border-6';
+      case 'heavy': return 'border-8';
+      case 'ultra': return 'border-[12px]';
+      default: return 'border-4';
+    }
+  };
+
   return (
     <div className="bg-white p-6 rounded-lg shadow-lg transition-all duration-300">
       <h2 className="text-xl font-bold mb-4 text-gray-800 border-b pb-2">Text Styling</h2>
@@ -133,9 +147,13 @@ const PhotoStripStylePanel: React.FC<PhotoStripStylePanelProps> = ({
                 value={borderWidth}
                 onChange={(e) => setBorderWidth(e.target.value as BorderWidth)}
               >
+                <option value="none">None</option>
+                <option value="hairline">Hairline</option>
                 <option value="thin">Thin</option>
                 <option value="medium">Medium</option>
                 <option value="thick">Thick</option>
+                <option value="heavy">Heavy</option>
+                <option value="ultra">Ultra</option>
               </select>
             </div>
           </div>
@@ -143,7 +161,13 @@ const PhotoStripStylePanel: React.FC<PhotoStripStylePanelProps> = ({
           <div className="mt-4 bg-gray-50 p-4 rounded-lg">
             <div className="text-sm text-gray-500">
               <span className="font-medium text-gray-700">Preview: </span> 
-              <span className={`inline-block mx-2 px-4 py-1 ${borderStyle === 'solid' ? 'border-solid' : borderStyle === 'dashed' ? 'border-dashed' : borderStyle === 'dotted' ? 'border-dotted' : borderStyle === 'double' ? 'border-double' : borderStyle === 'groove' ? 'border-groove' : 'border-ridge'} ${borderWidth === 'thin' ? 'border' : borderWidth === 'thick' ? 'border-4' : 'border-2'} border-gray-400 rounded`}>
+              <span className={`inline-block mx-2 px-4 py-1 ${
+                borderStyle === 'solid' ? 'border-solid' : 
+                borderStyle === 'dashed' ? 'border-dashed' : 
+                borderStyle === 'dotted' ? 'border-dotted' : 
+                borderStyle === 'double' ? 'border-double' : 
+                borderStyle === 'groove' ? 'border-groove' : 'border-ridge'
+              } ${getBorderWidthClass(borderWidth)} border-gray-400 rounded`}>
                 Border Style Example
               </span>
             </div>

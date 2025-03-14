@@ -2,7 +2,7 @@
 import React from 'react';
 
 export type BorderStyle = 'solid' | 'dashed' | 'dotted' | 'double' | 'groove' | 'ridge';
-export type BorderWidth = 'thin' | 'medium' | 'thick';
+export type BorderWidth = 'none' | 'hairline' | 'thin' | 'medium' | 'thick' | 'heavy' | 'ultra';
 export type FrameTheme = 'default' | 'birthday' | 'christmas' | 'halloween' | 'valentines' | 'wedding' | 'graduation' | 'babyshower' | 'anniversary' | 'newyear';
 
 interface BorderStyleSelectorProps {
@@ -32,11 +32,15 @@ const BorderStyleSelector: React.FC<BorderStyleSelectorProps> = ({
     { id: 'ridge', name: 'Ridge' }
   ];
 
-  // Border width options
-  const borderWidths: { id: BorderWidth; name: string }[] = [
-    { id: 'thin', name: 'Thin' },
-    { id: 'medium', name: 'Medium' },
-    { id: 'thick', name: 'Thick' }
+  // Border width options - expanded
+  const borderWidths: { id: BorderWidth; name: string; visualClass: string }[] = [
+    { id: 'none', name: 'None', visualClass: 'border-0' },
+    { id: 'hairline', name: 'Hairline', visualClass: 'border-[1px]' },
+    { id: 'thin', name: 'Thin', visualClass: 'border-2' },
+    { id: 'medium', name: 'Medium', visualClass: 'border-4' },
+    { id: 'thick', name: 'Thick', visualClass: 'border-6' },
+    { id: 'heavy', name: 'Heavy', visualClass: 'border-8' },
+    { id: 'ultra', name: 'Ultra', visualClass: 'border-[12px]' }
   ];
 
   // Theme options with colors and descriptions
@@ -105,10 +109,10 @@ const BorderStyleSelector: React.FC<BorderStyleSelectorProps> = ({
         </div>
       </div>
 
-      {/* Border Width */}
+      {/* Border Width - enhanced with more options and visual preview */}
       <div>
         <h3 className="font-medium mb-3 text-gray-700">Border Width</h3>
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-4 gap-3">
           {borderWidths.map(width => (
             <div
               key={width.id}
@@ -120,6 +124,15 @@ const BorderStyleSelector: React.FC<BorderStyleSelectorProps> = ({
               onClick={() => onWidthChange(width.id)}
             >
               <div className="text-center text-sm">{width.name}</div>
+              <div className={`mt-2 h-3 w-full bg-gray-100 ${
+                selectedWidth === width.id ? 'bg-blue-200' : ''
+              }`}>
+                <div 
+                  className={`mx-auto w-3/4 h-3 ${width.visualClass} border-gray-400 ${
+                    selectedWidth === width.id ? 'border-white' : ''
+                  }`} 
+                />
+              </div>
             </div>
           ))}
         </div>

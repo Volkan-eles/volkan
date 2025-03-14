@@ -29,14 +29,18 @@ const BorderOptions: React.FC<BorderOptionsProps> = ({
     { id: 'ridge', name: 'Ridge' }
   ];
 
-  // Border width options
+  // Border width options - expanded
   const borderWidths: {
     id: BorderWidth;
     name: string;
   }[] = [
+    { id: 'none', name: 'None' },
+    { id: 'hairline', name: 'Hairline' },
     { id: 'thin', name: 'Thin' },
     { id: 'medium', name: 'Medium' },
-    { id: 'thick', name: 'Thick' }
+    { id: 'thick', name: 'Thick' },
+    { id: 'heavy', name: 'Heavy' },
+    { id: 'ultra', name: 'Ultra' }
   ];
 
   return (

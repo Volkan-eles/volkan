@@ -96,8 +96,13 @@ const PhotoStripContainer: React.FC<PhotoStripContainerProps> = ({
   
   const getBorderWidth = () => {
     switch(borderWidth) {
+      case 'none': return 'border-0';
+      case 'hairline': return 'border-[1px]';
       case 'thin': return 'border-2';
-      case 'thick': return 'border-8';
+      case 'medium': return 'border-4';
+      case 'thick': return 'border-6';
+      case 'heavy': return 'border-8';
+      case 'ultra': return 'border-[12px]';
       default: return 'border-4';
     }
   };
