@@ -10,6 +10,10 @@ import DigiboothWebcamSection from '@/components/digibooth/DigiboothWebcamSectio
 import DigiboothPhotoStripPreview from '@/components/digibooth/DigiboothPhotoStripPreview';
 import DigiboothCustomizationPanel from '@/components/digibooth/DigiboothCustomizationPanel';
 import Footer from '@/components/landing/Footer';
+import DigiboothFeatures from '@/components/digibooth/DigiboothFeatures';
+import DigiboothTestimonials from '@/components/digibooth/DigiboothTestimonials';
+import DigiboothPricing from '@/components/digibooth/DigiboothPricing';
+import DigiboothCTA from '@/components/digibooth/DigiboothCTA';
 
 // Hooks
 import useDigiboothState from '@/hooks/useDigiboothState';
@@ -135,12 +139,19 @@ const Digibooth = () => {
                 setFrameColor={setFrameColor}
                 sticker={selectedSticker}
                 setSticker={setSelectedSticker}
+                frameTheme={frameTheme}
               />
             </div>
           </div>
         </main>
         
-        {/* Footer from landing page, replacing DigiboothSaasFooter */}
+        {/* SaaS Landing Page Sections */}
+        <DigiboothFeatures />
+        <DigiboothTestimonials />
+        <DigiboothPricing />
+        <DigiboothCTA />
+        
+        {/* Footer */}
         <Footer />
       </div>
     </>
