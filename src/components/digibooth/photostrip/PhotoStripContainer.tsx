@@ -60,6 +60,11 @@ const PhotoStripContainer: React.FC<PhotoStripContainerProps> = ({
   onDateClick
 }) => {
   const getBorderColor = () => {
+    if (frameTheme !== 'default') {
+      // If a theme is selected, don't apply the frame color
+      return '';
+    }
+    
     switch(frameColor) {
       case 'white': return 'border-white bg-white';
       case 'black': return 'border-black bg-black';
@@ -110,23 +115,23 @@ const PhotoStripContainer: React.FC<PhotoStripContainerProps> = ({
   const getFrameThemeClasses = () => {
     switch(frameTheme) {
       case 'birthday':
-        return 'bg-gradient-to-r from-yellow-400 to-pink-500';
+        return 'bg-gradient-to-r from-yellow-400 to-pink-500 border-yellow-400';
       case 'christmas':
-        return 'bg-gradient-to-r from-green-600 to-red-600';
+        return 'bg-gradient-to-r from-green-600 to-red-600 border-green-600';
       case 'halloween':
-        return 'bg-gradient-to-r from-orange-500 to-purple-900';
+        return 'bg-gradient-to-r from-orange-500 to-purple-900 border-orange-500';
       case 'valentines':
-        return 'bg-gradient-to-r from-pink-400 to-red-400';
+        return 'bg-gradient-to-r from-pink-400 to-red-400 border-pink-400';
       case 'wedding':
-        return 'bg-gradient-to-r from-blue-100 via-white to-blue-100';
+        return 'bg-gradient-to-r from-blue-100 via-white to-blue-100 border-blue-100';
       case 'graduation':
-        return 'bg-gradient-to-r from-blue-800 to-indigo-900';
+        return 'bg-gradient-to-r from-blue-800 to-indigo-900 border-blue-800';
       case 'babyshower':
-        return 'bg-gradient-to-r from-blue-200 to-pink-200';
+        return 'bg-gradient-to-r from-blue-200 to-pink-200 border-blue-200';
       case 'anniversary':
-        return 'bg-gradient-to-r from-yellow-200 to-yellow-600';
+        return 'bg-gradient-to-r from-yellow-200 to-yellow-600 border-yellow-200';
       case 'newyear':
-        return 'bg-gradient-to-r from-purple-700 via-blue-500 to-purple-700';
+        return 'bg-gradient-to-r from-purple-700 via-blue-500 to-purple-700 border-purple-700';
       default:
         return getBorderColor();
     }
@@ -149,9 +154,7 @@ const PhotoStripContainer: React.FC<PhotoStripContainerProps> = ({
     <div 
       ref={photoStripRef} 
       id="photo-strip-container"
-      className={`mx-auto max-w-[300px] p-4 ${getBorderStyle()} ${getBorderWidth()} rounded-lg shadow-lg ${
-        frameTheme === 'default' ? getBorderColor() : getFrameThemeClasses()
-      }`}
+      className={`mx-auto max-w-[300px] p-4 ${getBorderStyle()} ${getBorderWidth()} rounded-lg shadow-lg ${getFrameThemeClasses()}`}
     >
       <div className="flex flex-col gap-2">
         {displayPhotos.map((photo, index) => (

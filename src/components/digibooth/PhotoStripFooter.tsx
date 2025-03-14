@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { BorderStyle, BorderWidth, FrameTheme } from './BorderStyleSelector';
 

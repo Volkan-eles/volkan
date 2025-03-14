@@ -17,6 +17,12 @@ interface DigiboothPhotoStripPreviewProps {
   setFrameColor: (color: FrameColorType) => void;
   sticker: StickerType;
   setSticker: (sticker: StickerType) => void;
+  borderStyle?: BorderStyle;
+  setBorderStyle?: (style: BorderStyle) => void;
+  borderWidth?: BorderWidth;
+  setBorderWidth?: (width: BorderWidth) => void;
+  frameTheme?: FrameTheme;
+  setFrameTheme?: (theme: FrameTheme) => void;
 }
 
 const DigiboothPhotoStripPreview: React.FC<DigiboothPhotoStripPreviewProps> = ({ 
@@ -25,7 +31,15 @@ const DigiboothPhotoStripPreview: React.FC<DigiboothPhotoStripPreviewProps> = ({
   onDownload,
   onTakeNewPhotos,
   frameColor,
-  sticker
+  setFrameColor,
+  sticker,
+  setSticker,
+  borderStyle = 'solid',
+  setBorderStyle,
+  borderWidth = 'medium',
+  setBorderWidth,
+  frameTheme = 'default',
+  setFrameTheme
 }) => {
   const photoStripRef = useRef<HTMLDivElement>(null);
   const displayPhotos = photos.slice(-maxDisplay);
@@ -49,11 +63,6 @@ const DigiboothPhotoStripPreview: React.FC<DigiboothPhotoStripPreviewProps> = ({
   const [customAlignment, setCustomAlignment] = useState<'left' | 'center' | 'right'>('center');
   const [titleItalic, setTitleItalic] = useState(false);
   const [customItalic, setCustomItalic] = useState(false);
-  
-  // Border style options
-  const [borderStyle, setBorderStyle] = useState<BorderStyle>('solid');
-  const [borderWidth, setBorderWidth] = useState<BorderWidth>('medium');
-  const [frameTheme, setFrameTheme] = useState<FrameTheme>('default');
   
   // Background removal toggle
   const [showBackgroundRemoval, setShowBackgroundRemoval] = useState(false);
@@ -131,9 +140,9 @@ const DigiboothPhotoStripPreview: React.FC<DigiboothPhotoStripPreviewProps> = ({
         customSize={customSize}
         customAlignment={customAlignment}
         customItalic={customItalic}
-        onStyleChange={setBorderStyle}
-        onWidthChange={setBorderWidth}
-        onThemeChange={setFrameTheme}
+        onStyleChange={setBorderStyle || (() => {})}
+        onWidthChange={setBorderWidth || (() => {})}
+        onThemeChange={setFrameTheme || (() => {})}
         setTitleFont={setTitleFont}
         setTitleColor={setTitleColor}
         setTitleSize={setTitleSize}
@@ -144,8 +153,8 @@ const DigiboothPhotoStripPreview: React.FC<DigiboothPhotoStripPreviewProps> = ({
         setCustomSize={setCustomSize}
         setCustomAlignment={setCustomAlignment}
         setCustomItalic={setCustomItalic}
-        setBorderStyle={setBorderStyle}
-        setBorderWidth={setBorderWidth}
+        setBorderStyle={setBorderStyle || (() => {})}
+        setBorderWidth={setBorderWidth || (() => {})}
         photoCount={photos.length}
         onDownload={onDownload}
         onTakeNewPhotos={onTakeNewPhotos}

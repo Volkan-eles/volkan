@@ -33,10 +33,13 @@ const FrameThemeOptions: React.FC<FrameThemeOptionsProps> = ({
         {themes.map(theme => (
           <Button
             key={theme.id}
+            variant={frameTheme === theme.id ? "default" : "outline"}
             className={`px-2 py-1 ${theme.bgClass} rounded-md text-xs ${
-              frameTheme === theme.id ? 'ring-2 ring-offset-1 ring-primary shadow-md scale-105' : ''
-            } hover:shadow-md transition-all duration-200 flex flex-col h-auto min-w-[90px]`}
-            onClick={() => setFrameTheme(theme.id)}
+              frameTheme === theme.id ? 'ring-2 ring-offset-1 ring-primary shadow-md scale-105' : 'hover:scale-105'
+            } transition-all duration-200 flex flex-col h-auto min-w-[90px] border`}
+            onClick={() => {
+              setFrameTheme(theme.id);
+            }}
           >
             <span className="font-medium">{theme.name}</span>
             <span className="text-[9px] opacity-90 mt-0.5">{theme.description}</span>
