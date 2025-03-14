@@ -9,7 +9,7 @@ import DigiboothHeroArea from '@/components/digibooth/DigiboothHeroArea';
 import DigiboothWebcamSection from '@/components/digibooth/DigiboothWebcamSection';
 import DigiboothPhotoStripPreview from '@/components/digibooth/DigiboothPhotoStripPreview';
 import DigiboothCustomizationPanel from '@/components/digibooth/DigiboothCustomizationPanel';
-import DigiboothSaasFooter from '@/components/digibooth/DigiboothSaasFooter';
+import Footer from '@/components/landing/Footer';
 
 // Hooks
 import useDigiboothState from '@/hooks/useDigiboothState';
@@ -140,8 +140,8 @@ const Digibooth = () => {
           </div>
         </main>
         
-        {/* SaaS Landing Section */}
-        <DigiboothSaasFooter />
+        {/* Footer from landing page, replacing DigiboothSaasFooter */}
+        <Footer />
       </div>
     </>
   );

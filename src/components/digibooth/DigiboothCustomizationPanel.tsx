@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { FrameColorType } from '@/components/photobooth/FrameColorSelector';
 import { StickerType } from '@/components/photobooth/StickerSelector';
@@ -10,6 +11,7 @@ import StickerOptions from './customization/StickerOptions';
 import FrameThemeOptions from './customization/FrameThemeOptions';
 import BorderOptions from './customization/BorderOptions';
 import BackgroundRemovalToggle from './customization/BackgroundRemovalToggle';
+
 interface DigiboothCustomizationPanelProps {
   frameColor: FrameColorType;
   setFrameColor: (color: FrameColorType) => void;
@@ -24,6 +26,7 @@ interface DigiboothCustomizationPanelProps {
   showBackgroundRemoval?: boolean;
   toggleBackgroundRemoval?: () => void;
 }
+
 const DigiboothCustomizationPanel: React.FC<DigiboothCustomizationPanelProps> = ({
   frameColor,
   setFrameColor,
@@ -39,13 +42,17 @@ const DigiboothCustomizationPanel: React.FC<DigiboothCustomizationPanelProps> = 
   toggleBackgroundRemoval
 }) => {
   const isMobile = useIsMobile();
-  return <div className="mx-auto bg-white/70 backdrop-blur-md p-2 rounded-lg shadow-sm overflow-x-auto">
+  
+  return (
+    <div className="mx-auto bg-white/70 backdrop-blur-md p-2 rounded-lg shadow-sm overflow-x-auto">
       <div className="flex flex-col space-y-1">
         <div className={`flex ${isMobile ? 'flex-row flex-wrap justify-center gap-2' : 'space-x-3 overflow-x-auto pb-1'}`}>
           {/* Frame Theme Section (if available) */}
-          {setFrameTheme && <div className="min-w-fit">
+          {setFrameTheme && (
+            <div className="min-w-fit">
               <FrameThemeOptions frameTheme={frameTheme} setFrameTheme={setFrameTheme} />
-            </div>}
+            </div>
+          )}
           
           {/* Frame Color Section */}
           <div className="min-w-fit">
@@ -53,15 +60,33 @@ const DigiboothCustomizationPanel: React.FC<DigiboothCustomizationPanelProps> = 
           </div>
           
           {/* Border Style Section (if available) */}
-          {setBorderStyle && setBorderWidth}
+          {setBorderStyle && setBorderWidth && (
+            <div className="min-w-fit">
+              <BorderOptions 
+                borderStyle={borderStyle} 
+                setBorderStyle={setBorderStyle} 
+                borderWidth={borderWidth} 
+                setBorderWidth={setBorderWidth} 
+              />
+            </div>
+          )}
           
           {/* Background Removal Toggle (if available) */}
-          {toggleBackgroundRemoval && <BackgroundRemovalToggle showBackgroundRemoval={showBackgroundRemoval} toggleBackgroundRemoval={toggleBackgroundRemoval} />}
+          {toggleBackgroundRemoval && (
+            <BackgroundRemovalToggle 
+              showBackgroundRemoval={showBackgroundRemoval} 
+              toggleBackgroundRemoval={toggleBackgroundRemoval} 
+            />
+          )}
           
           {/* Stickers Section */}
-          
+          <div className="min-w-fit">
+            <StickerOptions sticker={sticker} setSticker={setSticker} />
+          </div>
         </div>
       </div>
-    </div>;
+    </div>
+  );
 };
+
 export default DigiboothCustomizationPanel;
