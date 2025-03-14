@@ -12,29 +12,34 @@ const FrameThemeOptions: React.FC<FrameThemeOptionsProps> = ({
   frameTheme,
   setFrameTheme
 }) => {
-  // Theme options
-  const themes: { id: FrameTheme; name: string; bgClass: string }[] = [
-    { id: 'default', name: 'Default', bgClass: 'bg-blue-500 text-white' },
-    { id: 'birthday', name: 'Birthday', bgClass: 'bg-gradient-to-r from-yellow-400 to-pink-500 text-white' },
-    { id: 'christmas', name: 'Christmas', bgClass: 'bg-gradient-to-r from-green-600 to-red-600 text-white' },
-    { id: 'halloween', name: 'Halloween', bgClass: 'bg-gradient-to-r from-orange-500 to-purple-900 text-white' },
-    { id: 'valentines', name: 'Valentine\'s', bgClass: 'bg-gradient-to-r from-pink-400 to-red-400 text-white' },
-    { id: 'wedding', name: 'Wedding', bgClass: 'bg-gradient-to-r from-blue-100 via-white to-blue-100 text-gray-800 border border-gray-200' }
+  // Theme options with expanded information
+  const themes: { id: FrameTheme; name: string; bgClass: string; description: string }[] = [
+    { id: 'default', name: 'Default', bgClass: 'bg-blue-500 text-white', description: 'Classic frame' },
+    { id: 'birthday', name: 'Birthday', bgClass: 'bg-gradient-to-r from-yellow-400 to-pink-500 text-white', description: 'Celebration theme' },
+    { id: 'christmas', name: 'Christmas', bgClass: 'bg-gradient-to-r from-green-600 to-red-600 text-white', description: 'Holiday theme' },
+    { id: 'halloween', name: 'Halloween', bgClass: 'bg-gradient-to-r from-orange-500 to-purple-900 text-white', description: 'Spooky theme' },
+    { id: 'valentines', name: 'Valentine\'s', bgClass: 'bg-gradient-to-r from-pink-400 to-red-400 text-white', description: 'Love theme' },
+    { id: 'wedding', name: 'Wedding', bgClass: 'bg-gradient-to-r from-blue-100 via-white to-blue-100 text-gray-800 border border-gray-200', description: 'Elegant theme' },
+    { id: 'graduation', name: 'Graduation', bgClass: 'bg-gradient-to-r from-blue-800 to-indigo-900 text-white', description: 'Achievement theme' },
+    { id: 'babyshower', name: 'Baby Shower', bgClass: 'bg-gradient-to-r from-blue-200 to-pink-200 text-gray-800', description: 'Gentle theme' },
+    { id: 'anniversary', name: 'Anniversary', bgClass: 'bg-gradient-to-r from-yellow-200 to-yellow-600 text-gray-800', description: 'Golden celebration' },
+    { id: 'newyear', name: 'New Year', bgClass: 'bg-gradient-to-r from-purple-700 via-blue-500 to-purple-700 text-white', description: 'Festive theme' }
   ];
 
   return (
     <div className="mb-4">
-      <h3 className="text-md font-medium text-gray-600 mb-2">Frame Theme</h3>
-      <div className="flex flex-wrap justify-center gap-1.5">
+      <h3 className="text-xs font-medium text-gray-600 mb-2">Frame Theme</h3>
+      <div className="flex flex-wrap gap-1.5 max-h-[160px] overflow-y-auto pr-1">
         {themes.map(theme => (
           <Button
             key={theme.id}
-            className={`px-2.5 py-1 ${theme.bgClass} rounded-md text-xs ${
-              frameTheme === theme.id ? 'ring-1 ring-offset-1 ring-primary' : ''
-            } hover:opacity-90 transition-all`}
+            className={`px-2 py-1 ${theme.bgClass} rounded-md text-xs ${
+              frameTheme === theme.id ? 'ring-2 ring-offset-1 ring-primary shadow-md scale-105' : ''
+            } hover:shadow-md transition-all duration-200 flex flex-col h-auto min-w-[90px]`}
             onClick={() => setFrameTheme(theme.id)}
           >
-            {theme.name}
+            <span className="font-medium">{theme.name}</span>
+            <span className="text-[9px] opacity-90 mt-0.5">{theme.description}</span>
           </Button>
         ))}
       </div>

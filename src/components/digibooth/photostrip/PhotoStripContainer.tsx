@@ -70,7 +70,7 @@ const PhotoStripContainer: React.FC<PhotoStripContainerProps> = ({
       case 'purple': return 'border-purple-500 bg-purple-500';
       case 'maroon': return 'border-red-800 bg-red-800';
       case 'burgundy': return 'border-red-900 bg-red-900';
-      // New soft colors
+      // Soft colors
       case 'softGreen': return 'border-[#F2FCE2] bg-[#F2FCE2]';
       case 'softYellow': return 'border-[#FEF7CD] bg-[#FEF7CD]';
       case 'softOrange': return 'border-[#FEC6A1] bg-[#FEC6A1]';
@@ -107,11 +107,51 @@ const PhotoStripContainer: React.FC<PhotoStripContainerProps> = ({
     }
   };
 
+  const getFrameThemeClasses = () => {
+    switch(frameTheme) {
+      case 'birthday':
+        return 'bg-gradient-to-r from-yellow-400 to-pink-500';
+      case 'christmas':
+        return 'bg-gradient-to-r from-green-600 to-red-600';
+      case 'halloween':
+        return 'bg-gradient-to-r from-orange-500 to-purple-900';
+      case 'valentines':
+        return 'bg-gradient-to-r from-pink-400 to-red-400';
+      case 'wedding':
+        return 'bg-gradient-to-r from-blue-100 via-white to-blue-100';
+      case 'graduation':
+        return 'bg-gradient-to-r from-blue-800 to-indigo-900';
+      case 'babyshower':
+        return 'bg-gradient-to-r from-blue-200 to-pink-200';
+      case 'anniversary':
+        return 'bg-gradient-to-r from-yellow-200 to-yellow-600';
+      case 'newyear':
+        return 'bg-gradient-to-r from-purple-700 via-blue-500 to-purple-700';
+      default:
+        return getBorderColor();
+    }
+  };
+
+  const getTextColorForTheme = () => {
+    switch(frameTheme) {
+      case 'default':
+        return textColor;
+      case 'wedding':
+      case 'babyshower':
+      case 'anniversary':
+        return 'text-gray-800';
+      default:
+        return 'text-white';
+    }
+  };
+
   return (
     <div 
       ref={photoStripRef} 
       id="photo-strip-container"
-      className={`mx-auto max-w-[300px] p-4 ${getBorderStyle()} ${getBorderWidth()} rounded-lg shadow-lg ${getBorderColor()}`}
+      className={`mx-auto max-w-[300px] p-4 ${getBorderStyle()} ${getBorderWidth()} rounded-lg shadow-lg ${
+        frameTheme === 'default' ? getBorderColor() : getFrameThemeClasses()
+      }`}
     >
       <div className="flex flex-col gap-2">
         {displayPhotos.map((photo, index) => (
@@ -137,7 +177,7 @@ const PhotoStripContainer: React.FC<PhotoStripContainerProps> = ({
           customAlignment={customAlignment}
           titleItalic={titleItalic}
           customItalic={customItalic}
-          textColor={textColor}
+          textColor={frameTheme === 'default' ? textColor : getTextColorForTheme()}
           borderStyle={borderStyle}
           borderWidth={borderWidth}
           frameTheme={frameTheme}
