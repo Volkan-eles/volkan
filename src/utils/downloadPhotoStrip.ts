@@ -18,8 +18,7 @@ export const downloadPhotoStrip = async (
     }
     
     // Get the individual photo elements within the strip
-    // Use a more reliable selector that matches how photos are actually rendered in the component
-    const photoElements = container.querySelectorAll('.photo-item');
+    const photoElements = container.querySelectorAll('[id^="photo-item-"]');
     if (photoElements.length === 0) {
       throw new Error('No photos found in the strip');
     }
@@ -54,9 +53,7 @@ export const downloadPhotoStrip = async (
       finalCanvas = createWeddingLayout(photoCanvases, coupleName, weddingDate, customMessage);
     } else {
       // For regular photo strips, create a strip layout
-      // Get the frame color from a data attribute or fallback to white
-      const frameColor = container.getAttribute('data-frame-color') || 'white';
-      finalCanvas = createPhotoStrip(photoCanvases, frameColor);
+      finalCanvas = createPhotoStrip(photoCanvases, 'white');
     }
     
     // Download the final image
