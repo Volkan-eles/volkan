@@ -61,11 +61,6 @@ const WeddingPhotoContainer: React.FC<WeddingPhotoContainerProps> = ({
   onCustomMessageClick,
   onDateClick
 }) => {
-  // Always show clean white background for wedding theme
-  const getFrameThemeClasses = () => {
-    return 'bg-white';
-  };
-
   // Function to determine how many photos we have and their layout
   const getPhotoLayout = () => {
     const count = displayPhotos.length;
@@ -80,7 +75,7 @@ const WeddingPhotoContainer: React.FC<WeddingPhotoContainerProps> = ({
     return (
       <div className="space-y-6">
         {/* Large photo on top */}
-        <div className="aspect-video bg-gray-100 overflow-hidden rounded-sm shadow-sm">
+        <div className="relative aspect-[16/9] bg-gray-100 overflow-hidden rounded-sm mb-6">
           {photos.length > 0 ? (
             <div id="photo-item-0">
               <img 
@@ -98,9 +93,9 @@ const WeddingPhotoContainer: React.FC<WeddingPhotoContainerProps> = ({
         </div>
         
         {/* Three smaller photos below in a row */}
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-3 gap-6">
           {[1, 2, 3].map((index) => (
-            <div key={index} className="aspect-video bg-gray-100 overflow-hidden rounded-sm shadow-sm">
+            <div key={index} className="aspect-[16/9] bg-gray-100 overflow-hidden rounded-sm">
               {photos.length > index ? (
                 <div id={`photo-item-${index}`}>
                   <img 
@@ -126,10 +121,11 @@ const WeddingPhotoContainer: React.FC<WeddingPhotoContainerProps> = ({
     <div 
       ref={photoStripRef} 
       id="photo-strip-container"
-      className={`mx-auto w-full max-w-3xl p-10 rounded-sm shadow-md ${borderStyle === 'dashed' ? 'border-dashed' : borderStyle === 'dotted' ? 'border-dotted' : 'border-solid'} ${borderWidth === 'thin' ? 'border-[1px]' : borderWidth === 'medium' ? 'border-[2px]' : 'border-[3px]'} border-gray-100 ${getFrameThemeClasses()}`}
+      className={`mx-auto w-full max-w-3xl p-10 rounded-sm shadow-md ${borderStyle === 'dashed' ? 'border-dashed' : borderStyle === 'dotted' ? 'border-dotted' : 'border-solid'} ${borderWidth === 'thin' ? 'border-[1px]' : borderWidth === 'medium' ? 'border-[2px]' : 'border-[3px]'}`}
       style={{ 
         aspectRatio: '16/10',
-        backgroundColor: 'white',
+        backgroundColor: 'black',
+        borderColor: 'rgba(255, 255, 255, 0.1)'
       }}
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 h-full">
@@ -141,12 +137,12 @@ const WeddingPhotoContainer: React.FC<WeddingPhotoContainerProps> = ({
         {/* Right side - wedding details */}
         <div className="col-span-1 flex flex-col justify-center items-center">
           <div 
-            className="text-4xl md:text-5xl cursor-pointer hover:text-gray-700 transition-colors"
+            className="text-4xl md:text-5xl cursor-pointer hover:opacity-80 transition-opacity"
             onClick={onCoupleNameClick}
             title="Click to edit couple names"
             style={{ 
               fontFamily: "'Pinyon Script', cursive", 
-              color: titleColor || '#000',
+              color: 'white',
               fontStyle: titleItalic ? 'italic' : 'normal',
               textAlign: titleAlignment === 'left' ? 'left' : titleAlignment === 'right' ? 'right' : 'center',
               width: '100%',
@@ -157,11 +153,11 @@ const WeddingPhotoContainer: React.FC<WeddingPhotoContainerProps> = ({
           </div>
           
           <div 
-            className="text-sm tracking-[0.2em] uppercase mt-3 cursor-pointer hover:text-gray-500 transition-colors"
+            className="text-sm tracking-[0.2em] uppercase mt-4 cursor-pointer hover:opacity-80 transition-opacity"
             onClick={onWeddingDateClick}
             title="Click to edit wedding date"
             style={{ 
-              color: customColor || '#555',
+              color: 'white',
               fontFamily: "'Arial', sans-serif",
               fontStyle: customItalic ? 'italic' : 'normal',
               textAlign: customAlignment === 'left' ? 'left' : customAlignment === 'right' ? 'right' : 'center',
@@ -173,14 +169,14 @@ const WeddingPhotoContainer: React.FC<WeddingPhotoContainerProps> = ({
         </div>
       </div>
       
-      {/* Footer message - aligned at bottom */}
-      <div className="absolute bottom-4 w-full left-0 right-0 text-center">
+      {/* Footer message - aligned at bottom right */}
+      <div className="absolute bottom-4 right-4 w-full text-right">
         <div 
-          className="text-[10px] uppercase tracking-wider cursor-pointer hover:text-gray-500 transition-colors"
+          className="text-[10px] uppercase tracking-wider cursor-pointer hover:opacity-80 transition-opacity"
           onClick={onCustomMessageClick}
           title="Click to edit message"
           style={{ 
-            color: '#999',
+            color: 'rgba(255, 255, 255, 0.7)',
             fontFamily: "'Arial', sans-serif",
             letterSpacing: '0.1em',
           }}

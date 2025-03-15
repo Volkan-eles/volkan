@@ -82,6 +82,7 @@ export const createPhotoStrip = (
 
 /**
  * Creates a wedding-style photo layout with one large photo and three smaller ones
+ * Based on the black background reference design
  */
 export const createWeddingLayout = (
   photos: HTMLCanvasElement[],
@@ -99,55 +100,70 @@ export const createWeddingLayout = (
   
   if (photos.length === 0) return canvas;
   
-  // Set the dimensions for the wedding layout (16:10 aspect ratio to match the reference image)
+  // Set the dimensions for the wedding layout (16:10 aspect ratio)
   const canvasWidth = 1200;
   const canvasHeight = 750;
   canvas.width = canvasWidth;
   canvas.height = canvasHeight;
   
-  // Set white background
-  ctx.fillStyle = '#FFFFFF';
+  // Set black background (matching the reference image)
+  ctx.fillStyle = '#000000';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
-  
-  // Add subtle border
-  ctx.strokeStyle = '#F5F5F5';
-  ctx.lineWidth = 1;
-  ctx.strokeRect(10, 10, canvas.width - 20, canvas.height - 20);
   
   // Calculate dimensions for the layout
   const padding = 40;
-  const photoSectionWidth = (canvas.width / 2) - (padding * 1.5);
+  const gutter = 20; // Space between photos
+  
+  // Calculate photo dimensions
+  const leftSideWidth = (canvasWidth / 2) - (padding * 1.5);
+  
+  // Main large photo dimensions
+  const mainPhotoWidth = leftSideWidth;
+  const mainPhotoHeight = mainPhotoWidth * (9/16); // 16:9 aspect ratio
+  
+  // Small photos dimensions (3 in a row)
+  const smallPhotoWidth = (leftSideWidth - (gutter * 2)) / 3;
+  const smallPhotoHeight = smallPhotoWidth * (9/16); // 16:9 aspect ratio
   
   // Left side - photos
   if (photos.length > 0) {
     // Draw large photo on top
-    const topPhotoHeight = photoSectionWidth * 0.6;
-    ctx.drawImage(photos[0], padding, padding, photoSectionWidth, topPhotoHeight);
+    ctx.drawImage(
+      photos[0], 
+      padding, 
+      padding, 
+      mainPhotoWidth, 
+      mainPhotoHeight
+    );
     
-    // Draw three smaller photos below
-    const smallPhotoWidth = (photoSectionWidth - padding) / 3;
-    const smallPhotoHeight = smallPhotoWidth * 0.6;
-    const smallPhotoY = padding + topPhotoHeight + 20;
+    // Calculate Y position for small photos (below main photo with some gap)
+    const smallPhotoY = padding + mainPhotoHeight + gutter;
     
     // Draw up to 3 smaller photos in a row
     for (let i = 1; i < 4 && i < photos.length; i++) {
-      const smallPhotoX = padding + ((i - 1) * (smallPhotoWidth + 10));
-      ctx.drawImage(photos[i], smallPhotoX, smallPhotoY, smallPhotoWidth, smallPhotoHeight);
+      const smallPhotoX = padding + ((i - 1) * (smallPhotoWidth + gutter));
+      ctx.drawImage(
+        photos[i], 
+        smallPhotoX, 
+        smallPhotoY, 
+        smallPhotoWidth, 
+        smallPhotoHeight
+      );
     }
   }
   
   // Right side - couple name and date
-  const textX = (canvas.width / 2) + padding;
-  const textAreaWidth = photoSectionWidth;
+  const textX = (canvasWidth / 2) + padding;
+  const textAreaWidth = (canvasWidth / 2) - (padding * 2);
   
   // Add couple name with elegant script font
-  ctx.font = "bold 80px 'Pinyon Script', cursive";
-  ctx.fillStyle = '#000000';
+  ctx.font = "bold 100px 'Pinyon Script', cursive";
+  ctx.fillStyle = '#FFFFFF';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
   
-  // Calculate position for the text to be centered vertically
-  const textY = canvas.height / 2 - 20;
+  // Calculate position for the text to be centered
+  const textY = canvas.height / 2;
   
   // Split the couple name to render it in two lines if needed
   if (coupleName.includes('&')) {
@@ -156,31 +172,32 @@ export const createWeddingLayout = (
     const secondName = parts[1].trim();
     
     // Draw the first name
-    ctx.fillText(firstName, textX + (textAreaWidth / 2), textY - 50);
+    ctx.fillText(firstName, textX + (textAreaWidth / 2), textY - 60);
     
     // Draw the & symbol
-    ctx.font = "bold 60px 'Pinyon Script', cursive";
+    ctx.font = "bold 80px 'Pinyon Script', cursive";
     ctx.fillText('&', textX + (textAreaWidth / 2), textY);
     
     // Draw the second name
-    ctx.font = "bold 80px 'Pinyon Script', cursive";
-    ctx.fillText(secondName, textX + (textAreaWidth / 2), textY + 50);
+    ctx.font = "bold 100px 'Pinyon Script', cursive";
+    ctx.fillText(secondName, textX + (textAreaWidth / 2), textY + 60);
   } else {
     // If no ampersand, draw the name as is
     ctx.fillText(coupleName, textX + (textAreaWidth / 2), textY);
   }
   
   // Add wedding date
-  ctx.font = "14px 'Arial', sans-serif";
-  ctx.letterSpacing = "2px";
-  ctx.fillStyle = '#555555';
-  ctx.fillText(weddingDate, textX + (textAreaWidth / 2), textY + 90);
+  ctx.font = "16px 'Arial', sans-serif";
+  ctx.letterSpacing = "3px";
+  ctx.fillStyle = '#FFFFFF';
+  ctx.fillText(weddingDate, textX + (textAreaWidth / 2), textY + 120);
   
-  // Add custom message at the bottom
+  // Add custom message at the bottom right
   ctx.font = "10px 'Arial', sans-serif";
   ctx.letterSpacing = "1px";
-  ctx.fillStyle = '#999999';
-  ctx.fillText(customMessage.toUpperCase(), canvas.width / 2, canvas.height - 20);
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+  ctx.textAlign = 'right';
+  ctx.fillText(customMessage.toUpperCase(), canvas.width - padding, canvas.height - padding);
   
   return canvas;
 };
@@ -188,7 +205,9 @@ export const createWeddingLayout = (
 /**
  * Converts a canvas to a Blob (for downloading)
  */
-export const canvasToBlob = (canvas: HTMLCanvasElement): Promise<Blob> => {
+export const canvasToBlob = (
+  canvas: HTMLCanvasElement
+): Promise<Blob> => {
   return new Promise((resolve, reject) => {
     canvas.toBlob((blob) => {
       if (blob) {
@@ -203,7 +222,10 @@ export const canvasToBlob = (canvas: HTMLCanvasElement): Promise<Blob> => {
 /**
  * Creates a download link for an image
  */
-export const downloadImage = async (canvas: HTMLCanvasElement, filename: string = 'photo-booth'): Promise<void> => {
+export const downloadImage = async (
+  canvas: HTMLCanvasElement, 
+  filename: string = 'photo-booth'
+): Promise<void> => {
   try {
     const blob = await canvasToBlob(canvas);
     const url = URL.createObjectURL(blob);
