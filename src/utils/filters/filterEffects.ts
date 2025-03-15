@@ -1,8 +1,35 @@
 
 import { FilterEffectConfig } from './types';
 
+// Enhanced type for image data with width/height
+interface ImageDataWithDimensions extends Uint8ClampedArray {
+  width?: number;
+  height?: number;
+}
+
+// Helper function to get dimensions from image data or canvas
+const getDimensions = (
+  data: Uint8ClampedArray,
+  canvas?: { width: number, height: number }
+): { width: number, height: number } => {
+  // If data has dimensions, use them
+  if ('width' in data && 'height' in data && data.width && data.height) {
+    return { width: data.width, height: data.height };
+  }
+  // If canvas is provided, use its dimensions
+  if (canvas) {
+    return { width: canvas.width, height: canvas.height };
+  }
+  // Fallback: estimate dimensions based on data length
+  // Assuming 4 bytes per pixel (RGBA)
+  const totalPixels = data.length / 4;
+  // Guess a square image if we don't know better
+  const estimatedWidth = Math.sqrt(totalPixels);
+  return { width: estimatedWidth, height: estimatedWidth };
+};
+
 // Collection of filter effect implementations
-export const filterEffects: Record<string, (data: Uint8ClampedArray) => void> = {
+export const filterEffects: Record<string, (data: Uint8ClampedArray, canvas?: { width: number, height: number }) => void> = {
   bw: (data: Uint8ClampedArray) => {
     for (let i = 0; i < data.length; i += 4) {
       const avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
@@ -117,7 +144,10 @@ export const filterEffects: Record<string, (data: Uint8ClampedArray) => void> = 
   },
   
   // New vintage-themed filters
-  vintageWarm: (data: Uint8ClampedArray) => {
+  vintageWarm: (data: Uint8ClampedArray, canvas?: { width: number, height: number }) => {
+    const dimensions = getDimensions(data, canvas);
+    const { width, height } = dimensions;
+    
     for (let i = 0; i < data.length; i += 4) {
       // Golden-hour warm vintage effect
       data[i] = Math.min(255, data[i] * 1.1 + 15); // Enhance red
@@ -125,8 +155,10 @@ export const filterEffects: Record<string, (data: Uint8ClampedArray) => void> = 
       data[i + 2] = Math.min(255, data[i + 2] * 0.8); // Reduce blue significantly
       
       // Add vignette effect (darker corners)
-      if (i % (data.width * 4) < data.width * 0.2 * 4 || i % (data.width * 4) > data.width * 0.8 * 4 || 
-          Math.floor(i / (data.width * 4)) < data.height * 0.2 || Math.floor(i / (data.width * 4)) > data.height * 0.8) {
+      const x = (i / 4) % width;
+      const y = Math.floor((i / 4) / width);
+      
+      if (x < width * 0.2 || x > width * 0.8 || y < height * 0.2 || y > height * 0.8) {
         data[i] = Math.max(0, data[i] * 0.85);
         data[i + 1] = Math.max(0, data[i + 1] * 0.85);
         data[i + 2] = Math.max(0, data[i + 2] * 0.85);
@@ -174,7 +206,10 @@ export const filterEffects: Record<string, (data: Uint8ClampedArray) => void> = 
     }
   },
   
-  vintageFade: (data: Uint8ClampedArray) => {
+  vintageFade: (data: Uint8ClampedArray, canvas?: { width: number, height: number }) => {
+    const dimensions = getDimensions(data, canvas);
+    const { width } = dimensions;
+    
     for (let i = 0; i < data.length; i += 4) {
       // Memento faded memory effect
       data[i] = Math.min(255, data[i] * 0.8 + 50); // Washed out red
@@ -182,8 +217,9 @@ export const filterEffects: Record<string, (data: Uint8ClampedArray) => void> = 
       data[i + 2] = Math.min(255, data[i + 2] * 0.9 + 40); // Slightly tinted blue
       
       // Light leaks on one edge (left side)
-      if (i % (data.width * 4) < data.width * 0.1 * 4) {
-        const intensity = 1 - (i % (data.width * 4)) / (data.width * 0.1 * 4);
+      const x = (i / 4) % width;
+      if (x < width * 0.1) {
+        const intensity = 1 - (x / (width * 0.1));
         data[i] = Math.min(255, data[i] + intensity * 60); // Add red light leak
         data[i + 1] = Math.min(255, data[i + 1] + intensity * 30); // Add some green
       }

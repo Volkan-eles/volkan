@@ -16,7 +16,8 @@ export const applyCanvasFilter = (
   
   // Apply filter effect if it exists
   if (filter !== 'none' && filterEffects[filter]) {
-    filterEffects[filter](data);
+    // Pass canvas dimensions to filter effect
+    filterEffects[filter](data, { width: canvas.width, height: canvas.height });
   }
   
   // Apply adjustments if provided

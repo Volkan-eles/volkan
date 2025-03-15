@@ -15,7 +15,11 @@ export type DigiboothFilterType =
   | 'retro70s'
   | 'polaroid'
   | 'cyberpunk'
-  | 'faded';
+  | 'faded'
+  | 'vintageWarm'
+  | 'vintageCool'
+  | 'vintageSepia'
+  | 'vintageFade';
 
 export type FilterAdjustmentValues = {
   brightness: number;

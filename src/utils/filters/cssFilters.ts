@@ -1,10 +1,10 @@
 
 import { FilterType } from '@/components/photobooth/FilterSelector';
-import { DigiboothFilterType } from '@/components/digibooth/DigiboothFilterSelector';
+import { DigiboothFilterType, FilterAdjustmentValues } from '@/components/digibooth/DigiboothFilterSelector';
 
 export const getFilterStyle = (
   filter: FilterType | DigiboothFilterType, 
-  intensity: number = 1
+  intensity: number | FilterAdjustmentValues = 1
 ): string => {
   if (filter === 'none') return 'none';
   
@@ -27,5 +27,18 @@ export const getFilterStyle = (
     vintageFade: 'brightness(115%) contrast(90%) saturate(80%) sepia(20%)'
   };
   
-  return filters[filter] || 'none';
+  const baseFilter = filters[filter] || 'none';
+  
+  // Apply adjustments if they're provided
+  if (typeof intensity === 'object' && intensity) {
+    const { brightness, contrast, saturation } = intensity;
+    return `${baseFilter} brightness(${brightness/100}) contrast(${contrast/100}) saturate(${saturation/100})`;
+  }
+  
+  // If intensity is a number, apply it (for backward compatibility)
+  if (typeof intensity === 'number' && intensity !== 1) {
+    return `${baseFilter} opacity(${intensity})`;
+  }
+  
+  return baseFilter;
 };

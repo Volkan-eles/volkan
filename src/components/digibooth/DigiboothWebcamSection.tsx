@@ -1,3 +1,4 @@
+
 import React, { useRef } from 'react';
 import DigiboothWebcamCapture from '@/components/digibooth/DigiboothWebcamCapture';
 import CountdownSelector from '@/components/photobooth/CountdownSelector';
@@ -52,6 +53,7 @@ const DigiboothWebcamSection: React.FC<DigiboothWebcamSectionProps> = ({
             selectedFilter={selectedFilter}
             filterAdjustments={filterAdjustments}
             filterStyle={filterStyle}
+            countdownTime={countdownTime}
           />
         </div>
       </div>
