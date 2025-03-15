@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Camera, Users, Download, Video, Image, Cloud, Clock, Award, Settings, Paint, Phone, PaintBucket } from 'lucide-react';
+import { Camera, Users, Download, Video, Image, Cloud, Clock, Award, Settings, Palette, Phone, PaintBucket } from 'lucide-react';
 
 const DigiboothFeatures = () => {
   return (
@@ -57,7 +57,7 @@ const DigiboothFeatures = () => {
           />
           
           <FeatureCard
-            icon={<Paint className="h-8 w-8 text-blue-500" />}
+            icon={<Palette className="h-8 w-8 text-blue-500" />}
             title="Filter Effects"
             description="Apply professional filters and effects to enhance your photos"
           />
