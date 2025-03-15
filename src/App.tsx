@@ -3,7 +3,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 
 // Import all page components
@@ -44,10 +44,23 @@ const App = () => (
             <Route path="/about" element={<About />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/contact" element={<Contact />} />
+            
+            {/* Photo booth routes with multiple path support */}
             <Route path="/pica-pica-booth" element={<PicaPicaPhotobooth />} />
+            <Route path="/picapica" element={<Navigate to="/pica-pica-booth" replace />} />
+            <Route path="/pica-pica" element={<Navigate to="/pica-pica-booth" replace />} />
+            
             <Route path="/digibooth" element={<Digibooth />} />
+            <Route path="/digi-booth" element={<Navigate to="/digibooth" replace />} />
+            
             <Route path="/vintage-photobooth" element={<LittleVintagePhotobooth />} />
+            <Route path="/vintage" element={<Navigate to="/vintage-photobooth" replace />} />
+            <Route path="/little-vintage" element={<Navigate to="/vintage-photobooth" replace />} />
+            
             <Route path="/wedding-photobooth" element={<WeddingPhotobooth />} />
+            <Route path="/wedding" element={<Navigate to="/wedding-photobooth" replace />} />
+            
+            {/* Additional pages */}
             <Route path="/faq" element={<FAQ />} />
             <Route path="/updates" element={<Updates />} />
             <Route path="/community" element={<Community />} />

@@ -10,6 +10,15 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -54,45 +63,123 @@ const Header = () => {
       {/* Desktop Navigation */}
       <nav className="hidden md:flex items-center space-x-1">
         {!isMobile && (
-          <>
-            <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center px-3 py-2 text-gray-700 hover:text-pink-500 transition-colors">
-                Features <ChevronDown className="ml-1 h-4 w-4" />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem>
-                  <a href="#features" className="w-full">Photo Frames</a>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <a href="#features" className="w-full">K-pop Templates</a>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <a href="#features" className="w-full">Custom Stickers</a>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-
-            <a href="#how-it-works" className="px-3 py-2 text-gray-700 hover:text-pink-500 transition-colors">How It Works</a>
-            <a href="#testimonials" className="px-3 py-2 text-gray-700 hover:text-pink-500 transition-colors">Testimonials</a>
-            <a href="#pricing" className="px-3 py-2 text-gray-700 hover:text-pink-500 transition-colors">Pricing</a>
-            
-            <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center px-3 py-2 text-gray-700 hover:text-pink-500 transition-colors">
-                Resources <ChevronDown className="ml-1 h-4 w-4" />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem>
-                  <Link to="/about" className="w-full">About</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Link to="/blog" className="w-full">Blog</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Link to="/contact" className="w-full">Contact</Link>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </>
+          <NavigationMenu>
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger className="bg-transparent hover:bg-gray-100 dark:hover:bg-gray-800">Features</NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                    <li className="row-span-3">
+                      <NavigationMenuLink asChild>
+                        <a
+                          className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-pink-500/50 to-violet-500/50 p-6 no-underline outline-none focus:shadow-md"
+                          href="#features"
+                        >
+                          <div className="mt-4 mb-2 text-lg font-medium text-white">
+                            Create Beautiful Photo Memories
+                          </div>
+                          <p className="text-sm leading-tight text-white/90">
+                            Express your creativity with our premium photo booth experiences
+                          </p>
+                        </a>
+                      </NavigationMenuLink>
+                    </li>
+                    <li>
+                      <Link
+                        to="/pica-pica-booth"
+                        className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
+                        onClick={handleLinkClick}
+                      >
+                        <div className="text-sm font-medium leading-none">Pica Pica Booth</div>
+                        <p className="line-clamp-2 text-sm leading-snug text-gray-500">
+                          Vibrant colorful photo strips with stickers
+                        </p>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/digibooth"
+                        className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
+                        onClick={handleLinkClick}
+                      >
+                        <div className="text-sm font-medium leading-none">Digibooth</div>
+                        <p className="line-clamp-2 text-sm leading-snug text-gray-500">
+                          Modern digital photo experience with filters
+                        </p>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/vintage-photobooth"
+                        className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
+                        onClick={handleLinkClick}
+                      >
+                        <div className="text-sm font-medium leading-none">Vintage Photobooth</div>
+                        <p className="line-clamp-2 text-sm leading-snug text-gray-500">
+                          Nostalgic retro-styled photo experiences
+                        </p>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/wedding-photobooth"
+                        className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
+                        onClick={handleLinkClick}
+                      >
+                        <div className="text-sm font-medium leading-none">Wedding Photobooth</div>
+                        <p className="line-clamp-2 text-sm leading-snug text-gray-500">
+                          Elegant layouts for wedding memories
+                        </p>
+                      </Link>
+                    </li>
+                  </ul>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <a href="#how-it-works" className="px-3 py-2 text-gray-700 hover:text-pink-500 transition-colors">How It Works</a>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <a href="#testimonials" className="px-3 py-2 text-gray-700 hover:text-pink-500 transition-colors">Testimonials</a>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <a href="#pricing" className="px-3 py-2 text-gray-700 hover:text-pink-500 transition-colors">Pricing</a>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger className="bg-transparent hover:bg-gray-100 dark:hover:bg-gray-800">Resources</NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <ul className="grid gap-3 p-4 w-[200px]">
+                    <li>
+                      <Link
+                        to="/about"
+                        className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
+                        onClick={handleLinkClick}
+                      >
+                        <div className="text-sm font-medium leading-none">About</div>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/blog"
+                        className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
+                        onClick={handleLinkClick}
+                      >
+                        <div className="text-sm font-medium leading-none">Blog</div>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/contact"
+                        className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
+                        onClick={handleLinkClick}
+                      >
+                        <div className="text-sm font-medium leading-none">Contact</div>
+                      </Link>
+                    </li>
+                  </ul>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
         )}
       </nav>
       
@@ -146,10 +233,11 @@ const Header = () => {
               <span>Home</span>
             </Link>
             
-            <div className="text-xs font-semibold uppercase text-gray-500 mt-3 mb-1 px-2">Features</div>
-            <a href="#features" className="px-2 py-2.5 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200" onClick={handleLinkClick}>Photo Frames</a>
-            <a href="#features" className="px-2 py-2.5 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200" onClick={handleLinkClick}>K-pop Templates</a>
-            <a href="#features" className="px-2 py-2.5 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200" onClick={handleLinkClick}>Custom Stickers</a>
+            <div className="text-xs font-semibold uppercase text-gray-500 mt-3 mb-1 px-2">Photobooths</div>
+            <Link to="/pica-pica-booth" className="px-2 py-2.5 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200" onClick={handleLinkClick}>Pica Pica Booth</Link>
+            <Link to="/digibooth" className="px-2 py-2.5 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200" onClick={handleLinkClick}>Digibooth</Link>
+            <Link to="/vintage-photobooth" className="px-2 py-2.5 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200" onClick={handleLinkClick}>Vintage Photobooth</Link>
+            <Link to="/wedding-photobooth" className="px-2 py-2.5 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200" onClick={handleLinkClick}>Wedding Photobooth</Link>
             
             <div className="text-xs font-semibold uppercase text-gray-500 mt-3 mb-1 px-2">Learn More</div>
             <a href="#how-it-works" className="px-2 py-2.5 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200" onClick={handleLinkClick}>How It Works</a>

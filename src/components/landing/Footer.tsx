@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Separator } from '@/components/ui/separator';
-import { Facebook, Twitter, Instagram, Youtube, Mail, ArrowRight } from 'lucide-react';
+import { Facebook, Twitter, Instagram, Youtube, Mail, ArrowRight, Camera, Clock, Heart, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
@@ -13,8 +13,40 @@ const Footer = () => {
     <footer className="bg-gray-900 text-white py-12" aria-labelledby="footer-heading">
       <h2 id="footer-heading" className="sr-only">Footer</h2>
       <div className="container mx-auto px-4 md:px-6">
+        {/* Pre-Footer Features */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 py-10 border-b border-gray-800">
+          <div className="flex flex-col items-center text-center">
+            <div className="w-12 h-12 bg-pink-500/20 rounded-full flex items-center justify-center mb-3">
+              <Camera className="h-6 w-6 text-pink-500" />
+            </div>
+            <h3 className="font-medium text-white mb-1">High Quality</h3>
+            <p className="text-sm text-gray-400">Professional photo quality</p>
+          </div>
+          <div className="flex flex-col items-center text-center">
+            <div className="w-12 h-12 bg-purple-500/20 rounded-full flex items-center justify-center mb-3">
+              <Clock className="h-6 w-6 text-purple-500" />
+            </div>
+            <h3 className="font-medium text-white mb-1">Instant</h3>
+            <p className="text-sm text-gray-400">Get your photos immediately</p>
+          </div>
+          <div className="flex flex-col items-center text-center">
+            <div className="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center mb-3">
+              <Heart className="h-6 w-6 text-blue-500" />
+            </div>
+            <h3 className="font-medium text-white mb-1">Fan-friendly</h3>
+            <p className="text-sm text-gray-400">K-pop themed templates</p>
+          </div>
+          <div className="flex flex-col items-center text-center">
+            <div className="w-12 h-12 bg-green-500/20 rounded-full flex items-center justify-center mb-3">
+              <Shield className="h-6 w-6 text-green-500" />
+            </div>
+            <h3 className="font-medium text-white mb-1">Secure</h3>
+            <p className="text-sm text-gray-400">Your photos stay private</p>
+          </div>
+        </div>
+      
         {/* Newsletter Section */}
-        <div className="mb-12 py-8 px-6 bg-gray-800/50 rounded-lg">
+        <div className="my-12 py-8 px-6 bg-gray-800/50 rounded-lg">
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div>
               <h3 className="text-xl font-semibold mb-2">Stay updated with K-pop trends</h3>
@@ -64,12 +96,12 @@ const Footer = () => {
             </div>
           </div>
           <div>
-            <h3 className="text-lg font-semibold mb-4">Product</h3>
+            <h3 className="text-lg font-semibold mb-4">Photobooths</h3>
             <ul className="space-y-2">
-              <li><a href="#features" className="text-gray-400 hover:text-white transition-colors">Features</a></li>
-              <li><a href="#pricing" className="text-gray-400 hover:text-white transition-colors">Pricing</a></li>
-              <li><Link to="/faq" className="text-gray-400 hover:text-white transition-colors">FAQ</Link></li>
-              <li><Link to="/updates" className="text-gray-400 hover:text-white transition-colors">Updates</Link></li>
+              <li><Link to="/pica-pica-booth" className="text-gray-400 hover:text-white transition-colors">Pica Pica Booth</Link></li>
+              <li><Link to="/digibooth" className="text-gray-400 hover:text-white transition-colors">Digibooth</Link></li>
+              <li><Link to="/vintage-photobooth" className="text-gray-400 hover:text-white transition-colors">Vintage Photobooth</Link></li>
+              <li><Link to="/wedding-photobooth" className="text-gray-400 hover:text-white transition-colors">Wedding Photobooth</Link></li>
             </ul>
           </div>
           <div>
@@ -103,7 +135,7 @@ const Footer = () => {
         <Separator className="bg-gray-800 my-8" />
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="text-gray-400 text-sm mb-4 md:mb-0">
-            &copy; {currentYear} Ideal Photo Vercel App. All rights reserved.
+            &copy; {currentYear} K-pop Frame. All rights reserved.
           </div>
           <div className="flex flex-wrap gap-4 text-sm text-gray-400">
             <Link to="/sitemap" className="hover:text-white transition-colors">Sitemap</Link>

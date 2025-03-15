@@ -73,9 +73,9 @@ const WeddingPhotoContainer: React.FC<WeddingPhotoContainerProps> = ({
     }
     
     return (
-      <div className="space-y-6">
+      <div className="space-y-4">
         {/* Large photo on top */}
-        <div className="relative aspect-[16/9] bg-gray-100 overflow-hidden rounded-sm mb-6">
+        <div className="relative aspect-[16/9] bg-gray-100 overflow-hidden rounded-sm mb-4">
           {photos.length > 0 ? (
             <div id="photo-item-0">
               <img 
@@ -93,7 +93,7 @@ const WeddingPhotoContainer: React.FC<WeddingPhotoContainerProps> = ({
         </div>
         
         {/* Three smaller photos below in a row */}
-        <div className="grid grid-cols-3 gap-6">
+        <div className="grid grid-cols-3 gap-4">
           {[1, 2, 3].map((index) => (
             <div key={index} className="aspect-[16/9] bg-gray-100 overflow-hidden rounded-sm">
               {photos.length > index ? (
@@ -121,14 +121,14 @@ const WeddingPhotoContainer: React.FC<WeddingPhotoContainerProps> = ({
     <div 
       ref={photoStripRef} 
       id="photo-strip-container"
-      className={`mx-auto w-full max-w-3xl p-10 rounded-sm shadow-md ${borderStyle === 'dashed' ? 'border-dashed' : borderStyle === 'dotted' ? 'border-dotted' : 'border-solid'} ${borderWidth === 'thin' ? 'border-[1px]' : borderWidth === 'medium' ? 'border-[2px]' : 'border-[3px]'}`}
+      className={`mx-auto w-full max-w-3xl p-8 rounded-sm ${borderStyle === 'dashed' ? 'border-dashed' : borderStyle === 'dotted' ? 'border-dotted' : 'border-solid'} ${borderWidth === 'thin' ? 'border-[1px]' : borderWidth === 'medium' ? 'border-[2px]' : 'border-[3px]'}`}
       style={{ 
         aspectRatio: '16/10',
         backgroundColor: 'black',
         borderColor: 'rgba(255, 255, 255, 0.1)'
       }}
     >
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 h-full">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-full">
         {/* Left side - photos */}
         <div className="col-span-1">
           {getPhotoLayout()}
