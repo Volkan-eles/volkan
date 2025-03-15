@@ -77,19 +77,19 @@ const PhotoStripPreview: React.FC<PhotoStripPreviewProps> = ({
         </div>
         
         {/* Photo strip decorative footer with date and branding */}
-        <StripFooter textColor={textColor} />
+        <StripFooter frameColor={frameColor} textColor={textColor} />
       </div>
       
       {/* Frame and sticker selection controls */}
       <div className="space-y-4">
         <FrameColorSelector 
           selectedColor={frameColor} 
-          onChange={setFrameColor} 
+          onSelectColor={setFrameColor} 
         />
         
         <StickerSelector 
           selectedSticker={sticker} 
-          onChange={setSticker}
+          onSelectSticker={setSticker}
         />
       </div>
       
