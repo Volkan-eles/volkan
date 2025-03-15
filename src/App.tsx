@@ -15,6 +15,7 @@ import Contact from "@/pages/Contact";
 import PicaPicaPhotobooth from "@/pages/PicaPicaPhotobooth";
 import Digibooth from "@/pages/Digibooth";
 import LittleVintagePhotobooth from "@/pages/LittleVintagePhotobooth";
+import WeddingPhotobooth from "@/pages/WeddingPhotobooth";
 import FAQ from "@/pages/FAQ";
 import Updates from "@/pages/Updates";
 import Community from "@/pages/Community";
@@ -46,6 +47,7 @@ const App = () => (
             <Route path="/pica-pica-booth" element={<PicaPicaPhotobooth />} />
             <Route path="/digibooth" element={<Digibooth />} />
             <Route path="/vintage-photobooth" element={<LittleVintagePhotobooth />} />
+            <Route path="/wedding-photobooth" element={<WeddingPhotobooth />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/updates" element={<Updates />} />
             <Route path="/community" element={<Community />} />
