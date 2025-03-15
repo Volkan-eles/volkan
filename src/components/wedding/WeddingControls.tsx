@@ -57,19 +57,19 @@ const WeddingControls: React.FC<WeddingControlsProps> = ({
         <TabsContent value="filters" className="pt-4 space-y-6">
           <VintageFilterSelector 
             selectedFilter={selectedFilter} 
-            onFilterChange={onFilterChange}
+            onSelectFilter={onFilterChange}
           />
           
           <VintageFilterAdjustments
-            adjustments={filterAdjustments}
+            adjustmentValues={filterAdjustments}
             onAdjustmentChange={onAdjustmentChange}
           />
         </TabsContent>
         
         <TabsContent value="settings" className="pt-4">
           <VintageCountdownSelector
-            countdownTime={countdownTime}
-            onCountdownChange={onCountdownChange}
+            value={countdownTime}
+            onChange={onCountdownChange}
           />
         </TabsContent>
       </Tabs>

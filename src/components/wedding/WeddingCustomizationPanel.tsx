@@ -65,38 +65,38 @@ const WeddingCustomizationPanel: React.FC<WeddingCustomizationPanelProps> = ({
           
           <TabsContent value="theme" className="pt-4">
             <FrameThemeOptions
-              selectedTheme={frameTheme}
-              onSelectTheme={setFrameTheme}
+              frameTheme={frameTheme}
+              setFrameTheme={setFrameTheme}
             />
           </TabsContent>
           
           <TabsContent value="color" className="pt-4">
             <FrameColorOptions 
-              selectedColor={frameColor}
-              onSelectColor={setFrameColor}
+              frameColor={frameColor}
+              setFrameColor={setFrameColor}
             />
           </TabsContent>
           
           <TabsContent value="border" className="pt-4">
             <BorderOptions
-              selectedStyle={borderStyle}
-              selectedWidth={borderWidth}
-              onSelectStyle={setBorderStyle}
-              onSelectWidth={setBorderWidth}
+              borderStyle={borderStyle}
+              setBorderStyle={setBorderStyle}
+              borderWidth={borderWidth}
+              setBorderWidth={setBorderWidth}
             />
           </TabsContent>
           
           <TabsContent value="stickers" className="pt-4">
             <StickerOptions
-              selectedSticker={sticker}
-              onSelectSticker={setSticker}
+              sticker={sticker}
+              setSticker={setSticker}
             />
           </TabsContent>
           
           <TabsContent value="effects" className="pt-4">
             <BackgroundRemovalToggle
-              enabled={showBackgroundRemoval}
-              onToggle={toggleBackgroundRemoval}
+              showBackgroundRemoval={showBackgroundRemoval}
+              toggleBackgroundRemoval={toggleBackgroundRemoval}
             />
           </TabsContent>
         </Tabs>
