@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { Camera, RefreshCcw } from 'lucide-react';
+import { Camera, RefreshCw } from 'lucide-react';
 
 interface WeddingCameraButtonsProps {
   onTakePhoto: () => void;
@@ -15,25 +15,24 @@ const WeddingCameraButtons: React.FC<WeddingCameraButtonsProps> = ({
   showRetake
 }) => {
   return (
-    <div className="flex justify-center space-x-4">
-      <Button
-        size="lg" 
-        className="bg-pink-400 hover:bg-pink-500 text-white text-lg px-6 py-6 rounded-xl shadow-md hover:shadow-lg transition-all"
+    <div className="flex justify-center gap-4">
+      <Button 
         onClick={onTakePhoto}
+        className="bg-gradient-to-r from-pink-400 to-pink-600 hover:from-pink-500 hover:to-pink-700 text-white font-medium px-6 py-2 rounded-full shadow-md hover:shadow-lg transition-all"
+        size="lg"
       >
-        <Camera className="mr-2 h-5 w-5" />
-        Capture Photo
+        <Camera className="mr-2 h-4 w-4" />
+        Capture Moment
       </Button>
       
       {showRetake && (
-        <Button
-          variant="outline"
-          size="lg"
-          className="border-pink-400 text-pink-500 hover:bg-pink-50 text-lg px-6 py-6 rounded-xl"
+        <Button 
           onClick={onRetakePhoto}
+          variant="outline"
+          className="border-pink-200 text-pink-700 hover:bg-pink-50 px-4 py-2 rounded-full shadow-sm hover:shadow-md transition-all"
         >
-          <RefreshCcw className="mr-2 h-5 w-5" />
-          Retake
+          <RefreshCw className="mr-2 h-4 w-4" />
+          Retake Last
         </Button>
       )}
     </div>

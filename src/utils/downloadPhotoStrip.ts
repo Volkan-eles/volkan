@@ -9,7 +9,7 @@ export const downloadPhotoStrip = async (
 ) => {
   try {
     setIsDownloading(true);
-    toast.loading('Preparing your photos...');
+    toast.loading('Creating your wedding photo memories...');
     
     // Get the container element
     const container = document.getElementById('photo-strip-container');
@@ -30,7 +30,8 @@ export const downloadPhotoStrip = async (
           useCORS: true,
           allowTaint: true,
           backgroundColor: null,
-          scale: 2 // Higher resolution
+          scale: 2, // Higher resolution
+          logging: false // Disable logging for cleaner console
         });
         return canvas;
       })
@@ -56,12 +57,14 @@ export const downloadPhotoStrip = async (
     }
     
     // Download the final image
-    const fileName = isWedding ? 'wedding-photos' : 'photo-strip';
+    const date = new Date();
+    const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
+    const fileName = isWedding ? `wedding-photos-${formattedDate}` : `photo-strip-${formattedDate}`;
     await downloadImage(finalCanvas, fileName);
     
     setIsDownloading(false);
     toast.dismiss();
-    toast.success('Photos downloaded successfully!');
+    toast.success('Wedding photos saved successfully!');
     
   } catch (error) {
     console.error('Error downloading photo strip:', error);

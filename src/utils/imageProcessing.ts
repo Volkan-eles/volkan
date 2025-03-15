@@ -110,10 +110,10 @@ export const createWeddingLayout = (
   ctx.fillStyle = '#FFFFFF';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   
-  // Add border
-  ctx.strokeStyle = '#EEEEEE';
-  ctx.lineWidth = 1;
-  ctx.strokeRect(10, 10, canvas.width - 20, canvas.height - 20);
+  // Add elegant border
+  ctx.strokeStyle = '#E5E5E5';
+  ctx.lineWidth = 2;
+  ctx.strokeRect(15, 15, canvas.width - 30, canvas.height - 30);
   
   const padding = 40;
   const photoAreaWidth = (canvas.width / 2) - (padding * 1.5);
@@ -139,22 +139,33 @@ export const createWeddingLayout = (
   const textX = (canvas.width / 2) + padding;
   const textY = canvas.height / 2 - 50;
   
-  // Add couple name
+  // Add decorative elements
+  ctx.fillStyle = '#E5E5E5';
+  const decorSize = 5;
+  for (let i = 0; i < 5; i++) {
+    const decorX = textX + (photoAreaWidth / 2) - (decorSize * 5) + (i * decorSize * 2);
+    const decorY = textY + 80;
+    ctx.beginPath();
+    ctx.arc(decorX, decorY, decorSize / 2, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  
+  // Add couple name with a more elegant font
   ctx.font = "72px 'Pinyon Script', cursive";
-  ctx.fillStyle = '#000000';
+  ctx.fillStyle = '#333333';
   ctx.textAlign = 'center';
   ctx.fillText(coupleName, textX + (photoAreaWidth / 2), textY);
   
   // Add wedding date
-  ctx.font = "12px Arial, sans-serif";
+  ctx.font = "16px 'Arial', sans-serif";
   ctx.letterSpacing = "3px";
   ctx.fillStyle = '#555555';
   ctx.fillText(weddingDate, textX + (photoAreaWidth / 2), textY + 60);
   
   // Add custom message at the bottom
-  ctx.font = "10px Arial, sans-serif";
-  ctx.fillStyle = '#999999';
-  ctx.fillText(customMessage, canvas.width / 2, canvas.height - 20);
+  ctx.font = "12px 'Arial', sans-serif";
+  ctx.fillStyle = '#888888';
+  ctx.fillText(customMessage, canvas.width / 2, canvas.height - 25);
   
   return canvas;
 };
