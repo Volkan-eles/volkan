@@ -1,7 +1,7 @@
 
 import html2canvas from 'html2canvas';
 import { toast } from 'sonner';
-import { createPhotoStrip, createWeddingLayout, downloadImage } from './imageProcessing';
+import { downloadImage } from './imageProcessing';
 
 export const downloadPhotoStrip = async (
   setIsDownloading: (value: boolean) => void,
@@ -17,50 +17,20 @@ export const downloadPhotoStrip = async (
       throw new Error('Photo strip container not found');
     }
     
-    // Get the individual photo elements within the strip - update selector to be more specific
-    const photoElements = document.querySelectorAll('.photo-item');
-    if (photoElements.length === 0) {
-      throw new Error('No photos found in the strip');
-    }
-    
-    // Convert each photo element to a canvas
-    const photoCanvases = await Promise.all(
-      Array.from(photoElements).map(async (photoElement) => {
-        const canvas = await html2canvas(photoElement as HTMLElement, {
-          useCORS: true,
-          allowTaint: true,
-          backgroundColor: null,
-          scale: 2, // Higher resolution
-          logging: false // Disable logging for cleaner console
-        });
-        return canvas;
-      })
-    );
-    
-    let finalCanvas;
-    if (isWedding) {
-      // For wedding template, create a wedding layout
-      
-      // Get wedding details from the container
-      const coupleNameElement = container.querySelector('[title="Click to edit couple names"]');
-      const weddingDateElement = container.querySelector('[title="Click to edit wedding date"]');
-      const customMessageElement = container.querySelector('[title="Click to edit message"]');
-      
-      const coupleName = coupleNameElement ? coupleNameElement.textContent || 'Pauline & Hariss' : 'Pauline & Hariss';
-      const weddingDate = weddingDateElement ? weddingDateElement.textContent || 'MARCH 3, 2028' : 'MARCH 3, 2028';
-      const customMessage = customMessageElement ? customMessageElement.textContent || 'DOWNLOAD YOUR PHOTO AT YOUR WEBSITE HERE' : 'DOWNLOAD YOUR PHOTO AT YOUR WEBSITE HERE';
-      
-      finalCanvas = createWeddingLayout(photoCanvases, coupleName, weddingDate, customMessage);
-    } else {
-      // For regular photo strips, create a strip layout
-      finalCanvas = createPhotoStrip(photoCanvases, 'white');
-    }
+    // Instead of capturing individual photos, capture the entire container with styling
+    const canvas = await html2canvas(container, {
+      useCORS: true,
+      allowTaint: true,
+      backgroundColor: null,
+      scale: 2, // Higher resolution
+      logging: false // Disable logging for cleaner console
+    });
     
     // Download the final image
     const date = new Date();
     const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
     const fileName = isWedding ? `wedding-photos-${formattedDate}` : `photo-strip-${formattedDate}`;
-    await downloadImage(finalCanvas, fileName);
+    await downloadImage(canvas, fileName);
     
     setIsDownloading(false);
     toast.dismiss();
