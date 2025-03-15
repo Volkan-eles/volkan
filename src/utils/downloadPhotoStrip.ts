@@ -9,7 +9,7 @@ export const downloadPhotoStrip = async (
 ) => {
   try {
     setIsDownloading(true);
-    toast.loading('Creating your wedding photo memories...');
+    toast.loading(isWedding ? 'Creating your wedding photo memories...' : 'Creating your photo strip...');
     
     // Get the container element
     const container = document.getElementById('photo-strip-container');
@@ -48,7 +48,7 @@ export const downloadPhotoStrip = async (
       
       const coupleName = coupleNameElement ? coupleNameElement.textContent || 'Pauline & Hariss' : 'Pauline & Hariss';
       const weddingDate = weddingDateElement ? weddingDateElement.textContent || 'MARCH 3, 2028' : 'MARCH 3, 2028';
-      const customMessage = customMessageElement ? customMessageElement.textContent || '' : 'DOWNLOAD YOUR PHOTO AT YOUR WEBSITE HERE';
+      const customMessage = customMessageElement ? customMessageElement.textContent || 'DOWNLOAD YOUR PHOTO AT YOUR WEBSITE HERE' : 'DOWNLOAD YOUR PHOTO AT YOUR WEBSITE HERE';
       
       finalCanvas = createWeddingLayout(photoCanvases, coupleName, weddingDate, customMessage);
     } else {
@@ -64,7 +64,7 @@ export const downloadPhotoStrip = async (
     
     setIsDownloading(false);
     toast.dismiss();
-    toast.success('Wedding photos saved successfully!');
+    toast.success(isWedding ? 'Wedding photos saved successfully!' : 'Photo strip saved successfully!');
     
   } catch (error) {
     console.error('Error downloading photo strip:', error);

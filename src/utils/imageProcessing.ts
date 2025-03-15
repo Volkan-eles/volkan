@@ -1,4 +1,3 @@
-
 // Helper functions for image processing
 
 /**
@@ -100,9 +99,9 @@ export const createWeddingLayout = (
   
   if (photos.length === 0) return canvas;
   
-  // Set the dimensions for the wedding layout (16:9 aspect ratio)
+  // Set the dimensions for the wedding layout (16:10 aspect ratio to match the reference image)
   const canvasWidth = 1200;
-  const canvasHeight = 800;
+  const canvasHeight = 750;
   canvas.width = canvasWidth;
   canvas.height = canvasHeight;
   
@@ -110,62 +109,78 @@ export const createWeddingLayout = (
   ctx.fillStyle = '#FFFFFF';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   
-  // Add elegant border
-  ctx.strokeStyle = '#E5E5E5';
-  ctx.lineWidth = 2;
-  ctx.strokeRect(15, 15, canvas.width - 30, canvas.height - 30);
+  // Add subtle border
+  ctx.strokeStyle = '#F5F5F5';
+  ctx.lineWidth = 1;
+  ctx.strokeRect(10, 10, canvas.width - 20, canvas.height - 20);
   
+  // Calculate dimensions for the layout
   const padding = 40;
-  const photoAreaWidth = (canvas.width / 2) - (padding * 1.5);
+  const photoSectionWidth = (canvas.width / 2) - (padding * 1.5);
   
+  // Left side - photos
   if (photos.length > 0) {
     // Draw large photo on top
-    const mainPhotoHeight = photoAreaWidth * (3/4);
-    ctx.drawImage(photos[0], padding, padding, photoAreaWidth, mainPhotoHeight);
+    const topPhotoHeight = photoSectionWidth * 0.6;
+    ctx.drawImage(photos[0], padding, padding, photoSectionWidth, topPhotoHeight);
     
-    // Draw smaller photos below if available
-    const smallPhotoWidth = (photoAreaWidth - padding) / 3;
-    const smallPhotoHeight = smallPhotoWidth * (3/4);
-    const smallPhotoY = padding + mainPhotoHeight + (padding / 2);
+    // Draw three smaller photos below
+    const smallPhotoWidth = (photoSectionWidth - padding) / 3;
+    const smallPhotoHeight = smallPhotoWidth * 0.6;
+    const smallPhotoY = padding + topPhotoHeight + 20;
     
-    // Draw up to 3 smaller photos
+    // Draw up to 3 smaller photos in a row
     for (let i = 1; i < 4 && i < photos.length; i++) {
-      const smallPhotoX = padding + ((i - 1) * (smallPhotoWidth + (padding / 3)));
+      const smallPhotoX = padding + ((i - 1) * (smallPhotoWidth + 10));
       ctx.drawImage(photos[i], smallPhotoX, smallPhotoY, smallPhotoWidth, smallPhotoHeight);
     }
   }
   
-  // Add couple name and wedding date on the right side
+  // Right side - couple name and date
   const textX = (canvas.width / 2) + padding;
-  const textY = canvas.height / 2 - 50;
+  const textAreaWidth = photoSectionWidth;
   
-  // Add decorative elements
-  ctx.fillStyle = '#E5E5E5';
-  const decorSize = 5;
-  for (let i = 0; i < 5; i++) {
-    const decorX = textX + (photoAreaWidth / 2) - (decorSize * 5) + (i * decorSize * 2);
-    const decorY = textY + 80;
-    ctx.beginPath();
-    ctx.arc(decorX, decorY, decorSize / 2, 0, Math.PI * 2);
-    ctx.fill();
+  // Add couple name with elegant script font
+  ctx.font = "bold 80px 'Pinyon Script', cursive";
+  ctx.fillStyle = '#000000';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  
+  // Calculate position for the text to be centered vertically
+  const textY = canvas.height / 2 - 20;
+  
+  // Split the couple name to render it in two lines if needed
+  if (coupleName.includes('&')) {
+    const parts = coupleName.split('&');
+    const firstName = parts[0].trim();
+    const secondName = parts[1].trim();
+    
+    // Draw the first name
+    ctx.fillText(firstName, textX + (textAreaWidth / 2), textY - 50);
+    
+    // Draw the & symbol
+    ctx.font = "bold 60px 'Pinyon Script', cursive";
+    ctx.fillText('&', textX + (textAreaWidth / 2), textY);
+    
+    // Draw the second name
+    ctx.font = "bold 80px 'Pinyon Script', cursive";
+    ctx.fillText(secondName, textX + (textAreaWidth / 2), textY + 50);
+  } else {
+    // If no ampersand, draw the name as is
+    ctx.fillText(coupleName, textX + (textAreaWidth / 2), textY);
   }
   
-  // Add couple name with a more elegant font
-  ctx.font = "72px 'Pinyon Script', cursive";
-  ctx.fillStyle = '#333333';
-  ctx.textAlign = 'center';
-  ctx.fillText(coupleName, textX + (photoAreaWidth / 2), textY);
-  
   // Add wedding date
-  ctx.font = "16px 'Arial', sans-serif";
-  ctx.letterSpacing = "3px";
+  ctx.font = "14px 'Arial', sans-serif";
+  ctx.letterSpacing = "2px";
   ctx.fillStyle = '#555555';
-  ctx.fillText(weddingDate, textX + (photoAreaWidth / 2), textY + 60);
+  ctx.fillText(weddingDate, textX + (textAreaWidth / 2), textY + 90);
   
   // Add custom message at the bottom
-  ctx.font = "12px 'Arial', sans-serif";
-  ctx.fillStyle = '#888888';
-  ctx.fillText(customMessage, canvas.width / 2, canvas.height - 25);
+  ctx.font = "10px 'Arial', sans-serif";
+  ctx.letterSpacing = "1px";
+  ctx.fillStyle = '#999999';
+  ctx.fillText(customMessage.toUpperCase(), canvas.width / 2, canvas.height - 20);
   
   return canvas;
 };
