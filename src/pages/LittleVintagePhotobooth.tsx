@@ -45,7 +45,7 @@ const LittleVintagePhotobooth = () => {
     setSelectedSticker
   } = useVintageState();
   
-  // New state for enhanced features
+  // Border style state
   const [borderStyle, setBorderStyle] = useState<BorderStyle>('solid');
   const [borderWidth, setBorderWidth] = useState<BorderWidth>('medium');
   const [frameTheme, setFrameTheme] = useState<FrameTheme>('vintage');
@@ -139,7 +139,12 @@ const LittleVintagePhotobooth = () => {
                 setFrameColor={setFrameColor}
                 sticker={selectedSticker}
                 setSticker={setSelectedSticker}
+                borderStyle={borderStyle}
+                setBorderStyle={setBorderStyle}
+                borderWidth={borderWidth}
+                setBorderWidth={setBorderWidth}
                 frameTheme={frameTheme}
+                setFrameTheme={setFrameTheme}
               />
             </div>
           </div>

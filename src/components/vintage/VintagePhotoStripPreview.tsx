@@ -34,12 +34,11 @@ const VintagePhotoStripPreview: React.FC<VintagePhotoStripPreviewProps> = ({
   setFrameColor,
   sticker,
   setSticker,
-  borderStyle = 'dashed',
+  borderStyle = 'solid',
   setBorderStyle,
   borderWidth = 'medium',
   setBorderWidth,
-  frameTheme = 'vintage',
-  setFrameTheme
+  frameTheme = 'vintage'
 }) => {
   const photoStripRef = useRef<HTMLDivElement>(null);
   const displayPhotos = photos.slice(-maxDisplay);
@@ -64,19 +63,6 @@ const VintagePhotoStripPreview: React.FC<VintagePhotoStripPreviewProps> = ({
   const [titleItalic, setTitleItalic] = useState(true);
   const [customItalic, setCustomItalic] = useState(false);
   
-  // Background removal toggle
-  const [showBackgroundRemoval, setShowBackgroundRemoval] = useState(false);
-  
-  // Date format toggle
-  const toggleDateFormat = () => {
-    setDateFormat(dateFormat === 'short' ? 'long' : 'short');
-  };
-  
-  // Background removal toggle
-  const toggleBackgroundRemoval = () => {
-    setShowBackgroundRemoval(!showBackgroundRemoval);
-  };
-  
   if (photos.length === 0) {
     return <EmptyState />;
   }
@@ -95,6 +81,11 @@ const VintagePhotoStripPreview: React.FC<VintagePhotoStripPreviewProps> = ({
   const handleCustomMessageClick = () => {
     const newMessage = prompt('Enter custom message:', customMessage);
     if (newMessage) setCustomMessage(newMessage);
+  };
+  
+  // Toggle date format
+  const toggleDateFormat = () => {
+    setDateFormat(dateFormat === 'short' ? 'long' : 'short');
   };
   
   return (
