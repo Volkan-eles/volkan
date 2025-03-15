@@ -23,7 +23,7 @@ const VintageCountdownSelector: React.FC<VintageCountdownSelectorProps> = ({ val
           onValueChange={(v) => onChange(parseInt(v))}
         >
           <SelectTrigger className="w-[80px] bg-amber-50 border-amber-300">
-            <SelectValue placeholder="3s" />
+            <SelectValue placeholder={`${value}s`} />
           </SelectTrigger>
           <SelectContent className="bg-amber-50">
             <SelectItem value="3">3s</SelectItem>

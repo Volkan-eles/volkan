@@ -1,8 +1,8 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { Paintbrush, Sliders, Sparkles, Wand2 } from 'lucide-react';
-import { DigiboothFilterType, FilterAdjustmentValues, DEFAULT_FILTER_ADJUSTMENTS } from '@/components/digibooth/DigiboothFilterSelector';
+import { Paintbrush, Sliders, Wand2 } from 'lucide-react';
+import { DigiboothFilterType } from '@/components/digibooth/DigiboothFilterSelector';
 
 interface VintageFilterSelectorProps {
   selectedFilter: DigiboothFilterType;
