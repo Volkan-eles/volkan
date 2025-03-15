@@ -19,7 +19,7 @@ const PhotoItem: React.FC<PhotoItemProps> = ({ photo, index, sticker }) => {
   };
 
   return (
-    <div className="relative rounded-sm overflow-hidden">
+    <div id={`photo-item-${index}`} className="relative rounded-sm overflow-hidden photo-item">
       <img 
         src={photo} 
         alt={`Captured photo ${index + 1}`} 

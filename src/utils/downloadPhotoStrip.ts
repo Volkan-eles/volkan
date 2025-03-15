@@ -17,8 +17,8 @@ export const downloadPhotoStrip = async (
       throw new Error('Photo strip container not found');
     }
     
-    // Get the individual photo elements within the strip
-    const photoElements = container.querySelectorAll('[id^="photo-item-"]');
+    // Get the individual photo elements within the strip - update selector to be more specific
+    const photoElements = document.querySelectorAll('.photo-item');
     if (photoElements.length === 0) {
       throw new Error('No photos found in the strip');
     }
