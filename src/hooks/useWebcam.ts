@@ -1,8 +1,7 @@
-
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { FilterType } from '@/components/photobooth/FilterSelector';
 import { DigiboothFilterType, FilterAdjustmentValues } from '@/components/digibooth/DigiboothFilterSelector';
-import { applyCanvasFilter } from '@/utils/filterUtils';
+import { applyCanvasFilter } from '@/utils/filters';
 
 interface UseWebcamProps {
   onCapture: (imageSrc: string) => void;
@@ -85,7 +84,6 @@ const useWebcam = ({
         }
         context.restore();
         
-        // Apply filters to the photo
         applyCanvasFilter(context, canvas, selectedFilter, filterAdjustments);
         
         if (overlayImage) {

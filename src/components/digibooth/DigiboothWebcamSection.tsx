@@ -1,4 +1,3 @@
-
 import React, { useRef } from 'react';
 import DigiboothWebcamCapture from '@/components/digibooth/DigiboothWebcamCapture';
 import CountdownSelector from '@/components/photobooth/CountdownSelector';
@@ -6,7 +5,7 @@ import DigiboothControls from '@/components/digibooth/DigiboothControls';
 import DigiboothCameraButtons from '@/components/digibooth/DigiboothCameraButtons';
 import DigiboothFilterDisplay from '@/components/digibooth/DigiboothFilterDisplay';
 import { DigiboothFilterType, FilterAdjustmentValues } from '@/components/digibooth/DigiboothFilterSelector';
-import { getFilterStyle } from '@/utils/filterUtils';
+import { getFilterStyle } from '@/utils/filters';
 
 interface DigiboothWebcamSectionProps {
   isCapturing: boolean;

@@ -1,4 +1,3 @@
-
 import React, { useRef } from 'react';
 import VintageWebcamCapture from './VintageWebcamCapture';
 import VintageCountdownSelector from './VintageCountdownSelector';
@@ -6,7 +5,7 @@ import VintageControls from './VintageControls';
 import VintageCameraButtons from './VintageCameraButtons';
 import VintageFilterDisplay from './VintageFilterDisplay';
 import { DigiboothFilterType, FilterAdjustmentValues } from '@/components/digibooth/DigiboothFilterSelector';
-import { getFilterStyle } from '@/utils/filterUtils';
+import { getFilterStyle } from '@/utils/filters';
 
 interface VintageWebcamSectionProps {
   isCapturing: boolean;
