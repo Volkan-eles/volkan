@@ -38,7 +38,8 @@ const VintagePhotoStripPreview: React.FC<VintagePhotoStripPreviewProps> = ({
   setBorderStyle,
   borderWidth = 'medium',
   setBorderWidth,
-  frameTheme = 'vintage'
+  frameTheme = 'vintage',
+  setFrameTheme
 }) => {
   const photoStripRef = useRef<HTMLDivElement>(null);
   const displayPhotos = photos.slice(-maxDisplay);
