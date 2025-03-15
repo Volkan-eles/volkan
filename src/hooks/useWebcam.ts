@@ -10,6 +10,7 @@ interface UseWebcamProps {
   overlayImage: HTMLImageElement | null;
   selectedFilter?: FilterType | DigiboothFilterType;
   filterAdjustments?: FilterAdjustmentValues;
+  countdownTime?: number;
 }
 
 const useWebcam = ({ 
@@ -17,7 +18,8 @@ const useWebcam = ({
   isCapturing, 
   overlayImage, 
   selectedFilter = 'none',
-  filterAdjustments
+  filterAdjustments,
+  countdownTime = 3
 }: UseWebcamProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);

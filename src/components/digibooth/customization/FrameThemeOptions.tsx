@@ -23,7 +23,8 @@ const FrameThemeOptions: React.FC<FrameThemeOptionsProps> = ({
     { id: 'graduation', name: 'Graduation', bgClass: 'bg-gradient-to-r from-blue-800 to-indigo-900 text-white', description: 'Achievement theme' },
     { id: 'babyshower', name: 'Baby Shower', bgClass: 'bg-gradient-to-r from-blue-200 to-pink-200 text-gray-800', description: 'Gentle theme' },
     { id: 'anniversary', name: 'Anniversary', bgClass: 'bg-gradient-to-r from-yellow-200 to-yellow-600 text-gray-800', description: 'Golden celebration' },
-    { id: 'newyear', name: 'New Year', bgClass: 'bg-gradient-to-r from-purple-700 via-blue-500 to-purple-700 text-white', description: 'Festive theme' }
+    { id: 'newyear', name: 'New Year', bgClass: 'bg-gradient-to-r from-purple-700 via-blue-500 to-purple-700 text-white', description: 'Festive theme' },
+    { id: 'vintage', name: 'Vintage', bgClass: 'bg-gradient-to-r from-amber-700 to-yellow-600 text-white', description: 'Retro theme' }
   ];
 
   return (

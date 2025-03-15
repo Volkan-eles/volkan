@@ -1,9 +1,8 @@
-
 import React from 'react';
 
 export type BorderStyle = 'solid' | 'dashed' | 'dotted' | 'double' | 'groove' | 'ridge';
 export type BorderWidth = 'none' | 'hairline' | 'thin' | 'medium' | 'thick' | 'heavy' | 'ultra';
-export type FrameTheme = 'default' | 'birthday' | 'christmas' | 'halloween' | 'valentines' | 'wedding' | 'graduation' | 'babyshower' | 'anniversary' | 'newyear';
+export type FrameTheme = 'default' | 'birthday' | 'christmas' | 'halloween' | 'valentines' | 'wedding' | 'graduation' | 'babyshower' | 'anniversary' | 'newyear' | 'vintage';
 
 interface BorderStyleSelectorProps {
   selectedStyle: BorderStyle;
@@ -54,7 +53,8 @@ const BorderStyleSelector: React.FC<BorderStyleSelectorProps> = ({
     { id: 'graduation', name: 'Graduation', description: 'Achievement theme', class: 'bg-gradient-to-r from-blue-800 to-indigo-900 text-white' },
     { id: 'babyshower', name: 'Baby Shower', description: 'Gentle theme', class: 'bg-gradient-to-r from-blue-200 to-pink-200 text-gray-800' },
     { id: 'anniversary', name: 'Anniversary', description: 'Celebration theme', class: 'bg-gradient-to-r from-yellow-200 to-yellow-600 text-gray-800' },
-    { id: 'newyear', name: 'New Year', description: 'Festive theme', class: 'bg-gradient-to-r from-purple-700 via-blue-500 to-purple-700 text-white' }
+    { id: 'newyear', name: 'New Year', description: 'Festive theme', class: 'bg-gradient-to-r from-purple-700 via-blue-500 to-purple-700 text-white' },
+    { id: 'vintage', name: 'Vintage', description: 'Classic theme', class: 'bg-gray-900 text-white' }
   ];
 
   return (

@@ -8,19 +8,21 @@ import DigiboothCameraView from './DigiboothCameraView';
 interface DigiboothWebcamCaptureProps {
   onCapture: (imageSrc: string) => void;
   isCapturing: boolean;
-  overlayImage: HTMLImageElement | null;
+  overlayImage?: HTMLImageElement | null;
   filterStyle?: string;
   selectedFilter?: DigiboothFilterType | FilterType;
   filterAdjustments?: FilterAdjustmentValues;
+  countdownTime?: number;
 }
 
 const DigiboothWebcamCapture: React.FC<DigiboothWebcamCaptureProps> = ({ 
   onCapture, 
   isCapturing, 
-  overlayImage,
+  overlayImage = null,
   filterStyle,
   selectedFilter = 'none',
-  filterAdjustments
+  filterAdjustments,
+  countdownTime = 3
 }) => {
   const {
     videoRef,
@@ -35,7 +37,8 @@ const DigiboothWebcamCapture: React.FC<DigiboothWebcamCaptureProps> = ({
     isCapturing,
     overlayImage,
     selectedFilter,
-    filterAdjustments
+    filterAdjustments,
+    countdownTime
   });
 
   return (
