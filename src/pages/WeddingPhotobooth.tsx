@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { toast } from 'sonner';
@@ -57,7 +56,8 @@ const WeddingPhotobooth = () => {
       return;
     }
     
-    downloadPhotoStrip(setIsDownloading);
+    // Pass true for isWedding parameter to use wedding layout
+    downloadPhotoStrip(setIsDownloading, true);
   };
   
   // Toggle background removal

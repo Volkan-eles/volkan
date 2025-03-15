@@ -1,81 +1,72 @@
 
 import html2canvas from 'html2canvas';
 import { toast } from 'sonner';
+import { createPhotoStrip, createWeddingLayout, downloadImage } from './imageProcessing';
 
-export const downloadPhotoStrip = async (setIsDownloading: (value: boolean) => void) => {
-  setIsDownloading(true);
-  
+export const downloadPhotoStrip = async (
+  setIsDownloading: (value: boolean) => void,
+  isWedding: boolean = false
+) => {
   try {
-    toast.loading('Creating your photo strip...');
+    setIsDownloading(true);
+    toast.loading('Preparing your photos...');
     
-    // Find the strip container - look for the specific ID we added
-    const stripContainer = document.getElementById('photo-strip-container');
-    
-    if (!stripContainer) {
-      toast.error('Could not find the photo strip element');
-      setIsDownloading(false);
-      return;
+    // Get the container element
+    const container = document.getElementById('photo-strip-container');
+    if (!container) {
+      throw new Error('Photo strip container not found');
     }
     
-    // Create a clone to avoid modifying the original during capturing
-    const clonedContainer = stripContainer.cloneNode(true) as HTMLElement;
-    clonedContainer.style.position = 'absolute';
-    clonedContainer.style.left = '-9999px';
-    clonedContainer.style.top = '0';
+    // Get the individual photo elements within the strip
+    const photoElements = container.querySelectorAll('[id^="photo-item-"]');
+    if (photoElements.length === 0) {
+      throw new Error('No photos found in the strip');
+    }
     
-    // Add to the document body temporarily
-    document.body.appendChild(clonedContainer);
-    
-    // Set all images to crossOrigin anonymous
-    Array.from(clonedContainer.querySelectorAll('img')).forEach(img => {
-      img.crossOrigin = 'anonymous';
-      img.style.maxWidth = 'none';
-      img.style.maxHeight = 'none';
-    });
-    
-    // Render with higher quality settings
-    const canvas = await html2canvas(clonedContainer, {
-      scale: 4, // Higher scale for better quality
-      useCORS: true,
-      allowTaint: true,
-      logging: false,
-      backgroundColor: null,
-      imageTimeout: 0, // No timeout for image loading
-      onclone: (doc, clone) => {
-        // Additional adjustments to the clone
-        Array.from(clone.querySelectorAll('img')).forEach(img => {
-          img.crossOrigin = 'anonymous';
-          img.style.imageRendering = 'high-quality';
-          
-          // Ensure images are fully loaded before capturing
-          if (!img.complete) {
-            console.log("Waiting for image to load completely:", img.src);
-          }
+    // Convert each photo element to a canvas
+    const photoCanvases = await Promise.all(
+      Array.from(photoElements).map(async (photoElement) => {
+        const canvas = await html2canvas(photoElement as HTMLElement, {
+          useCORS: true,
+          allowTaint: true,
+          backgroundColor: null,
+          scale: 2 // Higher resolution
         });
-      }
-    });
+        return canvas;
+      })
+    );
     
-    // Remove the cloned element
-    document.body.removeChild(clonedContainer);
+    let finalCanvas;
+    if (isWedding) {
+      // For wedding template, create a wedding layout
+      
+      // Get wedding details from the container
+      const coupleNameElement = container.querySelector('[title="Click to edit couple names"]');
+      const weddingDateElement = container.querySelector('[title="Click to edit wedding date"]');
+      const customMessageElement = container.querySelector('[title="Click to edit message"]');
+      
+      const coupleName = coupleNameElement ? coupleNameElement.textContent || 'Pauline & Hariss' : 'Pauline & Hariss';
+      const weddingDate = weddingDateElement ? weddingDateElement.textContent || 'MARCH 3, 2028' : 'MARCH 3, 2028';
+      const customMessage = customMessageElement ? customMessageElement.textContent || '' : 'DOWNLOAD YOUR PHOTO AT YOUR WEBSITE HERE';
+      
+      finalCanvas = createWeddingLayout(photoCanvases, coupleName, weddingDate, customMessage);
+    } else {
+      // For regular photo strips, create a strip layout
+      finalCanvas = createPhotoStrip(photoCanvases, 'white');
+    }
     
-    // Convert to high-quality PNG
-    const dataUrl = canvas.toDataURL('image/png', 1.0);
+    // Download the final image
+    const fileName = isWedding ? 'wedding-photos' : 'photo-strip';
+    await downloadImage(finalCanvas, fileName);
     
-    // Create and trigger download
-    const link = document.createElement('a');
-    const timestamp = new Date().toISOString().replace(/:/g, '-').replace(/\..+/, '');
-    link.download = `pica-pica-photostrip-${timestamp}.png`;
-    link.href = dataUrl;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    
+    setIsDownloading(false);
     toast.dismiss();
-    toast.success('Photo strip downloaded successfully!');
+    toast.success('Photos downloaded successfully!');
+    
   } catch (error) {
     console.error('Error downloading photo strip:', error);
-    toast.error('Failed to download photo strip. Please try again.');
-  } finally {
     setIsDownloading(false);
+    toast.dismiss();
+    toast.error('Failed to download photos. Please try again.');
   }
 };

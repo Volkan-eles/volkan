@@ -61,66 +61,9 @@ const WeddingPhotoContainer: React.FC<WeddingPhotoContainerProps> = ({
   onCustomMessageClick,
   onDateClick
 }) => {
-  const getBorderColor = () => {
-    if (frameTheme !== 'default') {
-      // If a theme is selected, don't apply the frame color
-      return '';
-    }
-    
-    switch(frameColor) {
-      case 'white': return 'border-white bg-white';
-      case 'black': return 'border-black bg-black';
-      case 'pink': return 'border-pink-400 bg-pink-400';
-      case 'green': return 'border-green-500 bg-green-500';
-      case 'blue': return 'border-blue-500 bg-blue-500';
-      case 'yellow': return 'border-yellow-400 bg-yellow-400';
-      case 'purple': return 'border-purple-500 bg-purple-500';
-      case 'maroon': return 'border-red-800 bg-red-800';
-      case 'burgundy': return 'border-red-900 bg-red-900';
-      // Soft colors
-      case 'softGreen': return 'border-[#F2FCE2] bg-[#F2FCE2]';
-      case 'softYellow': return 'border-[#FEF7CD] bg-[#FEF7CD]';
-      case 'softOrange': return 'border-[#FEC6A1] bg-[#FEC6A1]';
-      case 'softPurple': return 'border-[#E5DEFF] bg-[#E5DEFF]';
-      case 'softPink': return 'border-[#FFDEE2] bg-[#FFDEE2]';
-      case 'softPeach': return 'border-[#FDE1D3] bg-[#FDE1D3]';
-      case 'softBlue': return 'border-[#D3E4FD] bg-[#D3E4FD]';
-      case 'softGray': return 'border-[#F1F0FB] bg-[#F1F0FB]';
-      default: return 'border-white bg-white';
-    }
-  };
-  
-  const getBorderStyle = () => {
-    switch(borderStyle) {
-      case 'dashed': return 'border-dashed';
-      case 'dotted': return 'border-dotted';
-      case 'double': return 'border-double';
-      case 'groove': return 'border-groove';
-      case 'ridge': return 'border-ridge';
-      default: return 'border-solid';
-    }
-  };
-  
-  const getBorderWidth = () => {
-    switch(borderWidth) {
-      case 'none': return 'border-0';
-      case 'hairline': return 'border-[1px]';
-      case 'thin': return 'border-2';
-      case 'medium': return 'border-4';
-      case 'thick': return 'border-6';
-      case 'heavy': return 'border-8';
-      case 'ultra': return 'border-[12px]';
-      default: return 'border-4';
-    }
-  };
-
+  // For wedding theme, we want to force a clean white background
   const getFrameThemeClasses = () => {
-    switch(frameTheme) {
-      case 'wedding':
-        return 'bg-white border-white';
-      default:
-        return getBorderColor();
-    }
+    return 'bg-white border-white';
   };
 
   // Function to determine how many photos we have and their layout
@@ -134,61 +77,42 @@ const WeddingPhotoContainer: React.FC<WeddingPhotoContainerProps> = ({
       return <div className="p-8 text-center text-gray-400">No photos taken yet</div>;
     }
     
-    // The wedding layout from the image has one large photo on top and three smaller ones below
     return (
-      <div className="grid grid-cols-1 gap-3">
+      <div className="space-y-4">
         {/* Large photo on top */}
-        {photos.length > 0 && (
-          <div className="aspect-[16/9] bg-gray-100">
+        <div className="aspect-[4/3] bg-gray-100">
+          {photos.length > 0 ? (
             <img 
               src={photos[0]} 
               alt="Wedding photo 1"
               className="w-full h-full object-cover"
               crossOrigin="anonymous"
             />
-          </div>
-        )}
+          ) : (
+            <div className="w-full h-full flex items-center justify-center">
+              <span className="text-gray-400">Photo will appear here</span>
+            </div>
+          )}
+        </div>
         
         {/* Three smaller photos below */}
-        <div className="grid grid-cols-3 gap-3">
-          {photos.length > 1 ? (
-            <div className="aspect-[4/3] bg-gray-100">
-              <img 
-                src={photos[1]} 
-                alt="Wedding photo 2"
-                className="w-full h-full object-cover"
-                crossOrigin="anonymous"
-              />
+        <div className="grid grid-cols-3 gap-4">
+          {[1, 2, 3].map((index) => (
+            <div key={index} className="aspect-[4/3] bg-gray-100">
+              {photos.length > index ? (
+                <img 
+                  src={photos[index]} 
+                  alt={`Wedding photo ${index + 1}`}
+                  className="w-full h-full object-cover"
+                  crossOrigin="anonymous"
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center">
+                  <span className="text-gray-400 text-xs">Photo</span>
+                </div>
+              )}
             </div>
-          ) : (
-            <div className="aspect-[4/3] bg-gray-100"></div>
-          )}
-          
-          {photos.length > 2 ? (
-            <div className="aspect-[4/3] bg-gray-100">
-              <img 
-                src={photos[2]} 
-                alt="Wedding photo 3"
-                className="w-full h-full object-cover"
-                crossOrigin="anonymous"
-              />
-            </div>
-          ) : (
-            <div className="aspect-[4/3] bg-gray-100"></div>
-          )}
-          
-          {photos.length > 3 ? (
-            <div className="aspect-[4/3] bg-gray-100">
-              <img 
-                src={photos[3]} 
-                alt="Wedding photo 4"
-                className="w-full h-full object-cover"
-                crossOrigin="anonymous"
-              />
-            </div>
-          ) : (
-            <div className="aspect-[4/3] bg-gray-100"></div>
-          )}
+          ))}
         </div>
       </div>
     );
@@ -198,9 +122,9 @@ const WeddingPhotoContainer: React.FC<WeddingPhotoContainerProps> = ({
     <div 
       ref={photoStripRef} 
       id="photo-strip-container"
-      className={`mx-auto max-w-[600px] p-6 ${getBorderStyle()} ${getBorderWidth()} rounded-lg shadow-lg ${getFrameThemeClasses()}`}
+      className="mx-auto w-full max-w-3xl p-8 rounded-lg shadow-lg border-[1px] border-gray-200 bg-white"
     >
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Left side - photos */}
         <div className="col-span-1">
           {getPhotoLayout()}
@@ -209,15 +133,16 @@ const WeddingPhotoContainer: React.FC<WeddingPhotoContainerProps> = ({
         {/* Right side - wedding details */}
         <div className="col-span-1 flex flex-col justify-center items-center">
           <div 
-            className="text-4xl md:text-5xl font-script mb-4 cursor-pointer"
+            className="text-4xl md:text-5xl font-script mb-4 cursor-pointer text-black"
             onClick={onCoupleNameClick}
             title="Click to edit couple names"
+            style={{ fontFamily: "'Pinyon Script', cursive" }}
           >
             {coupleName}
           </div>
           
           <div 
-            className="text-sm tracking-widest uppercase mb-8 cursor-pointer"
+            className="text-sm tracking-widest uppercase mb-8 cursor-pointer text-gray-700"
             onClick={onWeddingDateClick}
             title="Click to edit wedding date"
           >

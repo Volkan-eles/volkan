@@ -36,7 +36,7 @@ const WeddingPhotoStripPreview: React.FC<WeddingPhotoStripPreviewProps> = ({
   setSticker,
   borderStyle = 'solid',
   setBorderStyle,
-  borderWidth = 'medium',
+  borderWidth = 'thin',
   setBorderWidth,
   frameTheme = 'wedding',
   setFrameTheme
@@ -44,7 +44,7 @@ const WeddingPhotoStripPreview: React.FC<WeddingPhotoStripPreviewProps> = ({
   const photoStripRef = useRef<HTMLDivElement>(null);
   const displayPhotos = photos.slice(-maxDisplay);
   
-  // Default footer text state
+  // Default text states
   const [titleText, setTitleText] = useState('');
   const [dateFormat, setDateFormat] = useState('long');
   const [customMessage, setCustomMessage] = useState('DOWNLOAD YOUR PHOTO AT YOUR WEBSITE HERE');
@@ -72,9 +72,7 @@ const WeddingPhotoStripPreview: React.FC<WeddingPhotoStripPreviewProps> = ({
     return <EmptyState />;
   }
 
-  const textColor = ['white', 'yellow', 'softGreen', 'softYellow', 'softOrange', 'softPurple', 'softPink', 'softPeach', 'softBlue', 'softGray'].includes(frameColor) 
-    ? 'text-gray-800' 
-    : 'text-white';
+  const textColor = 'text-gray-800'; // For wedding theme, we want dark text
   
   // Handler for couple name click
   const handleCoupleNameClick = () => {
