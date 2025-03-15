@@ -1,45 +1,31 @@
 
-import { DigiboothFilterType, FilterAdjustmentValues } from '@/components/digibooth/DigiboothFilterSelector';
+import { FilterType } from '@/components/photobooth/FilterSelector';
+import { DigiboothFilterType } from '@/components/digibooth/DigiboothFilterSelector';
 
-// CSS filter definitions for the preview
-const filterDefinitions: Record<DigiboothFilterType, string> = {
-  none: 'none',
-  bw: 'grayscale(100%)',
-  sepia: 'sepia(100%)',
-  vintage: 'sepia(50%) contrast(80%) brightness(90%)',
-  soft: 'contrast(90%) brightness(110%) saturate(85%)',
-  noir: 'grayscale(100%) contrast(120%) brightness(90%)',
-  vivid: 'saturate(150%) contrast(110%)',
-  dreamy: 'brightness(105%) contrast(90%) saturate(80%) sepia(20%)',
-  retro70s: 'sepia(40%) saturate(120%) hue-rotate(-10deg)',
-  polaroid: 'contrast(90%) brightness(110%) sepia(20%) saturate(80%)',
-  cyberpunk: 'contrast(140%) brightness(110%) saturate(170%) hue-rotate(10deg)',
-  faded: 'contrast(85%) brightness(120%) saturate(80%)'
-};
-
-// Helper function to get CSS filter string for preview
-export const getFilterStyle = (filter: DigiboothFilterType, adjustments?: FilterAdjustmentValues) => {
-  // Base filter effects
-  let filterString = filterDefinitions[filter] || 'none';
+export const getFilterStyle = (
+  filter: FilterType | DigiboothFilterType, 
+  intensity: number = 1
+): string => {
+  if (filter === 'none') return 'none';
   
-  // Add adjustments if provided
-  if (adjustments) {
-    if (filter === 'none') {
-      filterString = '';
-    }
-    
-    if (adjustments.brightness !== 100) {
-      filterString += ` brightness(${adjustments.brightness / 100})`;
-    }
-    
-    if (adjustments.contrast !== 100) {
-      filterString += ` contrast(${adjustments.contrast / 100})`;
-    }
-    
-    if (adjustments.saturation !== 100) {
-      filterString += ` saturate(${adjustments.saturation / 100})`;
-    }
-  }
+  const filters: Record<string, string> = {
+    bw: 'grayscale(100%)',
+    sepia: 'sepia(100%)',
+    vintage: 'sepia(50%) contrast(80%) brightness(90%)',
+    soft: 'contrast(90%) brightness(110%) saturate(85%)',
+    noir: 'grayscale(100%) contrast(120%) brightness(90%)',
+    vivid: 'saturate(150%) contrast(110%)',
+    dreamy: 'brightness(110%) saturate(90%) contrast(90%) hue-rotate(350deg)',
+    retro70s: 'sepia(30%) saturate(120%) contrast(110%) brightness(105%) hue-rotate(350deg)',
+    polaroid: 'brightness(110%) contrast(90%) saturate(90%)',
+    cyberpunk: 'hue-rotate(220deg) saturate(180%) brightness(110%) contrast(120%)',
+    faded: 'brightness(110%) contrast(90%) saturate(85%)',
+    // New vintage filters
+    vintageWarm: 'sepia(40%) brightness(105%) contrast(95%) saturate(110%) hue-rotate(10deg)',
+    vintageCool: 'brightness(100%) contrast(105%) saturate(95%) hue-rotate(190deg)',
+    vintageSepia: 'sepia(70%) brightness(95%) contrast(110%) saturate(90%)',
+    vintageFade: 'brightness(115%) contrast(90%) saturate(80%) sepia(20%)'
+  };
   
-  return filterString;
+  return filters[filter] || 'none';
 };

@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { Paintbrush, Sliders, Wand2 } from 'lucide-react';
+import { Paintbrush, Sliders, Wand2, Sparkles, Clock, Camera } from 'lucide-react';
 import { DigiboothFilterType } from '@/components/digibooth/DigiboothFilterSelector';
 
 interface VintageFilterSelectorProps {
@@ -28,8 +28,12 @@ const VintageFilterSelector: React.FC<VintageFilterSelectorProps> = ({
   const specialFilters: { id: DigiboothFilterType; name: string; icon?: React.ReactNode }[] = [
     { id: 'vintage', name: 'Vintage', icon: <Wand2 className="mr-1 h-3 w-3" /> },
     { id: 'retro70s', name: '70s', icon: <Paintbrush className="mr-1 h-3 w-3" /> },
-    { id: 'polaroid', name: 'Polaroid', icon: <Wand2 className="mr-1 h-3 w-3" /> },
-    { id: 'faded', name: 'Aged Paper', icon: <Paintbrush className="mr-1 h-3 w-3" /> }
+    { id: 'polaroid', name: 'Polaroid', icon: <Camera className="mr-1 h-3 w-3" /> },
+    { id: 'faded', name: 'Aged Paper', icon: <Clock className="mr-1 h-3 w-3" /> },
+    { id: 'vintageWarm', name: 'Golden Age', icon: <Sparkles className="mr-1 h-3 w-3" /> },
+    { id: 'vintageCool', name: 'Old Times', icon: <Paintbrush className="mr-1 h-3 w-3" /> },
+    { id: 'vintageSepia', name: 'Antique', icon: <Wand2 className="mr-1 h-3 w-3" /> },
+    { id: 'vintageFade', name: 'Memento', icon: <Clock className="mr-1 h-3 w-3" /> }
   ];
 
   return (

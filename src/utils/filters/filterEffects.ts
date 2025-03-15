@@ -114,6 +114,80 @@ export const filterEffects: Record<string, (data: Uint8ClampedArray) => void> = 
         data[i + 2] = Math.min(255, data[i + 2] * 0.8);
       }
     }
+  },
+  
+  // New vintage-themed filters
+  vintageWarm: (data: Uint8ClampedArray) => {
+    for (let i = 0; i < data.length; i += 4) {
+      // Golden-hour warm vintage effect
+      data[i] = Math.min(255, data[i] * 1.1 + 15); // Enhance red
+      data[i + 1] = Math.min(255, data[i + 1] * 0.95 + 10); // Slightly reduce green
+      data[i + 2] = Math.min(255, data[i + 2] * 0.8); // Reduce blue significantly
+      
+      // Add vignette effect (darker corners)
+      if (i % (data.width * 4) < data.width * 0.2 * 4 || i % (data.width * 4) > data.width * 0.8 * 4 || 
+          Math.floor(i / (data.width * 4)) < data.height * 0.2 || Math.floor(i / (data.width * 4)) > data.height * 0.8) {
+        data[i] = Math.max(0, data[i] * 0.85);
+        data[i + 1] = Math.max(0, data[i + 1] * 0.85);
+        data[i + 2] = Math.max(0, data[i + 2] * 0.85);
+      }
+    }
+  },
+  
+  vintageCool: (data: Uint8ClampedArray) => {
+    for (let i = 0; i < data.length; i += 4) {
+      // Cool blue-tinted vintage effect
+      data[i] = Math.min(255, data[i] * 0.85); // Reduce red
+      data[i + 1] = Math.min(255, data[i + 1] * 0.9); // Slightly reduce green
+      data[i + 2] = Math.min(255, data[i + 2] * 1.1 + 10); // Enhance blue
+      
+      // Add grain effect
+      if (Math.random() > 0.98) {
+        const grainAmount = Math.random() * 20 - 10;
+        data[i] = Math.min(255, Math.max(0, data[i] + grainAmount));
+        data[i + 1] = Math.min(255, Math.max(0, data[i + 1] + grainAmount));
+        data[i + 2] = Math.min(255, Math.max(0, data[i + 2] + grainAmount));
+      }
+    }
+  },
+  
+  vintageSepia: (data: Uint8ClampedArray) => {
+    for (let i = 0; i < data.length; i += 4) {
+      const r = data[i];
+      const g = data[i + 1];
+      const b = data[i + 2];
+      
+      // Enhanced sepia for antique photos
+      data[i] = Math.min(255, (r * 0.44) + (g * 0.76) + (b * 0.22));
+      data[i + 1] = Math.min(255, (r * 0.29) + (g * 0.69) + (b * 0.17));
+      data[i + 2] = Math.min(255, (r * 0.17) + (g * 0.53) + (b * 0.13));
+      
+      // Add scratch effect occasionally
+      if (Math.random() > 0.997) {
+        const length = Math.floor(Math.random() * 30) + 5;
+        for (let j = 0; j < length && i + j * 4 < data.length; j += 1) {
+          data[i + j * 4] = 255;
+          data[i + j * 4 + 1] = 255;
+          data[i + j * 4 + 2] = 255;
+        }
+      }
+    }
+  },
+  
+  vintageFade: (data: Uint8ClampedArray) => {
+    for (let i = 0; i < data.length; i += 4) {
+      // Memento faded memory effect
+      data[i] = Math.min(255, data[i] * 0.8 + 50); // Washed out red
+      data[i + 1] = Math.min(255, data[i + 1] * 0.8 + 50); // Washed out green
+      data[i + 2] = Math.min(255, data[i + 2] * 0.9 + 40); // Slightly tinted blue
+      
+      // Light leaks on one edge (left side)
+      if (i % (data.width * 4) < data.width * 0.1 * 4) {
+        const intensity = 1 - (i % (data.width * 4)) / (data.width * 0.1 * 4);
+        data[i] = Math.min(255, data[i] + intensity * 60); // Add red light leak
+        data[i + 1] = Math.min(255, data[i + 1] + intensity * 30); // Add some green
+      }
+    }
   }
 };
 
