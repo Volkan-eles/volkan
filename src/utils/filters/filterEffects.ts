@@ -1,4 +1,3 @@
-
 import { FilterEffectConfig } from './types';
 
 // Enhanced type for image data with width/height
@@ -12,20 +11,28 @@ const getDimensions = (
   data: Uint8ClampedArray,
   canvas?: { width: number, height: number }
 ): { width: number, height: number } => {
-  // If data has dimensions, use them
-  if ('width' in data && 'height' in data && data.width && data.height) {
-    return { width: data.width, height: data.height };
+  // If data has dimensions as properties (added by our code elsewhere)
+  if ('width' in data && 'height' in data) {
+    // Safe type checking to ensure width and height are numbers
+    const width = typeof data['width'] === 'number' ? data['width'] : 0;
+    const height = typeof data['height'] === 'number' ? data['height'] : 0;
+    
+    if (width > 0 && height > 0) {
+      return { width, height };
+    }
   }
+  
   // If canvas is provided, use its dimensions
   if (canvas) {
     return { width: canvas.width, height: canvas.height };
   }
+  
   // Fallback: estimate dimensions based on data length
   // Assuming 4 bytes per pixel (RGBA)
   const totalPixels = data.length / 4;
   // Guess a square image if we don't know better
   const estimatedWidth = Math.sqrt(totalPixels);
-  return { width: estimatedWidth, height: estimatedWidth };
+  return { width: Math.round(estimatedWidth), height: Math.round(estimatedWidth) };
 };
 
 // Collection of filter effect implementations
@@ -258,3 +265,4 @@ export const applyAdjustments = (
     }
   }
 };
+
