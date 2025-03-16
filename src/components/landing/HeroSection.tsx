@@ -34,7 +34,7 @@ const HeroSection = () => {
               Take stunning virtual photo booth pictures with your favorite K-pop idols. Customize, create, and share your perfect idol moments in seconds.
             </p>
             <div className="flex flex-col sm:flex-row justify-center md:justify-start gap-4">
-              <Link to="/dashboard" aria-label="Start creating photos with K-pop idols">
+              <Link to="/kpop-photo-booth" aria-label="Start creating photos with K-pop idols">
                 <Button size="lg" className="w-full sm:w-auto bg-white text-[#8B5CF6] hover:bg-white/90 shadow-lg transition-all hover:shadow-xl">
                   Start Creating Now
                 </Button>
