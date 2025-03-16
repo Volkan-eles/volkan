@@ -1,13 +1,10 @@
-
 import React from 'react';
 import { Camera, Users, Download, Activity, Image, Type, Sparkles, Layout, Globe, Palette, Music, Star, Gift, Shield, GitBranch, Layers } from 'lucide-react';
 import FeatureCard from './FeatureCard';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-
-const FeaturesSection = () => (
-  <section id="features" className="py-20 bg-gray-50">
+const FeaturesSection = () => <section id="features" className="py-20 bg-gray-50">
     <div className="container mx-auto px-4 md:px-6">
       <div className="max-w-3xl mx-auto text-center mb-16">
         <div className="flex items-center justify-center mb-4">
@@ -24,11 +21,7 @@ const FeaturesSection = () => (
       <div className="grid md:grid-cols-2 gap-6 mb-16 max-w-4xl mx-auto">
         <div className="bg-white rounded-xl shadow-md overflow-hidden group hover:shadow-lg transition-all">
           <div className="aspect-video bg-gradient-to-r from-pink-400 to-purple-500 relative overflow-hidden">
-            <img 
-              src="/lovable-uploads/3fc22a76-7d7a-4617-b0df-6998c07b60ea.png" 
-              alt="Pica Pica Booth example" 
-              className="w-full h-full object-cover opacity-75 group-hover:scale-105 transition-transform duration-500"
-            />
+            <img src="/lovable-uploads/3fc22a76-7d7a-4617-b0df-6998c07b60ea.png" alt="Pica Pica Booth example" className="w-full h-full object-cover opacity-75 group-hover:scale-105 transition-transform duration-500" />
             <div className="absolute inset-0 flex items-center justify-center">
               <h3 className="text-2xl font-bold text-white tracking-wider drop-shadow-md">Pica Pica Booth</h3>
             </div>
@@ -43,11 +36,7 @@ const FeaturesSection = () => (
         
         <div className="bg-white rounded-xl shadow-md overflow-hidden group hover:shadow-lg transition-all">
           <div className="aspect-video bg-gradient-to-r from-blue-400 to-indigo-500 relative overflow-hidden">
-            <img 
-              src="/lovable-uploads/036b7ff5-1d94-44f6-982f-2306826a8053.png" 
-              alt="Wedding Photobooth example" 
-              className="w-full h-full object-cover opacity-75 group-hover:scale-105 transition-transform duration-500"
-            />
+            <img src="/lovable-uploads/036b7ff5-1d94-44f6-982f-2306826a8053.png" alt="Wedding Photobooth example" className="w-full h-full object-cover opacity-75 group-hover:scale-105 transition-transform duration-500" />
             <div className="absolute inset-0 flex items-center justify-center">
               <h3 className="text-2xl font-bold text-white tracking-wider drop-shadow-md">Wedding Booth</h3>
             </div>
@@ -62,54 +51,7 @@ const FeaturesSection = () => (
       </div>
       
       {/* K-pop Idol Integration cards */}
-      <div className="mb-16">
-        <h3 className="text-2xl font-semibold text-center mb-8 text-purple-800">Popular K-pop Idol Integration</h3>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <Card className="overflow-hidden hover:shadow-md transition-all border-purple-100">
-            <div className="bg-gradient-to-r from-purple-100 to-pink-50 p-4 text-center">
-              <img 
-                src="/lovable-uploads/95c01b04-2c56-4d10-8223-831f4995f862.png" 
-                alt="K-pop Idol" 
-                className="w-24 h-24 object-cover mx-auto rounded-full mb-3 border-2 border-white shadow-sm"
-              />
-              <h4 className="font-medium text-purple-800">BLACKPINK</h4>
-            </div>
-          </Card>
-          
-          <Card className="overflow-hidden hover:shadow-md transition-all border-purple-100">
-            <div className="bg-gradient-to-r from-purple-100 to-pink-50 p-4 text-center">
-              <img 
-                src="/lovable-uploads/a8f26fe4-1a18-429a-ab24-18509a4b955b.png" 
-                alt="K-pop Idol" 
-                className="w-24 h-24 object-cover mx-auto rounded-full mb-3 border-2 border-white shadow-sm"
-              />
-              <h4 className="font-medium text-purple-800">BTS</h4>
-            </div>
-          </Card>
-          
-          <Card className="overflow-hidden hover:shadow-md transition-all border-purple-100">
-            <div className="bg-gradient-to-r from-purple-100 to-pink-50 p-4 text-center">
-              <img 
-                src="/lovable-uploads/95c01b04-2c56-4d10-8223-831f4995f862.png" 
-                alt="K-pop Idol" 
-                className="w-24 h-24 object-cover mx-auto rounded-full mb-3 border-2 border-white shadow-sm"
-              />
-              <h4 className="font-medium text-purple-800">TWICE</h4>
-            </div>
-          </Card>
-          
-          <Card className="overflow-hidden hover:shadow-md transition-all border-purple-100">
-            <div className="bg-gradient-to-r from-purple-100 to-pink-50 p-4 text-center">
-              <img 
-                src="/lovable-uploads/a8f26fe4-1a18-429a-ab24-18509a4b955b.png" 
-                alt="K-pop Idol" 
-                className="w-24 h-24 object-cover mx-auto rounded-full mb-3 border-2 border-white shadow-sm"
-              />
-              <h4 className="font-medium text-purple-800">EXO</h4>
-            </div>
-          </Card>
-        </div>
-      </div>
+      
       
       {/* Creative photo themes */}
       <div className="mb-16">
@@ -142,51 +84,15 @@ const FeaturesSection = () => (
       </div>
       
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <FeatureCard 
-          icon={Camera}
-          title="Live Photo Capture"
-          description="Use your webcam to take real-time photos with K-pop idol overlays"
-        />
-        <FeatureCard 
-          icon={Users}
-          title="Featured Idols"
-          description="Choose from a growing collection of popular K-pop idol images"
-        />
-        <FeatureCard 
-          icon={Download}
-          title="Easy Sharing"
-          description="Download and share your creations on social media with one click"
-        />
-        <FeatureCard 
-          icon={Activity}
-          title="Custom Layouts"
-          description="Multiple photo strip layouts and designs to choose from"
-        />
-        <FeatureCard 
-          title="Background Options"
-          description="Change backgrounds and add effects to your photo strips"
-          icon={Image}
-        />
-        <FeatureCard 
-          title="Personalized Text"
-          description="Add custom messages and dates to your photo memories"
-          icon={Type}
-        />
-        <FeatureCard 
-          title="Group Photos"
-          description="Create group photos with multiple idols in one frame"
-          icon={Users}
-        />
-        <FeatureCard 
-          title="Album Cover Style"
-          description="Design your photos in the style of K-pop album covers"
-          icon={Layers}
-        />
-        <FeatureCard 
-          title="Fandom Colors"
-          description="Use official fandom colors in your photo designs"
-          icon={Palette}
-        />
+        <FeatureCard icon={Camera} title="Live Photo Capture" description="Use your webcam to take real-time photos with K-pop idol overlays" />
+        <FeatureCard icon={Users} title="Featured Idols" description="Choose from a growing collection of popular K-pop idol images" />
+        <FeatureCard icon={Download} title="Easy Sharing" description="Download and share your creations on social media with one click" />
+        <FeatureCard icon={Activity} title="Custom Layouts" description="Multiple photo strip layouts and designs to choose from" />
+        <FeatureCard title="Background Options" description="Change backgrounds and add effects to your photo strips" icon={Image} />
+        <FeatureCard title="Personalized Text" description="Add custom messages and dates to your photo memories" icon={Type} />
+        <FeatureCard title="Group Photos" description="Create group photos with multiple idols in one frame" icon={Users} />
+        <FeatureCard title="Album Cover Style" description="Design your photos in the style of K-pop album covers" icon={Layers} />
+        <FeatureCard title="Fandom Colors" description="Use official fandom colors in your photo designs" icon={Palette} />
       </div>
       
       {/* Technology Features */}
@@ -256,7 +162,5 @@ const FeaturesSection = () => (
         </div>
       </div>
     </div>
-  </section>
-);
-
+  </section>;
 export default FeaturesSection;
