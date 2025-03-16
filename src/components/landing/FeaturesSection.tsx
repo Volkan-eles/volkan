@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Camera, Users, Download, Activity, Image, Type, Sparkles, Layout, Globe, Palette, Music, Star, Gift, Shield, GitBranch, Layers, Heart, Mic, Zap, SquareUser } from 'lucide-react';
 import FeatureCard from './FeatureCard';
@@ -59,7 +60,7 @@ const FeaturesSection = () => <section id="features" className="py-20 bg-gray-50
           </div>
           <div className="p-5">
             <p className="text-gray-600 mb-4">K-pop themed photo layouts with idol overlays and effects.</p>
-            <Link to="/kpop-photobooth">
+            <Link to="/kpop-photo-booth">
               <Button variant="outline" size="sm" className="w-full">Try Now</Button>
             </Link>
           </div>
@@ -74,7 +75,7 @@ const FeaturesSection = () => <section id="features" className="py-20 bg-gray-50
           </div>
           <div className="p-5">
             <p className="text-gray-600 mb-4">Retro-styled photo strips with classic film effects and frames.</p>
-            <Link to="/little-vintage-photobooth">
+            <Link to="/vintage-photobooth">
               <Button variant="outline" size="sm" className="w-full">Try Now</Button>
             </Link>
           </div>
