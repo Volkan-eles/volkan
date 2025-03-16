@@ -19,7 +19,7 @@ const FeaturesSection = () => <section id="features" className="py-20 bg-gray-50
       </div>
       
       {/* Featured booth styles with visual callouts */}
-      <div className="grid md:grid-cols-2 gap-6 mb-16 max-w-4xl mx-auto">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16 max-w-5xl mx-auto">
         <div className="bg-white rounded-xl shadow-md overflow-hidden group hover:shadow-lg transition-all">
           <div className="aspect-video bg-gradient-to-r from-pink-400 to-purple-500 relative overflow-hidden">
             <img src="/lovable-uploads/3fc22a76-7d7a-4617-b0df-6998c07b60ea.png" alt="Pica Pica Booth example" className="w-full h-full object-cover opacity-75 group-hover:scale-105 transition-transform duration-500" />
@@ -46,6 +46,66 @@ const FeaturesSection = () => <section id="features" className="py-20 bg-gray-50
             <p className="text-gray-600 mb-4">Elegant wedding-themed photo layouts for special memories.</p>
             <Link to="/wedding-photobooth">
               <Button variant="outline" size="sm" className="w-full">Try Now</Button>
+            </Link>
+          </div>
+        </div>
+        
+        <div className="bg-white rounded-xl shadow-md overflow-hidden group hover:shadow-lg transition-all">
+          <div className="aspect-video bg-gradient-to-r from-purple-400 to-violet-500 relative overflow-hidden">
+            <img src="/lovable-uploads/95c01b04-2c56-4d10-8223-831f4995f862.png" alt="K-pop Photobooth example" className="w-full h-full object-cover opacity-75 group-hover:scale-105 transition-transform duration-500" />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <h3 className="text-2xl font-bold text-white tracking-wider drop-shadow-md">K-pop Booth</h3>
+            </div>
+          </div>
+          <div className="p-5">
+            <p className="text-gray-600 mb-4">K-pop themed photo layouts with idol overlays and effects.</p>
+            <Link to="/kpop-photobooth">
+              <Button variant="outline" size="sm" className="w-full">Try Now</Button>
+            </Link>
+          </div>
+        </div>
+        
+        <div className="bg-white rounded-xl shadow-md overflow-hidden group hover:shadow-lg transition-all">
+          <div className="aspect-video bg-gradient-to-r from-amber-300 to-orange-400 relative overflow-hidden">
+            <img src="/lovable-uploads/a8f26fe4-1a18-429a-ab24-18509a4b955b.png" alt="Vintage Photobooth example" className="w-full h-full object-cover opacity-75 group-hover:scale-105 transition-transform duration-500" />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <h3 className="text-2xl font-bold text-white tracking-wider drop-shadow-md">Vintage Booth</h3>
+            </div>
+          </div>
+          <div className="p-5">
+            <p className="text-gray-600 mb-4">Retro-styled photo strips with classic film effects and frames.</p>
+            <Link to="/little-vintage-photobooth">
+              <Button variant="outline" size="sm" className="w-full">Try Now</Button>
+            </Link>
+          </div>
+        </div>
+        
+        <div className="bg-white rounded-xl shadow-md overflow-hidden group hover:shadow-lg transition-all">
+          <div className="aspect-video bg-gradient-to-r from-cyan-400 to-teal-500 relative overflow-hidden">
+            <div className="w-full h-full bg-gradient-to-r from-cyan-500 to-blue-500 opacity-75"></div>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <h3 className="text-2xl font-bold text-white tracking-wider drop-shadow-md">Digi Booth</h3>
+            </div>
+          </div>
+          <div className="p-5">
+            <p className="text-gray-600 mb-4">Digital-style photo layouts with modern effects and templates.</p>
+            <Link to="/digibooth">
+              <Button variant="outline" size="sm" className="w-full">Try Now</Button>
+            </Link>
+          </div>
+        </div>
+        
+        <div className="bg-white rounded-xl shadow-md overflow-hidden group hover:shadow-lg transition-all">
+          <div className="aspect-video bg-gradient-to-r from-rose-400 to-red-500 relative overflow-hidden">
+            <div className="w-full h-full bg-gradient-to-r from-rose-500 to-pink-600 opacity-75"></div>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <h3 className="text-2xl font-bold text-white tracking-wider drop-shadow-md">Concert Booth</h3>
+            </div>
+          </div>
+          <div className="p-5">
+            <p className="text-gray-600 mb-4">Concert-themed layouts with stage lighting and fandom colors.</p>
+            <Link to="/">
+              <Button variant="outline" size="sm" className="w-full">Coming Soon</Button>
             </Link>
           </div>
         </div>
