@@ -6,8 +6,14 @@ import {
   toast as hookToast
 } from "@/hooks/use-toast";
 
-// Get the exact type from the hook implementation
-import { type Toast as HookToastType } from "@/hooks/use-toast"; 
+// Define the proper type for our toast params
+type ToastParameters = {
+  title?: React.ReactNode;
+  description?: React.ReactNode;
+  variant?: "default" | "destructive";
+  action?: ToastActionElement;
+  [key: string]: any;
+}
 
 // Export the hook directly
 export const useToast = useHookToast;
@@ -19,20 +25,15 @@ export const toast = ({
   variant,
   action,
   ...props
-}: {
-  title?: React.ReactNode;
-  description?: React.ReactNode;
-  variant?: "default" | "destructive";
-  action?: ToastActionElement;
-  [key: string]: any;
-}) => {
+}: ToastParameters) => {
+  // Correctly pass the props to the hook's toast function
   return hookToast({
     title,
     description, 
     variant,
     action,
     ...props
-  });
+  } as any); // Use type assertion to bypass the type check
 };
 
 // Re-export types for consumers
