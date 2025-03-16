@@ -68,7 +68,7 @@ const KpopPhotoStripPreview: React.FC<KpopPhotoStripPreviewProps> = ({
   const [titleItalic, setTitleItalic] = useState(false);
   const [customItalic, setCustomItalic] = useState(false);
   
-  // Border width for adjusting image size - now with initial value 'full'
+  // Border width for adjusting image size
   const [imageSize, setImageSize] = useState<BorderWidthValue>('full');
   
   // Date format toggle
@@ -109,32 +109,34 @@ const KpopPhotoStripPreview: React.FC<KpopPhotoStripPreviewProps> = ({
 
   return (
     <div className="space-y-6 animate-fade-in">
-      <KpopStripContainer
-        photoStripRef={photoStripRef}
-        displayPhotos={displayPhotos}
-        frameColor={frameColor}
-        sticker={sticker}
-        titleText={titleText}
-        dateFormat={dateFormat}
-        customMessage={customMessage}
-        titleAlignment={titleAlignment}
-        customAlignment={customAlignment}
-        titleItalic={titleItalic}
-        customItalic={customItalic}
-        titleFont={titleFont}
-        titleColor={titleColor}
-        titleSize={titleSize}
-        customFont={customFont}
-        customColor={customColor}
-        customSize={customSize}
-        textColor={textColor}
-        onTitleClick={handleTitleClick}
-        onCustomMessageClick={handleCustomMessageClick}
-        onDateClick={toggleDateFormat}
-        selectedIdols={selectedIdols}
-        imageSize={imageSize}
-        imageSizeClass={getImageSizeClass(imageSize)}
-      />
+      <div className="flex justify-center">
+        <KpopStripContainer
+          photoStripRef={photoStripRef}
+          displayPhotos={displayPhotos}
+          frameColor={frameColor}
+          sticker={sticker}
+          titleText={titleText}
+          dateFormat={dateFormat}
+          customMessage={customMessage}
+          titleAlignment={titleAlignment}
+          customAlignment={customAlignment}
+          titleItalic={titleItalic}
+          customItalic={customItalic}
+          titleFont={titleFont}
+          titleColor={titleColor}
+          titleSize={titleSize}
+          customFont={customFont}
+          customColor={customColor}
+          customSize={customSize}
+          textColor={textColor}
+          onTitleClick={handleTitleClick}
+          onCustomMessageClick={handleCustomMessageClick}
+          onDateClick={toggleDateFormat}
+          selectedIdols={selectedIdols}
+          imageSize={imageSize}
+          imageSizeClass={getImageSizeClass(imageSize)}
+        />
+      </div>
       
       <KpopStripControls
         photoCount={photos.length}

@@ -76,7 +76,8 @@ const KpopStripContainer: React.FC<KpopStripContainerProps> = ({
     <div 
       ref={photoStripRef} 
       id="photo-strip-container"
-      className={`mx-auto max-w-[300px] p-4 border-8 rounded-lg shadow-lg ${getBorderColor(frameColor)}`}
+      className={`mx-auto w-48 max-w-[200px] p-3 border-8 rounded-lg shadow-lg ${getBorderColor(frameColor)}`}
+      style={{ aspectRatio: '1/3.25' }}
     >
       <div className="flex flex-col gap-2">
         {displayPhotos.map((photo, index) => (

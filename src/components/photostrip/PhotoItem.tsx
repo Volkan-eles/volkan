@@ -36,11 +36,12 @@ const PhotoItem: React.FC<PhotoItemProps> = ({
     <div 
       id={`photo-item-${index}`} 
       className={`${containerClassName} ${effectClassName}`}
+      style={{ aspectRatio: '2/1.4' }}
     >
       <img 
         src={photo} 
         alt={`Captured photo ${index + 1}`} 
-        className={imageClassName} 
+        className={`${imageClassName} object-cover object-center`} 
         crossOrigin="anonymous"
       />
       
