@@ -23,7 +23,7 @@ export const stickerOptions = [
   { value: 'miffy' as StickerType, label: 'Miffy', preview: '/miffy-frame.png' },
 ];
 
-export const getBorderColor = (frameColor: FrameColorType) => {
+export const getBorderColor = (frameColor: FrameColorType): string => {
   switch(frameColor) {
     case 'white': return 'border-white bg-white';
     case 'black': return 'border-black bg-black';
@@ -44,5 +44,26 @@ export const getBorderColor = (frameColor: FrameColorType) => {
     case 'softBlue': return 'border-[#D3E4FD] bg-[#D3E4FD]';
     case 'softGray': return 'border-[#F1F0FB] bg-[#F1F0FB]';
     default: return 'border-white bg-white';
+  }
+};
+
+// Helper function to determine if a frame color needs dark text
+export const needsDarkText = (frameColor: FrameColorType): boolean => {
+  return ['white', 'yellow', 'softGreen', 'softYellow', 'softOrange', 
+          'softPurple', 'softPink', 'softPeach', 'softBlue', 'softGray'].includes(frameColor);
+};
+
+// Helper function to get appropriate text color for a frame color
+export const getTextColorForFrame = (frameColor: FrameColorType): string => {
+  return needsDarkText(frameColor) ? 'text-gray-800' : 'text-white';
+};
+
+// Get sticker image source based on sticker type
+export const getStickerImage = (sticker: StickerType): string | null => {
+  switch(sticker) {
+    case 'mofusand': return '/mofusand-frame.png';
+    case 'shin-chan': return '/shin-chan.png';
+    case 'miffy': return '/miffy-frame.png';
+    default: return null;
   }
 };

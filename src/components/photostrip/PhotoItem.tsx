@@ -7,9 +7,20 @@ interface PhotoItemProps {
   index: number;
   sticker: StickerType;
   selectedIdol?: {id: string, name: string, src: string} | null;
+  imageClassName?: string;
+  stickerClassName?: string;
+  overlayClassName?: string;
 }
 
-const PhotoItem: React.FC<PhotoItemProps> = ({ photo, index, sticker, selectedIdol }) => {
+const PhotoItem: React.FC<PhotoItemProps> = ({ 
+  photo, 
+  index, 
+  sticker, 
+  selectedIdol,
+  imageClassName = "w-full h-auto",
+  stickerClassName = "absolute bottom-0 right-0 w-1/3 h-auto pointer-events-none",
+  overlayClassName = "absolute bottom-0 right-0 w-2/3 h-auto pointer-events-none"
+}) => {
   const getStickerImage = () => {
     switch(sticker) {
       case 'mofusand': return '/mofusand-frame.png';
@@ -24,26 +35,24 @@ const PhotoItem: React.FC<PhotoItemProps> = ({ photo, index, sticker, selectedId
       <img 
         src={photo} 
         alt={`Captured photo ${index + 1}`} 
-        className="w-full h-auto" 
+        className={imageClassName} 
         crossOrigin="anonymous"
       />
       
       {/* Display idol for this photo if available */}
       {selectedIdol && (
-        <div className="absolute bottom-0 right-0 w-1/2 h-auto pointer-events-none">
-          <img 
-            src={selectedIdol.src} 
-            alt={selectedIdol.name}
-            className="w-full h-auto object-contain"
-          />
-        </div>
+        <img 
+          src={selectedIdol.src} 
+          alt={selectedIdol.name}
+          className={overlayClassName}
+        />
       )}
       
       {sticker !== 'none' && getStickerImage() && index === 0 && (
         <img 
           src={getStickerImage()} 
           alt="Sticker"
-          className="absolute bottom-0 right-0 w-1/3 h-auto pointer-events-none"
+          className={stickerClassName}
           crossOrigin="anonymous"
         />
       )}
