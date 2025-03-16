@@ -1,8 +1,34 @@
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import { motion, useAnimation } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
 import PricingCard from './PricingCard';
 
 const PricingSection = () => {
+  const controls = useAnimation();
+  const [ref, inView] = useInView({
+    threshold: 0.1,
+    triggerOnce: true,
+  });
+
+  useEffect(() => {
+    if (inView) {
+      controls.start('visible');
+    }
+  }, [controls, inView]);
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: i * 0.2,
+        duration: 0.5,
+      },
+    }),
+  };
+
   const freePlanFeatures = [
     { included: true, text: '5 photo sessions per day' },
     { included: true, text: 'Access to 10+ idols' },
@@ -28,45 +54,94 @@ const PricingSection = () => {
     { included: true, text: 'API access for integrations' }
   ];
 
+  // Stripe price IDs - replace with actual IDs in production
+  const stripePriceIds = {
+    premium: 'price_test_premium_annual',
+    enterprise: 'price_test_enterprise_monthly'
+  };
+
   return (
-    <section id="pricing" className="py-20">
-      <div className="container mx-auto px-4 md:px-6">
-        <div className="max-w-3xl mx-auto text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Simple, Transparent Pricing</h2>
+    <section id="pricing" className="py-20 relative overflow-hidden">
+      {/* Background decoration elements */}
+      <div className="absolute -top-20 -right-20 w-64 h-64 bg-pink-100 rounded-full opacity-20 blur-3xl animate-pulse"></div>
+      <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-purple-100 rounded-full opacity-30 blur-3xl animate-pulse-slow"></div>
+      
+      <div className="container mx-auto px-4 md:px-6 relative z-10">
+        <motion.div 
+          className="max-w-3xl mx-auto text-center mb-16"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+        >
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-600">Simple, Transparent Pricing</h2>
           <p className="text-lg text-gray-600">Start for free, upgrade for more features</p>
-        </div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
-          <PricingCard 
-            title="Free"
-            description="Perfect for casual fans"
-            price="$0"
-            features={freePlanFeatures}
-            buttonText="Get Started"
-            buttonVariant="outline"
-          />
+        </motion.div>
+        
+        <motion.div 
+          ref={ref}
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto"
+          initial="hidden"
+          animate={controls}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: { 
+              opacity: 1,
+              transition: { staggerChildren: 0.3 }
+            }
+          }}
+        >
+          <motion.div custom={0} variants={cardVariants}>
+            <PricingCard 
+              title="Free"
+              description="Perfect for casual fans"
+              price="$0"
+              features={freePlanFeatures}
+              buttonText="Get Started"
+              buttonVariant="outline"
+              paymentEnabled={false}
+            />
+          </motion.div>
           
-          <PricingCard 
-            title="Premium"
-            description="For dedicated fans"
-            price="$1"
-            period="/year"
-            features={premiumPlanFeatures}
-            buttonText="Get Premium"
-            buttonVariant="default"
-            buttonClassName="bg-gradient-to-r from-pink-500 to-violet-500 hover:from-pink-600 hover:to-violet-600"
-            highlight={true}
-          />
+          <motion.div custom={1} variants={cardVariants}>
+            <PricingCard 
+              title="Premium"
+              description="For dedicated fans"
+              price="$1"
+              period="/year"
+              features={premiumPlanFeatures}
+              buttonText="Get Premium"
+              buttonVariant="default"
+              buttonClassName="bg-gradient-to-r from-pink-500 to-violet-500 hover:from-pink-600 hover:to-violet-600"
+              highlight={true}
+              paymentEnabled={true}
+              stripePriceId={stripePriceIds.premium}
+            />
+          </motion.div>
           
-          <PricingCard 
-            title="Enterprise"
-            description="For fan clubs & events"
-            price="$4.99"
-            period="/month"
-            features={enterprisePlanFeatures}
-            buttonText="Contact Us"
-            buttonVariant="outline"
-          />
-        </div>
+          <motion.div custom={2} variants={cardVariants}>
+            <PricingCard 
+              title="Enterprise"
+              description="For fan clubs & events"
+              price="$4.99"
+              period="/month"
+              features={enterprisePlanFeatures}
+              buttonText="Subscribe Now"
+              buttonVariant="outline"
+              paymentEnabled={true}
+              stripePriceId={stripePriceIds.enterprise}
+            />
+          </motion.div>
+        </motion.div>
+        
+        <motion.div 
+          className="mt-16 text-center text-sm text-gray-500 max-w-3xl mx-auto"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.2, duration: 0.8 }}
+        >
+          <p>All plans include automatic updates and access to our core features. 
+          We use Stripe for secure payment processing. By subscribing, you agree to our Terms of Service.</p>
+        </motion.div>
       </div>
     </section>
   );
