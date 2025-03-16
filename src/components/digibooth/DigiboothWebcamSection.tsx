@@ -1,5 +1,5 @@
 
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import DigiboothWebcamCapture from '@/components/digibooth/DigiboothWebcamCapture';
 import CountdownSelector from '@/components/photobooth/CountdownSelector';
 import DigiboothControls from '@/components/digibooth/DigiboothControls';
@@ -7,6 +7,9 @@ import DigiboothCameraButtons from '@/components/digibooth/DigiboothCameraButton
 import DigiboothFilterDisplay from '@/components/digibooth/DigiboothFilterDisplay';
 import { DigiboothFilterType, FilterAdjustmentValues } from '@/components/digibooth/DigiboothFilterSelector';
 import { getFilterStyle } from '@/utils/filters';
+import { toast } from 'sonner';
+import { Button } from '@/components/ui/button';
+import { Camera } from 'lucide-react';
 
 interface DigiboothWebcamSectionProps {
   isCapturing: boolean;
@@ -38,9 +41,56 @@ const DigiboothWebcamSection: React.FC<DigiboothWebcamSectionProps> = ({
   onCountdownChange
 }) => {
   const overlayImageRef = useRef<HTMLImageElement | null>(null);
+  const [continuousCapture, setContinuousCapture] = useState(false);
+  const [photosRemaining, setPhotosRemaining] = useState(0);
+  const captureIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   // Get CSS filter style for preview
   const filterStyle = getFilterStyle(selectedFilter, filterAdjustments);
+
+  // Start continuous photo capture
+  const startContinuousCapture = () => {
+    // Initialize continuous capture with 4 photos
+    const totalPhotos = 4;
+    setContinuousCapture(true);
+    setPhotosRemaining(totalPhotos);
+    
+    // Trigger the first photo
+    onTakePhoto();
+    
+    toast.success(`Starting photo session: ${totalPhotos} photos at ${countdownTime}-second intervals`);
+  };
+
+  // Handle when a photo is successfully captured
+  React.useEffect(() => {
+    // If we're not in continuous mode or no more photos remaining, do nothing
+    if (!continuousCapture || photosRemaining <= 0) return;
+    
+    // When a photo is captured and we still have photos remaining
+    if (!isCapturing && photosRemaining > 0) {
+      // Schedule the next photo to be taken after countdownTime
+      const nextPhotoTimeout = setTimeout(() => {
+        if (photosRemaining > 1) {
+          onTakePhoto(); // Take the next photo
+          setPhotosRemaining(prev => prev - 1);
+        } else {
+          // Last photo has been taken
+          setContinuousCapture(false);
+          setPhotosRemaining(0);
+          toast.success("Photo session complete!");
+        }
+      }, countdownTime * 1000);
+      
+      captureIntervalRef.current = nextPhotoTimeout;
+    }
+    
+    // Cleanup on unmount
+    return () => {
+      if (captureIntervalRef.current) {
+        clearTimeout(captureIntervalRef.current);
+      }
+    };
+  }, [isCapturing, continuousCapture, photosRemaining, countdownTime, onTakePhoto]);
 
   return (
     <div className="flex-grow lg:w-[60%] bg-white rounded-xl shadow-lg p-6 overflow-hidden">
@@ -66,10 +116,15 @@ const DigiboothWebcamSection: React.FC<DigiboothWebcamSectionProps> = ({
           />
           
           <div className="flex justify-center">
-            <DigiboothCameraButtons 
-              handleCapture={onTakePhoto}
-              isCapturing={isCapturing}
-            />
+            <Button 
+              onClick={startContinuousCapture} 
+              className="bg-gradient-to-r from-blue-500 to-teal-500 hover:from-blue-600 hover:to-teal-600 text-white px-8 py-6 rounded-full shadow-lg hover:shadow-xl transition-all my-4 text-lg font-medium"
+              size="lg"
+              disabled={isCapturing || continuousCapture}
+            >
+              <Camera className="mr-2 h-5 w-5" />
+              Start Capture
+            </Button>
           </div>
           
           <DigiboothFilterDisplay
