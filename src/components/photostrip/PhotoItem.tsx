@@ -30,7 +30,7 @@ const PhotoItem: React.FC<PhotoItemProps> = ({ photo, index, sticker, selectedId
       
       {/* Display idol for this photo if available */}
       {selectedIdol && (
-        <div className="absolute bottom-0 right-0 w-2/5 h-auto pointer-events-none">
+        <div className="absolute bottom-0 right-0 w-1/2 h-auto pointer-events-none">
           <img 
             src={selectedIdol.src} 
             alt={selectedIdol.name}

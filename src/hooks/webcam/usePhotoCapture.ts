@@ -67,43 +67,7 @@ export const usePhotoCapture = ({
         context.drawImage(overlayImage, x, y, overlayWidth, overlayHeight);
       }
       
-      // If using selected idols
-      if (selectedIdols.length > 0) {
-        // Choose which idol to display based on current photo count
-        // or select one randomly if we want a random appearance
-        const selectedIdol = selectedIdols[Math.floor(Math.random() * selectedIdols.length)];
-        
-        if (selectedIdol) {
-          // Load and draw the selected idol image
-          const idolImg = new Image();
-          idolImg.src = selectedIdol.src;
-          
-          const drawIdol = () => {
-            // Position idol on the right side of the photo
-            const scaleRatio = Math.min(
-              (canvas.width * 0.65) / idolImg.width,  // Increase size to 65% of canvas width
-              (canvas.height * 0.9) / idolImg.height  // Increase size to 90% of canvas height
-            );
-            
-            const overlayWidth = idolImg.width * scaleRatio;
-            const overlayHeight = idolImg.height * scaleRatio;
-            
-            // Position idol on the right side
-            const x = canvas.width - overlayWidth - 5;
-            const y = canvas.height - overlayHeight;
-            
-            context.drawImage(idolImg, x, y, overlayWidth, overlayHeight);
-          };
-          
-          // If the image is already loaded
-          if (idolImg.complete) {
-            drawIdol();
-          } else {
-            // Wait for the image to load
-            idolImg.onload = drawIdol;
-          }
-        }
-      }
+      // If using selected idols - no display in capture process as they'll be added in the PhotoItem component
       
       const imageSrc = canvas.toDataURL('image/png', 1.0);
       onCapture(imageSrc);

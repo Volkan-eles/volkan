@@ -150,7 +150,7 @@ const KpopPhotoStripPreview: React.FC<KpopPhotoStripPreviewProps> = ({
               {customMessage}
             </div>
             
-            {/* List selected idols at the bottom of the strip, without "With:" text */}
+            {/* List selected idols at the bottom of the strip */}
             {selectedIdols.length > 0 && (
               <div className="mt-2 text-xs text-center">
                 {selectedIdols.map((idol, idx) => (
@@ -249,15 +249,6 @@ const getBorderColor = (frameColor: FrameColorType) => {
     case 'softBlue': return 'border-[#D3E4FD] bg-[#D3E4FD]';
     case 'softGray': return 'border-[#F1F0FB] bg-[#F1F0FB]';
     default: return 'border-white bg-white';
-  }
-};
-
-const getStickerImage = (sticker: StickerType) => {
-  switch(sticker) {
-    case 'mofusand': return '/mofusand-frame.png';
-    case 'shin-chan': return '/shin-chan.png';
-    case 'miffy': return '/miffy-frame.png';
-    default: return null;
   }
 };
 
