@@ -32,7 +32,7 @@ export const toast = ({
     variant,
     action,
     ...props
-  });
+  } as ToastProps);
 };
 
 // Re-export types for consumers
