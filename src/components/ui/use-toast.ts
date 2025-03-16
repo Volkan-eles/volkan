@@ -6,8 +6,8 @@ import {
   toast as hookToast
 } from "@/hooks/use-toast";
 
-// Define the proper type for our toast params
-type ToastParameters = {
+// Define a proper interface for our toast parameters
+interface ToastParameters {
   title?: React.ReactNode;
   description?: React.ReactNode;
   variant?: "default" | "destructive";
@@ -26,7 +26,6 @@ export const toast = ({
   action,
   ...props
 }: ToastParameters) => {
-  // Correctly pass the props to the hook's toast function
   return hookToast({
     title,
     description, 
