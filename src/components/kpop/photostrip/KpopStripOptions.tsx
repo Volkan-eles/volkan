@@ -3,19 +3,24 @@ import React from 'react';
 import { FrameColorType } from '@/components/photobooth/FrameColorSelector';
 import { StickerType } from '@/components/photobooth/StickerSelector';
 import { frameColorOptions, stickerOptions } from '@/utils/kpop/kpopOptions';
+import BorderWidthSelector, { BorderWidthValue } from './BorderWidthSelector';
 
 interface KpopStripOptionsProps {
   frameColor: FrameColorType;
   setFrameColor: (color: FrameColorType) => void;
   sticker: StickerType;
   setSticker: (sticker: StickerType) => void;
+  borderWidth?: BorderWidthValue;
+  setBorderWidth?: (width: BorderWidthValue) => void;
 }
 
 const KpopStripOptions: React.FC<KpopStripOptionsProps> = ({
   frameColor,
   setFrameColor,
   sticker,
-  setSticker
+  setSticker,
+  borderWidth = 'full',
+  setBorderWidth
 }) => {
   return (
     <div className="mt-6">
@@ -35,6 +40,14 @@ const KpopStripOptions: React.FC<KpopStripOptionsProps> = ({
           ))}
         </div>
       </div>
+      
+      {/* Border Width Selector */}
+      {setBorderWidth && (
+        <BorderWidthSelector
+          selectedWidth={borderWidth}
+          onSelectWidth={setBorderWidth}
+        />
+      )}
       
       <div className="mt-4">
         <h3 className="text-sm font-medium text-gray-700 mb-2">Sticker Style</h3>

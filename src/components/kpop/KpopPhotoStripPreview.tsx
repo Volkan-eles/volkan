@@ -8,6 +8,7 @@ import { BorderStyle, BorderWidth, FrameTheme } from '@/components/digibooth/Bor
 import KpopStripContainer from './photostrip/KpopStripContainer';
 import KpopStripControls from './photostrip/KpopStripControls';
 import KpopStripOptions from './photostrip/KpopStripOptions';
+import { BorderWidthValue } from './photostrip/BorderWidthSelector';
 
 interface KpopPhotoStripPreviewProps {
   photos: string[];
@@ -67,6 +68,9 @@ const KpopPhotoStripPreview: React.FC<KpopPhotoStripPreviewProps> = ({
   const [titleItalic, setTitleItalic] = useState(false);
   const [customItalic, setCustomItalic] = useState(false);
   
+  // Border width for adjusting image size
+  const [imageSize, setImageSize] = useState<BorderWidthValue>('full');
+  
   // Date format toggle
   const toggleDateFormat = () => {
     setDateFormat(dateFormat === 'short' ? 'long' : 'short');
@@ -90,6 +94,17 @@ const KpopPhotoStripPreview: React.FC<KpopPhotoStripPreviewProps> = ({
   const handleCustomMessageClick = () => {
     const newMessage = prompt('Enter custom message:', customMessage);
     if (newMessage) setCustomMessage(newMessage);
+  };
+
+  // Get image size class based on borderWidthValue
+  const getImageSizeClass = (width: BorderWidthValue): string => {
+    switch(width) {
+      case 'small': return 'w-[70%] mx-auto';
+      case 'medium': return 'w-[85%] mx-auto';
+      case 'large': return 'w-[95%] mx-auto';
+      case 'full':
+      default: return 'w-full';
+    }
   };
 
   return (
@@ -117,6 +132,8 @@ const KpopPhotoStripPreview: React.FC<KpopPhotoStripPreviewProps> = ({
         onCustomMessageClick={handleCustomMessageClick}
         onDateClick={toggleDateFormat}
         selectedIdols={selectedIdols}
+        imageSize={imageSize}
+        imageSizeClass={getImageSizeClass(imageSize)}
       />
       
       <KpopStripControls
@@ -131,6 +148,8 @@ const KpopPhotoStripPreview: React.FC<KpopPhotoStripPreviewProps> = ({
         setFrameColor={setFrameColor}
         sticker={sticker}
         setSticker={setSticker}
+        borderWidth={imageSize}
+        setBorderWidth={setImageSize}
       />
     </div>
   );
