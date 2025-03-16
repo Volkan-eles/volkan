@@ -2,15 +2,23 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
-const SEOHead = () => (
+interface SEOHeadProps {
+  title?: string;
+  description?: string;
+}
+
+const SEOHead: React.FC<SEOHeadProps> = ({ 
+  title = "K-pop Photo Booth | Create Virtual Photos with K-pop Idols",
+  description = "Create stunning virtual photo booth pictures with your favorite K-pop idols. Customize backgrounds, add stickers, and share your K-pop memories in seconds."
+}) => (
   <Helmet>
-    <title>K-pop Photo Booth | Create Virtual Photos with K-pop Idols</title>
-    <meta name="description" content="Create stunning virtual photo booth pictures with your favorite K-pop idols. Customize backgrounds, add stickers, and share your K-pop memories in seconds." />
+    <title>{title}</title>
+    <meta name="description" content={description} />
     <meta name="keywords" content="kpop photo booth, kpop photobooth, virtual photos with kpop idols, kpop photocards, kpop memories, idol photos, photo frame, kpop selfie" />
     
     {/* Open Graph / Social Media Meta Tags */}
-    <meta property="og:title" content="K-pop Photo Booth | Create Virtual Photos with K-pop Idols" />
-    <meta property="og:description" content="Create stunning virtual photo booth pictures with your favorite K-pop idols. Customize backgrounds, add stickers, and share your perfect memories." />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://kpopphotobooth.com" />
     <meta property="og:image" content="/og-image.png" />
@@ -18,8 +26,8 @@ const SEOHead = () => (
     
     {/* Twitter Card Meta Tags */}
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="K-pop Photo Booth | Create Virtual Photos with K-pop Idols" />
-    <meta name="twitter:description" content="Create stunning virtual photo booth pictures with your favorite K-pop idols." />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content="/og-image.png" />
     
     {/* Structured Data for Rich Results */}
@@ -31,7 +39,7 @@ const SEOHead = () => (
           "name": "K-pop Photo Booth",
           "applicationCategory": "PhotoApplication",
           "operatingSystem": "Web",
-          "description": "Create stunning virtual photo booth pictures with your favorite K-pop idols",
+          "description": "${description}",
           "offers": {
             "@type": "Offer",
             "price": "0",

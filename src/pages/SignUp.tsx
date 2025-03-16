@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserPlus, Mail, Lock, ArrowRight, ArrowLeft, User } from 'lucide-react';
@@ -50,6 +51,7 @@ const SignUp = () => {
       toast({
         title: "Account created successfully",
         description: "Welcome to KpopBooth!",
+        variant: "default",
       });
       
       // Redirect to dashboard after successful signup

@@ -32,7 +32,7 @@ export const toast = ({
     variant,
     action,
     ...props
-  } as any); // Use type assertion to bypass the type check
+  });
 };
 
 // Re-export types for consumers

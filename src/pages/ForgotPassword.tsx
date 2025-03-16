@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Mail, ArrowLeft, ArrowRight } from 'lucide-react';
@@ -35,6 +36,7 @@ const ForgotPassword = () => {
       toast({
         title: "Reset link sent",
         description: "If an account exists with that email, you'll receive a password reset link.",
+        variant: "default",
       });
       
       // Reset the form
