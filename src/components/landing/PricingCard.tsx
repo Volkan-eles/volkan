@@ -24,6 +24,7 @@ interface PricingCardProps {
   paymentEnabled?: boolean;
   lemonSqueezyProductId?: string;
   lemonSqueezyVariantId?: string;
+  directCheckoutUrl?: string;
   isPWYW?: boolean;
 }
 
@@ -41,9 +42,16 @@ const PricingCard = ({
   paymentEnabled = false,
   lemonSqueezyProductId,
   lemonSqueezyVariantId,
+  directCheckoutUrl,
   isPWYW = false
 }: PricingCardProps) => {
   const [customAmount, setCustomAmount] = useState("5");
+  
+  const handleDirectCheckout = () => {
+    if (directCheckoutUrl) {
+      window.location.href = directCheckoutUrl;
+    }
+  };
   
   return (
     <div className={`${highlight ? 'border-2 border-pink-500 transform scale-105' : 'border border-gray-200'} rounded-xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-all duration-300 relative group`}>
@@ -96,22 +104,23 @@ const PricingCard = ({
             </li>
           ))}
         </ul>
-        {paymentEnabled && lemonSqueezyProductId && lemonSqueezyVariantId ? (
-          isPWYW ? (
-            <Link to="/dashboard">
-              <Button variant={buttonVariant} className={`w-full ${buttonClassName}`}>
-                {`Pay $${customAmount} ${buttonText}`}
-              </Button>
-            </Link>
-          ) : (
-            <LemonSqueezyCheckoutButton
-              productId={lemonSqueezyProductId}
-              variantId={lemonSqueezyVariantId}
-              buttonText={buttonText}
-              buttonVariant={buttonVariant}
-              buttonClassName={buttonClassName}
-            />
-          )
+        
+        {directCheckoutUrl ? (
+          <Button 
+            variant={buttonVariant} 
+            className={`w-full ${buttonClassName}`}
+            onClick={handleDirectCheckout}
+          >
+            {isPWYW ? `Pay $${customAmount} ${buttonText}` : buttonText}
+          </Button>
+        ) : paymentEnabled && lemonSqueezyProductId && lemonSqueezyVariantId ? (
+          <LemonSqueezyCheckoutButton
+            productId={lemonSqueezyProductId}
+            variantId={lemonSqueezyVariantId}
+            buttonText={buttonText}
+            buttonVariant={buttonVariant}
+            buttonClassName={buttonClassName}
+          />
         ) : (
           <Link to="/dashboard">
             <Button variant={buttonVariant} className={`w-full ${buttonClassName}`}>

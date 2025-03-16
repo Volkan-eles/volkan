@@ -55,9 +55,14 @@ const AnimatedPricingSection = () => {
   ];
 
   const lemonSqueezyIds = {
+    free: {
+      checkoutUrl: 'https://eles.lemonsqueezy.com/buy/900a2024-1eca-46f2-97b3-534fc9b7fea1'
+    },
     premium: {
-      productId: 'prod_yPRG84QwOlOL3B',
-      variantId: 'price_PqJ3v0XM6EON8l'
+      checkoutUrl: 'https://eles.lemonsqueezy.com/buy/a15de4b9-3619-4ca9-8aa7-ff835a33f033'
+    },
+    pwyw: {
+      checkoutUrl: 'https://eles.lemonsqueezy.com/buy/ee774d16-2959-4268-b392-bb12c6f5c628'
     }
   };
 
@@ -98,7 +103,8 @@ const AnimatedPricingSection = () => {
               features={freePlanFeatures}
               buttonText="Get Started"
               buttonVariant="outline"
-              paymentEnabled={false}
+              paymentEnabled={true}
+              directCheckoutUrl={lemonSqueezyIds.free.checkoutUrl}
             />
           </motion.div>
           
@@ -114,8 +120,7 @@ const AnimatedPricingSection = () => {
               buttonClassName="bg-gradient-to-r from-pink-500 to-violet-500 hover:from-pink-600 hover:to-violet-600"
               highlight={true}
               paymentEnabled={true}
-              lemonSqueezyProductId={lemonSqueezyIds.premium.productId}
-              lemonSqueezyVariantId={lemonSqueezyIds.premium.variantId}
+              directCheckoutUrl={lemonSqueezyIds.premium.checkoutUrl}
             />
           </motion.div>
           
@@ -128,8 +133,9 @@ const AnimatedPricingSection = () => {
               features={pwywPlanFeatures}
               buttonText="Now"
               buttonVariant="outline"
-              paymentEnabled={false}
+              paymentEnabled={true}
               isPWYW={true}
+              directCheckoutUrl={lemonSqueezyIds.pwyw.checkoutUrl}
             />
           </motion.div>
         </motion.div>
