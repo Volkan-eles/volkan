@@ -1,9 +1,10 @@
 
 import React from 'react';
-import { Camera, Users, Download, Activity, Image, Type, Sparkles, Layout, Globe, Palette } from 'lucide-react';
+import { Camera, Users, Download, Activity, Image, Type, Sparkles, Layout, Globe, Palette, Music, Star, Gift, Shield, GitBranch, Layers } from 'lucide-react';
 import FeatureCard from './FeatureCard';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
 
 const FeaturesSection = () => (
   <section id="features" className="py-20 bg-gray-50">
@@ -60,6 +61,86 @@ const FeaturesSection = () => (
         </div>
       </div>
       
+      {/* K-pop Idol Integration cards */}
+      <div className="mb-16">
+        <h3 className="text-2xl font-semibold text-center mb-8 text-purple-800">Popular K-pop Idol Integration</h3>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <Card className="overflow-hidden hover:shadow-md transition-all border-purple-100">
+            <div className="bg-gradient-to-r from-purple-100 to-pink-50 p-4 text-center">
+              <img 
+                src="/lovable-uploads/95c01b04-2c56-4d10-8223-831f4995f862.png" 
+                alt="K-pop Idol" 
+                className="w-24 h-24 object-cover mx-auto rounded-full mb-3 border-2 border-white shadow-sm"
+              />
+              <h4 className="font-medium text-purple-800">BLACKPINK</h4>
+            </div>
+          </Card>
+          
+          <Card className="overflow-hidden hover:shadow-md transition-all border-purple-100">
+            <div className="bg-gradient-to-r from-purple-100 to-pink-50 p-4 text-center">
+              <img 
+                src="/lovable-uploads/a8f26fe4-1a18-429a-ab24-18509a4b955b.png" 
+                alt="K-pop Idol" 
+                className="w-24 h-24 object-cover mx-auto rounded-full mb-3 border-2 border-white shadow-sm"
+              />
+              <h4 className="font-medium text-purple-800">BTS</h4>
+            </div>
+          </Card>
+          
+          <Card className="overflow-hidden hover:shadow-md transition-all border-purple-100">
+            <div className="bg-gradient-to-r from-purple-100 to-pink-50 p-4 text-center">
+              <img 
+                src="/lovable-uploads/95c01b04-2c56-4d10-8223-831f4995f862.png" 
+                alt="K-pop Idol" 
+                className="w-24 h-24 object-cover mx-auto rounded-full mb-3 border-2 border-white shadow-sm"
+              />
+              <h4 className="font-medium text-purple-800">TWICE</h4>
+            </div>
+          </Card>
+          
+          <Card className="overflow-hidden hover:shadow-md transition-all border-purple-100">
+            <div className="bg-gradient-to-r from-purple-100 to-pink-50 p-4 text-center">
+              <img 
+                src="/lovable-uploads/a8f26fe4-1a18-429a-ab24-18509a4b955b.png" 
+                alt="K-pop Idol" 
+                className="w-24 h-24 object-cover mx-auto rounded-full mb-3 border-2 border-white shadow-sm"
+              />
+              <h4 className="font-medium text-purple-800">EXO</h4>
+            </div>
+          </Card>
+        </div>
+      </div>
+      
+      {/* Creative photo themes */}
+      <div className="mb-16">
+        <h3 className="text-2xl font-semibold text-center mb-8 text-purple-800">Creative Photo Themes</h3>
+        <div className="grid md:grid-cols-3 gap-6">
+          <div className="bg-white rounded-lg shadow-sm p-5 border border-purple-100 hover:shadow-md transition-all">
+            <div className="h-12 w-12 bg-purple-100 rounded-full flex items-center justify-center text-purple-600 mb-4">
+              <Music className="h-6 w-6" />
+            </div>
+            <h4 className="text-lg font-semibold mb-2">Concert Memories</h4>
+            <p className="text-gray-600">Create concert-themed photo strips with stage lighting effects and concert backgrounds.</p>
+          </div>
+          
+          <div className="bg-white rounded-lg shadow-sm p-5 border border-purple-100 hover:shadow-md transition-all">
+            <div className="h-12 w-12 bg-purple-100 rounded-full flex items-center justify-center text-purple-600 mb-4">
+              <Star className="h-6 w-6" />
+            </div>
+            <h4 className="text-lg font-semibold mb-2">Backstage Pass</h4>
+            <p className="text-gray-600">Design backstage-themed photos with VIP passes and exclusive behind-the-scenes looks.</p>
+          </div>
+          
+          <div className="bg-white rounded-lg shadow-sm p-5 border border-purple-100 hover:shadow-md transition-all">
+            <div className="h-12 w-12 bg-purple-100 rounded-full flex items-center justify-center text-purple-600 mb-4">
+              <Gift className="h-6 w-6" />
+            </div>
+            <h4 className="text-lg font-semibold mb-2">Fan Meet</h4>
+            <p className="text-gray-600">Create fan meeting memories with special photo frames and fan meet backgrounds.</p>
+          </div>
+        </div>
+      </div>
+      
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         <FeatureCard 
           icon={Camera}
@@ -91,6 +172,57 @@ const FeaturesSection = () => (
           description="Add custom messages and dates to your photo memories"
           icon={Type}
         />
+        <FeatureCard 
+          title="Group Photos"
+          description="Create group photos with multiple idols in one frame"
+          icon={Users}
+        />
+        <FeatureCard 
+          title="Album Cover Style"
+          description="Design your photos in the style of K-pop album covers"
+          icon={Layers}
+        />
+        <FeatureCard 
+          title="Fandom Colors"
+          description="Use official fandom colors in your photo designs"
+          icon={Palette}
+        />
+      </div>
+      
+      {/* Technology Features */}
+      <div className="mt-16 p-6 bg-white rounded-xl shadow-sm border border-purple-100">
+        <h3 className="text-2xl font-semibold text-center mb-6 text-purple-800">Advanced Technology</h3>
+        <div className="grid md:grid-cols-3 gap-4">
+          <div className="flex items-start">
+            <div className="bg-gradient-to-r from-purple-400 to-pink-400 h-10 w-10 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
+              <Shield className="h-5 w-5 text-white" />
+            </div>
+            <div>
+              <h4 className="font-medium mb-1">Privacy Protection</h4>
+              <p className="text-sm text-gray-600">Your photos stay private and secure with our advanced encryption</p>
+            </div>
+          </div>
+          
+          <div className="flex items-start">
+            <div className="bg-gradient-to-r from-purple-400 to-pink-400 h-10 w-10 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
+              <GitBranch className="h-5 w-5 text-white" />
+            </div>
+            <div>
+              <h4 className="font-medium mb-1">AI Enhancement</h4>
+              <p className="text-sm text-gray-600">Smart image processing for professional-quality results</p>
+            </div>
+          </div>
+          
+          <div className="flex items-start">
+            <div className="bg-gradient-to-r from-purple-400 to-pink-400 h-10 w-10 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
+              <Layout className="h-5 w-5 text-white" />
+            </div>
+            <div>
+              <h4 className="font-medium mb-1">Responsive Design</h4>
+              <p className="text-sm text-gray-600">Works perfectly on all devices - mobile, tablet and desktop</p>
+            </div>
+          </div>
+        </div>
       </div>
       
       {/* New feature highlights section */}
