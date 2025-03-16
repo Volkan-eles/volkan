@@ -1,4 +1,3 @@
-
 import React, { useRef, useState, useEffect } from 'react';
 import { FrameColorType } from '@/components/photobooth/FrameColorSelector';
 import { StickerType } from '@/components/photobooth/StickerSelector';
@@ -212,9 +211,9 @@ const KpopPhotoStripPreview: React.FC<KpopPhotoStripPreviewProps> = ({
           customColor={customColor}
           customSize={customSize}
           textColor={textColor}
-          onTitleClick={handleTitleClick}
-          onCustomMessageClick={handleCustomMessageClick}
-          onDateClick={toggleDateFormat}
+          onTitleClick={() => {}}
+          onCustomMessageClick={() => {}}
+          onDateClick={() => {}}
           selectedIdols={selectedIdols}
           imageSize={imageSize}
           imageSizeClass={getImageSizeClass(imageSize)}
@@ -235,6 +234,36 @@ const KpopPhotoStripPreview: React.FC<KpopPhotoStripPreviewProps> = ({
         setSticker={setSticker}
         borderWidth={imageSize}
         setBorderWidth={setImageSize}
+        
+        // Text styling props
+        titleText={titleText}
+        setTitleText={setTitleText}
+        titleFont={titleFont}
+        setTitleFont={setTitleFont}
+        titleColor={titleColor}
+        setTitleColor={setTitleColor}
+        titleSize={titleSize}
+        setTitleSize={setTitleSize}
+        titleAlignment={titleAlignment}
+        setTitleAlignment={setTitleAlignment}
+        titleItalic={titleItalic}
+        setTitleItalic={setTitleItalic}
+        
+        customMessage={customMessage}
+        setCustomMessage={setCustomMessage}
+        customFont={customFont}
+        setCustomFont={setCustomFont}
+        customColor={customColor}
+        setCustomColor={setCustomColor}
+        customSize={customSize}
+        setCustomSize={setCustomSize}
+        customAlignment={customAlignment}
+        setCustomAlignment={setCustomAlignment}
+        customItalic={customItalic}
+        setCustomItalic={setCustomItalic}
+        
+        dateFormat={dateFormat}
+        setDateFormat={setDateFormat}
       />
     </div>
   );

@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { getFontFamilyStyle } from '@/utils/textStyles';
 
 interface KpopStripFooterProps {
   titleText: string;
@@ -48,29 +49,16 @@ const KpopStripFooter: React.FC<KpopStripFooterProps> = ({
   selectedIdols = [],
   frameColor
 }) => {
-  // Function to map font value to actual CSS font-family
-  const getFontFamily = (fontValue: string) => {
-    switch(fontValue) {
-      case 'sans': return 'font-sans';
-      case 'playfair': return 'font-serif'; // Using serif as fallback for Playfair
-      case 'poppins': return 'font-sans';
-      case 'dancing': return 'font-cursive';
-      case 'mono': return 'font-mono';
-      case 'pacifico': return 'font-pacifico';
-      case 'montserrat': return 'font-montserrat';
-      case 'lora': return 'font-lora';
-      case 'oswald': return 'font-oswald';
-      case 'caveat': return 'font-caveat';
-      default: return 'font-sans';
-    }
-  };
-  
   return (
     <div className={`mt-3 pt-3 border-t border-t-${frameColor === 'white' ? 'gray-300' : 'white/30'} ${textColor}`}>
-      {/* Title row with properly applied font family */}
+      {/* Title row with custom font and styles */}
       <div 
-        style={{ color: titleColor }}
-        className={`text-${titleAlignment} ${getFontFamily(titleFont)} ${titleSize} ${titleItalic ? 'italic' : ''} cursor-pointer mb-2.5 font-bold`}
+        style={{ 
+          color: titleColor,
+          fontFamily: getFontFamilyStyle(titleFont),
+          textAlign: titleAlignment
+        }}
+        className={`${titleSize} ${titleItalic ? 'italic' : ''} cursor-pointer mb-2.5 font-bold`}
         onClick={onTitleClick}
       >
         {titleText}
@@ -87,10 +75,14 @@ const KpopStripFooter: React.FC<KpopStripFooterProps> = ({
         }
       </div>
       
-      {/* Custom message with properly applied font family */}
+      {/* Custom message with custom font and styles */}
       <div 
-        style={{ color: customColor }}
-        className={`text-${customAlignment} ${getFontFamily(customFont)} ${customSize} ${customItalic ? 'italic' : ''} cursor-pointer mb-1.5`}
+        style={{ 
+          color: customColor,
+          fontFamily: getFontFamilyStyle(customFont),
+          textAlign: customAlignment
+        }}
+        className={`${customSize} ${customItalic ? 'italic' : ''} cursor-pointer mb-1.5`}
         onClick={onCustomMessageClick}
       >
         {customMessage}
