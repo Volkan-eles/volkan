@@ -1,5 +1,5 @@
 
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import VintageWebcamCapture from './VintageWebcamCapture';
 import VintageCountdownSelector from './VintageCountdownSelector';
 import VintageControls from './VintageControls';
@@ -7,6 +7,9 @@ import VintageCameraButtons from './VintageCameraButtons';
 import VintageFilterDisplay from './VintageFilterDisplay';
 import { DigiboothFilterType, FilterAdjustmentValues } from '@/components/digibooth/DigiboothFilterSelector';
 import { getFilterStyle } from '@/utils/filters';
+import { toast } from 'sonner';
+import { Button } from '@/components/ui/button';
+import { Camera } from 'lucide-react';
 
 interface VintageWebcamSectionProps {
   isCapturing: boolean;
@@ -38,9 +41,56 @@ const VintageWebcamSection: React.FC<VintageWebcamSectionProps> = ({
   onCountdownChange
 }) => {
   const overlayImageRef = useRef<HTMLImageElement | null>(null);
+  const [continuousCapture, setContinuousCapture] = useState(false);
+  const [photosRemaining, setPhotosRemaining] = useState(0);
+  const captureIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   // Get CSS filter style for preview
   const filterStyle = getFilterStyle(selectedFilter, filterAdjustments);
+
+  // Start continuous photo capture
+  const startContinuousCapture = () => {
+    // Initialize continuous capture with 4 photos
+    const totalPhotos = 4;
+    setContinuousCapture(true);
+    setPhotosRemaining(totalPhotos);
+    
+    // Trigger the first photo
+    onTakePhoto();
+    
+    toast.success(`Starting photo session: ${totalPhotos} photos at ${countdownTime}-second intervals`);
+  };
+
+  // Handle when a photo is successfully captured
+  React.useEffect(() => {
+    // If we're not in continuous mode or no more photos remaining, do nothing
+    if (!continuousCapture || photosRemaining <= 0) return;
+    
+    // When a photo is captured and we still have photos remaining
+    if (!isCapturing && photosRemaining > 0) {
+      // Schedule the next photo to be taken after countdownTime
+      const nextPhotoTimeout = setTimeout(() => {
+        if (photosRemaining > 1) {
+          onTakePhoto(); // Take the next photo
+          setPhotosRemaining(prev => prev - 1);
+        } else {
+          // Last photo has been taken
+          setContinuousCapture(false);
+          setPhotosRemaining(0);
+          toast.success("Photo session complete!");
+        }
+      }, countdownTime * 1000);
+      
+      captureIntervalRef.current = nextPhotoTimeout;
+    }
+    
+    // Cleanup on unmount
+    return () => {
+      if (captureIntervalRef.current) {
+        clearTimeout(captureIntervalRef.current);
+      }
+    };
+  }, [isCapturing, continuousCapture, photosRemaining, countdownTime, onTakePhoto]);
 
   return (
     <div className="lg:w-[60%] space-y-4">
@@ -69,10 +119,15 @@ const VintageWebcamSection: React.FC<VintageWebcamSectionProps> = ({
             />
             
             <div className="flex justify-center">
-              <VintageCameraButtons 
-                handleCapture={onTakePhoto}
-                isCapturing={isCapturing}
-              />
+              <Button 
+                onClick={startContinuousCapture} 
+                className="bg-gradient-to-r from-amber-600 to-yellow-600 hover:from-amber-700 hover:to-yellow-700 text-white px-8 py-6 rounded-full shadow-md hover:shadow-lg transition-all my-4 text-lg font-medium font-serif"
+                size="lg"
+                disabled={isCapturing || continuousCapture}
+              >
+                <Camera className="mr-2 h-5 w-5" />
+                Start Capture
+              </Button>
             </div>
             
             <VintageFilterDisplay
