@@ -1,4 +1,3 @@
-
 import React from 'react';
 import PricingCard from './PricingCard';
 
@@ -31,8 +30,8 @@ const PricingSection = () => {
 
   // Stripe price IDs - replace with actual IDs in production
   const stripePriceIds = {
-    premium: 'price_test_premium_annual',
-    enterprise: 'price_test_enterprise_monthly'
+    premium: 'price_1OvKF3GswQGMCH2oSAPsZZ8h',
+    enterprise: 'price_1OvKFVGswQGMCH2orrozvOCs'
   };
 
   return (

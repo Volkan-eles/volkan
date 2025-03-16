@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
@@ -54,15 +53,13 @@ const AnimatedPricingSection = () => {
     { included: true, text: 'API access for integrations' }
   ];
 
-  // Stripe price IDs - replace with actual IDs in production
   const stripePriceIds = {
-    premium: 'price_test_premium_annual',
-    enterprise: 'price_test_enterprise_monthly'
+    premium: 'price_1OvKF3GswQGMCH2oSAPsZZ8h',
+    enterprise: 'price_1OvKFVGswQGMCH2orrozvOCs'
   };
 
   return (
     <section id="pricing" className="py-20 relative overflow-hidden">
-      {/* Background decoration elements */}
       <div className="absolute -top-20 -right-20 w-64 h-64 bg-pink-100 rounded-full opacity-20 blur-3xl animate-pulse"></div>
       <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-purple-100 rounded-full opacity-30 blur-3xl animate-pulse-slow"></div>
       

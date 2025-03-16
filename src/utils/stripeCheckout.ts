@@ -1,8 +1,8 @@
 
 import { loadStripe } from '@stripe/stripe-js';
 
-// Replace with your publishable key when in production
-const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
+// Use Stripe's test publishable key
+const stripePromise = loadStripe('pk_test_51OvKDxGswQGMCH2ofIDVt2Dxs9mVkLIccKCGKu2VLnjQHwV9JKiKoKR3KhzOI3B2dQQEpEytbddCXF1UHhDaT8AH00o7xHkXJY');
 
 export interface CheckoutOptions {
   priceId: string;
@@ -18,8 +18,7 @@ export const redirectToCheckout = async ({ priceId, successUrl, cancelUrl }: Che
       throw new Error('Stripe failed to load');
     }
 
-    // This would typically call your backend to create a checkout session
-    // For demo purposes, we're simulating this with a direct redirect
+    // Create checkout session with valid price ID
     const { error } = await stripe.redirectToCheckout({
       lineItems: [{ price: priceId, quantity: 1 }],
       mode: 'subscription',
