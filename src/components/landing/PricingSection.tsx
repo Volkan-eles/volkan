@@ -7,6 +7,7 @@ const PricingSection = () => {
     { included: true, text: '5 photo sessions per day' },
     { included: true, text: 'Access to 10+ idols' },
     { included: true, text: 'Basic layouts' },
+    { included: true, text: '1 download per day' },
     { included: false, text: 'Watermark-free downloads' }
   ];
 
@@ -14,6 +15,7 @@ const PricingSection = () => {
     { included: true, text: 'Unlimited photo sessions' },
     { included: true, text: 'Access to all idols' },
     { included: true, text: 'All premium layouts' },
+    { included: true, text: 'Unlimited downloads' },
     { included: true, text: 'Watermark-free downloads' }
   ];
 
@@ -21,7 +23,9 @@ const PricingSection = () => {
     { included: true, text: 'Dedicated server resources' },
     { included: true, text: 'Custom idol requests' },
     { included: true, text: 'White-labeling options' },
-    { included: true, text: 'Priority support' }
+    { included: true, text: 'Priority support' },
+    { included: true, text: 'Advanced analytics dashboard' },
+    { included: true, text: 'API access for integrations' }
   ];
 
   return (
@@ -44,7 +48,8 @@ const PricingSection = () => {
           <PricingCard 
             title="Premium"
             description="For dedicated fans"
-            price="$9.99"
+            price="$1"
+            period="/year"
             features={premiumPlanFeatures}
             buttonText="Get Premium"
             buttonVariant="default"
@@ -55,8 +60,8 @@ const PricingSection = () => {
           <PricingCard 
             title="Enterprise"
             description="For fan clubs & events"
-            price="Custom"
-            period=""
+            price="$4.99"
+            period="/month"
             features={enterprisePlanFeatures}
             buttonText="Contact Us"
             buttonVariant="outline"
