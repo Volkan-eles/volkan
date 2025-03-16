@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Home, LogIn, ArrowRight } from 'lucide-react';
+import { Home, LogIn, ArrowRight, UserPlus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 interface MobileMenuProps {
@@ -46,14 +46,14 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
           
           <div className="border-t border-gray-100 dark:border-gray-800 my-4"></div>
           
-          <Link to="/dashboard" className="px-2 py-2.5 rounded-md bg-pink-50 text-pink-600 font-medium flex items-center gap-2 transition-all duration-150 hover:bg-pink-100" onClick={handleLinkClick}>
+          <Link to="/sign-in" className="px-2 py-2.5 rounded-md bg-pink-50 text-pink-600 font-medium flex items-center gap-2 transition-all duration-150 hover:bg-pink-100" onClick={handleLinkClick}>
             <LogIn className="h-4 w-4" />
-            <span>Log In</span>
+            <span>Sign In</span>
           </Link>
           
-          <Link to="/dashboard" className="w-full mt-2" onClick={handleLinkClick}>
+          <Link to="/sign-up" className="w-full mt-2" onClick={handleLinkClick}>
             <Button className="w-full bg-gradient-to-r from-pink-500 to-violet-500 hover:from-pink-600 hover:to-violet-600 transition-all duration-300">
-              Try Now <ArrowRight className="ml-2 h-4 w-4" />
+              Sign Up <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </Link>
         </nav>

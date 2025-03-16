@@ -30,6 +30,11 @@ import Accessibility from "@/pages/Accessibility";
 import Sitemap from "@/pages/Sitemap";
 import NotFound from "@/pages/NotFound";
 
+// Auth pages
+import SignIn from "@/pages/SignIn";
+import SignUp from "@/pages/SignUp";
+import ForgotPassword from "@/pages/ForgotPassword";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -45,6 +50,11 @@ const App = () => (
             <Route path="/about" element={<About />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/contact" element={<Contact />} />
+            
+            {/* Auth routes */}
+            <Route path="/sign-in" element={<SignIn />} />
+            <Route path="/sign-up" element={<SignUp />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
             
             {/* Photo booth routes with multiple path support */}
             <Route path="/pica-pica-booth" element={<PicaPicaPhotobooth />} />

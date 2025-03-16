@@ -19,7 +19,7 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
     <div className="flex items-center">
       {!isMobile && (
         <div className="hidden md:flex items-center space-x-3 ml-4">
-          <Link to="/dashboard">
+          <Link to="/sign-in">
             <Button 
               variant="ghost" 
               size="sm" 
@@ -27,24 +27,24 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
             >
               <LogIn className="h-4 w-4 group-hover:scale-110 transition-transform duration-300" />
               <span className="relative">
-                Log In
+                Sign In
                 <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-pink-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
               </span>
             </Button>
           </Link>
-          <Link to="/dashboard">
+          <Link to="/sign-up">
             <Button 
               size="sm" 
               className="bg-gradient-to-r from-pink-500 to-violet-500 hover:from-pink-600 hover:to-violet-600 text-white border-0 transition-all duration-300 shadow-sm hover:shadow-md hover:shadow-pink-500/20 relative overflow-hidden group"
             >
               <span className="absolute inset-0 w-full h-full bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300"></span>
               <span className="relative flex items-center">
-                Try Now <ArrowRight className="ml-1 h-3.5 w-3.5 group-hover:translate-x-1 transition-transform duration-300" />
+                Sign Up <ArrowRight className="ml-1 h-3.5 w-3.5 group-hover:translate-x-1 transition-transform duration-300" />
               </span>
             </Button>
           </Link>
           
-          {/* New component: Wishlist button */}
+          {/* Wishlist button */}
           <Button 
             variant="outline" 
             size="icon"
