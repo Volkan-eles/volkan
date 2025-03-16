@@ -3,11 +3,21 @@ import React from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Search, MessageSquare, Bell } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const DashboardHeader: React.FC = () => {
   return (
     <header className="h-12 border-b border-[#333] flex items-center justify-between px-3">
-      <h1 className="text-lg font-semibold">Dashboard</h1>
+      <div className="flex items-center gap-3">
+        <h1 className="text-lg font-semibold">Dashboard</h1>
+        <div className="hidden md:flex text-xs text-gray-400 space-x-3">
+          <Link to="/pica-pica-booth" className="hover:text-white transition-colors">Pica Pica</Link>
+          <Link to="/digibooth" className="hover:text-white transition-colors">Digibooth</Link>
+          <Link to="/kpop-photo-booth" className="hover:text-white transition-colors">K-pop Booth</Link>
+          <Link to="/vintage-photobooth" className="hover:text-white transition-colors">Vintage</Link>
+          <Link to="/wedding-photobooth" className="hover:text-white transition-colors">Wedding</Link>
+        </div>
+      </div>
       
       <div className="flex items-center gap-2">
         <div className="relative">

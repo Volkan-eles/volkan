@@ -100,6 +100,7 @@ const Footer = () => {
             <ul className="space-y-2">
               <li><Link to="/pica-pica-booth" className="text-gray-400 hover:text-white transition-colors">Pica Pica Booth</Link></li>
               <li><Link to="/digibooth" className="text-gray-400 hover:text-white transition-colors">Digibooth</Link></li>
+              <li><Link to="/kpop-photo-booth" className="text-gray-400 hover:text-white transition-colors">K-pop Photo Booth</Link></li>
               <li><Link to="/vintage-photobooth" className="text-gray-400 hover:text-white transition-colors">Vintage Photobooth</Link></li>
               <li><Link to="/wedding-photobooth" className="text-gray-400 hover:text-white transition-colors">Wedding Photobooth</Link></li>
             </ul>

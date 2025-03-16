@@ -1,15 +1,18 @@
+
 import React from 'react';
 import { SidebarContent, SidebarHeader, SidebarTrigger, useSidebar } from '@/components/ui/sidebar';
 import { ChevronLeft, ChevronRight, Download, Menu, Home } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import SidebarMenuItems from './sidebar/SidebarMenuItems';
+
 const DashboardSidebar = () => {
   const {
     state,
     toggleSidebar
   } = useSidebar();
   const isCollapsed = state === 'collapsed';
+  
   return <>
       <SidebarHeader className="p-2 flex items-center justify-between">
         <div className={`flex items-center gap-1 text-base font-bold ${isCollapsed ? 'hidden' : 'flex'}`}>
@@ -48,4 +51,5 @@ const DashboardSidebar = () => {
       </div>
     </>;
 };
+
 export default DashboardSidebar;

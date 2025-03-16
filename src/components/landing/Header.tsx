@@ -110,6 +110,18 @@ const Header = () => {
                     </li>
                     <li>
                       <Link
+                        to="/kpop-photo-booth"
+                        className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
+                        onClick={handleLinkClick}
+                      >
+                        <div className="text-sm font-medium leading-none">K-pop Photo Booth</div>
+                        <p className="line-clamp-2 text-sm leading-snug text-gray-500">
+                          Create memories with your favorite K-pop idols
+                        </p>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
                         to="/vintage-photobooth"
                         className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
                         onClick={handleLinkClick}
@@ -236,6 +248,7 @@ const Header = () => {
             <div className="text-xs font-semibold uppercase text-gray-500 mt-3 mb-1 px-2">Photobooths</div>
             <Link to="/pica-pica-booth" className="px-2 py-2.5 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200" onClick={handleLinkClick}>Pica Pica Booth</Link>
             <Link to="/digibooth" className="px-2 py-2.5 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200" onClick={handleLinkClick}>Digibooth</Link>
+            <Link to="/kpop-photo-booth" className="px-2 py-2.5 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200" onClick={handleLinkClick}>K-pop Photo Booth</Link>
             <Link to="/vintage-photobooth" className="px-2 py-2.5 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200" onClick={handleLinkClick}>Vintage Photobooth</Link>
             <Link to="/wedding-photobooth" className="px-2 py-2.5 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200" onClick={handleLinkClick}>Wedding Photobooth</Link>
             
