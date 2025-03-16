@@ -88,16 +88,7 @@ const KpopStripFooter: React.FC<KpopStripFooterProps> = ({
         {customMessage}
       </div>
       
-      {/* List selected idols with improved styling */}
-      {selectedIdols.length > 0 && (
-        <div className="mt-3 text-xs text-center opacity-75 border-t border-t-gray-200 pt-2">
-          {selectedIdols.map((idol, idx) => (
-            <span key={idol.id} className={`${textColor} font-medium`}>
-              {idol.name}{idx < selectedIdols.length - 1 ? ' · ' : ''}
-            </span>
-          ))}
-        </div>
-      )}
+      {/* Removed the idol names section */}
     </div>
   );
 };
