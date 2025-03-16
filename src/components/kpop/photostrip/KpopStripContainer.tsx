@@ -30,8 +30,8 @@ interface KpopStripContainerProps {
   onCustomMessageClick: () => void;
   onDateClick: () => void;
   selectedIdols?: Array<{id: string, name: string, src: string}>;
-  imageSize?: BorderWidthValue;
-  imageSizeClass?: string;
+  imageSize: BorderWidthValue;
+  imageSizeClass: string;
 }
 
 const KpopStripContainer: React.FC<KpopStripContainerProps> = ({
@@ -57,8 +57,8 @@ const KpopStripContainer: React.FC<KpopStripContainerProps> = ({
   onCustomMessageClick,
   onDateClick,
   selectedIdols = [],
-  imageSize = 'full',
-  imageSizeClass = 'w-full'
+  imageSize,
+  imageSizeClass
 }) => {
   // Get photo idols for each photo
   const getPhotoIdols = () => {
@@ -87,7 +87,7 @@ const KpopStripContainer: React.FC<KpopStripContainerProps> = ({
             sticker={sticker}
             selectedIdol={photoIdols[index]}
             imageClassName={`${imageSizeClass} h-auto`}
-            containerClassName={`relative rounded-sm overflow-hidden photo-item flex justify-center`}
+            containerClassName="relative rounded-sm overflow-hidden photo-item flex justify-center"
           />
         ))}
         

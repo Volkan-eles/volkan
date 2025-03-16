@@ -24,7 +24,7 @@ const BorderWidthSelector: React.FC<BorderWidthSelectorProps> = ({
     { value: 'full', label: 'Full', size: '100%' }
   ];
 
-  // Convert string width to slider number value
+  // Convert string width to slider number value (0-100)
   const getSliderValue = (width: BorderWidthValue): number => {
     switch(width) {
       case 'small': return 0;

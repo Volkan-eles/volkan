@@ -10,8 +10,8 @@ interface KpopStripOptionsProps {
   setFrameColor: (color: FrameColorType) => void;
   sticker: StickerType;
   setSticker: (sticker: StickerType) => void;
-  borderWidth?: BorderWidthValue;
-  setBorderWidth?: (width: BorderWidthValue) => void;
+  borderWidth: BorderWidthValue;
+  setBorderWidth: (width: BorderWidthValue) => void;
 }
 
 const KpopStripOptions: React.FC<KpopStripOptionsProps> = ({
@@ -19,7 +19,7 @@ const KpopStripOptions: React.FC<KpopStripOptionsProps> = ({
   setFrameColor,
   sticker,
   setSticker,
-  borderWidth = 'full',
+  borderWidth,
   setBorderWidth
 }) => {
   return (
@@ -41,13 +41,11 @@ const KpopStripOptions: React.FC<KpopStripOptionsProps> = ({
         </div>
       </div>
       
-      {/* Border Width Selector */}
-      {setBorderWidth && (
-        <BorderWidthSelector
-          selectedWidth={borderWidth}
-          onSelectWidth={setBorderWidth}
-        />
-      )}
+      {/* Border Width Selector - Now always shown */}
+      <BorderWidthSelector
+        selectedWidth={borderWidth}
+        onSelectWidth={setBorderWidth}
+      />
       
       <div className="mt-4">
         <h3 className="text-sm font-medium text-gray-700 mb-2">Sticker Style</h3>

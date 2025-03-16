@@ -68,7 +68,7 @@ const KpopPhotoStripPreview: React.FC<KpopPhotoStripPreviewProps> = ({
   const [titleItalic, setTitleItalic] = useState(false);
   const [customItalic, setCustomItalic] = useState(false);
   
-  // Border width for adjusting image size
+  // Border width for adjusting image size - now with initial value 'full'
   const [imageSize, setImageSize] = useState<BorderWidthValue>('full');
   
   // Date format toggle
@@ -87,13 +87,13 @@ const KpopPhotoStripPreview: React.FC<KpopPhotoStripPreviewProps> = ({
   // Handler for title text click
   const handleTitleClick = () => {
     const newTitle = prompt('Enter title text:', titleText);
-    if (newTitle) setTitleText(newTitle);
+    if (newTitle !== null) setTitleText(newTitle);
   };
   
   // Handler for custom message click
   const handleCustomMessageClick = () => {
     const newMessage = prompt('Enter custom message:', customMessage);
-    if (newMessage) setCustomMessage(newMessage);
+    if (newMessage !== null) setCustomMessage(newMessage);
   };
 
   // Get image size class based on borderWidthValue
@@ -142,7 +142,7 @@ const KpopPhotoStripPreview: React.FC<KpopPhotoStripPreviewProps> = ({
         onTakeNewPhotos={onTakeNewPhotos || (() => {})}
       />
       
-      {/* Frame and Sticker options */}
+      {/* Frame and Sticker options with mandatory border width control */}
       <KpopStripOptions
         frameColor={frameColor}
         setFrameColor={setFrameColor}
