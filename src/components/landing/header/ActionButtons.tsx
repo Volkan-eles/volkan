@@ -20,9 +20,16 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
       {!isMobile && (
         <div className="hidden md:flex items-center space-x-3 ml-4">
           <Link to="/dashboard">
-            <Button variant="ghost" size="sm" className="gap-1.5 hover:bg-pink-50 hover:text-pink-600 transition-all duration-300">
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="gap-1.5 hover:bg-pink-50 hover:text-pink-600 transition-all duration-300"
+            >
               <LogIn className="h-4 w-4" />
-              Log In
+              <span className="relative">
+                Log In
+                <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-pink-500 transform scale-x-0 hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+              </span>
             </Button>
           </Link>
           <Link to="/dashboard">
@@ -30,7 +37,7 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
               size="sm" 
               className="bg-gradient-to-r from-pink-500 to-violet-500 hover:from-pink-600 hover:to-violet-600 text-white border-0 transition-all duration-300 shadow-sm hover:shadow-md hover:shadow-pink-500/20"
             >
-              Try Now <ArrowRight className="ml-1 h-3.5 w-3.5" />
+              Try Now <ArrowRight className="ml-1 h-3.5 w-3.5 animate-pulse" />
             </Button>
           </Link>
         </div>
