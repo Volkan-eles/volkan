@@ -1,3 +1,4 @@
+
 import React from 'react';
 interface KpopStripFooterProps {
   titleText: string;
@@ -45,33 +46,47 @@ const KpopStripFooter: React.FC<KpopStripFooterProps> = ({
   selectedIdols = [],
   frameColor
 }) => {
-  return <div className={`mt-2 pt-2 border-t border-t-${frameColor === 'white' ? 'gray-300' : 'white/30'} ${textColor}`}>
+  return (
+    <div className={`mt-2 pt-2 border-t border-t-${frameColor === 'white' ? 'gray-300' : 'white/30'} ${textColor}`}>
       {/* Title row */}
-      <div className={`text-${titleAlignment} font-${titleFont} text-${titleColor} text-${titleSize} ${titleItalic ? 'italic' : ''} cursor-pointer`} onClick={onTitleClick}>
+      <div 
+        className={`text-${titleAlignment} font-${titleFont} text-${titleColor} text-${titleSize} ${titleItalic ? 'italic' : ''} cursor-pointer mb-1.5`}
+        onClick={onTitleClick}
+      >
         {titleText}
       </div>
       
       {/* Date row */}
-      <div className={`text-center text-xs mt-1 cursor-pointer ${textColor} opacity-80`} onClick={onDateClick}>
-        {dateFormat === 'short' ? new Date().toLocaleDateString('en-US', {
-        month: 'numeric',
-        day: 'numeric',
-        year: 'numeric'
-      }) : new Date().toLocaleDateString('en-US', {
-        weekday: 'long',
-        month: 'long',
-        day: 'numeric',
-        year: 'numeric'
-      })}
+      <div 
+        className={`text-center text-xs cursor-pointer ${textColor} opacity-80 mb-1.5`}
+        onClick={onDateClick}
+      >
+        {dateFormat === 'short' 
+          ? new Date().toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: 'numeric' }) 
+          : new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })
+        }
       </div>
       
       {/* Custom message */}
-      <div className={`text-${customAlignment} font-${customFont} text-${customColor} text-${customSize} mt-1 ${customItalic ? 'italic' : ''} cursor-pointer`} onClick={onCustomMessageClick}>
+      <div 
+        className={`text-${customAlignment} font-${customFont} text-${customColor} text-${customSize} ${customItalic ? 'italic' : ''} cursor-pointer`}
+        onClick={onCustomMessageClick}
+      >
         {customMessage}
       </div>
       
       {/* List selected idols at the bottom of the strip */}
-      {selectedIdols.length > 0}
-    </div>;
+      {selectedIdols.length > 0 && (
+        <div className="mt-2 text-xs text-center opacity-75">
+          {selectedIdols.map((idol, idx) => (
+            <span key={idol.id} className={`${textColor} font-medium`}>
+              {idol.name}{idx < selectedIdols.length - 1 ? ' · ' : ''}
+            </span>
+          ))}
+        </div>
+      )}
+    </div>
+  );
 };
+
 export default KpopStripFooter;

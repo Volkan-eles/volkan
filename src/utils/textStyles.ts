@@ -4,7 +4,12 @@ export const fontFamilies = [
   { name: 'Playfair Display', value: 'playfair' },
   { name: 'Poppins', value: 'poppins' },
   { name: 'Dancing Script', value: 'dancing' },
-  { name: 'Roboto Mono', value: 'mono' }
+  { name: 'Roboto Mono', value: 'mono' },
+  { name: 'Pacifico', value: 'pacifico' },
+  { name: 'Montserrat', value: 'montserrat' },
+  { name: 'Lora', value: 'lora' },
+  { name: 'Oswald', value: 'oswald' },
+  { name: 'Caveat', value: 'caveat' }
 ];
 
 export const textColors = [
@@ -15,7 +20,11 @@ export const textColors = [
   { name: 'Blue', value: '#0EA5E9' },
   { name: 'Green', value: '#10B981' },
   { name: 'Orange', value: '#F97316' },
-  { name: 'Red', value: '#EF4444' }
+  { name: 'Red', value: '#EF4444' },
+  { name: 'Teal', value: '#14B8A6' },
+  { name: 'Lavender', value: '#A78BFA' },
+  { name: 'Rose', value: '#FB7185' },
+  { name: 'Amber', value: '#F59E0B' }
 ];
 
 export const fontSizes = [
