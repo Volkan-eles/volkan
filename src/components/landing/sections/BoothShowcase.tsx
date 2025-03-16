@@ -56,16 +56,17 @@ const BoothShowcase = () => {
   return (
     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16 max-w-5xl mx-auto">
       {boothOptions.map((booth, index) => (
-        <BoothCard 
-          key={index}
-          name={booth.name}
-          description={booth.description}
-          imageSrc={booth.imageSrc}
-          gradientFrom={booth.gradientFrom}
-          gradientTo={booth.gradientTo}
-          link={booth.link}
-          isComingSoon={booth.isComingSoon}
-        />
+        <div key={index} className="animate-fade-in" style={{ animationDelay: `${index * 100}ms` }}>
+          <BoothCard 
+            name={booth.name}
+            description={booth.description}
+            imageSrc={booth.imageSrc}
+            gradientFrom={booth.gradientFrom}
+            gradientTo={booth.gradientTo}
+            link={booth.link}
+            isComingSoon={booth.isComingSoon}
+          />
+        </div>
       ))}
     </div>
   );
