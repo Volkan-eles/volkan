@@ -8,7 +8,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useToast } from '@/hooks/use-toast';
+import { useToast } from '@/components/ui/use-toast';
 import SEOHead from '@/components/landing/SEOHead';
 
 const formSchema = z.object({
