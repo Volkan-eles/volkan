@@ -99,11 +99,13 @@ const PicaPicaPhotobooth = () => {
         </main>
         
         {/* SaaS Landing Page Sections */}
-        <PhotoboothFeatures />
-        <PhotoboothTestimonials />
-        <PhotoboothPricing />
-        <PhotoboothFAQ />
-        <PhotoboothCTA />
+        <div id="saas-sections">
+          <PhotoboothFeatures />
+          <PhotoboothTestimonials />
+          <PhotoboothPricing />
+          <PhotoboothFAQ />
+          <PhotoboothCTA />
+        </div>
         
         {/* Footer */}
         <Footer />
