@@ -1,5 +1,5 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import PricingCard from './PricingCard';
@@ -45,23 +45,19 @@ const AnimatedPricingSection = () => {
     { included: true, text: 'Watermark-free downloads' }
   ];
 
-  const enterprisePlanFeatures = [
-    { included: true, text: 'Dedicated server resources' },
-    { included: true, text: 'Custom idol requests' },
-    { included: true, text: 'White-labeling options' },
+  const pwywPlanFeatures = [
+    { included: true, text: 'All premium features' },
     { included: true, text: 'Priority support' },
-    { included: true, text: 'Advanced analytics dashboard' },
-    { included: true, text: 'API access for integrations' }
+    { included: true, text: 'Early access to new features' },
+    { included: true, text: 'Community recognition' },
+    { included: true, text: 'Help support development' },
+    { included: true, text: 'Choose your own price' }
   ];
 
   const lemonSqueezyIds = {
     premium: {
       productId: 'prod_yPRG84QwOlOL3B',
       variantId: 'price_PqJ3v0XM6EON8l'
-    },
-    enterprise: {
-      productId: 'prod_3QyXrz4NPqaY60',
-      variantId: 'price_kwLQXyJAaRS1L4'
     }
   };
 
@@ -125,16 +121,15 @@ const AnimatedPricingSection = () => {
           
           <motion.div custom={2} variants={cardVariants}>
             <PricingCard 
-              title="Enterprise"
-              description="For fan clubs & events"
-              price="$4.99"
+              title="Pay What You Want"
+              description="Support our project"
+              price="$5"
               period="/month"
-              features={enterprisePlanFeatures}
-              buttonText="Subscribe Now"
+              features={pwywPlanFeatures}
+              buttonText="Now"
               buttonVariant="outline"
-              paymentEnabled={true}
-              lemonSqueezyProductId={lemonSqueezyIds.enterprise.productId}
-              lemonSqueezyVariantId={lemonSqueezyIds.enterprise.variantId}
+              paymentEnabled={false}
+              isPWYW={true}
             />
           </motion.div>
         </motion.div>
