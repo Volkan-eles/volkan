@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { StickerType } from '../photobooth/StickerSelector';
+import { getStickerImage } from '@/utils/kpop/kpopOptions';
 
 interface PhotoItemProps {
   photo: string;
@@ -10,6 +11,9 @@ interface PhotoItemProps {
   imageClassName?: string;
   stickerClassName?: string;
   overlayClassName?: string;
+  containerClassName?: string;
+  showStickerOnFirstPhotoOnly?: boolean;
+  effectClassName?: string;
 }
 
 const PhotoItem: React.FC<PhotoItemProps> = ({ 
@@ -19,19 +23,20 @@ const PhotoItem: React.FC<PhotoItemProps> = ({
   selectedIdol,
   imageClassName = "w-full h-auto",
   stickerClassName = "absolute bottom-0 right-0 w-1/3 h-auto pointer-events-none",
-  overlayClassName = "absolute bottom-0 right-0 w-2/3 h-auto pointer-events-none"
+  overlayClassName = "absolute bottom-0 right-0 w-2/3 h-auto pointer-events-none",
+  containerClassName = "relative rounded-sm overflow-hidden photo-item",
+  showStickerOnFirstPhotoOnly = true,
+  effectClassName = ""
 }) => {
-  const getStickerImage = () => {
-    switch(sticker) {
-      case 'mofusand': return '/mofusand-frame.png';
-      case 'shin-chan': return '/shin-chan.png';
-      case 'miffy': return '/miffy-frame.png';
-      default: return null;
-    }
-  };
-
+  const stickerImage = getStickerImage(sticker);
+  const shouldShowSticker = sticker !== 'none' && stickerImage && 
+    (!showStickerOnFirstPhotoOnly || index === 0);
+  
   return (
-    <div id={`photo-item-${index}`} className="relative rounded-sm overflow-hidden photo-item">
+    <div 
+      id={`photo-item-${index}`} 
+      className={`${containerClassName} ${effectClassName}`}
+    >
       <img 
         src={photo} 
         alt={`Captured photo ${index + 1}`} 
@@ -48,10 +53,10 @@ const PhotoItem: React.FC<PhotoItemProps> = ({
         />
       )}
       
-      {sticker !== 'none' && getStickerImage() && index === 0 && (
+      {shouldShowSticker && (
         <img 
-          src={getStickerImage()} 
-          alt="Sticker"
+          src={stickerImage} 
+          alt={`${sticker} sticker`}
           className={stickerClassName}
           crossOrigin="anonymous"
         />

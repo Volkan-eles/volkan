@@ -67,3 +67,14 @@ export const getStickerImage = (sticker: StickerType): string | null => {
     default: return null;
   }
 };
+
+// Enhanced functions for Kpop theme
+export const getKpopFrameStyle = (frameColor: FrameColorType): string => {
+  const baseStyle = getBorderColor(frameColor);
+  return `${baseStyle} kpop-frame`;
+};
+
+export const getKpopTextStyle = (frameColor: FrameColorType): string => {
+  const textColor = getTextColorForFrame(frameColor);
+  return `${textColor} font-medium`;
+};
