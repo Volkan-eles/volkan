@@ -12,6 +12,7 @@ interface UseWebcamProps {
   selectedFilter?: FilterType | DigiboothFilterType;
   filterAdjustments?: FilterAdjustmentValues;
   countdownTime?: number;
+  selectedIdols?: Array<{id: string, name: string, src: string}>;
 }
 
 const useWebcam = ({
@@ -20,7 +21,8 @@ const useWebcam = ({
   overlayImage,
   selectedFilter = 'none',
   filterAdjustments,
-  countdownTime = 3
+  countdownTime = 3,
+  selectedIdols = []
 }: UseWebcamProps) => {
   // Set up camera
   const {
@@ -37,7 +39,8 @@ const useWebcam = ({
     flipped,
     selectedFilter,
     filterAdjustments,
-    overlayImage
+    overlayImage,
+    selectedIdols
   });
 
   // Set up countdown

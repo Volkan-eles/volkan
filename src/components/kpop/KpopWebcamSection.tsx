@@ -5,6 +5,7 @@ import CountdownSelector from '@/components/photobooth/CountdownSelector';
 import KpopControls from '@/components/kpop/KpopControls';
 import KpopCameraButtons from '@/components/kpop/KpopCameraButtons';
 import KpopFilterDisplay from '@/components/kpop/KpopFilterDisplay';
+import IdolSelector from '@/components/kpop/IdolSelector';
 import { DigiboothFilterType, FilterAdjustmentValues } from '@/components/digibooth/DigiboothFilterSelector';
 import { getFilterStyle } from '@/utils/filters';
 import { toast } from 'sonner';
@@ -24,6 +25,8 @@ interface KpopWebcamSectionProps {
   onFilterChange: (filter: DigiboothFilterType) => void;
   onAdjustmentChange: (adjustments: FilterAdjustmentValues) => void;
   onCountdownChange: (time: number) => void;
+  selectedIdols?: Array<{id: string, name: string, src: string}>;
+  onSelectIdols?: (idols: Array<{id: string, name: string, src: string}>) => void;
 }
 
 const KpopWebcamSection: React.FC<KpopWebcamSectionProps> = ({
@@ -38,7 +41,9 @@ const KpopWebcamSection: React.FC<KpopWebcamSectionProps> = ({
   onRetakePhoto,
   onFilterChange,
   onAdjustmentChange,
-  onCountdownChange
+  onCountdownChange,
+  selectedIdols = [],
+  onSelectIdols = () => {}
 }) => {
   const overlayImageRef = useRef<HTMLImageElement | null>(null);
   const [continuousCapture, setContinuousCapture] = useState(false);
@@ -104,12 +109,21 @@ const KpopWebcamSection: React.FC<KpopWebcamSectionProps> = ({
             filterAdjustments={filterAdjustments}
             filterStyle={filterStyle}
             countdownTime={countdownTime}
+            selectedIdols={selectedIdols}
           />
         </div>
       </div>
       
       {showControls && (
         <>
+          <div className="my-4">
+            <IdolSelector 
+              onSelectIdols={onSelectIdols}
+              selectedIdols={selectedIdols}
+              maxSelections={4}
+            />
+          </div>
+        
           <CountdownSelector 
             value={countdownTime}
             onChange={onCountdownChange}

@@ -17,6 +17,7 @@ export default function useKpopState() {
   const [selectedSticker, setSelectedSticker] = useState<StickerType>('none');
   const [showControls, setShowControls] = useState<boolean>(true);
   const [isDownloading, setIsDownloading] = useState<boolean>(false);
+  const [selectedIdols, setSelectedIdols] = useState<Array<{id: string, name: string, src: string}>>([]);
 
   // Handle photo capture
   const handlePhotoCaptured = (photoSrc: string) => {
@@ -69,6 +70,16 @@ export default function useKpopState() {
     toast.success(`Countdown set to ${time} seconds`);
   };
 
+  // Handle idol selection
+  const handleSelectIdols = (idols: Array<{id: string, name: string, src: string}>) => {
+    setSelectedIdols(idols);
+    if (idols.length > 0) {
+      toast.success(`Selected ${idols.length} idols for your photos!`);
+    } else {
+      toast.info('No idols selected');
+    }
+  };
+
   return {
     capturedPhotos,
     setCapturedPhotos,
@@ -90,12 +101,15 @@ export default function useKpopState() {
     setShowControls,
     isDownloading,
     setIsDownloading,
+    selectedIdols,
+    setSelectedIdols,
     handlePhotoCaptured,
     handleTakePhoto,
     handleRetakePhoto,
     handleTakeNewPhotos,
     handleFilterChange,
     handleFilterAdjustmentChange,
-    handleCountdownChange
+    handleCountdownChange,
+    handleSelectIdols
   };
 }

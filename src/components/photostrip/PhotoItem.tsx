@@ -6,9 +6,10 @@ interface PhotoItemProps {
   photo: string;
   index: number;
   sticker: StickerType;
+  selectedIdol?: {id: string, name: string, src: string} | null;
 }
 
-const PhotoItem: React.FC<PhotoItemProps> = ({ photo, index, sticker }) => {
+const PhotoItem: React.FC<PhotoItemProps> = ({ photo, index, sticker, selectedIdol }) => {
   const getStickerImage = () => {
     switch(sticker) {
       case 'mofusand': return '/mofusand-frame.png';

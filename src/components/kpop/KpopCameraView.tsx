@@ -14,6 +14,7 @@ interface KpopCameraViewProps {
   handleCountdownComplete: () => void;
   overlayImage: HTMLImageElement | null;
   filterStyle?: string;
+  selectedIdols?: Array<{id: string, name: string, src: string}>;
 }
 
 const KpopCameraView: React.FC<KpopCameraViewProps> = ({ 
@@ -25,7 +26,8 @@ const KpopCameraView: React.FC<KpopCameraViewProps> = ({
   toggleCameraFlip,
   handleCountdownComplete,
   overlayImage,
-  filterStyle
+  filterStyle,
+  selectedIdols = []
 }) => {
   return (
     <div className="relative w-full flex flex-col items-center justify-center">

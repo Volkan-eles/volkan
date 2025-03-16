@@ -13,6 +13,7 @@ interface KpopWebcamCaptureProps {
   selectedFilter?: DigiboothFilterType | FilterType;
   filterAdjustments?: FilterAdjustmentValues;
   countdownTime?: number;
+  selectedIdols?: Array<{id: string, name: string, src: string}>;
 }
 
 const KpopWebcamCapture: React.FC<KpopWebcamCaptureProps> = ({ 
@@ -22,7 +23,8 @@ const KpopWebcamCapture: React.FC<KpopWebcamCaptureProps> = ({
   filterStyle,
   selectedFilter = 'none',
   filterAdjustments,
-  countdownTime = 3
+  countdownTime = 3,
+  selectedIdols = []
 }) => {
   const {
     videoRef,
@@ -38,7 +40,8 @@ const KpopWebcamCapture: React.FC<KpopWebcamCaptureProps> = ({
     overlayImage,
     selectedFilter,
     filterAdjustments,
-    countdownTime
+    countdownTime,
+    selectedIdols
   });
 
   return (
@@ -52,6 +55,7 @@ const KpopWebcamCapture: React.FC<KpopWebcamCaptureProps> = ({
       handleCountdownComplete={handleCountdownComplete}
       overlayImage={overlayImage}
       filterStyle={filterStyle}
+      selectedIdols={selectedIdols}
     />
   );
 };

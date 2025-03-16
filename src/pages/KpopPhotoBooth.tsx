@@ -50,6 +50,7 @@ const KpopPhotoBooth = () => {
   const [borderWidth, setBorderWidth] = useState<BorderWidth>('medium');
   const [frameTheme, setFrameTheme] = useState<FrameTheme>('default');
   const [showBackgroundRemoval, setShowBackgroundRemoval] = useState(false);
+  const [selectedIdols, setSelectedIdols] = useState<Array<{id: string, name: string, src: string}>>([]);
   
   // Handle downloading the photo strip
   const handleDownloadStrip = async () => {
@@ -65,6 +66,11 @@ const KpopPhotoBooth = () => {
   const toggleBackgroundRemoval = () => {
     setShowBackgroundRemoval(!showBackgroundRemoval);
     toast.success(showBackgroundRemoval ? 'Background removal disabled' : 'Background removal enabled');
+  };
+
+  // Handle idol selection
+  const handleSelectIdols = (idols: Array<{id: string, name: string, src: string}>) => {
+    setSelectedIdols(idols);
   };
 
   return (
@@ -125,6 +131,8 @@ const KpopPhotoBooth = () => {
               onFilterChange={handleFilterChange}
               onAdjustmentChange={handleFilterAdjustmentChange}
               onCountdownChange={handleCountdownChange}
+              selectedIdols={selectedIdols}
+              onSelectIdols={handleSelectIdols}
             />
             
             {/* Side panel for photo strip */}
@@ -140,6 +148,7 @@ const KpopPhotoBooth = () => {
                 sticker={selectedSticker}
                 setSticker={setSelectedSticker}
                 frameTheme={frameTheme}
+                selectedIdols={selectedIdols}
               />
             </div>
           </div>
