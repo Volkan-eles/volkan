@@ -1,151 +1,64 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
 
 interface DesktopNavigationProps {
   handleLinkClick: () => void;
 }
 
 const DesktopNavigation: React.FC<DesktopNavigationProps> = ({ handleLinkClick }) => {
+  const navLinks = [
+    { title: 'Home', path: '/' },
+    { title: 'Photobooths', path: '#', isDropdown: true, items: [
+      { title: 'Pica Pica Booth', path: '/pica-pica-booth' },
+      { title: 'Digibooth', path: '/digibooth' },
+      { title: 'K-pop Photo Booth', path: '/kpop-photo-booth' },
+      { title: 'Vintage Photobooth', path: '/vintage-photobooth' },
+      { title: 'Wedding Photobooth', path: '/wedding-photobooth' },
+    ]},
+    { title: 'How It Works', path: '#how-it-works' },
+    { title: 'Testimonials', path: '#testimonials' },
+    { title: 'Pricing', path: '#pricing' },
+    { title: 'Blog', path: '/blog' },
+  ];
+
   return (
-    <nav className="hidden md:flex items-center space-x-1">
-      <NavigationMenu>
-        <NavigationMenuList>
-          <NavigationMenuItem>
-            <NavigationMenuTrigger className="bg-transparent hover:bg-gray-100 dark:hover:bg-gray-800">Features</NavigationMenuTrigger>
-            <NavigationMenuContent>
-              <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                <li className="row-span-3">
-                  <NavigationMenuLink asChild>
-                    <a
-                      className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-pink-500/50 to-violet-500/50 p-6 no-underline outline-none focus:shadow-md"
-                      href="#features"
-                    >
-                      <div className="mt-4 mb-2 text-lg font-medium text-white">
-                        Create Beautiful Photo Memories
-                      </div>
-                      <p className="text-sm leading-tight text-white/90">
-                        Express your creativity with our premium photo booth experiences
-                      </p>
-                    </a>
-                  </NavigationMenuLink>
-                </li>
-                <li>
+    <nav className="hidden md:flex space-x-1">
+      {navLinks.map((link, index) => (
+        <div key={index} className="relative group">
+          {link.isDropdown ? (
+            <>
+              <button className="px-3 py-2 text-gray-700 hover:text-pink-600 transition-colors text-sm font-medium rounded hover:bg-gray-50 flex items-center">
+                {link.title}
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              <div className="absolute top-full left-0 mt-1 bg-white shadow-lg rounded-lg py-2 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                {link.items?.map((item, itemIndex) => (
                   <Link
-                    to="/pica-pica-booth"
-                    className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
+                    key={itemIndex}
+                    to={item.path}
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-pink-50 hover:text-pink-600"
                     onClick={handleLinkClick}
                   >
-                    <div className="text-sm font-medium leading-none">Pica Pica Booth</div>
-                    <p className="line-clamp-2 text-sm leading-snug text-gray-500">
-                      Vibrant colorful photo strips with stickers
-                    </p>
+                    {item.title}
                   </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/digibooth"
-                    className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
-                    onClick={handleLinkClick}
-                  >
-                    <div className="text-sm font-medium leading-none">Digibooth</div>
-                    <p className="line-clamp-2 text-sm leading-snug text-gray-500">
-                      Modern digital photo experience with filters
-                    </p>
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/kpop-photo-booth"
-                    className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
-                    onClick={handleLinkClick}
-                  >
-                    <div className="text-sm font-medium leading-none">K-pop Photo Booth</div>
-                    <p className="line-clamp-2 text-sm leading-snug text-gray-500">
-                      Create memories with your favorite K-pop idols
-                    </p>
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/vintage-photobooth"
-                    className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
-                    onClick={handleLinkClick}
-                  >
-                    <div className="text-sm font-medium leading-none">Vintage Photobooth</div>
-                    <p className="line-clamp-2 text-sm leading-snug text-gray-500">
-                      Nostalgic retro-styled photo experiences
-                    </p>
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/wedding-photobooth"
-                    className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
-                    onClick={handleLinkClick}
-                  >
-                    <div className="text-sm font-medium leading-none">Wedding Photobooth</div>
-                    <p className="line-clamp-2 text-sm leading-snug text-gray-500">
-                      Elegant layouts for wedding memories
-                    </p>
-                  </Link>
-                </li>
-              </ul>
-            </NavigationMenuContent>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
-            <a href="#how-it-works" className="px-3 py-2 text-gray-700 hover:text-pink-500 transition-colors">How It Works</a>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
-            <a href="#testimonials" className="px-3 py-2 text-gray-700 hover:text-pink-500 transition-colors">Testimonials</a>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
-            <a href="#pricing" className="px-3 py-2 text-gray-700 hover:text-pink-500 transition-colors">Pricing</a>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
-            <NavigationMenuTrigger className="bg-transparent hover:bg-gray-100 dark:hover:bg-gray-800">Resources</NavigationMenuTrigger>
-            <NavigationMenuContent>
-              <ul className="grid gap-3 p-4 w-[200px]">
-                <li>
-                  <Link
-                    to="/about"
-                    className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
-                    onClick={handleLinkClick}
-                  >
-                    <div className="text-sm font-medium leading-none">About</div>
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/blog"
-                    className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
-                    onClick={handleLinkClick}
-                  >
-                    <div className="text-sm font-medium leading-none">Blog</div>
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/contact"
-                    className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
-                    onClick={handleLinkClick}
-                  >
-                    <div className="text-sm font-medium leading-none">Contact</div>
-                  </Link>
-                </li>
-              </ul>
-            </NavigationMenuContent>
-          </NavigationMenuItem>
-        </NavigationMenuList>
-      </NavigationMenu>
+                ))}
+              </div>
+            </>
+          ) : (
+            <Link
+              to={link.path}
+              className="px-3 py-2 text-gray-700 hover:text-pink-600 transition-colors text-sm font-medium rounded hover:bg-gray-50 relative"
+              onClick={handleLinkClick}
+            >
+              {link.title}
+              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-pink-500 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></span>
+            </Link>
+          )}
+        </div>
+      ))}
     </nav>
   );
 };
