@@ -5,8 +5,7 @@ import { StickerType } from '@/components/photobooth/StickerSelector';
 import EmptyState from '@/components/photostrip/EmptyState';
 import { fontFamilies, textColors, fontSizes } from '@/utils/textStyles';
 import { BorderStyle, BorderWidth, FrameTheme } from '@/components/digibooth/BorderStyleSelector';
-import PhotoStripContainer from '@/components/digibooth/photostrip/PhotoStripContainer';
-import PhotoStripControlPanel from '@/components/digibooth/photostrip/PhotoStripControlPanel';
+import PhotoItem from '@/components/photostrip/PhotoItem';
 
 interface KpopPhotoStripPreviewProps {
   photos: string[];
@@ -66,17 +65,9 @@ const KpopPhotoStripPreview: React.FC<KpopPhotoStripPreviewProps> = ({
   const [titleItalic, setTitleItalic] = useState(false);
   const [customItalic, setCustomItalic] = useState(false);
   
-  // Background removal toggle
-  const [showBackgroundRemoval, setShowBackgroundRemoval] = useState(false);
-  
   // Date format toggle
   const toggleDateFormat = () => {
     setDateFormat(dateFormat === 'short' ? 'long' : 'short');
-  };
-  
-  // Background removal toggle
-  const toggleBackgroundRemoval = () => {
-    setShowBackgroundRemoval(!showBackgroundRemoval);
   };
   
   if (photos.length === 0) {
@@ -121,32 +112,13 @@ const KpopPhotoStripPreview: React.FC<KpopPhotoStripPreviewProps> = ({
       >
         <div className="flex flex-col gap-2">
           {displayPhotos.map((photo, index) => (
-            <div key={index} className="relative rounded-sm overflow-hidden">
-              <img 
-                src={photo} 
-                alt={`Captured photo ${index + 1}`} 
-                className="w-full h-auto" 
-                crossOrigin="anonymous"
-              />
-              
-              {/* Display idol for this photo if available */}
-              {photoIdols.length > 0 && photoIdols[index] && (
-                <div className="absolute top-0 left-0 w-full h-full pointer-events-none flex items-end justify-end">
-                  <p className="bg-black/30 text-white text-xs px-2 py-1 rounded-tl-md">
-                    With {photoIdols[index].name}
-                  </p>
-                </div>
-              )}
-              
-              {sticker !== 'none' && getStickerImage(sticker) && index === 0 && (
-                <img 
-                  src={getStickerImage(sticker)} 
-                  alt="Sticker"
-                  className="absolute bottom-0 right-0 w-1/3 h-auto pointer-events-none"
-                  crossOrigin="anonymous"
-                />
-              )}
-            </div>
+            <PhotoItem 
+              key={index}
+              photo={photo}
+              index={index}
+              sticker={sticker}
+              selectedIdol={photoIdols[index]}
+            />
           ))}
           
           {/* Photo strip footer */}
@@ -178,10 +150,9 @@ const KpopPhotoStripPreview: React.FC<KpopPhotoStripPreviewProps> = ({
               {customMessage}
             </div>
             
-            {/* Selected idols */}
+            {/* List selected idols at the bottom of the strip, without "With:" text */}
             {selectedIdols.length > 0 && (
               <div className="mt-2 text-xs text-center">
-                <span className={`${textColor} opacity-70`}>With: </span>
                 {selectedIdols.map((idol, idx) => (
                   <span key={idol.id} className={`${textColor} font-semibold`}>
                     {idol.name}{idx < selectedIdols.length - 1 ? ', ' : ''}

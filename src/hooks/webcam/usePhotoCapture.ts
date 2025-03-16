@@ -81,15 +81,15 @@ export const usePhotoCapture = ({
           const drawIdol = () => {
             // Position idol on the right side of the photo
             const scaleRatio = Math.min(
-              (canvas.width * 0.5) / idolImg.width,  // Limit to 50% of canvas width
-              (canvas.height * 0.8) / idolImg.height  // Limit to 80% of canvas height
+              (canvas.width * 0.65) / idolImg.width,  // Increase size to 65% of canvas width
+              (canvas.height * 0.9) / idolImg.height  // Increase size to 90% of canvas height
             );
             
             const overlayWidth = idolImg.width * scaleRatio;
             const overlayHeight = idolImg.height * scaleRatio;
             
             // Position idol on the right side
-            const x = canvas.width - overlayWidth - 10;
+            const x = canvas.width - overlayWidth - 5;
             const y = canvas.height - overlayHeight;
             
             context.drawImage(idolImg, x, y, overlayWidth, overlayHeight);

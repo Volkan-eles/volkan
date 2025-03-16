@@ -27,6 +27,18 @@ const PhotoItem: React.FC<PhotoItemProps> = ({ photo, index, sticker, selectedId
         className="w-full h-auto" 
         crossOrigin="anonymous"
       />
+      
+      {/* Display idol for this photo if available */}
+      {selectedIdol && (
+        <div className="absolute bottom-0 right-0 w-2/5 h-auto pointer-events-none">
+          <img 
+            src={selectedIdol.src} 
+            alt={selectedIdol.name}
+            className="w-full h-auto object-contain"
+          />
+        </div>
+      )}
+      
       {sticker !== 'none' && getStickerImage() && index === 0 && (
         <img 
           src={getStickerImage()} 
