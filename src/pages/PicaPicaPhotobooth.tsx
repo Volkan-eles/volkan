@@ -8,6 +8,12 @@ import Header from '@/components/landing/Header';
 import PhotoStripPreview from '@/components/PhotoStripPreview';
 import HeroArea from '@/components/photobooth/HeroArea';
 import WebcamSection from '@/components/photobooth/WebcamSection';
+import PhotoboothFeatures from '@/components/photobooth/PhotoboothFeatures';
+import PhotoboothTestimonials from '@/components/photobooth/PhotoboothTestimonials';
+import PhotoboothPricing from '@/components/photobooth/PhotoboothPricing';
+import PhotoboothFAQ from '@/components/photobooth/PhotoboothFAQ';
+import PhotoboothCTA from '@/components/photobooth/PhotoboothCTA';
+import Footer from '@/components/landing/Footer';
 
 // Hooks
 import usePhotoboothState from '@/hooks/usePhotoboothState';
@@ -91,6 +97,16 @@ const PicaPicaPhotobooth = () => {
             </div>
           </div>
         </main>
+        
+        {/* SaaS Landing Page Sections */}
+        <PhotoboothFeatures />
+        <PhotoboothTestimonials />
+        <PhotoboothPricing />
+        <PhotoboothFAQ />
+        <PhotoboothCTA />
+        
+        {/* Footer */}
+        <Footer />
       </div>
     </>
   );
