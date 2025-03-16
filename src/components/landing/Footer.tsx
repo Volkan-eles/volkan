@@ -111,6 +111,7 @@ const Footer = () => {
               <li><Link to="/about" className="text-gray-400 hover:text-white transition-colors">About</Link></li>
               <li><Link to="/blog" className="text-gray-400 hover:text-white transition-colors">Blog</Link></li>
               <li><Link to="/careers" className="text-gray-400 hover:text-white transition-colors">Careers</Link></li>
+              <li><Link to="/pricing" className="text-gray-400 hover:text-white transition-colors">Pricing</Link></li>
               <li><Link to="/contact" className="text-gray-400 hover:text-white transition-colors">Contact</Link></li>
             </ul>
           </div>
@@ -140,6 +141,8 @@ const Footer = () => {
           </div>
           <div className="flex flex-wrap gap-4 text-sm text-gray-400">
             <Link to="/sitemap" className="hover:text-white transition-colors">Sitemap</Link>
+            <span>|</span>
+            <Link to="/pricing" className="hover:text-white transition-colors">Pricing</Link>
             <span>|</span>
             <Link to="/privacy-policy" className="hover:text-white transition-colors">Privacy</Link>
             <span>|</span>

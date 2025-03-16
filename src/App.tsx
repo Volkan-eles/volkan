@@ -30,6 +30,7 @@ import Accessibility from "@/pages/Accessibility";
 import Sitemap from "@/pages/Sitemap";
 import NotFound from "@/pages/NotFound";
 import Careers from "@/pages/Careers";
+import Pricing from "@/pages/Pricing";
 
 // Auth pages
 import SignIn from "@/pages/SignIn";
@@ -52,6 +53,7 @@ const App = () => (
             <Route path="/blog" element={<Blog />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/careers" element={<Careers />} />
+            <Route path="/pricing" element={<Pricing />} />
             
             {/* Auth routes */}
             <Route path="/sign-in" element={<SignIn />} />
