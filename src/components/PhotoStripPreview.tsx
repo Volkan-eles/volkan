@@ -70,16 +70,6 @@ const PhotoStripPreview: React.FC<PhotoStripPreviewProps> = ({
       <h2 className="text-2xl font-bold text-center text-pink-600">Photo Strip Preview</h2>
       <p className="text-center text-gray-600">Customize your photo strip</p>
       
-      <FrameColorSelector 
-        selectedColor={frameColor} 
-        onSelectColor={setFrameColor} 
-      />
-      
-      <StickerSelector
-        selectedSticker={sticker}
-        onSelectSticker={setSticker}
-      />
-      
       <div 
         ref={photoStripRef} 
         id="photo-strip-container"
@@ -108,6 +98,21 @@ const PhotoStripPreview: React.FC<PhotoStripPreviewProps> = ({
           onTakeNewPhotos={onTakeNewPhotos || (() => {})}
         />
       )}
+      
+      {/* Frame and Sticker options moved to the bottom */}
+      <div className="mt-6">
+        <FrameColorSelector 
+          selectedColor={frameColor} 
+          onSelectColor={setFrameColor} 
+        />
+        
+        <div className="mt-4">
+          <StickerSelector
+            selectedSticker={sticker}
+            onSelectSticker={setSticker}
+          />
+        </div>
+      </div>
     </div>
   );
 };
