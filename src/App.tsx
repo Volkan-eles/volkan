@@ -16,6 +16,7 @@ import PicaPicaPhotobooth from "@/pages/PicaPicaPhotobooth";
 import Digibooth from "@/pages/Digibooth";
 import LittleVintagePhotobooth from "@/pages/LittleVintagePhotobooth";
 import WeddingPhotobooth from "@/pages/WeddingPhotobooth";
+import KpopPhotoBooth from "@/pages/KpopPhotoBooth";
 import FAQ from "@/pages/FAQ";
 import Updates from "@/pages/Updates";
 import Community from "@/pages/Community";
@@ -59,6 +60,11 @@ const App = () => (
             
             <Route path="/wedding-photobooth" element={<WeddingPhotobooth />} />
             <Route path="/wedding" element={<Navigate to="/wedding-photobooth" replace />} />
+            
+            {/* Kpop Photo Booth route */}
+            <Route path="/kpop-photo-booth" element={<KpopPhotoBooth />} />
+            <Route path="/kpop" element={<Navigate to="/kpop-photo-booth" replace />} />
+            <Route path="/kpop-booth" element={<Navigate to="/kpop-photo-booth" replace />} />
             
             {/* Additional pages */}
             <Route path="/faq" element={<FAQ />} />
