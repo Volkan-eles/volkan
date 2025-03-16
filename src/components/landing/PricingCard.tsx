@@ -2,7 +2,7 @@
 import React, { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import StripeCheckoutButton from '@/components/payments/StripeCheckoutButton';
+import LemonSqueezyCheckoutButton from '@/components/payments/LemonSqueezyCheckoutButton';
 
 interface PricingFeature {
   included: boolean;
@@ -21,7 +21,8 @@ interface PricingCardProps {
   highlight?: boolean;
   highlightText?: string;
   paymentEnabled?: boolean;
-  stripePriceId?: string;
+  lemonSqueezyProductId?: string;
+  lemonSqueezyVariantId?: string;
 }
 
 const PricingCard = ({
@@ -36,7 +37,8 @@ const PricingCard = ({
   highlight = false,
   highlightText = "MOST POPULAR",
   paymentEnabled = false,
-  stripePriceId
+  lemonSqueezyProductId,
+  lemonSqueezyVariantId
 }: PricingCardProps) => (
   <div className={`${highlight ? 'border-2 border-pink-500 transform scale-105' : 'border border-gray-200'} rounded-xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-all duration-300 relative group`}>
     {highlight && (
@@ -68,9 +70,10 @@ const PricingCard = ({
           </li>
         ))}
       </ul>
-      {paymentEnabled && stripePriceId ? (
-        <StripeCheckoutButton
-          priceId={stripePriceId}
+      {paymentEnabled && lemonSqueezyProductId && lemonSqueezyVariantId ? (
+        <LemonSqueezyCheckoutButton
+          productId={lemonSqueezyProductId}
+          variantId={lemonSqueezyVariantId}
           buttonText={buttonText}
           buttonVariant={buttonVariant}
           buttonClassName={buttonClassName}

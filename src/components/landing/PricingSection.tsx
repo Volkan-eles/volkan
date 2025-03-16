@@ -1,3 +1,4 @@
+
 import React from 'react';
 import PricingCard from './PricingCard';
 
@@ -28,10 +29,16 @@ const PricingSection = () => {
     { included: true, text: 'API access for integrations' }
   ];
 
-  // Stripe price IDs - replace with actual IDs in production
-  const stripePriceIds = {
-    premium: 'price_1OvKF3GswQGMCH2oSAPsZZ8h',
-    enterprise: 'price_1OvKFVGswQGMCH2orrozvOCs'
+  // Lemon Squeezy product and variant IDs
+  const lemonSqueezyIds = {
+    premium: {
+      productId: 'prod_yPRG84QwOlOL3B',
+      variantId: 'price_PqJ3v0XM6EON8l'
+    },
+    enterprise: {
+      productId: 'prod_3QyXrz4NPqaY60',
+      variantId: 'price_kwLQXyJAaRS1L4'
+    }
   };
 
   return (
@@ -73,7 +80,8 @@ const PricingSection = () => {
               buttonClassName="bg-gradient-to-r from-pink-500 to-violet-500 hover:from-pink-600 hover:to-violet-600"
               highlight={true}
               paymentEnabled={true}
-              stripePriceId={stripePriceIds.premium}
+              lemonSqueezyProductId={lemonSqueezyIds.premium.productId}
+              lemonSqueezyVariantId={lemonSqueezyIds.premium.variantId}
             />
           </div>
           
@@ -87,14 +95,15 @@ const PricingSection = () => {
               buttonText="Subscribe Now"
               buttonVariant="outline"
               paymentEnabled={true}
-              stripePriceId={stripePriceIds.enterprise}
+              lemonSqueezyProductId={lemonSqueezyIds.enterprise.productId}
+              lemonSqueezyVariantId={lemonSqueezyIds.enterprise.variantId}
             />
           </div>
         </div>
         
         <div className="mt-16 text-center text-sm text-gray-500 max-w-3xl mx-auto">
           <p>All plans include automatic updates and access to our core features. 
-          We use Stripe for secure payment processing. By subscribing, you agree to our Terms of Service.</p>
+          We use Lemon Squeezy for secure payment processing. By subscribing, you agree to our Terms of Service.</p>
         </div>
       </div>
     </section>

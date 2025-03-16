@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
@@ -53,9 +54,15 @@ const AnimatedPricingSection = () => {
     { included: true, text: 'API access for integrations' }
   ];
 
-  const stripePriceIds = {
-    premium: 'price_1OvKF3GswQGMCH2oSAPsZZ8h',
-    enterprise: 'price_1OvKFVGswQGMCH2orrozvOCs'
+  const lemonSqueezyIds = {
+    premium: {
+      productId: 'prod_yPRG84QwOlOL3B',
+      variantId: 'price_PqJ3v0XM6EON8l'
+    },
+    enterprise: {
+      productId: 'prod_3QyXrz4NPqaY60',
+      variantId: 'price_kwLQXyJAaRS1L4'
+    }
   };
 
   return (
@@ -111,7 +118,8 @@ const AnimatedPricingSection = () => {
               buttonClassName="bg-gradient-to-r from-pink-500 to-violet-500 hover:from-pink-600 hover:to-violet-600"
               highlight={true}
               paymentEnabled={true}
-              stripePriceId={stripePriceIds.premium}
+              lemonSqueezyProductId={lemonSqueezyIds.premium.productId}
+              lemonSqueezyVariantId={lemonSqueezyIds.premium.variantId}
             />
           </motion.div>
           
@@ -125,7 +133,8 @@ const AnimatedPricingSection = () => {
               buttonText="Subscribe Now"
               buttonVariant="outline"
               paymentEnabled={true}
-              stripePriceId={stripePriceIds.enterprise}
+              lemonSqueezyProductId={lemonSqueezyIds.enterprise.productId}
+              lemonSqueezyVariantId={lemonSqueezyIds.enterprise.variantId}
             />
           </motion.div>
         </motion.div>
@@ -137,7 +146,7 @@ const AnimatedPricingSection = () => {
           transition={{ delay: 1.2, duration: 0.8 }}
         >
           <p>All plans include automatic updates and access to our core features. 
-          We use Stripe for secure payment processing. By subscribing, you agree to our Terms of Service.</p>
+          We use Lemon Squeezy for secure payment processing. By subscribing, you agree to our Terms of Service.</p>
         </motion.div>
       </div>
     </section>
