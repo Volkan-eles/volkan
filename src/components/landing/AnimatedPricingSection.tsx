@@ -1,9 +1,34 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
+import { motion, useAnimation } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
 import PricingCard from './PricingCard';
 
-// Simplified version without animations until dependencies are loaded
-const PricingSection = () => {
+const AnimatedPricingSection = () => {
+  const controls = useAnimation();
+  const [ref, inView] = useInView({
+    threshold: 0.1,
+    triggerOnce: true,
+  });
+
+  useEffect(() => {
+    if (inView) {
+      controls.start('visible');
+    }
+  }, [controls, inView]);
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: i * 0.2,
+        duration: 0.5,
+      },
+    }),
+  };
+
   const freePlanFeatures = [
     { included: true, text: '5 photo sessions per day' },
     { included: true, text: 'Access to 10+ idols' },
@@ -42,15 +67,30 @@ const PricingSection = () => {
       <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-purple-100 rounded-full opacity-30 blur-3xl animate-pulse-slow"></div>
       
       <div className="container mx-auto px-4 md:px-6 relative z-10">
-        <div className="max-w-3xl mx-auto text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-600">
-            Simple, Transparent Pricing
-          </h2>
+        <motion.div 
+          className="max-w-3xl mx-auto text-center mb-16"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+        >
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-600">Simple, Transparent Pricing</h2>
           <p className="text-lg text-gray-600">Start for free, upgrade for more features</p>
-        </div>
+        </motion.div>
         
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
-          <div>
+        <motion.div 
+          ref={ref}
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto"
+          initial="hidden"
+          animate={controls}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: { 
+              opacity: 1,
+              transition: { staggerChildren: 0.3 }
+            }
+          }}
+        >
+          <motion.div custom={0} variants={cardVariants}>
             <PricingCard 
               title="Free"
               description="Perfect for casual fans"
@@ -60,9 +100,9 @@ const PricingSection = () => {
               buttonVariant="outline"
               paymentEnabled={false}
             />
-          </div>
+          </motion.div>
           
-          <div>
+          <motion.div custom={1} variants={cardVariants}>
             <PricingCard 
               title="Premium"
               description="For dedicated fans"
@@ -76,9 +116,9 @@ const PricingSection = () => {
               paymentEnabled={true}
               stripePriceId={stripePriceIds.premium}
             />
-          </div>
+          </motion.div>
           
-          <div>
+          <motion.div custom={2} variants={cardVariants}>
             <PricingCard 
               title="Enterprise"
               description="For fan clubs & events"
@@ -90,16 +130,21 @@ const PricingSection = () => {
               paymentEnabled={true}
               stripePriceId={stripePriceIds.enterprise}
             />
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
         
-        <div className="mt-16 text-center text-sm text-gray-500 max-w-3xl mx-auto">
+        <motion.div 
+          className="mt-16 text-center text-sm text-gray-500 max-w-3xl mx-auto"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.2, duration: 0.8 }}
+        >
           <p>All plans include automatic updates and access to our core features. 
           We use Stripe for secure payment processing. By subscribing, you agree to our Terms of Service.</p>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
 };
 
-export default PricingSection;
+export default AnimatedPricingSection;
