@@ -87,6 +87,7 @@ const KpopPhotoStripPreview: React.FC<KpopPhotoStripPreviewProps> = ({
           selectedIdols={selectedIdols}
           imageSize={textStyles.imageSize}
           imageSizeClass={textStyles.getImageSizeClass(textStyles.imageSize)}
+          frameTheme={frameTheme}
         />
       </div>
       
