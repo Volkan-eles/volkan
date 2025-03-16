@@ -30,7 +30,7 @@ const KpopCameraView: React.FC<KpopCameraViewProps> = ({
   return (
     <div className="relative w-full flex flex-col items-center justify-center">
       {cameraError && (
-        <div className="w-full h-64 flex items-center justify-center bg-gray-200 rounded-lg">
+        <div className="w-full h-64 flex items-center justify-center bg-purple-100 rounded-lg">
           <p className="text-red-500">{cameraError}</p>
         </div>
       )}
@@ -41,11 +41,10 @@ const KpopCameraView: React.FC<KpopCameraViewProps> = ({
           autoPlay
           playsInline
           muted
-          className="w-full rounded-lg shadow-sm animate-fade-in"
+          className="w-full rounded-lg shadow-sm animate-fade-in border-2 border-pink-200"
           style={{ 
             transform: flipped ? 'scaleX(-1)' : 'none', 
             filter: filterStyle || 'none',
-            // Add transition for smoother filter change
             transition: 'filter 0.3s ease'
           }}
         />
@@ -53,10 +52,10 @@ const KpopCameraView: React.FC<KpopCameraViewProps> = ({
         <Button 
           variant="outline" 
           size="icon" 
-          className="absolute top-2 right-2 bg-white/80 hover:bg-white/90 z-10"
+          className="absolute top-2 right-2 bg-white/80 hover:bg-white/90 z-10 border-purple-200"
           onClick={toggleCameraFlip}
         >
-          <FlipHorizontal className="h-4 w-4" />
+          <FlipHorizontal className="h-4 w-4 text-purple-600" />
         </Button>
         
         {overlayImage && (

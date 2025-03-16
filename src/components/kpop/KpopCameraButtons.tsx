@@ -23,17 +23,17 @@ const KpopCameraButtons: React.FC<KpopCameraButtonsProps> = ({
         disabled={isCapturing}
       >
         <Camera className="mr-2 h-5 w-5" />
-        Take Photo
+        Capture
       </Button>
       
       {toggleCameraFlip && (
         <Button 
           variant="outline" 
           size="icon" 
-          className="bg-white/80 hover:bg-white/90"
+          className="bg-white/80 hover:bg-white/90 border-purple-200"
           onClick={toggleCameraFlip}
         >
-          <FlipHorizontal className="h-4 w-4" />
+          <FlipHorizontal className="h-4 w-4 text-purple-600" />
         </Button>
       )}
     </div>

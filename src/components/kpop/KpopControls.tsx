@@ -25,12 +25,12 @@ const KpopControls: React.FC<KpopControlsProps> = ({
         disabled={isCapturing}
       >
         <Camera className="mr-2 h-5 w-5" />
-        Take Photo
+        Capture Moment
       </Button>
       
       <Button 
         onClick={onRetakePhoto} 
-        className="bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium px-6 py-6 rounded-full shadow-md hover:shadow-lg transition-all"
+        className="bg-purple-100 hover:bg-purple-200 text-purple-800 font-medium px-6 py-6 rounded-full shadow-md hover:shadow-lg transition-all"
         size="lg"
         disabled={isCapturing || !hasPhotos}
       >
