@@ -12,7 +12,7 @@ import DigiboothCustomizationPanel from '@/components/digibooth/DigiboothCustomi
 import Footer from '@/components/landing/Footer';
 import DigiboothFeatures from '@/components/digibooth/DigiboothFeatures';
 import DigiboothTestimonials from '@/components/digibooth/DigiboothTestimonials';
-import DigiboothPricing from '@/components/digibooth/DigiboothPricing';
+import AnimatedPricingSection from '@/components/landing/AnimatedPricingSection';
 import DigiboothCTA from '@/components/digibooth/DigiboothCTA';
 
 // Hooks
@@ -148,7 +148,7 @@ const Digibooth = () => {
         {/* SaaS Landing Page Sections */}
         <DigiboothFeatures />
         <DigiboothTestimonials />
-        <DigiboothPricing />
+        <AnimatedPricingSection />
         <DigiboothCTA />
         
         {/* Footer */}

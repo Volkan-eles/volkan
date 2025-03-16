@@ -10,7 +10,7 @@ import HeroArea from '@/components/photobooth/HeroArea';
 import WebcamSection from '@/components/photobooth/WebcamSection';
 import PhotoboothFeatures from '@/components/photobooth/PhotoboothFeatures';
 import PhotoboothTestimonials from '@/components/photobooth/PhotoboothTestimonials';
-import PhotoboothPricing from '@/components/photobooth/PhotoboothPricing';
+import AnimatedPricingSection from '@/components/landing/AnimatedPricingSection';
 import PhotoboothFAQ from '@/components/photobooth/PhotoboothFAQ';
 import PhotoboothCTA from '@/components/photobooth/PhotoboothCTA';
 import Footer from '@/components/landing/Footer';
@@ -102,7 +102,7 @@ const PicaPicaPhotobooth = () => {
         <div id="saas-sections">
           <PhotoboothFeatures />
           <PhotoboothTestimonials />
-          <PhotoboothPricing />
+          <AnimatedPricingSection />
           <PhotoboothFAQ />
           <PhotoboothCTA />
         </div>

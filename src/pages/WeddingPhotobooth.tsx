@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { toast } from 'sonner';
@@ -11,6 +12,7 @@ import WeddingCustomizationPanel from '@/components/wedding/WeddingCustomization
 import Footer from '@/components/landing/Footer';
 import WeddingFeatures from '@/components/wedding/WeddingFeatures';
 import WeddingTestimonials from '@/components/wedding/WeddingTestimonials';
+import AnimatedPricingSection from '@/components/landing/AnimatedPricingSection';
 import WeddingCTA from '@/components/wedding/WeddingCTA';
 
 // Hooks
@@ -152,6 +154,7 @@ const WeddingPhotobooth = () => {
         {/* SaaS Landing Page Sections */}
         <WeddingFeatures />
         <WeddingTestimonials />
+        <AnimatedPricingSection />
         <WeddingCTA />
         
         {/* Footer */}

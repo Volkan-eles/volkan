@@ -8,7 +8,7 @@ import HowItWorksSection from '@/components/landing/HowItWorksSection';
 import TestimonialsSection from '@/components/landing/TestimonialsSection';
 import CTASection from '@/components/landing/CTASection';
 import Footer from '@/components/landing/Footer';
-import DigiboothPricing from '@/components/digibooth/DigiboothPricing';
+import AnimatedPricingSection from '@/components/landing/AnimatedPricingSection';
 
 const Index = () => {
   return (
@@ -20,7 +20,7 @@ const Index = () => {
         <FeaturesSection />
         <HowItWorksSection />
         <TestimonialsSection />
-        <DigiboothPricing />
+        <AnimatedPricingSection />
         <CTASection />
         <Footer />
       </div>

@@ -12,7 +12,7 @@ import KpopCustomizationPanel from '@/components/kpop/KpopCustomizationPanel';
 import Footer from '@/components/landing/Footer';
 import KpopFeatures from '@/components/kpop/KpopFeatures';
 import KpopTestimonials from '@/components/kpop/KpopTestimonials';
-import KpopPricing from '@/components/kpop/KpopPricing';
+import AnimatedPricingSection from '@/components/landing/AnimatedPricingSection';
 import KpopCTA from '@/components/kpop/KpopCTA';
 
 // Hooks
@@ -157,7 +157,7 @@ const KpopPhotoBooth = () => {
         {/* SaaS Landing Page Sections */}
         <KpopFeatures />
         <KpopTestimonials />
-        <KpopPricing />
+        <AnimatedPricingSection />
         <KpopCTA />
         
         {/* Footer */}

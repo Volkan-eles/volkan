@@ -12,7 +12,7 @@ import VintageCustomizationPanel from '@/components/vintage/VintageCustomization
 import Footer from '@/components/landing/Footer';
 import VintageFeatures from '@/components/vintage/VintageFeatures';
 import VintageTestimonials from '@/components/vintage/VintageTestimonials';
-import VintagePricing from '@/components/vintage/VintagePricing';
+import AnimatedPricingSection from '@/components/landing/AnimatedPricingSection';
 import VintageCTA from '@/components/vintage/VintageCTA';
 
 // Hooks
@@ -153,7 +153,7 @@ const LittleVintagePhotobooth = () => {
         {/* SaaS Landing Page Sections */}
         <VintageFeatures />
         <VintageTestimonials />
-        <VintagePricing />
+        <AnimatedPricingSection />
         <VintageCTA />
         
         {/* Footer */}
