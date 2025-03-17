@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { toast } from 'sonner';
@@ -14,6 +13,7 @@ import KpopFeatures from '@/components/kpop/KpopFeatures';
 import KpopTestimonials from '@/components/kpop/KpopTestimonials';
 import AnimatedPricingSection from '@/components/landing/AnimatedPricingSection';
 import KpopCTA from '@/components/kpop/KpopCTA';
+import KpopSEOSection from '@/components/kpop/KpopSEOSection';
 
 // Hooks
 import useKpopState from '@/hooks/useKpopState';
@@ -76,16 +76,16 @@ const KpopPhotoBooth = () => {
   return (
     <>
       <Helmet>
-        <title>Kpop Photo Booth | Create K-pop Inspired Photo Strips | Pica Pica Netlify App</title>
-        <meta name="description" content="Create stunning K-pop inspired photo booth experiences. Perfect for K-pop fans, events, parties, and gatherings. Customize frames, add effects, and share memorable moments instantly." />
-        <meta name="keywords" content="kpop photo booth, korean photo booth, kpop photo strip, idol photo booth, k-pop booth, idol photos, kpop filter" />
-        <meta property="og:title" content="Kpop Photo Booth | Create K-pop Inspired Photo Experiences" />
-        <meta property="og:description" content="Create stunning K-pop inspired photo booth experiences. Perfect for fans, events, parties and gatherings." />
+        <title>K-pop Photo Booth | Ideal Photo Vercel App</title>
+        <meta name="description" content="Create stunning virtual photos with your favorite K-pop idols. Our innovative platform combines cutting-edge technology with K-pop, allowing fans to design professional-quality photo memories." />
+        <meta name="keywords" content="kpop photo booth, korean photo booth, kpop photocard maker, idol photo booth, k-pop booth, idol photos, kpop filter, virtual kpop photos" />
+        <meta property="og:title" content="K-pop Photo Booth | Ideal Photo Vercel App" />
+        <meta property="og:description" content="Create stunning virtual photos with your favorite K-pop idols. Perfect for fans, events, parties and gatherings." />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="/og-image.png" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Kpop Photo Booth | K-pop Inspired Photos" />
-        <meta name="twitter:description" content="Create stunning K-pop inspired photo booth experiences." />
+        <meta name="twitter:title" content="K-pop Photo Booth | Ideal Photo Vercel App" />
+        <meta name="twitter:description" content="Create stunning virtual photos with your favorite K-pop idols." />
       </Helmet>
       
       <div className={`min-h-screen flex flex-col ${bgColor}`}>
@@ -159,6 +159,9 @@ const KpopPhotoBooth = () => {
         <KpopTestimonials />
         <AnimatedPricingSection />
         <KpopCTA />
+        
+        {/* SEO Content Section */}
+        <KpopSEOSection />
         
         {/* Footer */}
         <Footer />
