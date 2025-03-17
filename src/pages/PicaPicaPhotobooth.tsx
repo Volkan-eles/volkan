@@ -13,6 +13,7 @@ import PhotoboothTestimonials from '@/components/photobooth/PhotoboothTestimonia
 import AnimatedPricingSection from '@/components/landing/AnimatedPricingSection';
 import PhotoboothFAQ from '@/components/photobooth/PhotoboothFAQ';
 import PhotoboothCTA from '@/components/photobooth/PhotoboothCTA';
+import PhotoboothSEOSection from '@/components/photobooth/PhotoboothSEOSection';
 import Footer from '@/components/landing/Footer';
 
 // Hooks
@@ -105,6 +106,9 @@ const PicaPicaPhotobooth = () => {
           <AnimatedPricingSection />
           <PhotoboothFAQ />
           <PhotoboothCTA />
+          
+          {/* SEO Content Section */}
+          <PhotoboothSEOSection />
         </div>
         
         {/* Footer */}
