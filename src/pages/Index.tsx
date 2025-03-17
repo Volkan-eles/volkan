@@ -21,10 +21,18 @@ const Index = () => {
       <div className="min-h-screen flex flex-col">
         <Header />
         <HeroSection />
-        <FeaturesSection />
-        <HowItWorksSection />
-        <TestimonialsSection />
-        <AnimatedPricingSection />
+        <div id="features">
+          <FeaturesSection />
+        </div>
+        <div id="how-it-works">
+          <HowItWorksSection />
+        </div>
+        <div id="testimonials">
+          <TestimonialsSection />
+        </div>
+        <div id="pricing">
+          <AnimatedPricingSection />
+        </div>
         <CTASection />
         <HomepageSEOSection />
         <Footer />
