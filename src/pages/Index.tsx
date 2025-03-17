@@ -9,11 +9,15 @@ import TestimonialsSection from '@/components/landing/TestimonialsSection';
 import CTASection from '@/components/landing/CTASection';
 import Footer from '@/components/landing/Footer';
 import AnimatedPricingSection from '@/components/landing/AnimatedPricingSection';
+import HomepageSEOSection from '@/components/landing/HomepageSEOSection';
 
 const Index = () => {
   return (
     <>
-      <SEOHead />
+      <SEOHead 
+        title="Pica Photobooth | Pica Pica Photo Booth"
+        description="Create stunning photos with Pica Photobooth. Our digital photo booth experience offers customizable frames, filters, and interactive features for any occasion."
+      />
       <div className="min-h-screen flex flex-col">
         <Header />
         <HeroSection />
@@ -22,6 +26,7 @@ const Index = () => {
         <TestimonialsSection />
         <AnimatedPricingSection />
         <CTASection />
+        <HomepageSEOSection />
         <Footer />
       </div>
     </>
