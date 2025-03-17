@@ -14,6 +14,7 @@ import DigiboothFeatures from '@/components/digibooth/DigiboothFeatures';
 import DigiboothTestimonials from '@/components/digibooth/DigiboothTestimonials';
 import AnimatedPricingSection from '@/components/landing/AnimatedPricingSection';
 import DigiboothCTA from '@/components/digibooth/DigiboothCTA';
+import DigiboothSEOSection from '@/components/digibooth/DigiboothSEOSection';
 
 // Hooks
 import useDigiboothState from '@/hooks/useDigiboothState';
@@ -70,16 +71,16 @@ const Digibooth = () => {
   return (
     <>
       <Helmet>
-        <title>Digibooth Dietherdave - Digi Photo Booth | Pica Pica Netlify App</title>
-        <meta name="description" content="Create stunning digital photo booth experiences with Digibooth Dietherdave. Perfect for events, weddings, parties, and corporate gatherings. Customize frames, add effects, and share memorable moments instantly." />
-        <meta name="keywords" content="digital photo booth, digi booth, photo booth software, event photo booth, photo strip creator, custom photo frames, Dietherdave photo booth" />
-        <meta property="og:title" content="Digibooth Dietherdave - Digi Photo Booth | Create Memorable Photo Experiences" />
+        <title>Digibooth Photobooth | Digibooth by @dev.dietherdave</title>
+        <meta name="description" content="Create stunning digital photo booth experiences with Digibooth by @dev.dietherdave. Perfect for events, weddings, parties, and corporate gatherings. Customize frames, add effects, and share memorable moments instantly." />
+        <meta name="keywords" content="digital photo booth, digibooth, photo booth software, event photo booth, photo strip creator, custom photo frames, dietherdave photo booth" />
+        <meta property="og:title" content="Digibooth Photobooth | Digibooth by @dev.dietherdave" />
         <meta property="og:description" content="Create stunning digital photo booth experiences with Digibooth. Perfect for events, weddings, parties and corporate gatherings." />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="/og-image.png" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Digibooth Dietherdave - Digi Photo Booth" />
-        <meta name="twitter:description" content="Create stunning digital photo booth experiences with Digibooth Dietherdave." />
+        <meta name="twitter:title" content="Digibooth Photobooth | Digibooth by @dev.dietherdave" />
+        <meta name="twitter:description" content="Create stunning digital photo booth experiences with Digibooth by @dev.dietherdave." />
       </Helmet>
       
       <div className={`min-h-screen flex flex-col ${bgColor}`}>
@@ -150,6 +151,9 @@ const Digibooth = () => {
         <DigiboothTestimonials />
         <AnimatedPricingSection />
         <DigiboothCTA />
+        
+        {/* SEO Content Section */}
+        <DigiboothSEOSection />
         
         {/* Footer */}
         <Footer />
