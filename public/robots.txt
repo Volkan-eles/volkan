@@ -1,4 +1,3 @@
-
 # robots.txt for kpopphotobooth.com
 User-agent: *
 Allow: /
