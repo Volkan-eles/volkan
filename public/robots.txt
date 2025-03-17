@@ -1,0 +1,7 @@
+
+# robots.txt for kpopphotobooth.com
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://kpopphotobooth.com/sitemap.xml
