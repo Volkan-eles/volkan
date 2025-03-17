@@ -14,6 +14,7 @@ import VintageFeatures from '@/components/vintage/VintageFeatures';
 import VintageTestimonials from '@/components/vintage/VintageTestimonials';
 import AnimatedPricingSection from '@/components/landing/AnimatedPricingSection';
 import VintageCTA from '@/components/vintage/VintageCTA';
+import VintageSEOSection from '@/components/vintage/VintageSEOSection';
 
 // Hooks
 import useVintageState from '@/hooks/useVintageState';
@@ -70,15 +71,15 @@ const LittleVintagePhotobooth = () => {
   return (
     <>
       <Helmet>
-        <title>Little Vintage Photobooth | Pica Pica Netlify App</title>
-        <meta name="description" content="Create nostalgic vintage photo booth experiences with Little Vintage Photobooth. Perfect for weddings, parties, and events seeking a classic retro feel with modern digital convenience." />
+        <title>Little Vintage Photobooth App | Online Photo Booth</title>
+        <meta name="description" content="Create nostalgic vintage photo booth experiences with Little Vintage Photobooth App. Perfect for weddings, parties, and events seeking a classic retro feel with modern digital convenience." />
         <meta name="keywords" content="vintage photo booth, retro photo booth, nostalgic photos, old-school photography, sepia filters, classic photo frames, vintage photography" />
-        <meta property="og:title" content="Little Vintage Photobooth | Create Nostalgic Photo Experiences" />
-        <meta property="og:description" content="Create nostalgic vintage photo booth experiences with Little Vintage Photobooth. Perfect for weddings, parties and events seeking a classic retro feel." />
+        <meta property="og:title" content="Little Vintage Photobooth App | Online Photo Booth" />
+        <meta property="og:description" content="Create nostalgic vintage photo booth experiences with Little Vintage Photobooth App. Perfect for weddings, parties and events seeking a classic retro feel." />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="/og-image.png" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Little Vintage Photobooth" />
+        <meta name="twitter:title" content="Little Vintage Photobooth App" />
         <meta name="twitter:description" content="Create nostalgic vintage photo booth experiences with our retro-themed photobooth." />
       </Helmet>
       
@@ -155,6 +156,9 @@ const LittleVintagePhotobooth = () => {
         <VintageTestimonials />
         <AnimatedPricingSection />
         <VintageCTA />
+        
+        {/* SEO Content Section */}
+        <VintageSEOSection />
         
         {/* Footer */}
         <Footer />
