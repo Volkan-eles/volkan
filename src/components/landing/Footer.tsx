@@ -1,12 +1,16 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Separator } from '@/components/ui/separator';
 import { Facebook, Twitter, Instagram, Youtube, Mail, ArrowRight, Camera, Clock, Heart, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-  return <footer className="bg-gray-900 text-white py-12" aria-labelledby="footer-heading">
+  
+  return (
+    <footer className="bg-gray-900 text-white py-12" aria-labelledby="footer-heading">
       <h2 id="footer-heading" className="sr-only">Footer</h2>
       <div className="container mx-auto px-4 md:px-6">
         {/* Pre-Footer Features */}
@@ -42,7 +46,25 @@ const Footer = () => {
         </div>
       
         {/* Newsletter Section */}
-        
+        <div className="my-12 py-8 px-6 bg-gray-800/50 rounded-lg">
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div>
+              <h3 className="text-xl font-semibold mb-2">Stay updated with K-pop trends</h3>
+              <p className="text-gray-400">Get the latest news about photo opportunities with your favorite idols</p>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-2">
+              <Input 
+                type="email" 
+                placeholder="Enter your email" 
+                className="bg-gray-700 border-gray-600 text-white" 
+                aria-label="Email address for newsletter"
+              />
+              <Button className="bg-pink-500 hover:bg-pink-600 whitespace-nowrap">
+                Subscribe <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+        </div>
       
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-8">
           <div className="col-span-2 md:col-span-1">
@@ -130,6 +152,8 @@ const Footer = () => {
           </div>
         </div>
       </div>
-    </footer>;
+    </footer>
+  );
 };
+
 export default Footer;
