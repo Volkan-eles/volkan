@@ -1,33 +1,19 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { 
-  ArrowRight, 
-  Camera, 
-  UserPlus, 
-  Share2, 
-  CheckCircle2, 
-  ArrowDown, 
-  Sparkles,
-  Download,
-  Play
-} from 'lucide-react';
+import { ArrowRight, Camera, UserPlus, Share2, CheckCircle2, ArrowDown, Sparkles, Download, Play } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
-
 const HowItWorksSection = () => {
   const [activeStep, setActiveStep] = React.useState(0);
 
   // Auto cycle through steps
   React.useEffect(() => {
     const interval = setInterval(() => {
-      setActiveStep((prev) => (prev + 1) % 3);
+      setActiveStep(prev => (prev + 1) % 3);
     }, 5000);
     return () => clearInterval(interval);
   }, []);
-
-  return (
-    <section id="how-it-works" className="py-20 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden">
+  return <section id="how-it-works" className="py-20 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden">
       {/* Background decorative elements */}
       <div className="absolute top-20 right-20 w-64 h-64 bg-pink-200 rounded-full opacity-20 blur-3xl"></div>
       <div className="absolute bottom-20 left-20 w-80 h-80 bg-purple-200 rounded-full opacity-20 blur-3xl"></div>
@@ -46,13 +32,10 @@ const HowItWorksSection = () => {
         <div className="relative max-w-5xl mx-auto mb-16">
           {/* Connecting lines with animation */}
           <div className="absolute top-28 left-0 right-0 h-0.5 bg-gradient-to-r from-pink-400 to-purple-400 hidden md:block">
-            <div 
-              className="h-full bg-white transition-all duration-500 ease-in-out" 
-              style={{
-                width: `${(activeStep / 2) * 100}%`,
-                opacity: 0.6
-              }}
-            ></div>
+            <div className="h-full bg-white transition-all duration-500 ease-in-out" style={{
+            width: `${activeStep / 2 * 100}%`,
+            opacity: 0.6
+          }}></div>
           </div>
           
           <div className="grid md:grid-cols-3 gap-8">
@@ -147,29 +130,7 @@ const HowItWorksSection = () => {
         
         {/* Demo video or animated gif with enhanced styling */}
         <div className="max-w-4xl mx-auto bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100 transform transition-all duration-500 hover:shadow-xl hover:shadow-purple-200/40">
-          <div className="aspect-video bg-gray-100 relative overflow-hidden group">
-            <img 
-              src="/lovable-uploads/95c01b04-2c56-4d10-8223-831f4995f862.png" 
-              alt="K-pop Frame in action" 
-              className="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:scale-105 transition-transform duration-700"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-gray-900/20 flex flex-col items-center justify-center">
-              <div className="text-center p-8 max-w-lg">
-                <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 drop-shadow-md">See the process in action</h3>
-                <p className="text-gray-200 mb-6 drop-shadow-md">Watch how easy it is to create your own K-pop photo memories in just seconds</p>
-                <Button variant="default" size="lg" className="bg-white hover:bg-gray-100 text-gray-900 shadow-xl hover:shadow-2xl hover:shadow-pink-500/20 transition-all duration-300 group">
-                  <div className="absolute -inset-0.5 bg-gradient-to-r from-pink-500 to-purple-500 rounded-md opacity-0 group-hover:opacity-20 blur-sm transition duration-300 group-hover:duration-200"></div>
-                  <div className="relative flex items-center">
-                    <Play className="mr-2 h-5 w-5 text-pink-600" /> Watch Demo <ArrowRight className="ml-2 h-4 w-4" />
-                  </div>
-                </Button>
-              </div>
-              
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 animate-bounce text-white">
-                <ArrowDown className="h-6 w-6" />
-              </div>
-            </div>
-          </div>
+          
         </div>
         
         {/* CTA section with improved styling */}
@@ -192,8 +153,6 @@ const HowItWorksSection = () => {
           </Link>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default HowItWorksSection;

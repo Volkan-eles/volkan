@@ -1,62 +1,47 @@
-
 import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Star, Quote } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-
-const testimonials = [
-  {
-    quote: "This is the closest I'll ever get to taking photos with my bias! The overlays look so realistic!",
-    author: "Min-ji Kim",
-    role: "TWICE Fan",
-    rating: 5,
-    avatar: "https://placehold.co/100x100/efefef/8B5CF6?text=MK",
-    location: "Seoul, South Korea"
-  },
-  {
-    quote: "I love how easy it is to create photo strips with different layouts. Perfect for my K-pop fan account!",
-    author: "David Chen",
-    role: "BTS ARMY",
-    rating: 5,
-    avatar: "https://placehold.co/100x100/efefef/8B5CF6?text=DC",
-    location: "Los Angeles, USA"
-  },
-  {
-    quote: "The quality of the overlays is amazing. My friends couldn't believe these weren't taken in a real photo booth!",
-    author: "Sarah Johnson",
-    role: "NCT Enthusiast",
-    rating: 4,
-    avatar: "https://placehold.co/100x100/efefef/8B5CF6?text=SJ",
-    location: "London, UK"
-  },
-  {
-    quote: "Used this for our fan club meeting and everyone went crazy for it. The filters are surprisingly good too!",
-    author: "Alex Patel",
-    role: "BLACKPINK Fan",
-    rating: 5,
-    avatar: "https://placehold.co/100x100/efefef/8B5CF6?text=AP",
-    location: "Toronto, Canada"
-  }
-];
-
-const TestimonialCard = ({ testimonial, isActive }) => (
-  <div 
-    className={`bg-white rounded-xl shadow-lg p-6 md:p-8 transition-all duration-500 transform ${
-      isActive ? 'scale-100 opacity-100' : 'scale-95 opacity-50'
-    } h-full flex flex-col`}
-  >
+const testimonials = [{
+  quote: "This is the closest I'll ever get to taking photos with my bias! The overlays look so realistic!",
+  author: "Min-ji Kim",
+  role: "TWICE Fan",
+  rating: 5,
+  avatar: "https://placehold.co/100x100/efefef/8B5CF6?text=MK",
+  location: "Seoul, South Korea"
+}, {
+  quote: "I love how easy it is to create photo strips with different layouts. Perfect for my K-pop fan account!",
+  author: "David Chen",
+  role: "BTS ARMY",
+  rating: 5,
+  avatar: "https://placehold.co/100x100/efefef/8B5CF6?text=DC",
+  location: "Los Angeles, USA"
+}, {
+  quote: "The quality of the overlays is amazing. My friends couldn't believe these weren't taken in a real photo booth!",
+  author: "Sarah Johnson",
+  role: "NCT Enthusiast",
+  rating: 4,
+  avatar: "https://placehold.co/100x100/efefef/8B5CF6?text=SJ",
+  location: "London, UK"
+}, {
+  quote: "Used this for our fan club meeting and everyone went crazy for it. The filters are surprisingly good too!",
+  author: "Alex Patel",
+  role: "BLACKPINK Fan",
+  rating: 5,
+  avatar: "https://placehold.co/100x100/efefef/8B5CF6?text=AP",
+  location: "Toronto, Canada"
+}];
+const TestimonialCard = ({
+  testimonial,
+  isActive
+}) => <div className={`bg-white rounded-xl shadow-lg p-6 md:p-8 transition-all duration-500 transform ${isActive ? 'scale-100 opacity-100' : 'scale-95 opacity-50'} h-full flex flex-col`}>
     <div className="flex justify-between items-start mb-6">
       <div className="flex-shrink-0 h-10 w-10 rounded-full bg-purple-100 flex items-center justify-center">
         <Quote className="h-5 w-5 text-purple-600" />
       </div>
       <div className="flex">
-        {Array.from({ length: 5 }).map((_, i) => (
-          <Star
-            key={i}
-            className={`h-4 w-4 ${
-              i < testimonial.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'
-            }`}
-          />
-        ))}
+        {Array.from({
+        length: 5
+      }).map((_, i) => <Star key={i} className={`h-4 w-4 ${i < testimonial.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'}`} />)}
       </div>
     </div>
     
@@ -75,13 +60,11 @@ const TestimonialCard = ({ testimonial, isActive }) => (
         </div>
       </div>
     </div>
-  </div>
-);
-
+  </div>;
 const TestimonialsSection = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [displayCount, setDisplayCount] = useState(3);
-  
+
   // Adjust display count based on screen size
   useEffect(() => {
     const handleResize = () => {
@@ -93,28 +76,25 @@ const TestimonialsSection = () => {
         setDisplayCount(3);
       }
     };
-    
     handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-  
+
   // Auto rotate testimonials
   useEffect(() => {
     const interval = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % testimonials.length);
+      setActiveIndex(prev => (prev + 1) % testimonials.length);
     }, 6000);
     return () => clearInterval(interval);
   }, []);
-  
   const handlePrev = () => {
-    setActiveIndex((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1));
+    setActiveIndex(prev => prev === 0 ? testimonials.length - 1 : prev - 1);
   };
-  
   const handleNext = () => {
-    setActiveIndex((prev) => (prev + 1) % testimonials.length);
+    setActiveIndex(prev => (prev + 1) % testimonials.length);
   };
-  
+
   // Get current testimonials to show
   const getVisibleTestimonials = () => {
     const result = [];
@@ -124,94 +104,7 @@ const TestimonialsSection = () => {
     }
     return result;
   };
-  
   const visibleTestimonials = getVisibleTestimonials();
-
-  return (
-    <section id="testimonials" className="py-20 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
-      {/* Decorative elements */}
-      <div className="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-purple-50 to-transparent opacity-70"></div>
-      <div className="absolute top-20 right-20 w-40 h-40 rounded-full bg-pink-100 opacity-30 blur-3xl"></div>
-      <div className="absolute bottom-20 left-20 w-60 h-60 rounded-full bg-purple-100 opacity-30 blur-3xl"></div>
-      
-      <div className="container mx-auto px-4 md:px-6 relative z-10">
-        <div className="max-w-3xl mx-auto text-center mb-12">
-          <div className="inline-flex items-center justify-center p-1 mb-3 rounded-full bg-purple-100 text-purple-600 text-xs font-medium px-3 py-1">
-            <Star className="h-3.5 w-3.5 mr-1.5 fill-yellow-400 text-yellow-400" />
-            <span className="uppercase tracking-wider">Testimonials</span>
-          </div>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">What Our Users Say</h2>
-          <p className="text-lg text-gray-600">Join thousands of happy K-pop fans creating memories with their favorite idols</p>
-        </div>
-        
-        {/* Testimonial cards with controls */}
-        <div className="relative max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {visibleTestimonials.map((testimonial, i) => (
-              <TestimonialCard 
-                key={`${activeIndex}-${i}`} 
-                testimonial={testimonial}
-                isActive={true}
-              />
-            ))}
-          </div>
-          
-          {/* Navigation controls */}
-          <div className="flex justify-center mt-10 space-x-2">
-            <Button 
-              variant="outline" 
-              size="icon" 
-              onClick={handlePrev}
-              className="rounded-full hover:bg-purple-50 hover:text-purple-600 transition-colors"
-            >
-              <ChevronLeft className="h-5 w-5" />
-            </Button>
-            {testimonials.map((_, i) => (
-              <Button 
-                key={i} 
-                variant="ghost" 
-                size="sm" 
-                onClick={() => setActiveIndex(i)}
-                className={`px-3 rounded-full ${
-                  i === activeIndex ? 'bg-purple-100 text-purple-600' : 'hover:bg-purple-50'
-                }`}
-              >
-                {i + 1}
-              </Button>
-            ))}
-            <Button 
-              variant="outline" 
-              size="icon" 
-              onClick={handleNext}
-              className="rounded-full hover:bg-purple-50 hover:text-purple-600 transition-colors"
-            >
-              <ChevronRight className="h-5 w-5" />
-            </Button>
-          </div>
-        </div>
-        
-        {/* Testimonial stats */}
-        <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
-          <div className="bg-white rounded-lg p-4 text-center shadow-sm hover:shadow-md transition-shadow">
-            <div className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">4.9/5</div>
-            <p className="text-gray-600">Average Rating</p>
-          </div>
-          <div className="bg-white rounded-lg p-4 text-center shadow-sm hover:shadow-md transition-shadow">
-            <div className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">25K+</div>
-            <p className="text-gray-600">Happy Users</p>
-          </div>
-          <div className="bg-white rounded-lg p-4 text-center shadow-sm hover:shadow-md transition-shadow">
-            <div className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">80K+</div>
-            <p className="text-gray-600">Photos Created</p>
-          </div>
-          <div className="bg-white rounded-lg p-4 text-center shadow-sm hover:shadow-md transition-shadow">
-            <div className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">50+</div>
-            <p className="text-gray-600">Countries</p>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+  return;
 };
-
 export default TestimonialsSection;

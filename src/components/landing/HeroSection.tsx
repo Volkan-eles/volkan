@@ -1,12 +1,9 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Heart, Instagram, Music, Camera, Award, ArrowRight, Star, Check } from 'lucide-react';
-
 const HeroSection = () => {
-  return (
-    <section className="relative overflow-hidden" aria-labelledby="hero-heading">
+  return <section className="relative overflow-hidden" aria-labelledby="hero-heading">
       {/* Background elements - updated for better visual appeal */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#8B5CF6] via-[#D946EF] to-[#EC4899] opacity-90"></div>
       <div className="absolute inset-0 bg-[url('/lovable-uploads/3fc22a76-7d7a-4617-b0df-6998c07b60ea.png')] bg-cover bg-center opacity-10"></div>
@@ -14,8 +11,8 @@ const HeroSection = () => {
       {/* Animated circles */}
       <div className="absolute top-20 left-10 w-64 h-64 rounded-full bg-pink-300 opacity-20 blur-3xl animate-pulse"></div>
       <div className="absolute bottom-10 right-10 w-80 h-80 rounded-full bg-violet-300 opacity-20 blur-3xl animate-pulse" style={{
-        animationDelay: '1s'
-      }}></div>
+      animationDelay: '1s'
+    }}></div>
       
       <div className="container mx-auto px-4 md:px-6 py-20 md:py-32 relative z-10">
         <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -89,12 +86,12 @@ const HeroSection = () => {
               
               {/* Enhanced decorative elements */}
               <div className="absolute bottom-20 left-10 h-20 w-20 rounded-full bg-gradient-to-br from-pink-400 to-purple-600 opacity-80 animate-bounce" style={{
-                animationDuration: "3s"
-              }}></div>
+              animationDuration: "3s"
+            }}></div>
               <div className="absolute top-10 left-20 h-12 w-12 rounded-full bg-gradient-to-br from-indigo-400 to-blue-600 opacity-80 animate-bounce" style={{
-                animationDuration: "4s",
-                animationDelay: "1s"
-              }}></div>
+              animationDuration: "4s",
+              animationDelay: "1s"
+            }}></div>
               
               {/* Added floating buttons */}
               <div className="absolute bottom-10 right-10 bg-white/90 backdrop-blur-sm px-3 py-2 rounded-lg shadow-lg transform rotate-3 hover:rotate-0 transition-all hover:scale-105 z-40">
@@ -107,24 +104,8 @@ const HeroSection = () => {
         
         {/* Enhanced Brands/Recognition Section */}
         <div className="mt-16 pt-8 border-t border-white/10">
-          <p className="text-center text-white/60 text-sm mb-6">TRUSTED BY K-POP FANS WORLDWIDE</p>
-          <div className="flex flex-wrap justify-center gap-6 md:gap-8">
-            <div className="bg-white/10 backdrop-blur-sm p-2 rounded-md hover:bg-white/20 transition-colors">
-              <img src="https://placehold.co/120x40/ffffff/8B5CF6?text=HYBE" alt="HYBE Entertainment - K-pop agency partner" className="h-8" />
-            </div>
-            <div className="bg-white/10 backdrop-blur-sm p-2 rounded-md hover:bg-white/20 transition-colors">
-              <img src="https://placehold.co/120x40/ffffff/8B5CF6?text=SM+Ent" alt="SM Entertainment - K-pop agency partner" className="h-8" />
-            </div>
-            <div className="bg-white/10 backdrop-blur-sm p-2 rounded-md hover:bg-white/20 transition-colors">
-              <img src="https://placehold.co/120x40/ffffff/8B5CF6?text=YG+Ent" alt="YG Entertainment - K-pop agency partner" className="h-8" />
-            </div>
-            <div className="bg-white/10 backdrop-blur-sm p-2 rounded-md hover:bg-white/20 transition-colors">
-              <img src="https://placehold.co/120x40/ffffff/8B5CF6?text=JYP+Ent" alt="JYP Entertainment - K-pop agency partner" className="h-8" />
-            </div>
-            <div className="bg-white/10 backdrop-blur-sm p-2 rounded-md hover:bg-white/20 transition-colors">
-              <img src="https://placehold.co/120x40/ffffff/8B5CF6?text=KCON" alt="KCON - K-pop convention partner" className="h-8" />
-            </div>
-          </div>
+          
+          
         </div>
       </div>
       
@@ -134,8 +115,6 @@ const HeroSection = () => {
           <path d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"></path>
         </svg>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default HeroSection;
