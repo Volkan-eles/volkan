@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import Header from '@/components/landing/Header';
@@ -7,10 +6,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Mail, Phone, MapPin, Clock, Send } from 'lucide-react';
-
 const Contact = () => {
-  return (
-    <>
+  return <>
       <Helmet>
         <title>Contact Us | K-pop Photo Booth</title>
         <meta name="description" content="Contact our team for support, partnership inquiries, or feedback about the K-pop Photo Booth application." />
@@ -76,8 +73,8 @@ const Contact = () => {
                         <Mail className="text-pink-500 h-5 w-5 mt-1 mr-3" />
                         <div>
                           <h3 className="text-lg font-medium">Email Us</h3>
-                          <p className="text-gray-600 mt-1">support@kpopframe.com</p>
-                          <p className="text-gray-600">partnerships@kpopframe.com</p>
+                          <p className="text-gray-600 mt-1"></p>
+                          <p className="text-gray-600">aisunum24@gmail.com</p>
                         </div>
                       </div>
                       
@@ -85,7 +82,7 @@ const Contact = () => {
                         <Phone className="text-pink-500 h-5 w-5 mt-1 mr-3" />
                         <div>
                           <h3 className="text-lg font-medium">Call Us</h3>
-                          <p className="text-gray-600 mt-1">+1 (555) 123-4567</p>
+                          <p className="text-gray-600 mt-1">+90 553 749 71 98</p>
                           <p className="text-gray-600">Monday-Friday, 9AM-6PM EST</p>
                         </div>
                       </div>
@@ -167,8 +164,6 @@ const Contact = () => {
         </main>
         <Footer />
       </div>
-    </>
-  );
+    </>;
 };
-
 export default Contact;
