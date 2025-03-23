@@ -1,19 +1,15 @@
-
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import Header from '@/components/landing/Header';
 import Footer from '@/components/landing/Footer';
 import { Separator } from '@/components/ui/separator';
-
 const CookiePolicy = () => {
   const currentDate = new Date().toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
     day: 'numeric'
   });
-  
-  return (
-    <>
+  return <>
       <Helmet>
         <title>Cookie Policy | K-pop Photo Booth</title>
         <meta name="description" content="Learn about how K-pop Frame uses cookies to enhance your experience on our virtual photo booth platform." />
@@ -93,7 +89,7 @@ const CookiePolicy = () => {
                     If you have any questions about our Cookie Policy, please contact us:
                   </p>
                   <ul className="list-disc pl-5 text-gray-700">
-                    <li>By email: privacy@kpop-frame.com</li>
+                    
                     <li>By visiting our contact page: <a href="/contact" className="text-purple-600 hover:text-purple-800">Contact Us</a></li>
                   </ul>
                 </div>
@@ -103,8 +99,6 @@ const CookiePolicy = () => {
         </main>
         <Footer />
       </div>
-    </>
-  );
+    </>;
 };
-
 export default CookiePolicy;
