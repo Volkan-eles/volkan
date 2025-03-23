@@ -1,20 +1,16 @@
-
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import Header from '@/components/landing/Header';
 import Footer from '@/components/landing/Footer';
 import { Separator } from '@/components/ui/separator';
 import { Link } from 'react-router-dom';
-
 const Accessibility = () => {
   const currentDate = new Date().toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
     day: 'numeric'
   });
-  
-  return (
-    <>
+  return <>
       <Helmet>
         <title>Accessibility Statement | K-pop Photo Booth</title>
         <meta name="description" content="Learn about K-pop Frame's commitment to accessibility and how we make our virtual photo booth accessible to all users." />
@@ -96,7 +92,7 @@ const Accessibility = () => {
                   We welcome your feedback on the accessibility of K-pop Frame. If you experience any difficulties or have suggestions for improvement, please contact us:
                 </p>
                 <ul className="list-disc pl-8 text-gray-700 space-y-2 mb-6">
-                  <li>By email: accessibility@kpop-frame.com</li>
+                  
                   <li>
                     By visiting our <Link to="/contact" className="text-purple-600 hover:text-purple-800">Contact Us</Link> page
                   </li>
@@ -117,8 +113,6 @@ const Accessibility = () => {
         </main>
         <Footer />
       </div>
-    </>
-  );
+    </>;
 };
-
 export default Accessibility;
