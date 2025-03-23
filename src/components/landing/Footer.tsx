@@ -58,20 +58,7 @@ const Footer = () => {
             <p className="text-gray-400 text-sm mb-4">
               The ultimate platform to create and share virtual photo memories with your favorite K-pop idols.
             </p>
-            <div className="flex space-x-4">
-              <a href="https://facebook.com" aria-label="Facebook" className="text-gray-400 hover:text-white transition-colors">
-                <Facebook size={18} />
-              </a>
-              <a href="https://twitter.com" aria-label="Twitter" className="text-gray-400 hover:text-white transition-colors">
-                <Twitter size={18} />
-              </a>
-              <a href="https://instagram.com" aria-label="Instagram" className="text-gray-400 hover:text-white transition-colors">
-                <Instagram size={18} />
-              </a>
-              <a href="https://youtube.com" aria-label="YouTube" className="text-gray-400 hover:text-white transition-colors">
-                <Youtube size={18} />
-              </a>
-            </div>
+            
           </div>
           <div>
             <h3 className="text-lg font-semibold mb-4">Photobooths</h3>
