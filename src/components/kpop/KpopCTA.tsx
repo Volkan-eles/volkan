@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { Star, MusicNote } from 'lucide-react';
+import { Star, Music } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const KpopCTA: React.FC = () => {
@@ -9,7 +9,7 @@ const KpopCTA: React.FC = () => {
     <section className="bg-gradient-to-r from-purple-600 to-pink-500 py-16">
       <div className="container mx-auto px-4 md:px-6">
         <div className="max-w-3xl mx-auto text-center">
-          <MusicNote className="h-12 w-12 text-white mx-auto mb-6" />
+          <Music className="h-12 w-12 text-white mx-auto mb-6" />
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
             Create Your K-Pop Inspired Photo Memories
           </h2>
