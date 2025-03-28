@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -24,40 +23,37 @@ const HeroSection = () => {
               <span>NEW: Wedding Photobooth Now Available!</span>
             </div>
             <h1 id="hero-heading" className="text-4xl md:text-6xl font-bold tracking-tight text-white mb-6 leading-tight">
-              Create <span className="relative inline-block">
-                <span className="relative z-10">Magical</span>
-                <span className="absolute -bottom-2 left-0 right-0 h-3 bg-pink-400/30 rounded-full blur-sm"></span>
-              </span> Photo Memories with K-pop Idols
+              Create Magical Photo Memories
             </h1>
             <p className="text-lg md:text-xl text-white/80 mb-8 max-w-lg mx-auto md:mx-0">
-              Take stunning virtual photo booth pictures with your favorite K-pop idols. Customize, create, and share your perfect idol moments in seconds.
+              Take stunning virtual photo booth pictures. Customize, create, and share your perfect moments in seconds.
             </p>
             <div className="flex flex-col sm:flex-row justify-center md:justify-start gap-4">
-              <Link to="/kpop-photo-booth" aria-label="Start creating photos with K-pop idols">
+              <Link to="/kpop-photo-booth" aria-label="Start creating photos">
                 <Button size="lg" className="w-full sm:w-auto bg-white text-[#8B5CF6] hover:bg-white/90 shadow-lg transition-all hover:shadow-xl">
                   Start Creating Now
                 </Button>
               </Link>
-              <a href="#how-it-works" aria-label="Learn how the K-pop photo booth works">
+              <a href="#how-it-works" aria-label="Learn how the photo booth works">
                 <Button size="lg" variant="outline" className="w-full sm:w-auto bg-transparent border-white text-white hover:bg-white/10">
                   See How It Works
                 </Button>
               </a>
             </div>
             
-            {/* Enhanced trust indicators with icons */}
+            {/* Feature indicators with icons */}
             <div className="mt-8 flex flex-wrap justify-center md:justify-start gap-4">
               <div className="flex items-center bg-white/10 backdrop-blur-sm rounded-full px-3 py-1.5">
                 <Heart className="h-5 w-5 text-pink-300 mr-2" fill="currentColor" />
-                <span className="text-white text-sm">100K+ Users</span>
+                <span className="text-white text-sm">Photo Frames</span>
               </div>
               <div className="flex items-center bg-white/10 backdrop-blur-sm rounded-full px-3 py-1.5">
                 <Instagram className="h-5 w-5 text-pink-300 mr-2" />
-                <span className="text-white text-sm">50K+ Shares</span>
+                <span className="text-white text-sm">Easy Sharing</span>
               </div>
               <div className="flex items-center bg-white/10 backdrop-blur-sm rounded-full px-3 py-1.5">
                 <Music className="h-5 w-5 text-pink-300 mr-2" />
-                <span className="text-white text-sm">200+ Idols</span>
+                <span className="text-white text-sm">Creative Styles</span>
               </div>
               <div className="flex items-center bg-white/10 backdrop-blur-sm rounded-full px-3 py-1.5">
                 <Camera className="h-5 w-5 text-pink-300 mr-2" />
