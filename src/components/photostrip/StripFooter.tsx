@@ -22,8 +22,8 @@ const StripFooter: React.FC<StripFooterProps> = ({ frameColor, textColor }) => {
 
   return (
     <div className={`text-center py-1 ${textColor}`}>
-      <div className="text-sm font-medium">K-pop Frame • {formatDate()}</div>
-      <div className="text-xs">© {new Date().getFullYear()} K-pop Frame</div>
+      <div className="text-sm font-medium">KPop Photobooth • {formatDate()}</div>
+      <div className="text-xs">© {new Date().getFullYear()} KPop Photobooth</div>
     </div>
   );
 };
