@@ -33,13 +33,11 @@ const Pricing = () => {
             </p>
             
             <div className="flex justify-center">
-              <Button
-                as={Link}
-                to="/"
-                className="bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white px-6 py-3 rounded-md text-lg font-medium"
-              >
-                Back to Homepage
-              </Button>
+              <Link to="/">
+                <Button className="bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white px-6 py-3 rounded-md text-lg font-medium">
+                  Back to Homepage
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
