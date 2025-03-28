@@ -2,6 +2,7 @@
 import React from 'react';
 import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
 
 interface ActionButtonsProps {
   isMobile: boolean;
@@ -16,6 +17,15 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
 }) => {
   return (
     <div className="flex items-center">
+      {/* Action Buttons for Desktop */}
+      {!isMobile && (
+        <div className="flex gap-4">
+          <Button asChild variant="ghost" className="text-white hover:bg-white/10">
+            <Link to="/contact">Contact Us</Link>
+          </Button>
+        </div>
+      )}
+      
       {/* Mobile Menu Button */}
       {isMobile && (
         <Button 
