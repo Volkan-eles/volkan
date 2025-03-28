@@ -1,8 +1,10 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Camera, UserPlus, Share2, CheckCircle2, ArrowDown, Sparkles, Download, Play } from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/card';
+import { Camera, UserPlus, Share2, CheckCircle2, Sparkles, Download } from 'lucide-react';
+import { Card } from '@/components/ui/card';
+
 const HowItWorksSection = () => {
   const [activeStep, setActiveStep] = React.useState(0);
 
@@ -13,6 +15,7 @@ const HowItWorksSection = () => {
     }, 5000);
     return () => clearInterval(interval);
   }, []);
+  
   return <section id="how-it-works" className="py-20 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden">
       {/* Background decorative elements */}
       <div className="absolute top-20 right-20 w-64 h-64 bg-pink-200 rounded-full opacity-20 blur-3xl"></div>
@@ -51,22 +54,8 @@ const HowItWorksSection = () => {
                   <span className="flex items-center justify-center h-8 w-8 bg-pink-100 text-pink-600 rounded-full mb-3 font-bold text-xl">1</span>
                   <h3 className="text-xl font-semibold mb-2">Take Photos</h3>
                   <p className="text-gray-600 mb-4">Use your webcam to capture your best poses in real-time</p>
-                  
-                  <div className="mt-auto space-y-2 w-full">
-                    <div className="flex items-center text-sm text-gray-600 p-2 rounded-lg bg-gray-50 group-hover:bg-pink-50 transition-colors">
-                      <CheckCircle2 className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
-                      <span>High-quality capture</span>
-                    </div>
-                    <div className="flex items-center text-sm text-gray-600 p-2 rounded-lg bg-gray-50 group-hover:bg-pink-50 transition-colors">
-                      <CheckCircle2 className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
-                      <span>Multiple pose options</span>
-                    </div>
-                  </div>
                 </div>
               </Card>
-              <div className="hidden md:flex absolute -right-4 top-1/2 -translate-y-1/2 z-10">
-                <ArrowRight className={`h-8 w-8 ${activeStep === 0 ? 'text-pink-500 animate-pulse' : 'text-purple-400'}`} />
-              </div>
             </div>
             
             {/* Step 2 */}
@@ -81,22 +70,8 @@ const HowItWorksSection = () => {
                   <span className="flex items-center justify-center h-8 w-8 bg-purple-100 text-purple-600 rounded-full mb-3 font-bold text-xl">2</span>
                   <h3 className="text-xl font-semibold mb-2">Choose Your Idols</h3>
                   <p className="text-gray-600 mb-4">Select from our collection of K-pop idol overlays and styles</p>
-                  
-                  <div className="mt-auto space-y-2 w-full">
-                    <div className="flex items-center text-sm text-gray-600 p-2 rounded-lg bg-gray-50 group-hover:bg-purple-50 transition-colors">
-                      <CheckCircle2 className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
-                      <span>200+ idol options</span>
-                    </div>
-                    <div className="flex items-center text-sm text-gray-600 p-2 rounded-lg bg-gray-50 group-hover:bg-purple-50 transition-colors">
-                      <CheckCircle2 className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
-                      <span>Multiple poses</span>
-                    </div>
-                  </div>
                 </div>
               </Card>
-              <div className="hidden md:flex absolute -right-4 top-1/2 -translate-y-1/2 z-10">
-                <ArrowRight className={`h-8 w-8 ${activeStep === 1 ? 'text-purple-500 animate-pulse' : 'text-purple-400'}`} />
-              </div>
             </div>
             
             {/* Step 3 */}
@@ -111,26 +86,10 @@ const HowItWorksSection = () => {
                   <span className="flex items-center justify-center h-8 w-8 bg-blue-100 text-blue-600 rounded-full mb-3 font-bold text-xl">3</span>
                   <h3 className="text-xl font-semibold mb-2">Customize & Share</h3>
                   <p className="text-gray-600 mb-4">Personalize your photo strip and download to share</p>
-                  
-                  <div className="mt-auto space-y-2 w-full">
-                    <div className="flex items-center text-sm text-gray-600 p-2 rounded-lg bg-gray-50 group-hover:bg-blue-50 transition-colors">
-                      <CheckCircle2 className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
-                      <span>Multiple formats</span>
-                    </div>
-                    <div className="flex items-center text-sm text-gray-600 p-2 rounded-lg bg-gray-50 group-hover:bg-blue-50 transition-colors">
-                      <CheckCircle2 className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
-                      <span>Social sharing</span>
-                    </div>
-                  </div>
                 </div>
               </Card>
             </div>
           </div>
-        </div>
-        
-        {/* Demo video or animated gif with enhanced styling */}
-        <div className="max-w-4xl mx-auto bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100 transform transition-all duration-500 hover:shadow-xl hover:shadow-purple-200/40">
-          
         </div>
         
         {/* CTA section with improved styling */}
@@ -143,7 +102,7 @@ const HowItWorksSection = () => {
             </div>
           </div>
           
-          <Link to="/dashboard">
+          <Link to="/kpop-photo-booth">
             <Button size="lg" className="bg-gradient-to-r from-pink-500 to-violet-500 hover:from-pink-600 hover:to-violet-600 text-white shadow-md hover:shadow-lg hover:shadow-pink-500/30 transition-all duration-300 group relative overflow-hidden">
               <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-pink-600 to-violet-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0"></span>
               <span className="relative z-10 flex items-center">
@@ -155,4 +114,5 @@ const HowItWorksSection = () => {
       </div>
     </section>;
 };
+
 export default HowItWorksSection;

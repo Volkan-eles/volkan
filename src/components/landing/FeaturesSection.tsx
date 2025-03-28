@@ -1,4 +1,3 @@
-
 import React from 'react';
 import SectionHeader from './sections/SectionHeader';
 import BoothShowcase from './sections/BoothShowcase';

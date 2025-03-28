@@ -1,7 +1,9 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Heart, Instagram, Music, Camera, Award, ArrowRight, Star, Check } from 'lucide-react';
+
 const HeroSection = () => {
   return <section className="relative overflow-hidden" aria-labelledby="hero-heading">
       {/* Background elements - updated for better visual appeal */}
@@ -101,12 +103,6 @@ const HeroSection = () => {
             </div>
           </div>
         </div>
-        
-        {/* Enhanced Brands/Recognition Section */}
-        <div className="mt-16 pt-8 border-t border-white/10">
-          
-          
-        </div>
       </div>
       
       {/* Wave divider */}
@@ -117,4 +113,5 @@ const HeroSection = () => {
       </div>
     </section>;
 };
+
 export default HeroSection;
