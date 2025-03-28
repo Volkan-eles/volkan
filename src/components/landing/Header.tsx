@@ -26,25 +26,22 @@ const Header: React.FC = () => {
 
   return (
     <header 
-      className={`w-full px-4 md:px-6 py-3 flex items-center justify-between fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`w-full px-4 md:px-8 py-4 flex items-center justify-between fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled 
-          ? 'bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-md' 
+          ? 'bg-white shadow-md' 
           : 'bg-transparent'
       }`}
     >
       <HeaderLogo />
       
-      {/* Desktop Navigation */}
-      {!isMobile && <DesktopNavigation handleLinkClick={handleLinkClick} />}
+      <DesktopNavigation handleLinkClick={handleLinkClick} />
       
-      {/* Action Buttons */}
       <ActionButtons 
         isMobile={isMobile} 
         isMobileMenuOpen={isMobileMenuOpen} 
         setIsMobileMenuOpen={setIsMobileMenuOpen} 
       />
       
-      {/* Mobile Menu */}
       <MobileMenu 
         isMobileMenuOpen={isMobileMenuOpen}
         handleLinkClick={handleLinkClick}
