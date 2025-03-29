@@ -12,8 +12,8 @@ const Index = () => {
   return (
     <>
       <SEOHead 
-        title="Pica Photobooth | Pica Pica Photo Booth"
-        description="Create stunning photos with Pica Photobooth. Our digital photo booth experience offers customizable frames, filters, and interactive features for any occasion."
+        title="KPop Photobooth | Photo Booth Web App"
+        description="Create stunning virtual photo booth pictures with your favorite K-pop idols. Customize backgrounds, add stickers, and share your K-pop memories in seconds."
       />
       <div className="min-h-screen flex flex-col">
         <Header />
