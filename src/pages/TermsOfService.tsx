@@ -9,9 +9,9 @@ const TermsOfService = () => {
     <>
       <Helmet>
         <title>Terms of Service | K-pop Photo Booth</title>
-        <meta name="description" content="Read our terms of service to understand your rights and responsibilities when using K-pop Frame's virtual photo booth platform." />
+        <meta name="description" content="Read our terms of service to understand your rights and responsibilities when using K-pop Photo Booth's virtual photo booth platform." />
         <meta name="robots" content="noindex" />
-        <link rel="canonical" href="https://kpop-frame.com/terms-of-service" />
+        <link rel="canonical" href="https://kpopphotobooth.com/terms-of-service" />
       </Helmet>
       <div className="min-h-screen flex flex-col">
         <Header />
@@ -87,7 +87,7 @@ const TermsOfService = () => {
                   If you have any questions about these Terms of Service, please contact us:
                 </p>
                 <p className="text-gray-700 mb-6">
-                  Email: vlkneles@gmail.com
+                  Email: privacy@kpopphotobooth.com
                 </p>
               </div>
             </div>
