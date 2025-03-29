@@ -1,18 +1,16 @@
 
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
+import SEOHead from '@/components/landing/SEOHead';
 import Header from '@/components/landing/Header';
 import Footer from '@/components/landing/Footer';
 
 const CookiePolicy = () => {
   return (
     <>
-      <Helmet>
-        <title>Cookie Policy | K-pop Photo Booth</title>
-        <meta name="description" content="Learn about how K-pop Photo Booth uses cookies to enhance your experience on our virtual photo booth platform." />
-        <meta name="keywords" content="cookie policy, K-pop Photo Booth cookies, privacy, data collection" />
-        <link rel="canonical" href="https://kpopphotobooth.com/cookie-policy" />
-      </Helmet>
+      <SEOHead 
+        title="Cookie Policy | KPop Photobooth"
+        description="Learn about how KPop Photobooth uses cookies to enhance your experience on our virtual photo booth platform."
+      />
       <div className="min-h-screen flex flex-col">
         <Header />
         <main className="flex-grow bg-gray-50">
@@ -45,6 +43,11 @@ const CookiePolicy = () => {
                   <li><strong>Analytics Cookies:</strong> Help us understand how visitors interact with our website</li>
                   <li><strong>Advertising Cookies:</strong> Used to deliver advertisements relevant to you and your interests</li>
                 </ul>
+                
+                <div id="ad-container-cookie" className="my-8 p-4 bg-gray-50 border border-gray-200 rounded-md text-center">
+                  <div className="text-sm text-gray-500 mb-2">Advertisement</div>
+                  {/* Ad will be inserted here by Google AdSense */}
+                </div>
                 
                 <div className="my-8 border-t border-gray-200"></div>
                 

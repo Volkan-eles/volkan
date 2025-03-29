@@ -1,17 +1,16 @@
+
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
+import SEOHead from '@/components/landing/SEOHead';
 import Header from '@/components/landing/Header';
 import Footer from '@/components/landing/Footer';
 
 const TermsOfService = () => {
   return (
     <>
-      <Helmet>
-        <title>Terms of Service | K-pop Photo Booth</title>
-        <meta name="description" content="Read our terms of service to understand your rights and responsibilities when using K-pop Photo Booth's virtual photo booth platform." />
-        <meta name="robots" content="noindex" />
-        <link rel="canonical" href="https://kpopphotobooth.com/terms-of-service" />
-      </Helmet>
+      <SEOHead
+        title="Terms of Service | KPop Photobooth"
+        description="Read our terms of service to understand your rights and responsibilities when using KPop Photobooth's virtual photo booth platform."
+      />
       <div className="min-h-screen flex flex-col">
         <Header />
         <main className="flex-grow bg-gray-50">
@@ -51,6 +50,11 @@ const TermsOfService = () => {
                   <li>Not attempt to disrupt or compromise the security of the service</li>
                 </ul>
 
+                <div id="ad-container-terms" className="my-8 p-4 bg-gray-50 border border-gray-200 rounded-md text-center">
+                  <div className="text-sm text-gray-500 mb-2">Advertisement</div>
+                  {/* Ad will be inserted here by Google AdSense */}
+                </div>
+
                 <div className="my-8 border-t border-gray-200"></div>
 
                 <h2 className="text-2xl font-semibold mb-6">4. Intellectual Property</h2>
@@ -60,9 +64,12 @@ const TermsOfService = () => {
 
                 <div className="my-8 border-t border-gray-200"></div>
 
-                <h2 className="text-2xl font-semibold mb-6">5. Privacy</h2>
+                <h2 className="text-2xl font-semibold mb-6">5. Privacy and Cookies</h2>
                 <p className="text-gray-700 mb-6">
-                  We respect your privacy. KPop Photobooth does not track, collect, or store any personal data. All photos taken are processed locally on your device and are not uploaded or saved to any external server. No cookies or trackers are used on this site.
+                  We respect your privacy. KPop Photobooth processes all photos locally on your device and does not upload or save them to any external server.
+                </p>
+                <p className="text-gray-700 mb-6">
+                  Our website uses cookies for analytics and advertising purposes, as outlined in our Cookie Policy. By using our services, you consent to our use of cookies in accordance with our Cookie Policy.
                 </p>
 
                 <div className="my-8 border-t border-gray-200"></div>

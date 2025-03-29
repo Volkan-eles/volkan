@@ -1,17 +1,16 @@
+
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
+import SEOHead from '@/components/landing/SEOHead';
 import Header from '@/components/landing/Header';
 import Footer from '@/components/landing/Footer';
 
 const PrivacyPolicy = () => {
   return (
     <>
-      <Helmet>
-        <title>Privacy Policy | K-pop Photo Booth</title>
-        <meta name="description" content="Learn about how K-pop Photo Booth protects your privacy and handles your personal information." />
-        <meta name="robots" content="noindex" />
-        <link rel="canonical" href="https://kpopphotobooth.com/privacy-policy" />
-      </Helmet>
+      <SEOHead 
+        title="Privacy Policy | KPop Photobooth"
+        description="Learn about how KPop Photobooth protects your privacy and handles your personal information."
+      />
       <div className="min-h-screen flex flex-col">
         <Header />
         <main className="flex-grow bg-gray-50">
@@ -68,6 +67,11 @@ const PrivacyPolicy = () => {
                 <p className="text-gray-700 mb-6">
                   Advertisements are clearly marked on our website and are displayed in designated ad containers. We strive to ensure that ads do not interfere with your experience while using our photo booth applications.
                 </p>
+
+                <div id="ad-container-privacy" className="my-8 p-4 bg-gray-50 border border-gray-200 rounded-md text-center">
+                  <div className="text-sm text-gray-500 mb-2">Advertisement</div>
+                  {/* Ad will be inserted here by Google AdSense */}
+                </div>
 
                 <div className="my-8 border-t border-gray-200"></div>
 
