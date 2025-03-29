@@ -73,16 +73,16 @@ const KpopPhotoBooth = () => {
   return (
     <>
       <Helmet>
-        <title>Sticker Photo Booth | Ideal Photo Vercel App</title>
-        <meta name="description" content="Create stunning virtual photos with custom stickers. Our innovative platform combines cutting-edge technology with fun stickers, allowing you to design professional-quality photo memories." />
-        <meta name="keywords" content="photo booth, sticker photo booth, photo filter, virtual photos, photo stickers, photo customization, digital photo booth" />
-        <meta property="og:title" content="Sticker Photo Booth | Ideal Photo Vercel App" />
-        <meta property="og:description" content="Create stunning virtual photos with fun stickers. Perfect for fans, events, parties and gatherings." />
+        <title>K-pop Photo Booth | Ideal Photo Vercel App</title>
+        <meta name="description" content="Create stunning virtual photos with your favorite K-pop idols. Our innovative platform combines cutting-edge technology with K-pop, allowing fans to design professional-quality photo memories." />
+        <meta name="keywords" content="kpop photo booth, korean photo booth, kpop photocard maker, idol photo booth, k-pop booth, idol photos, kpop filter, virtual kpop photos" />
+        <meta property="og:title" content="K-pop Photo Booth | Ideal Photo Vercel App" />
+        <meta property="og:description" content="Create stunning virtual photos with your favorite K-pop idols. Perfect for fans, events, parties and gatherings." />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="/og-image.png" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Sticker Photo Booth | Ideal Photo Vercel App" />
-        <meta name="twitter:description" content="Create stunning virtual photos with fun stickers." />
+        <meta name="twitter:title" content="K-pop Photo Booth | Ideal Photo Vercel App" />
+        <meta name="twitter:description" content="Create stunning virtual photos with your favorite K-pop idols." />
       </Helmet>
       
       <div className={`min-h-screen flex flex-col ${bgColor}`}>
