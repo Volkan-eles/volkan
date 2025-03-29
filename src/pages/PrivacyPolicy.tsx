@@ -9,9 +9,9 @@ const PrivacyPolicy = () => {
     <>
       <Helmet>
         <title>Privacy Policy | K-pop Photo Booth</title>
-        <meta name="description" content="Learn about how K-pop Frame protects your privacy and handles your personal information." />
+        <meta name="description" content="Learn about how K-pop Photo Booth protects your privacy and handles your personal information." />
         <meta name="robots" content="noindex" />
-        <link rel="canonical" href="https://kpop-frame.com/privacy-policy" />
+        <link rel="canonical" href="https://kpopphotobooth.com/privacy-policy" />
       </Helmet>
       <div className="min-h-screen flex flex-col">
         <Header />
@@ -30,11 +30,8 @@ const PrivacyPolicy = () => {
               <div className="bg-white p-8 rounded-lg shadow-sm">
                 <h2 className="text-2xl font-semibold mb-6">Our Privacy Commitment</h2>
                 <p className="text-gray-700 mb-6">
-                  At KPop Photobooth, your privacy is a top priority. We do not track, collect, or store any personal data. All
+                  At KPop Photobooth, your privacy is a top priority. All
                   photos taken are processed locally on your device and are not uploaded or saved to any external server.
-                </p>
-                <p className="text-gray-700 mb-6">
-                  We respect your privacy and are committed to protecting it. No cookies or trackers are used on this site.
                 </p>
 
                 <div className="my-8 border-t border-gray-200"></div>
@@ -51,16 +48,27 @@ const PrivacyPolicy = () => {
 
                 <div className="my-8 border-t border-gray-200"></div>
 
-                <h2 className="text-2xl font-semibold mb-6">No Tracking</h2>
+                <h2 className="text-2xl font-semibold mb-6">Google AdSense</h2>
                 <p className="text-gray-700 mb-6">
-                  KPop Photobooth does not use:
+                  Our website uses Google AdSense, a service that may display personalized advertisements. To enable these personalized ads:
                 </p>
                 <ul className="list-disc pl-8 text-gray-700 space-y-2 mb-6">
-                  <li>Cookies</li>
-                  <li>Web analytics</li>
-                  <li>User tracking technologies</li>
-                  <li>Data collection mechanisms</li>
+                  <li>Google may use cookies and technologies to collect information about your browsing behavior on our site and other sites</li>
+                  <li>This information helps Google display ads that may be relevant to your interests</li>
+                  <li>Google's use of advertising cookies enables it and its partners to serve ads based on your visits to our site and other sites on the Internet</li>
+                  <li>You may opt out of personalized advertising by visiting <a href="https://www.google.com/settings/ads" className="text-purple-600 hover:underline">Google Ads Settings</a></li>
                 </ul>
+                
+                <p className="text-gray-700 mb-6">
+                  For more information on how Google uses information from sites that use their services, please visit: <a href="https://policies.google.com/technologies/partner-sites" className="text-purple-600 hover:underline">https://policies.google.com/technologies/partner-sites</a>
+                </p>
+
+                <div className="my-8 border-t border-gray-200"></div>
+
+                <h2 className="text-2xl font-semibold mb-6">Ad Placement</h2>
+                <p className="text-gray-700 mb-6">
+                  Advertisements are clearly marked on our website and are displayed in designated ad containers. We strive to ensure that ads do not interfere with your experience while using our photo booth applications.
+                </p>
 
                 <div className="my-8 border-t border-gray-200"></div>
 
@@ -69,7 +77,7 @@ const PrivacyPolicy = () => {
                   If you have any questions about our approach to privacy, please contact us at:
                 </p>
                 <p className="text-gray-700 mb-6">
-                  Email: vlkneles@gmail.com
+                  Email: privacy@kpopphotobooth.com
                 </p>
               </div>
             </div>

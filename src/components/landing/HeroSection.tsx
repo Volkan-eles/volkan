@@ -1,9 +1,21 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Heart, Instagram, Music, Camera, Award, ArrowRight, Star, Check } from 'lucide-react';
+import { Heart, Instagram, Music, Camera, ArrowRight, Star, Check } from 'lucide-react';
+
 const HeroSection = () => {
   return <section className="relative overflow-hidden" aria-labelledby="hero-heading">
+      {/* Advertisement container - top */}
+      <div id="ad-container-top" className="w-full flex justify-center my-2 bg-gray-100 py-2">
+        <div className="ad-unit text-center text-xs text-gray-400">
+          Advertisement
+          <div className="h-[90px] w-[728px] max-w-full bg-gray-200 flex items-center justify-center border border-gray-300">
+            <span className="text-gray-500">Ad Space</span>
+          </div>
+        </div>
+      </div>
+      
       {/* Background elements - updated for better visual appeal */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#8B5CF6] via-[#D946EF] to-[#EC4899] opacity-90"></div>
       <div className="absolute inset-0 bg-[url('/lovable-uploads/3fc22a76-7d7a-4617-b0df-6998c07b60ea.png')] bg-cover bg-center opacity-10"></div>
@@ -40,6 +52,16 @@ const HeroSection = () => {
               </a>
             </div>
             
+            {/* Advertisement container - sidebar */}
+            <div id="ad-container-sidebar" className="mt-8 w-full md:w-3/4 mx-auto md:mx-0">
+              <div className="ad-unit text-center text-xs text-white/50">
+                Advertisement
+                <div className="h-[250px] w-[300px] max-w-full mx-auto bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/20 rounded-lg">
+                  <span className="text-white/50">Ad Space</span>
+                </div>
+              </div>
+            </div>
+            
             {/* Feature indicators with icons */}
             <div className="mt-8 flex flex-wrap justify-center md:justify-start gap-4">
               <div className="flex items-center bg-white/10 backdrop-blur-sm rounded-full px-3 py-1.5">
@@ -59,9 +81,6 @@ const HeroSection = () => {
                 <span className="text-white text-sm">4 Booth Styles</span>
               </div>
             </div>
-            
-            {/* Limited promo banner */}
-            
           </div>
           
           <div className="relative hidden md:block">
@@ -96,6 +115,16 @@ const HeroSection = () => {
         </div>
       </div>
       
+      {/* Advertisement container - bottom */}
+      <div id="ad-container-bottom" className="w-full flex justify-center my-4 relative z-10">
+        <div className="ad-unit text-center text-xs text-white/50">
+          Advertisement
+          <div className="h-[90px] w-[728px] max-w-full bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/20 rounded-lg">
+            <span className="text-white/50">Ad Space</span>
+          </div>
+        </div>
+      </div>
+      
       {/* Wave divider */}
       <div className="absolute bottom-0 left-0 right-0">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" fill="#f9fafb" preserveAspectRatio="none" aria-hidden="true">
@@ -104,4 +133,5 @@ const HeroSection = () => {
       </div>
     </section>;
 };
+
 export default HeroSection;
