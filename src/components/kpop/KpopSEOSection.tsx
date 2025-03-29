@@ -1,15 +1,11 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { cn } from '@/lib/utils';
-
 const KpopSEOSection: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-
-  return (
-    <section className="bg-gray-50 py-12 md:py-16 px-4">
+  return <section className="bg-gray-50 py-12 md:py-16 px-4">
       <div className="container mx-auto max-w-4xl">
         <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">K-pop Photo Booth | Ideal Photo Vercel App</h2>
         
@@ -18,30 +14,18 @@ const KpopSEOSection: React.FC = () => {
             Welcome to the ultimate K-pop Photo Booth experience, where fans can create stunning virtual photos with their favorite Korean pop idols. Our innovative platform combines cutting-edge technology with the vibrant world of K-pop, allowing you to design professional-quality photo memories featuring your beloved idols. Whether you're a devoted fan wanting to create custom photocards, planning a K-pop themed event, or simply looking to express your passion for Korean pop culture, our Ideal Photo Vercel App delivers a seamless and exciting photo creation experience.
           </p>
           
-          <Collapsible
-            open={isOpen}
-            onOpenChange={setIsOpen}
-            className={cn(
-              "rounded-md border border-gray-200 bg-white shadow-sm transition-all",
-              isOpen ? "mt-6" : "mt-2"
-            )}
-          >
+          <Collapsible open={isOpen} onOpenChange={setIsOpen} className={cn("rounded-md border border-gray-200 bg-white shadow-sm transition-all", isOpen ? "mt-6" : "mt-2")}>
             <CollapsibleTrigger asChild>
-              <Button 
-                variant="outline" 
-                className="w-full flex justify-between items-center py-2 px-4 bg-white"
-                onClick={() => setIsOpen(!isOpen)}
-              >
+              <Button variant="outline" className="w-full flex justify-between items-center py-2 px-4 bg-white" onClick={() => setIsOpen(!isOpen)}>
                 <span>{isOpen ? "Read less" : "Read more about K-pop Photo Booth"}</span>
                 {isOpen ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
               </Button>
             </CollapsibleTrigger>
             
             <CollapsibleContent className="p-6 text-gray-700 space-y-6">
-              <h3 className="text-2xl font-semibold text-gray-800 mt-6">The K-pop Revolution in Virtual Photo Technology</h3>
-              <p>
-                The phenomenon of K-pop has transformed global music and entertainment, creating dedicated fan communities that span continents. Our K-pop Photo Booth represents the intersection of this cultural phenomenon with cutting-edge digital technology, offering fans an innovative way to connect with their favorite idols. Unlike traditional photo editing tools, our platform is specifically designed with K-pop aesthetics and fandom culture in mind, creating an authentic experience that resonates with fans' expectations and desires.
-              </p>
+              <h3 className="text-2xl font-semibold text-gray-800 mt-6">The Revolution in Virtual Photo Technology
+            </h3>
+              <p>Korean pop culture has transformed global music and entertainment, creating dedicated fan communities that span continents. Our Photo Booth represents the intersection of this cultural phenomenon with cutting-edge digital technology, offering an innovative way to create stylized photos. Unlike traditional photo editing tools, our platform is specifically designed with K-pop aesthetics and fan culture in mind, creating an authentic experience that resonates with users' expectations.</p>
               
               <h3 className="text-2xl font-semibold text-gray-800 mt-6">Create Your Dream K-pop Moments</h3>
               <p>
@@ -101,8 +85,6 @@ const KpopSEOSection: React.FC = () => {
           </Collapsible>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default KpopSEOSection;
