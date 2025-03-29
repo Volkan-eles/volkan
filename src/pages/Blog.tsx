@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import Header from '@/components/landing/Header';
@@ -9,7 +8,6 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-
 const blogPosts = [{
   id: 1,
   title: "Top 10 K-pop Photo Ideas to Try with Our Booth",
@@ -227,7 +225,6 @@ const blogPosts = [{
   imageUrl: "https://placehold.co/600x400/EC4899/FFFFFF?text=New+Features",
   slug: "new-features-backgrounds-stickers"
 }];
-
 const Blog = () => {
   return <>
       <Helmet>
@@ -276,14 +273,9 @@ const Blog = () => {
           <section className="py-16">
             <div className="container mx-auto px-4 md:px-6">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {blogPosts.map((post) => (
-                  <Card key={post.id} className="flex flex-col h-full hover:shadow-lg transition-shadow duration-300">
+                {blogPosts.map(post => <Card key={post.id} className="flex flex-col h-full hover:shadow-lg transition-shadow duration-300">
                     <div className="aspect-video w-full overflow-hidden">
-                      <img 
-                        src={post.imageUrl} 
-                        alt={post.title} 
-                        className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-                      />
+                      <img src={post.imageUrl} alt={post.title} className="w-full h-full object-cover transition-transform duration-300 hover:scale-105" />
                     </div>
                     <CardHeader>
                       <div className="flex items-center space-x-2 mb-2">
@@ -296,8 +288,7 @@ const Blog = () => {
                       <CardDescription className="line-clamp-3">{post.excerpt}</CardDescription>
                     </CardHeader>
                     <CardContent className="flex-grow">
-                      {post.author && (
-                        <div className="flex items-center mt-2">
+                      {post.author && <div className="flex items-center mt-2">
                           <Avatar className="h-8 w-8 mr-2">
                             <AvatarImage src={post.author.avatar} alt={post.author.name} />
                             <AvatarFallback>{post.author.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
@@ -306,8 +297,7 @@ const Blog = () => {
                             <p className="text-sm font-medium">{post.author.name}</p>
                             <p className="text-xs text-gray-500">{post.author.role}</p>
                           </div>
-                        </div>
-                      )}
+                        </div>}
                     </CardContent>
                     <CardFooter>
                       <Link to={`/blog/${post.slug}`} className="w-full">
@@ -316,8 +306,7 @@ const Blog = () => {
                         </Button>
                       </Link>
                     </CardFooter>
-                  </Card>
-                ))}
+                  </Card>)}
               </div>
             </div>
           </section>
@@ -329,11 +318,7 @@ const Blog = () => {
               <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-md overflow-hidden">
                 <div className="md:flex">
                   <div className="md:w-1/3">
-                    <img 
-                      src={blogPosts[0].imageUrl} 
-                      alt={blogPosts[0].title} 
-                      className="h-full w-full object-cover"
-                    />
+                    <img src={blogPosts[0].imageUrl} alt={blogPosts[0].title} className="h-full w-full object-cover" />
                   </div>
                   <div className="p-8 md:w-2/3">
                     <div className="flex items-center mb-4">
@@ -345,8 +330,7 @@ const Blog = () => {
                     <h3 className="text-2xl font-bold mb-4">{blogPosts[0].title}</h3>
                     <p className="text-gray-600 mb-6">{blogPosts[0].excerpt}</p>
                     
-                    {blogPosts[0].author && (
-                      <div className="flex items-center mb-6">
+                    {blogPosts[0].author && <div className="flex items-center mb-6">
                         <Avatar className="h-10 w-10 mr-3">
                           <AvatarImage src={blogPosts[0].author.avatar} alt={blogPosts[0].author.name} />
                           <AvatarFallback>{blogPosts[0].author.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
@@ -355,8 +339,7 @@ const Blog = () => {
                           <p className="font-medium">{blogPosts[0].author.name}</p>
                           <p className="text-sm text-gray-500">{blogPosts[0].author.role}</p>
                         </div>
-                      </div>
-                    )}
+                      </div>}
                     
                     <Link to={`/blog/${blogPosts[0].slug}`}>
                       <Button className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700">
@@ -370,56 +353,7 @@ const Blog = () => {
           </section>
           
           {/* Blog Post Content Section - First Article */}
-          <section className="py-16">
-            <div className="container mx-auto px-4 md:px-6">
-              <div className="max-w-3xl mx-auto">
-                <h2 className="text-3xl font-bold mb-8">Latest Article</h2>
-                
-                <article className="prose prose-lg max-w-none">
-                  <div className="flex items-center space-x-4 mb-6">
-                    <Badge variant="secondary" className="bg-pink-100 text-pink-800 hover:bg-pink-200">
-                      {blogPosts[0].category}
-                    </Badge>
-                    <span className="text-gray-500">{blogPosts[0].date}</span>
-                  </div>
-                  
-                  <h1 className="text-3xl font-bold mb-4">{blogPosts[0].title}</h1>
-                  
-                  {blogPosts[0].author && (
-                    <div className="flex items-center mb-8 pb-6 border-b">
-                      <Avatar className="h-12 w-12 mr-4">
-                        <AvatarImage src={blogPosts[0].author.avatar} alt={blogPosts[0].author.name} />
-                        <AvatarFallback>{blogPosts[0].author.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
-                      </Avatar>
-                      <div>
-                        <p className="font-medium text-lg">{blogPosts[0].author.name}</p>
-                        <p className="text-gray-500">{blogPosts[0].author.role}</p>
-                      </div>
-                    </div>
-                  )}
-                  
-                  <div className="mb-8">
-                    <img 
-                      src={blogPosts[0].imageUrl} 
-                      alt={blogPosts[0].title}
-                      className="w-full h-auto rounded-lg"
-                    />
-                  </div>
-                  
-                  <div dangerouslySetInnerHTML={{ __html: blogPosts[0].content }} />
-                  
-                  <div className="mt-12 pt-6 border-t">
-                    <div className="flex flex-wrap gap-2">
-                      <Badge variant="outline">K-pop</Badge>
-                      <Badge variant="outline">Photo Booth</Badge>
-                      <Badge variant="outline">Fan Photos</Badge>
-                      <Badge variant="outline">Creative Tips</Badge>
-                    </div>
-                  </div>
-                </article>
-              </div>
-            </div>
-          </section>
+          
         </main>
         <Footer />
       </div>
