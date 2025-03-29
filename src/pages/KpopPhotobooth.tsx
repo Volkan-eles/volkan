@@ -73,16 +73,17 @@ const KpopPhotoBooth = () => {
   return (
     <>
       <Helmet>
-        <title>K-pop Photo Booth | Ideal Photo Vercel App</title>
+        <title>KPop Photobooth | Virtual Photo Booth App</title>
         <meta name="description" content="Create stunning virtual photos with your favorite K-pop idols. Our innovative platform combines cutting-edge technology with K-pop, allowing fans to design professional-quality photo memories." />
         <meta name="keywords" content="kpop photo booth, korean photo booth, kpop photocard maker, idol photo booth, k-pop booth, idol photos, kpop filter, virtual kpop photos" />
-        <meta property="og:title" content="K-pop Photo Booth | Ideal Photo Vercel App" />
+        <meta property="og:title" content="KPop Photobooth | Virtual Photo Booth App" />
         <meta property="og:description" content="Create stunning virtual photos with your favorite K-pop idols. Perfect for fans, events, parties and gatherings." />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="/og-image.png" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="K-pop Photo Booth | Ideal Photo Vercel App" />
+        <meta name="twitter:title" content="KPop Photobooth | Virtual Photo Booth App" />
         <meta name="twitter:description" content="Create stunning virtual photos with your favorite K-pop idols." />
+        <link rel="canonical" href="https://kpopphotobooth.com/kpop-photo-booth" />
       </Helmet>
       
       <div className={`min-h-screen flex flex-col ${bgColor}`}>
@@ -90,6 +91,14 @@ const KpopPhotoBooth = () => {
         
         {/* Hero Area */}
         <KpopHeroArea />
+        
+        {/* Ad container above main content */}
+        <div className="container mx-auto px-4 py-4">
+          <div id="ad-container-kpop-top" className="p-4 bg-gray-50 border border-gray-200 rounded-md text-center mb-8">
+            <div className="text-sm text-gray-500 mb-2">Advertisement</div>
+            {/* Ad will be inserted here by Google AdSense */}
+          </div>
+        </div>
         
         {/* Main Photobooth Area */}
         <main id="photobooth-area" className="flex-grow container mx-auto px-4 py-8">
@@ -150,6 +159,14 @@ const KpopPhotoBooth = () => {
             </div>
           </div>
         </main>
+        
+        {/* Ad container below main content */}
+        <div className="container mx-auto px-4 py-4">
+          <div id="ad-container-kpop-bottom" className="p-4 bg-gray-50 border border-gray-200 rounded-md text-center mb-8">
+            <div className="text-sm text-gray-500 mb-2">Advertisement</div>
+            {/* Ad will be inserted here by Google AdSense */}
+          </div>
+        </div>
         
         {/* SEO Content Section */}
         <KpopSEOSection />

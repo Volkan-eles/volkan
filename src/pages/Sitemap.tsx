@@ -11,10 +11,10 @@ const Sitemap = () => {
   return (
     <>
       <Helmet>
-        <title>Sitemap | K-pop Photo Booth</title>
-        <meta name="description" content="Navigate our website with ease. Find all pages and resources on K-pop Frame's virtual photo booth platform." />
+        <title>Sitemap | KPop Photobooth</title>
+        <meta name="description" content="Navigate our website with ease. Find all pages and resources on KPop Photobooth's virtual photo booth platform." />
         <meta name="robots" content="noindex" />
-        <link rel="canonical" href="https://kpop-frame.com/sitemap" />
+        <link rel="canonical" href="https://kpopphotobooth.com/sitemap" />
       </Helmet>
       <div className="min-h-screen flex flex-col">
         <Header />
@@ -49,6 +49,14 @@ const Sitemap = () => {
                   />
                 </div>
               </div>
+            </div>
+          </div>
+          
+          {/* Ad container for AdSense */}
+          <div className="container mx-auto px-4 mt-12">
+            <div id="ad-container-sitemap" className="p-4 bg-gray-50 border border-gray-200 rounded-md text-center">
+              <div className="text-sm text-gray-500 mb-2">Advertisement</div>
+              {/* Ad will be inserted here by Google AdSense */}
             </div>
           </div>
         </main>

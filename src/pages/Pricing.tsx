@@ -11,8 +11,9 @@ const Pricing = () => {
   return (
     <>
       <Helmet>
-        <title>Pricing | K-pop Photo Booth</title>
-        <meta name="description" content="Information about our current pricing plans for K-pop Photo Booth." />
+        <title>Pricing | KPop Photobooth</title>
+        <meta name="description" content="Information about our current pricing plans for KPop Photobooth." />
+        <link rel="canonical" href="https://kpopphotobooth.com/pricing" />
       </Helmet>
       
       <Header />
@@ -39,6 +40,14 @@ const Pricing = () => {
                 </Button>
               </Link>
             </div>
+          </div>
+        </div>
+        
+        {/* Ad container for AdSense */}
+        <div className="container mx-auto px-4 mb-16">
+          <div id="ad-container-pricing" className="p-4 bg-gray-50 border border-gray-200 rounded-md text-center">
+            <div className="text-sm text-gray-500 mb-2">Advertisement</div>
+            {/* Ad will be inserted here by Google AdSense */}
           </div>
         </div>
         
