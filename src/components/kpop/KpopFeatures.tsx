@@ -4,23 +4,23 @@ import React from 'react';
 const KpopFeatures: React.FC = () => {
   const features = [
     {
-      title: "Custom Inspired Filters",
-      description: "Create photos with specially designed filters that mimic popular aesthetic styles.",
+      title: "Custom Filters",
+      description: "Create photos with specially designed filters that enhance your photos with unique visual styles.",
       icon: "✨"
     },
     {
       title: "Stylish Frames",
-      description: "Choose from a variety of frames inspired by popular design concepts.",
+      description: "Choose from a variety of frames inspired by popular design concepts for your photos.",
       icon: "🖼️"
     },
     {
-      title: "Custom Photo Strips",
-      description: "Create multi-photo strips perfect for fans and events with customizable borders and decorations.",
+      title: "Photo Strips",
+      description: "Create multi-photo strips perfect for sharing memories with customizable borders and decorations.",
       icon: "📸"
     },
     {
       title: "Easy Sharing",
-      description: "Share your stylish photos instantly with friends on social media or download them.",
+      description: "Share your stylish photos instantly with friends on social media or download them to your device.",
       icon: "🌐"
     }
   ];

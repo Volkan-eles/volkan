@@ -11,10 +11,10 @@ const StickersGrid: React.FC<StickersGridProps> = ({ onSelectSticker, selectedSt
   return (
     <div>
       <div className="mb-2 text-xs bg-blue-50 p-2 rounded border border-blue-100 text-blue-700">
-        <p>Enhance your photos with our creative stickers</p>
+        <p>Enhance your photos with creative stickers</p>
       </div>
       
-      <div className="mt-2 grid grid-cols-4 gap-1">
+      <div className="mt-2 grid grid-cols-3 sm:grid-cols-4 gap-1 sm:gap-2">
         {KPOP_STICKERS.map((sticker) => (
           <div 
             key={sticker.id}
@@ -25,6 +25,7 @@ const StickersGrid: React.FC<StickersGridProps> = ({ onSelectSticker, selectedSt
               src={sticker.src} 
               alt={sticker.name} 
               className="w-full h-full object-contain"
+              loading="lazy"
             />
           </div>
         ))}

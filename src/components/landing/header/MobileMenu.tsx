@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Home, LogIn, ArrowRight, UserPlus } from 'lucide-react';
+import { Home, LogIn, ArrowRight, UserPlus, Info, Mail, FileText, HelpCircle, Map } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 interface MobileMenuProps {
@@ -30,19 +30,40 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
           <div className="text-xs font-semibold uppercase text-gray-500 mt-3 mb-1 px-2">Photobooths</div>
           <Link to="/pica-pica-booth" className="px-2 py-2.5 rounded-md hover:bg-pink-50 hover:text-pink-600 transition-all duration-150 text-gray-700 dark:text-gray-200" onClick={handleLinkClick}>Pica Pica Booth</Link>
           <Link to="/digibooth" className="px-2 py-2.5 rounded-md hover:bg-pink-50 hover:text-pink-600 transition-all duration-150 text-gray-700 dark:text-gray-200" onClick={handleLinkClick}>Digibooth</Link>
-          <Link to="/kpop-photo-booth" className="px-2 py-2.5 rounded-md hover:bg-pink-50 hover:text-pink-600 transition-all duration-150 text-gray-700 dark:text-gray-200" onClick={handleLinkClick}>K-pop Photo Booth</Link>
+          <Link to="/kpop-photo-booth" className="px-2 py-2.5 rounded-md hover:bg-pink-50 hover:text-pink-600 transition-all duration-150 text-gray-700 dark:text-gray-200" onClick={handleLinkClick}>Photo Booth</Link>
           <Link to="/vintage-photobooth" className="px-2 py-2.5 rounded-md hover:bg-pink-50 hover:text-pink-600 transition-all duration-150 text-gray-700 dark:text-gray-200" onClick={handleLinkClick}>Vintage Photobooth</Link>
           <Link to="/wedding-photobooth" className="px-2 py-2.5 rounded-md hover:bg-pink-50 hover:text-pink-600 transition-all duration-150 text-gray-700 dark:text-gray-200" onClick={handleLinkClick}>Wedding Photobooth</Link>
           
-          <div className="text-xs font-semibold uppercase text-gray-500 mt-3 mb-1 px-2">Learn More</div>
-          <a href="#how-it-works" className="px-2 py-2.5 rounded-md hover:bg-pink-50 hover:text-pink-600 transition-all duration-150 text-gray-700 dark:text-gray-200" onClick={handleLinkClick}>How It Works</a>
-          <a href="#testimonials" className="px-2 py-2.5 rounded-md hover:bg-pink-50 hover:text-pink-600 transition-all duration-150 text-gray-700 dark:text-gray-200" onClick={handleLinkClick}>Testimonials</a>
-          <a href="#pricing" className="px-2 py-2.5 rounded-md hover:bg-pink-50 hover:text-pink-600 transition-all duration-150 text-gray-700 dark:text-gray-200" onClick={handleLinkClick}>Pricing</a>
+          <div className="text-xs font-semibold uppercase text-gray-500 mt-3 mb-1 px-2">Information</div>
+          <Link to="/about" className="flex items-center gap-2 px-2 py-2.5 rounded-md hover:bg-pink-50 hover:text-pink-600 transition-all duration-150 text-gray-700 dark:text-gray-200" onClick={handleLinkClick}>
+            <Info className="h-4 w-4" />
+            <span>About</span>
+          </Link>
+          <Link to="/pricing" className="flex items-center gap-2 px-2 py-2.5 rounded-md hover:bg-pink-50 hover:text-pink-600 transition-all duration-150 text-gray-700 dark:text-gray-200" onClick={handleLinkClick}>
+            <FileText className="h-4 w-4" />
+            <span>Pricing</span>
+          </Link>
+          <Link to="/blog" className="flex items-center gap-2 px-2 py-2.5 rounded-md hover:bg-pink-50 hover:text-pink-600 transition-all duration-150 text-gray-700 dark:text-gray-200" onClick={handleLinkClick}>
+            <FileText className="h-4 w-4" />
+            <span>Blog</span>
+          </Link>
+          <Link to="/contact" className="flex items-center gap-2 px-2 py-2.5 rounded-md hover:bg-pink-50 hover:text-pink-600 transition-all duration-150 text-gray-700 dark:text-gray-200" onClick={handleLinkClick}>
+            <Mail className="h-4 w-4" />
+            <span>Contact</span>
+          </Link>
+          <Link to="/faq" className="flex items-center gap-2 px-2 py-2.5 rounded-md hover:bg-pink-50 hover:text-pink-600 transition-all duration-150 text-gray-700 dark:text-gray-200" onClick={handleLinkClick}>
+            <HelpCircle className="h-4 w-4" />
+            <span>FAQ</span>
+          </Link>
+          <Link to="/sitemap" className="flex items-center gap-2 px-2 py-2.5 rounded-md hover:bg-pink-50 hover:text-pink-600 transition-all duration-150 text-gray-700 dark:text-gray-200" onClick={handleLinkClick}>
+            <Map className="h-4 w-4" />
+            <span>Sitemap</span>
+          </Link>
           
-          <div className="text-xs font-semibold uppercase text-gray-500 mt-3 mb-1 px-2">Pages</div>
-          <Link to="/about" className="px-2 py-2.5 rounded-md hover:bg-pink-50 hover:text-pink-600 transition-all duration-150 text-gray-700 dark:text-gray-200" onClick={handleLinkClick}>About</Link>
-          <Link to="/blog" className="px-2 py-2.5 rounded-md hover:bg-pink-50 hover:text-pink-600 transition-all duration-150 text-gray-700 dark:text-gray-200" onClick={handleLinkClick}>Blog</Link>
-          <Link to="/contact" className="px-2 py-2.5 rounded-md hover:bg-pink-50 hover:text-pink-600 transition-all duration-150 text-gray-700 dark:text-gray-200" onClick={handleLinkClick}>Contact</Link>
+          <div className="text-xs font-semibold uppercase text-gray-500 mt-3 mb-1 px-2">Legal</div>
+          <Link to="/privacy-policy" className="px-2 py-2.5 rounded-md hover:bg-pink-50 hover:text-pink-600 transition-all duration-150 text-gray-700 dark:text-gray-200" onClick={handleLinkClick}>Privacy Policy</Link>
+          <Link to="/terms-of-service" className="px-2 py-2.5 rounded-md hover:bg-pink-50 hover:text-pink-600 transition-all duration-150 text-gray-700 dark:text-gray-200" onClick={handleLinkClick}>Terms of Service</Link>
+          <Link to="/cookie-policy" className="px-2 py-2.5 rounded-md hover:bg-pink-50 hover:text-pink-600 transition-all duration-150 text-gray-700 dark:text-gray-200" onClick={handleLinkClick}>Cookie Policy</Link>
           
           <div className="border-t border-gray-100 dark:border-gray-800 my-4"></div>
           
