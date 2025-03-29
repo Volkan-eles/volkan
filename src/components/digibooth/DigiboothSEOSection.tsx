@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { ChevronDown, ChevronUp } from 'lucide-react';
@@ -11,11 +10,11 @@ const DigiboothSEOSection: React.FC = () => {
   return (
     <section className="bg-gray-50 py-12 md:py-16 px-4">
       <div className="container mx-auto max-w-4xl">
-        <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">Digibooth Photobooth | Digibooth by @dev.dietherdave</h2>
+        <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">Digibooth Dietherdave | Digi Booth Photo Booth</h2>
         
         <div className="prose prose-lg max-w-none">
           <p className="text-gray-700 mb-4 leading-relaxed">
-            Welcome to Digibooth, the innovative digital photobooth solution designed for creating professional-quality photo memories with cutting-edge technology. Our state-of-the-art photobooth experience combines user-friendly interfaces with powerful customization options, making it perfect for events of all sizes – from intimate gatherings to large-scale corporate functions. With Digibooth by @dev.dietherdave, you'll unlock the ability to capture high-resolution photos with stunning digital frames, filters, and effects that transform ordinary pictures into extraordinary memories.
+            Welcome to Digibooth, the innovative digital photobooth solution designed for creating professional-quality photo memories with cutting-edge technology. Our state-of-the-art photobooth experience combines user-friendly interfaces with powerful customization options, making it perfect for events of all sizes – from intimate gatherings to large-scale corporate functions. With Digibooth Dietherdave, you'll unlock the ability to capture high-resolution photos with stunning digital frames, filters, and effects that transform ordinary pictures into extraordinary memories.
           </p>
           
           <Collapsible
@@ -85,12 +84,12 @@ const DigiboothSEOSection: React.FC = () => {
               
               <h3 className="text-2xl font-semibold text-gray-800 mt-6">Ongoing Innovation and Updates</h3>
               <p>
-                The digital foundation of Digibooth enables continuous improvement and feature expansion. Our development team at @dev.dietherdave regularly releases updates that introduce new capabilities and refinements based on user feedback and emerging technologies. This means that your Digibooth experience keeps getting better over time, with new frames, effects, and functionalities added regularly. Unlike physical equipment that becomes obsolete, our digital platform evolves to incorporate the latest advancements in image processing, user interface design, and social media integration.
+                The digital foundation of Digibooth enables continuous improvement and feature expansion. Our development team regularly releases updates that introduce new capabilities and refinements based on user feedback and emerging technologies. This means that your Digibooth experience keeps getting better over time, with new frames, effects, and functionalities added regularly. Unlike physical equipment that becomes obsolete, our digital platform evolves to incorporate the latest advancements in image processing, user interface design, and social media integration.
               </p>
               
               <h3 className="text-2xl font-semibold text-gray-800 mt-6">Conclusion: Creating Lasting Digital Memories</h3>
               <p>
-                Digibooth represents more than just a technological advancement in photo booth design; it's a reimagining of how we capture and share moments of connection and celebration. By combining sophisticated digital tools with an intuitive user experience, we've created a platform that enhances events while producing lasting, high-quality mementos. Whether you're planning a wedding, corporate function, or casual celebration, Digibooth by @dev.dietherdave provides the perfect balance of fun, creativity, and quality that makes every event memorable. Experience the future of photo booths today and discover why Digibooth is becoming the preferred choice for event planners and guests alike.
+                Digibooth represents more than just a technological advancement in photo booth design; it's a reimagining of how we capture and share moments of connection and celebration. By combining sophisticated digital tools with an intuitive user experience, we've created a platform that enhances events while producing lasting, high-quality mementos. Whether you're planning a wedding, corporate function, or casual celebration, Digibooth Dietherdave provides the perfect balance of fun, creativity, and quality that makes every event memorable. Experience the future of photo booths today and discover why Digibooth is becoming the preferred choice for event planners and guests alike.
               </p>
             </CollapsibleContent>
           </Collapsible>

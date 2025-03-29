@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { toast } from 'sonner';
@@ -70,15 +69,15 @@ const Digibooth = () => {
   return (
     <>
       <Helmet>
-        <title>Digibooth Photobooth | KPop Photobooth</title>
+        <title>Digibooth Dietherdave | Digi Booth Photo Booth</title>
         <meta name="description" content="Create stunning digital photo booth experiences with Digibooth. Perfect for events, weddings, parties, and corporate gatherings. Customize frames, add effects, and share memorable moments instantly." />
         <meta name="keywords" content="digital photo booth, digibooth, photo booth software, event photo booth, photo strip creator, custom photo frames" />
-        <meta property="og:title" content="Digibooth Photobooth | KPop Photobooth" />
+        <meta property="og:title" content="Digibooth Dietherdave | Digi Booth Photo Booth" />
         <meta property="og:description" content="Create stunning digital photo booth experiences with Digibooth. Perfect for events, weddings, parties and corporate gatherings." />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="/og-image.png" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Digibooth Photobooth | KPop Photobooth" />
+        <meta name="twitter:title" content="Digibooth Dietherdave | Digi Booth Photo Booth" />
         <meta name="twitter:description" content="Create stunning digital photo booth experiences with Digibooth." />
         <link rel="canonical" href="https://kpopphotobooth.com/digibooth" />
       </Helmet>
