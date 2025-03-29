@@ -8,7 +8,7 @@ interface SEOHeadProps {
 }
 
 const SEOHead: React.FC<SEOHeadProps> = ({ 
-  title = "K-pop Photo Booth | Create Virtual Photos with K-pop Idols",
+  title = "KPop Photobooth | Create Virtual Photos with K-pop Idols",
   description = "Create stunning virtual photo booth pictures with your favorite K-pop idols. Customize backgrounds, add stickers, and share your K-pop memories in seconds."
 }) => (
   <Helmet>
@@ -22,7 +22,7 @@ const SEOHead: React.FC<SEOHeadProps> = ({
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://kpopphotobooth.com" />
     <meta property="og:image" content="/og-image.png" />
-    <meta property="og:site_name" content="K-pop Photo Booth" />
+    <meta property="og:site_name" content="KPop Photobooth" />
     
     {/* Twitter Card Meta Tags */}
     <meta name="twitter:card" content="summary_large_image" />
@@ -36,7 +36,7 @@ const SEOHead: React.FC<SEOHeadProps> = ({
         {
           "@context": "https://schema.org",
           "@type": "WebApplication",
-          "name": "K-pop Photo Booth",
+          "name": "KPop Photobooth",
           "applicationCategory": "PhotoApplication",
           "operatingSystem": "Web",
           "description": "${description}",
