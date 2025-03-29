@@ -16,6 +16,7 @@ import DigiboothSEOSection from '@/components/digibooth/DigiboothSEOSection';
 import useDigiboothState from '@/hooks/useDigiboothState';
 import { downloadPhotoStrip } from '@/utils/downloadPhotoStrip';
 import { BorderStyle, BorderWidth, FrameTheme } from '@/components/digibooth/BorderStyleSelector';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const Digibooth = () => {
   // Use our custom hook for state management
@@ -42,6 +43,8 @@ const Digibooth = () => {
     setSelectedSticker
   } = useDigiboothState();
   
+  const isMobile = useIsMobile();
+  
   // New state for enhanced features
   const [borderStyle, setBorderStyle] = useState<BorderStyle>('solid');
   const [borderWidth, setBorderWidth] = useState<BorderWidth>('medium');
@@ -67,16 +70,17 @@ const Digibooth = () => {
   return (
     <>
       <Helmet>
-        <title>Digibooth Photobooth | Digibooth by @dev.dietherdave</title>
-        <meta name="description" content="Create stunning digital photo booth experiences with Digibooth by @dev.dietherdave. Perfect for events, weddings, parties, and corporate gatherings. Customize frames, add effects, and share memorable moments instantly." />
-        <meta name="keywords" content="digital photo booth, digibooth, photo booth software, event photo booth, photo strip creator, custom photo frames, dietherdave photo booth" />
-        <meta property="og:title" content="Digibooth Photobooth | Digibooth by @dev.dietherdave" />
+        <title>Digibooth Photobooth | KPop Photobooth</title>
+        <meta name="description" content="Create stunning digital photo booth experiences with Digibooth. Perfect for events, weddings, parties, and corporate gatherings. Customize frames, add effects, and share memorable moments instantly." />
+        <meta name="keywords" content="digital photo booth, digibooth, photo booth software, event photo booth, photo strip creator, custom photo frames" />
+        <meta property="og:title" content="Digibooth Photobooth | KPop Photobooth" />
         <meta property="og:description" content="Create stunning digital photo booth experiences with Digibooth. Perfect for events, weddings, parties and corporate gatherings." />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="/og-image.png" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Digibooth Photobooth | Digibooth by @dev.dietherdave" />
-        <meta name="twitter:description" content="Create stunning digital photo booth experiences with Digibooth by @dev.dietherdave." />
+        <meta name="twitter:title" content="Digibooth Photobooth | KPop Photobooth" />
+        <meta name="twitter:description" content="Create stunning digital photo booth experiences with Digibooth." />
+        <link rel="canonical" href="https://kpopphotobooth.com/digibooth" />
       </Helmet>
       
       <div className={`min-h-screen flex flex-col ${bgColor}`}>
@@ -84,6 +88,14 @@ const Digibooth = () => {
         
         {/* Hero Area */}
         <DigiboothHeroArea />
+        
+        {/* Ad container above main content */}
+        <div className="container mx-auto px-4 py-4">
+          <div id="ad-container-digibooth-top" className={`p-4 bg-gray-50 border border-gray-200 rounded-md text-center mb-8 ${isMobile ? 'h-[100px]' : 'h-[120px]'}`}>
+            <div className="text-sm text-gray-500 mb-2">Advertisement</div>
+            {/* Ad will be inserted here by Google AdSense */}
+          </div>
+        </div>
         
         {/* Main Photobooth Area */}
         <main id="photobooth-area" className="flex-grow container mx-auto px-4 py-8">
@@ -142,6 +154,14 @@ const Digibooth = () => {
           </div>
         </main>
         
+        {/* Ad container below main content */}
+        <div className="container mx-auto px-4 py-4">
+          <div id="ad-container-digibooth-bottom" className={`p-4 bg-gray-50 border border-gray-200 rounded-md text-center mb-8 ${isMobile ? 'h-[100px]' : 'h-[120px]'}`}>
+            <div className="text-sm text-gray-500 mb-2">Advertisement</div>
+            {/* Ad will be inserted here by Google AdSense */}
+          </div>
+        </div>
+        
         {/* SEO Content Section */}
         <DigiboothSEOSection />
         
@@ -153,4 +173,3 @@ const Digibooth = () => {
 };
 
 export default Digibooth;
-

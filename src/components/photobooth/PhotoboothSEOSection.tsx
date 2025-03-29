@@ -11,7 +11,7 @@ const PhotoboothSEOSection: React.FC = () => {
   return (
     <section className="bg-gray-50 py-12 md:py-16 px-4">
       <div className="container mx-auto max-w-4xl">
-        <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">Pica Pica Booth | Pica Photobooth Netlify</h2>
+        <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">Pica Pica Booth | KPop Photobooth</h2>
         
         <div className="prose prose-lg max-w-none">
           <p className="text-gray-700 mb-4 leading-relaxed">

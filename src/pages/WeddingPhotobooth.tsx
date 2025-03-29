@@ -10,6 +10,7 @@ import WeddingWebcamSection from '@/components/wedding/WeddingWebcamSection';
 import WeddingPhotoStripPreview from '@/components/wedding/WeddingPhotoStripPreview';
 import WeddingCustomizationPanel from '@/components/wedding/WeddingCustomizationPanel';
 import Footer from '@/components/landing/Footer';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 // Hooks
 import useVintageState from '@/hooks/useVintageState';
@@ -41,6 +42,8 @@ const WeddingPhotobooth = () => {
     setSelectedSticker
   } = useVintageState();
   
+  const isMobile = useIsMobile();
+  
   // Border style state
   const [borderStyle, setBorderStyle] = useState<BorderStyle>('solid');
   const [borderWidth, setBorderWidth] = useState<BorderWidth>('thin');
@@ -67,7 +70,7 @@ const WeddingPhotobooth = () => {
   return (
     <>
       <Helmet>
-        <title>Wedding Photobooth | Pica Pica Netlify App</title>
+        <title>Wedding Photobooth | KPop Photobooth</title>
         <meta name="description" content="Create beautiful wedding photo memories with our elegant Wedding Photobooth. Perfect for weddings, engagement parties, and rehearsal dinners." />
         <meta name="keywords" content="wedding photo booth, wedding photography, bridal photo booth, wedding memories, custom wedding photos, wedding guest entertainment" />
         <meta property="og:title" content="Wedding Photobooth | Create Beautiful Wedding Memories" />
@@ -77,6 +80,7 @@ const WeddingPhotobooth = () => {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Wedding Photobooth" />
         <meta name="twitter:description" content="Create beautiful wedding photo memories with our elegant photobooth." />
+        <link rel="canonical" href="https://kpopphotobooth.com/wedding-photobooth" />
       </Helmet>
       
       <div className={`min-h-screen flex flex-col ${bgColor}`}>
@@ -84,6 +88,14 @@ const WeddingPhotobooth = () => {
         
         {/* Hero Area */}
         <WeddingHeroArea />
+        
+        {/* Ad container above main content */}
+        <div className="container mx-auto px-4 py-4">
+          <div id="ad-container-wedding-top" className={`p-4 bg-gray-50 border border-gray-200 rounded-md text-center mb-8 ${isMobile ? 'h-[100px]' : 'h-[120px]'}`}>
+            <div className="text-sm text-gray-500 mb-2">Advertisement</div>
+            {/* Ad will be inserted here by Google AdSense */}
+          </div>
+        </div>
         
         {/* Main Photobooth Area */}
         <main id="photobooth-area" className="flex-grow container mx-auto px-4 py-8">
@@ -146,6 +158,14 @@ const WeddingPhotobooth = () => {
             </div>
           </div>
         </main>
+        
+        {/* Ad container below main content */}
+        <div className="container mx-auto px-4 py-4">
+          <div id="ad-container-wedding-bottom" className={`p-4 bg-gray-50 border border-gray-200 rounded-md text-center mb-8 ${isMobile ? 'h-[100px]' : 'h-[120px]'}`}>
+            <div className="text-sm text-gray-500 mb-2">Advertisement</div>
+            {/* Ad will be inserted here by Google AdSense */}
+          </div>
+        </div>
         
         {/* Footer */}
         <Footer />

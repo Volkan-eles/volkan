@@ -11,6 +11,7 @@ import WebcamSection from '@/components/photobooth/WebcamSection';
 import PhotoboothFAQ from '@/components/photobooth/PhotoboothFAQ';
 import PhotoboothSEOSection from '@/components/photobooth/PhotoboothSEOSection';
 import Footer from '@/components/landing/Footer';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 // Hooks
 import usePhotoboothState from '@/hooks/usePhotoboothState';
@@ -39,6 +40,8 @@ const PicaPicaPhotobooth = () => {
     setSelectedSticker
   } = usePhotoboothState();
   
+  const isMobile = useIsMobile();
+  
   // Handle downloading the photo strip
   const handleDownloadStrip = async () => {
     if (capturedPhotos.length < 3) {
@@ -52,8 +55,9 @@ const PicaPicaPhotobooth = () => {
   return (
     <>
       <Helmet>
-        <title>Pica Pica Booth | Pica Pica Netlify App</title>
+        <title>Pica Pica Booth | KPop Photobooth</title>
         <meta name="description" content="Create fun and memorable photo experiences with Pica Pica Booth. Perfect for K-pop fans who want to capture special moments with customized frames and effects." />
+        <link rel="canonical" href="https://kpopphotobooth.com/pica-pica-photobooth" />
       </Helmet>
       
       <div className={`min-h-screen flex flex-col ${bgColor}`}>
@@ -61,6 +65,14 @@ const PicaPicaPhotobooth = () => {
         
         {/* Hero Area */}
         <HeroArea />
+        
+        {/* Ad container above main content */}
+        <div className="container mx-auto px-4 py-4">
+          <div id="ad-container-pica-top" className={`p-4 bg-gray-50 border border-gray-200 rounded-md text-center mb-8 ${isMobile ? 'h-[100px]' : 'h-[120px]'}`}>
+            <div className="text-sm text-gray-500 mb-2">Advertisement</div>
+            {/* Ad will be inserted here by Google AdSense */}
+          </div>
+        </div>
         
         {/* Main Photobooth Area */}
         <main id="photobooth-area" className="flex-grow container mx-auto px-4 py-8">
@@ -94,6 +106,14 @@ const PicaPicaPhotobooth = () => {
             </div>
           </div>
         </main>
+        
+        {/* Ad container below main content */}
+        <div className="container mx-auto px-4 py-4">
+          <div id="ad-container-pica-bottom" className={`p-4 bg-gray-50 border border-gray-200 rounded-md text-center mb-8 ${isMobile ? 'h-[100px]' : 'h-[120px]'}`}>
+            <div className="text-sm text-gray-500 mb-2">Advertisement</div>
+            {/* Ad will be inserted here by Google AdSense */}
+          </div>
+        </div>
         
         {/* SaaS Landing Page Sections */}
         <div id="saas-sections">
