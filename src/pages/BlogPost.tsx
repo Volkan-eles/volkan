@@ -8,7 +8,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from 'lucide-react';
-import { blogPosts } from '@/data/blogPosts';
+import { blogPosts } from '@/data/blog';
 import NotFound from '@/pages/NotFound';
 
 const BlogPost = () => {
