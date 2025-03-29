@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Heart, Instagram, Music, Camera, Award, ArrowRight, Star, Check } from 'lucide-react';
-
 const HeroSection = () => {
   return <section className="relative overflow-hidden" aria-labelledby="hero-heading">
       {/* Background elements - updated for better visual appeal */}
@@ -62,11 +61,7 @@ const HeroSection = () => {
             </div>
             
             {/* Limited promo banner */}
-            <div className="mt-8 bg-gradient-to-r from-pink-500/20 to-purple-500/20 backdrop-blur-sm p-3 rounded-lg border border-white/10 max-w-md mx-auto md:mx-0">
-              <p className="text-white text-sm font-medium flex items-center">
-                <Check className="h-4 w-4 text-green-400 mr-2" /> Limited Time: Get 30% off Premium Plan
-              </p>
-            </div>
+            
           </div>
           
           <div className="relative hidden md:block">
@@ -109,5 +104,4 @@ const HeroSection = () => {
       </div>
     </section>;
 };
-
 export default HeroSection;
