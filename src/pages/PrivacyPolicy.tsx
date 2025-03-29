@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import Header from '@/components/landing/Header';
@@ -77,7 +76,7 @@ const PrivacyPolicy = () => {
                   If you have any questions about our approach to privacy, please contact us at:
                 </p>
                 <p className="text-gray-700 mb-6">
-                  Email: privacy@kpopphotobooth.com
+                  Email: vlkneles@gmail.com
                 </p>
               </div>
             </div>

@@ -102,7 +102,7 @@ const CookiePolicy = () => {
                   If you have any questions about our use of cookies, please contact us:
                 </p>
                 <p className="text-gray-700 mb-6">
-                  Email: privacy@kpopphotobooth.com
+                  Email: vlkneles@gmail.com
                 </p>
               </div>
             </div>

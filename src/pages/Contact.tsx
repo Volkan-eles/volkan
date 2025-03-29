@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Header from '@/components/landing/Header';
@@ -144,7 +143,7 @@ const Contact = () => {
                       <Mail className="text-purple-500 h-5 w-5 mt-1 mr-3" />
                       <div>
                         <h3 className="text-lg font-medium">Email Us</h3>
-                        <p className="text-gray-600 mt-1">viknotes@gmail.com</p>
+                        <p className="text-gray-600 mt-1">vlkneles@gmail.com</p>
                       </div>
                     </div>
                     
@@ -185,7 +184,7 @@ const Contact = () => {
                 
                 <div className="bg-white p-6 rounded-lg shadow-sm">
                   <h3 className="text-xl font-medium mb-3">I'm interested in a business partnership. Who should I contact?</h3>
-                  <p className="text-gray-700">Please email viknotes@gmail.com with details about your proposal, and our business development team will get back to you.</p>
+                  <p className="text-gray-700">Please email vlkneles@gmail.com with details about your proposal, and our business development team will get back to you.</p>
                 </div>
                 
                 <div className="bg-white p-6 rounded-lg shadow-sm">
