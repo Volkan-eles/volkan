@@ -1,7 +1,9 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ChevronDown } from 'lucide-react';
+
 const HeroArea = () => {
   const scrollToPhotobooth = () => {
     const photoboothElement = document.getElementById('photobooth-area');
@@ -11,6 +13,7 @@ const HeroArea = () => {
       });
     }
   };
+
   return <div className="relative w-full overflow-hidden py-14 mb-8">
       {/* Background elements */}
       <div className="absolute inset-0 bg-gradient-to-br from-purple-600 via-pink-500 to-pink-400 opacity-90"></div>
@@ -22,7 +25,7 @@ const HeroArea = () => {
           <span className="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-white text-sm font-medium mb-6 animate-fade-in">
             ✨ Create Memorable Photo Strips
           </span>
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">Pica Pica Booth | Pica Photobooth Netlify</h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">Pica Pica Booth | Pica Photobooth</h1>
           <p className="text-lg text-white/80 mb-8">
             Capture magical moments with our virtual photobooth. Take fun photos, customize your background, and download your photo strip to share with friends.
           </p>
@@ -45,4 +48,5 @@ const HeroArea = () => {
       </div>
     </div>;
 };
+
 export default HeroArea;
