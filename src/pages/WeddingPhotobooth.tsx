@@ -10,10 +10,6 @@ import WeddingWebcamSection from '@/components/wedding/WeddingWebcamSection';
 import WeddingPhotoStripPreview from '@/components/wedding/WeddingPhotoStripPreview';
 import WeddingCustomizationPanel from '@/components/wedding/WeddingCustomizationPanel';
 import Footer from '@/components/landing/Footer';
-import WeddingFeatures from '@/components/wedding/WeddingFeatures';
-import WeddingTestimonials from '@/components/wedding/WeddingTestimonials';
-import AnimatedPricingSection from '@/components/landing/AnimatedPricingSection';
-import WeddingCTA from '@/components/wedding/WeddingCTA';
 
 // Hooks
 import useVintageState from '@/hooks/useVintageState';
@@ -150,12 +146,6 @@ const WeddingPhotobooth = () => {
             </div>
           </div>
         </main>
-        
-        {/* SaaS Landing Page Sections */}
-        <WeddingFeatures />
-        <WeddingTestimonials />
-        <AnimatedPricingSection />
-        <WeddingCTA />
         
         {/* Footer */}
         <Footer />
