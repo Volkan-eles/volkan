@@ -6,7 +6,7 @@ export const post3: BlogPost = {
   title: "Behind the Scenes: How We Create Our K-pop Idol Assets",
   excerpt: "Get a peek into our creative process and learn how we develop the high-quality idol images used in our photo booth application.",
   category: "Behind the Scenes",
-  date: "January 10, 2023",
+  date: "May 10, 2025",
   imageUrl: "https://placehold.co/600x400/EC4899/FFFFFF?text=Behind+the+Scenes",
   slug: "behind-the-scenes-idol-assets",
   author: {

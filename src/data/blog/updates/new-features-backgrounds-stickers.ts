@@ -6,7 +6,7 @@ export const post6: BlogPost = {
   title: "New Feature Alert: Custom Backgrounds and Stickers Update",
   excerpt: "Explore our latest app update featuring new customization options, backgrounds, and K-pop themed stickers for your photos.",
   category: "Updates",
-  date: "January 30, 2023",
+  date: "April 30, 2025",
   imageUrl: "https://placehold.co/600x400/EC4899/FFFFFF?text=New+Features",
   slug: "new-features-backgrounds-stickers",
   author: {

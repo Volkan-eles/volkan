@@ -3,11 +3,11 @@ import { BlogPost } from '../index';
 
 export const post4: BlogPost = {
   id: 4,
-  title: "K-pop Photo Trends: What's Hot in 2023",
+  title: "K-pop Photo Trends: What's Hot in 2026",
   excerpt: "Stay updated with the latest trends in K-pop photo aesthetics, poses, and styles that fans are loving this year.",
   category: "Trends",
-  date: "March 5, 2023",
-  imageUrl: "https://placehold.co/600x400/8B5CF6/FFFFFF?text=K-pop+Trends+2023",
+  date: "March 5, 2026",
+  imageUrl: "https://placehold.co/600x400/8B5CF6/FFFFFF?text=K-pop+Trends+2026",
   slug: "kpop-photo-trends-2023",
   author: {
     name: "Ji-hoon Kang",

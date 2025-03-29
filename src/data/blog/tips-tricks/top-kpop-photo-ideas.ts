@@ -6,7 +6,7 @@ export const post1: BlogPost = {
   title: "Top 10 K-pop Photo Ideas to Try with Our Booth",
   excerpt: "Discover creative poses and setups that will make your virtual K-pop photo booth experiences even more special and share-worthy.",
   category: "Tips & Tricks",
-  date: "June 15, 2023",
+  date: "June 15, 2025",
   imageUrl: "https://placehold.co/600x400/8B5CF6/FFFFFF?text=K-pop+Photo+Ideas",
   slug: "top-kpop-photo-ideas",
   author: {

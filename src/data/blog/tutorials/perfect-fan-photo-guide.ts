@@ -6,7 +6,7 @@ export const post2: BlogPost = {
   title: "How to Create the Perfect Fan Photo with Your Bias",
   excerpt: "Learn professional tips for creating realistic and stunning virtual photos with your favorite K-pop idol that will impress your friends.",
   category: "Tutorial",
-  date: "March 22, 2023",
+  date: "March 22, 2025",
   imageUrl: "https://placehold.co/600x400/D946EF/FFFFFF?text=Perfect+Fan+Photo",
   slug: "perfect-fan-photo-guide",
   author: {

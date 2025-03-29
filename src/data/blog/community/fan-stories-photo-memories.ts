@@ -6,7 +6,7 @@ export const post5: BlogPost = {
   title: "Fan Stories: Amazing Memories Created in Our Photo Booth",
   excerpt: "Read heartwarming stories from K-pop fans around the world who have created special memories with our virtual photo booth.",
   category: "Community",
-  date: "February 18, 2023",
+  date: "July 18, 2025",
   imageUrl: "https://placehold.co/600x400/D946EF/FFFFFF?text=Fan+Stories",
   slug: "fan-stories-photo-memories",
   author: {
