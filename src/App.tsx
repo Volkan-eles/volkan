@@ -8,7 +8,6 @@ import { HelmetProvider } from "react-helmet-async";
 
 // Import all page components
 import Index from "@/pages/Index";
-import Dashboard from "@/pages/Dashboard";
 import About from "@/pages/About";
 import Blog from "@/pages/Blog";
 import Contact from "@/pages/Contact";
@@ -18,24 +17,12 @@ import LittleVintagePhotobooth from "@/pages/LittleVintagePhotobooth";
 import WeddingPhotobooth from "@/pages/WeddingPhotobooth";
 import KpopPhotoBooth from "@/pages/KpopPhotoBooth";
 import FAQ from "@/pages/FAQ";
-import Updates from "@/pages/Updates";
-import Community from "@/pages/Community";
-import HelpCenter from "@/pages/HelpCenter";
-import Partners from "@/pages/Partners";
-import Tutorials from "@/pages/Tutorials";
 import PrivacyPolicy from "@/pages/PrivacyPolicy";
 import TermsOfService from "@/pages/TermsOfService";
 import CookiePolicy from "@/pages/CookiePolicy";
-import Accessibility from "@/pages/Accessibility";
 import Sitemap from "@/pages/Sitemap";
 import NotFound from "@/pages/NotFound";
-import Careers from "@/pages/Careers";
 import Pricing from "@/pages/Pricing";
-
-// Auth pages
-import SignIn from "@/pages/SignIn";
-import SignUp from "@/pages/SignUp";
-import ForgotPassword from "@/pages/ForgotPassword";
 
 const queryClient = new QueryClient();
 
@@ -48,17 +35,10 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
-            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/about" element={<About />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/careers" element={<Careers />} />
             <Route path="/pricing" element={<Pricing />} />
-            
-            {/* Auth routes */}
-            <Route path="/sign-in" element={<SignIn />} />
-            <Route path="/sign-up" element={<SignUp />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} />
             
             {/* Photo booth routes with multiple path support */}
             <Route path="/pica-pica-booth" element={<PicaPicaPhotobooth />} />
@@ -82,15 +62,9 @@ const App = () => (
             
             {/* Additional pages */}
             <Route path="/faq" element={<FAQ />} />
-            <Route path="/updates" element={<Updates />} />
-            <Route path="/community" element={<Community />} />
-            <Route path="/help-center" element={<HelpCenter />} />
-            <Route path="/partners" element={<Partners />} />
-            <Route path="/tutorials" element={<Tutorials />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/terms-of-service" element={<TermsOfService />} />
             <Route path="/cookie-policy" element={<CookiePolicy />} />
-            <Route path="/accessibility" element={<Accessibility />} />
             <Route path="/sitemap" element={<Sitemap />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
