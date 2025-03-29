@@ -67,7 +67,7 @@ const Blog = () => {
           <section className="py-12 md:py-20 bg-gradient-to-r from-pink-500 to-purple-600 text-white">
             <div className="container mx-auto px-4 md:px-6">
               <div className="max-w-3xl mx-auto text-center">
-                <h1 className="text-4xl md:text-5xl font-bold mb-6">K-pop Frame Blog</h1>
+                <h1 className="text-4xl md:text-5xl font-bold mb-6">Blog</h1>
                 <p className="text-xl opacity-90">Tips, trends, and updates from the world of K-pop photo experiences</p>
               </div>
             </div>
