@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { KPOP_OVERLAYS } from '@/constants/overlays';
 
@@ -43,7 +43,7 @@ const OverlaySelector: React.FC<OverlaySelectorProps> = ({ onSelectOverlay, sele
   return (
     <div className="w-full glass-panel p-4 animate-fade-in">
       <div className="flex justify-between items-center mb-4">
-        <h3 className="text-sm font-medium">Select K-pop Idol Overlay</h3>
+        <h3 className="text-sm font-medium">Select Sticker Overlay</h3>
         <Button
           variant="outline"
           size="sm"
@@ -52,6 +52,10 @@ const OverlaySelector: React.FC<OverlaySelectorProps> = ({ onSelectOverlay, sele
         >
           No Overlay
         </Button>
+      </div>
+      
+      <div className="mb-3 text-xs bg-blue-50 p-2 rounded border border-blue-100 text-blue-700">
+        <p>Using generic stickers to respect copyright guidelines</p>
       </div>
       
       <div className="grid grid-cols-3 gap-2 mb-4">

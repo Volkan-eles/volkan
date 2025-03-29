@@ -1,12 +1,12 @@
 
-// Collection of all K-pop idol stickers available in the app
+// Collection of placeholder stickers available in the app
 export const KPOP_STICKERS = [
-  { id: 'karina', name: 'Karina', src: '/Karina.png' },
-  { id: 'winter', name: 'Winter', src: '/Winter.png' },
-  { id: 'ningning', name: 'Ningning', src: '/Ningning.png' },
-  { id: 'jaehyun', name: 'Jaehyun', src: '/JAEHYUN.png' },
-  { id: 'leehan', name: 'Lee Han', src: '/LEEHAN.png' },
-  { id: 'heeseung', name: 'Heeseung', src: '/heeseung.png' },
-  { id: 'jake', name: 'Jake', src: '/jake.png' },
-  { id: 'jay', name: 'Jay', src: '/jay.png' }
+  { id: 'sticker1', name: 'Sticker 1', src: '/placeholder.svg' },
+  { id: 'sticker2', name: 'Sticker 2', src: '/placeholder.svg' },
+  { id: 'sticker3', name: 'Sticker 3', src: '/placeholder.svg' },
+  { id: 'sticker4', name: 'Sticker 4', src: '/placeholder.svg' },
+  { id: 'sticker5', name: 'Sticker 5', src: '/placeholder.svg' },
+  { id: 'sticker6', name: 'Sticker 6', src: '/placeholder.svg' },
+  { id: 'sticker7', name: 'Sticker 7', src: '/placeholder.svg' },
+  { id: 'sticker8', name: 'Sticker 8', src: '/placeholder.svg' }
 ];

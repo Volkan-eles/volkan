@@ -1,8 +1,7 @@
 
 import React, { useState } from 'react';
-import { Check, ChevronLeft, ChevronRight, X } from 'lucide-react';
+import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { KPOP_OVERLAYS } from '@/constants/overlays';
 import { toast } from 'sonner';
 
@@ -51,20 +50,20 @@ const IdolSelector: React.FC<IdolSelectorProps> = ({
         onSelectIdols([...selectedIdols, idol]);
         toast.success(`Added ${idol.name} to your photo!`);
       } else {
-        toast.error(`You can only select up to ${maxSelections} idols. Please remove one first.`);
+        toast.error(`You can only select up to ${maxSelections} stickers. Please remove one first.`);
       }
     }
   };
 
   const handleClearSelections = () => {
     onSelectIdols([]);
-    toast.info('All idol selections cleared');
+    toast.info('All selections cleared');
   };
 
   return (
     <div className="w-full bg-white rounded-lg p-4 animate-fade-in shadow-md">
       <div className="flex justify-between items-center mb-4">
-        <h3 className="text-sm font-medium text-purple-700">Select K-pop Idols (Max {maxSelections})</h3>
+        <h3 className="text-sm font-medium text-purple-700">Select Stickers (Max {maxSelections})</h3>
         <div className="flex gap-2">
           <Button
             variant="outline"
@@ -79,9 +78,16 @@ const IdolSelector: React.FC<IdolSelectorProps> = ({
         </div>
       </div>
       
+      <div className="mb-4 text-sm bg-blue-50 p-3 rounded border border-blue-100 text-blue-800">
+        <p>
+          Note: We've replaced celebrity images with generic stickers to respect copyright.
+          You can still create amazing photos with our custom stickers!
+        </p>
+      </div>
+      
       {selectedIdols.length > 0 && (
         <div className="mb-4">
-          <p className="text-xs text-gray-500 mb-2">Selected idols ({selectedIdols.length}/{maxSelections}):</p>
+          <p className="text-xs text-gray-500 mb-2">Selected stickers ({selectedIdols.length}/{maxSelections}):</p>
           <div className="flex flex-wrap gap-2">
             {selectedIdols.map(idol => (
               <div key={idol.id} className="flex items-center bg-purple-100 text-purple-800 text-xs rounded-full px-3 py-1">
@@ -115,12 +121,6 @@ const IdolSelector: React.FC<IdolSelectorProps> = ({
               className="w-full aspect-square object-cover"
             />
             <div className="text-xs text-center p-1 truncate bg-white">{idol.name}</div>
-            
-            {selectedIdols.some(selected => selected.id === idol.id) && (
-              <div className="absolute top-1 right-1 bg-purple-500 text-white rounded-full p-0.5">
-                <Check className="h-3 w-3" />
-              </div>
-            )}
           </div>
         ))}
       </div>
@@ -158,7 +158,7 @@ const IdolSelector: React.FC<IdolSelectorProps> = ({
           onClick={() => {}}
           className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-medium px-6 py-2 rounded-full shadow-md hover:shadow-lg transition-all"
         >
-          Capture with idols!
+          Capture with stickers!
         </Button>
       </div>
     </div>
