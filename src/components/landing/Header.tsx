@@ -57,8 +57,12 @@ const Header: React.FC = () => {
           handleLinkClick={handleLinkClick}
         />
       </header>
-      <div className={`h-[72px] ${isHomePage ? '' : 'mb-2'}`}></div>
-      {!isHomePage && <Breadcrumbs />}
+      <div className={`h-[72px] ${isHomePage ? '' : 'mb-0'}`}></div>
+      {!isHomePage && (
+        <div className={`py-1 border-b ${isScrolled ? 'bg-white' : 'bg-gray-50'} transition-colors duration-300`}>
+          <Breadcrumbs />
+        </div>
+      )}
     </>
   );
 };

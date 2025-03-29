@@ -1,14 +1,6 @@
 
 import React from 'react';
 import { useLocation, Link } from 'react-router-dom';
-import { 
-  Breadcrumb, 
-  BreadcrumbList, 
-  BreadcrumbItem, 
-  BreadcrumbLink, 
-  BreadcrumbSeparator, 
-  BreadcrumbPage 
-} from '@/components/ui/breadcrumb';
 import { Home } from 'lucide-react';
 
 const routeNameMap: Record<string, string> = {
@@ -37,40 +29,36 @@ const Breadcrumbs: React.FC = () => {
   if (pathnames.length === 0) return null;
 
   return (
-    <div className="container mx-auto px-4 py-2 bg-gray-50 dark:bg-gray-800 mb-4">
-      <Breadcrumb>
-        <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbLink asChild>
-              <Link to="/">
-                <Home className="h-4 w-4 mr-1" />
-                <span className="hidden sm:inline">Home</span>
-              </Link>
-            </BreadcrumbLink>
-          </BreadcrumbItem>
+    <div className="container mx-auto px-4 py-2">
+      <nav aria-label="Breadcrumb" className="flex items-center space-x-1 text-sm">
+        <Link 
+          to="/" 
+          className="flex items-center text-pink-500 hover:text-pink-600 transition-colors"
+        >
+          <Home className="h-3.5 w-3.5" />
+        </Link>
+        
+        {pathnames.map((value, index) => {
+          const isLast = index === pathnames.length - 1;
+          const to = `/${pathnames.slice(0, index + 1).join('/')}`;
+          const displayName = routeNameMap[value] || value.replace(/-/g, ' ');
           
-          {pathnames.map((value, index) => {
-            const isLast = index === pathnames.length - 1;
-            const to = `/${pathnames.slice(0, index + 1).join('/')}`;
-            const displayName = routeNameMap[value] || value.replace(/-/g, ' ');
-            
-            return (
-              <React.Fragment key={to}>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  {isLast ? (
-                    <BreadcrumbPage>{displayName}</BreadcrumbPage>
-                  ) : (
-                    <BreadcrumbLink asChild>
-                      <Link to={to}>{displayName}</Link>
-                    </BreadcrumbLink>
-                  )}
-                </BreadcrumbItem>
-              </React.Fragment>
-            );
-          })}
-        </BreadcrumbList>
-      </Breadcrumb>
+          return (
+            <React.Fragment key={to}>
+              <span className="text-gray-400">/</span>
+              <div className={`${isLast ? 'text-gray-700 font-medium' : 'text-pink-500 hover:text-pink-600'}`}>
+                {isLast ? (
+                  <span>{displayName}</span>
+                ) : (
+                  <Link to={to} className="transition-colors hover:underline">
+                    {displayName}
+                  </Link>
+                )}
+              </div>
+            </React.Fragment>
+          );
+        })}
+      </nav>
     </div>
   );
 };
