@@ -11,7 +11,7 @@ const IdolPanel: React.FC = () => {
         
         <div className="bg-blue-900/30 text-blue-100 p-2 rounded mb-3 text-xs flex items-start">
           <Info className="h-4 w-4 mr-1 flex-shrink-0 mt-0.5" />
-          <p className="text-left">We've replaced celebrity images with generic stickers to respect copyright</p>
+          <p className="text-left">Our stickers are designed to enhance your photos with creative elements</p>
         </div>
         
         <div className="grid grid-cols-3 gap-3 mt-3">

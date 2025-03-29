@@ -55,7 +55,7 @@ const OverlaySelector: React.FC<OverlaySelectorProps> = ({ onSelectOverlay, sele
       </div>
       
       <div className="mb-3 text-xs bg-blue-50 p-2 rounded border border-blue-100 text-blue-700">
-        <p>Using generic stickers to respect copyright guidelines</p>
+        <p>Creative stickers to enhance your photos</p>
       </div>
       
       <div className="grid grid-cols-3 gap-2 mb-4">

@@ -11,7 +11,7 @@ const StickersGrid: React.FC<StickersGridProps> = ({ onSelectSticker, selectedSt
   return (
     <div>
       <div className="mb-2 text-xs bg-blue-50 p-2 rounded border border-blue-100 text-blue-700">
-        <p>Using generic stickers to respect copyright guidelines</p>
+        <p>Enhance your photos with our creative stickers</p>
       </div>
       
       <div className="mt-2 grid grid-cols-4 gap-1">
