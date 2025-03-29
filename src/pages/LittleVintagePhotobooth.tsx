@@ -10,10 +10,6 @@ import VintageWebcamSection from '@/components/vintage/VintageWebcamSection';
 import VintagePhotoStripPreview from '@/components/vintage/VintagePhotoStripPreview';
 import VintageCustomizationPanel from '@/components/vintage/VintageCustomizationPanel';
 import Footer from '@/components/landing/Footer';
-import VintageFeatures from '@/components/vintage/VintageFeatures';
-import VintageTestimonials from '@/components/vintage/VintageTestimonials';
-import AnimatedPricingSection from '@/components/landing/AnimatedPricingSection';
-import VintageCTA from '@/components/vintage/VintageCTA';
 import VintageSEOSection from '@/components/vintage/VintageSEOSection';
 
 // Hooks
@@ -150,12 +146,6 @@ const LittleVintagePhotobooth = () => {
             </div>
           </div>
         </main>
-        
-        {/* SaaS Landing Page Sections */}
-        <VintageFeatures />
-        <VintageTestimonials />
-        <AnimatedPricingSection />
-        <VintageCTA />
         
         {/* SEO Content Section */}
         <VintageSEOSection />
