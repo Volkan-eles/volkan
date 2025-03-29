@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from 'lucide-react';
 import { blogPosts } from '@/data/blogPosts';
-import { NotFound } from '@/pages/NotFound';
+import NotFound from '@/pages/NotFound';
 
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
